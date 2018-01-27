@@ -1,0 +1,411 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="LARPortal.master.cs" Inherits="LarpPortal.LARPortal" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>LARP Portal - The Gateway to Managing Your LARPs</title>
+
+    <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- MetisMenu CSS -->
+    <link href="/css/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="/css/larportal.css" rel="stylesheet" />
+    <link href="/css/nav.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/Scripts/jquery-3.1.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/Scripts/bootstrap.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/Scripts/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/Scripts/sb-admin-2.js"></script>
+
+    <script src="/Scripts/jquery.matchHeight.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+    <!-- For non-Retina (@1× display) iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png" />
+    <!-- 57×57px -->
+    <!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png" />
+    <!-- For the iPad mini and the first- and second-generation iPad (@1× display) on iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/apple-touch-icon-76x76-precomposed.png" />
+    <!-- For iPhone with @2× display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png" />
+    <!-- For iPhone with @2× display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/apple-touch-icon-120x120-precomposed.png" />
+    <!-- For iPad with @2× display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png" />
+    <!-- For iPad with @2× display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/apple-touch-icon-152x152-precomposed.png" />
+    <!-- For iPhone 6 Plus with @3× display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/images/apple-touch-icon-180x180-precomposed.png" />
+    <!-- For Chrome for Android: -->
+    <link rel="icon" sizes="192x192" href="/images/apple-touch-icon-192x192.png" />
+
+    <asp:ContentPlaceHolder ID="MainStyles" runat="server"></asp:ContentPlaceHolder>
+
+    <%--Put the scripts here. Any scripts that are specific to the page will be in the section MainScripts.--%>
+
+    <script>
+        $(document).ready(function () {
+            $('.equal-height-panels .box').matchHeight();
+        });
+    </script>
+
+    <asp:ContentPlaceHolder ID="MainScripts" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form2" runat="server">
+        <asp:ScriptManager ID="smManager" runat="server" />
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-custom navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    <!--<a class="navbar-brand" href="/Default.aspx"><img src="/images/Larp_logo.png" alt="LARP Portal"/></a>-->
+                    <a href="#" class="navbar-left">
+                        <img src="/images/LARPLogo.png" style="width: 70px; height: 70px; border: 10px solid transparent;" /></a>
+                    <a class="navbar-brand" href="/Default.aspx" style="padding-top: 10px; padding-left: 5px;">LARP Portal <span class="tagline">The Gateway To Managing Your LARPs</span></a>
+                </div>
+                <ul class="links list-inline">
+                    <li>
+                        <%-- Role list will be transparent unless a super user.--%>
+                        <asp:Label ID="lblRoles" runat="server" ForeColor="Transparent" />
+                    </li>
+                    <li>
+                        <asp:Label ID="lblUserName" runat="server" /></li>
+                    <li>|</li>
+                    <li><a href="/index.aspx">Log Out</a></li>
+                </ul>
+                <div class="navbar-default sidebar" role="navigation" style="width: 250px;">
+                    <%--					<div class="row">
+						<div class="col-xs-12">
+							<div class="col-xs-12">
+							</div>
+						</div>
+					</div>--%>
+                    <asp:MultiView ID="mvMenuArea" runat="server" ActiveViewIndex="0">
+                        <asp:View ID="vwFullMenu" runat="server">
+                            <div class="sidebar-nav navbar-collapse">
+                                <ul class="nav" id="side-menu">
+                                    <li class="visible-xs"><a href="#"><i class="fa fa-sign-out fa-fw"></i>Log Out</a></li>
+                                    <li style="padding: 10px 15px;">
+                                        <div class="form-group">
+                                            <label for="<%= ddlCampaigns.ClientID %>">Campaign</label>
+                                            <asp:DropDownList ID="ddlCampaigns" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCampaigns_SelectedIndexChanged" />
+                                        </div>
+                                    </li>
+                                    <li><a href="/Default.aspx">
+                                        <asp:Image ID="Image7" runat="server" ImageUrl="~/images/Campaigns.png" Width="16px" />
+                                        Home</a></li>
+                                    <li><a href="#">
+                                        <asp:Image ID="Image6" runat="server" ImageUrl="~/images/Player.png" Width="16px" />
+                                        Player<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="/Profile/Profile.aspx">Profile</a></li>
+                                            <li><a href="/Profile/Roles.aspx">Roles</a></li>
+                                            <li><a href="/Profile/Preferences.aspx">Preferences</a> </li>
+                                            <li><a href="/Profile/WaiversAndConsent.aspx">Waivers &amp; Consent</a> </li>
+                                            <li><a href="/Profile/LARPResume.aspx">LARP Resume</a> </li>
+                                            <li><a href="/Profile/WorkResume.aspx">Work Resume</a> </li>
+                                            <li><a href="/Profile/MedicalInfo.aspx">Medical Info</a> </li>
+                                            <li><a href="/Profile/SystemSecurity.aspx">System Security</a> </li>
+                                            <li><a href="/Profile/PlayerInventory.aspx">Player Inventory</a> </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">             <%--runat="server" id="liCampaignMenu"--%>
+                                        <asp:Image ID="imgCampaignsIcon" runat="server" ImageUrl="~/images/Campaigns.png" Width="16px" />
+                                        Campaigns<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="/Campaigns/CampaignInfo.aspx">Campaign Info</a></li>
+                                            <li><a href="/Campaigns/JoinACampaign.aspx">Join A Campaign</a></li>
+
+                                            <%--<asp:Image ID="Image1" runat="server" ImageUrl="~/images/Campaign.png" Width="16px" />--%>
+                                            <%--<li><a href="/Events/EventRegistration.aspx">Event Registrations/RVSP</a></li>--%>
+                                            <%--<li><a href="#">PELs</a></li>--%>
+                                            <li runat="server" id="liCampaignSetupMenu"><a href="#" runat="server" id="liSetupCampaign">Setup<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li runat="server" id="liSetupCampaignDemographics"><a href="/Campaigns/Setup/Demographics.aspx">Demographics</a></li>
+                                                    <li runat="server" id="liSetupPlayerReqs"><a href="/Campaigns/Setup/PlayerReqs.aspx">Player Reqs</a></li>
+                                                    <li runat="server" id="liSetupContacts"><a href="/Campaigns/Setup/Contacts.aspx">Contacts</a></li>
+                                                    <li runat="server" id="liSetupPolicies"><a href="/Campaigns/Setup/Policies.aspx">Policies</a></li>
+                                                    <li runat="server" id="liSetupDescription"><a href="/Campaigns/Setup/Description.aspx">Description</a></li>
+                                                    <li runat="server" id="liSetupCustomFields"><a href="/Campaigns/Setup/CustomFields.aspx">Custom Fields</a></li>
+                                                    <%--<li><a href="/Campaigns/Setup/People.aspx">People</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Setup/Places.aspx">Places</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Setup/Rules.aspx">Rules</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Setup/RulesIndex.aspx">Rules Index</a></li>--%>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+                                            <%--<li><a href="#">Messages<span class="fa arrow"></span></a>--%>
+                                            <%--<ul class="nav nav-third-level">--%>
+                                            <%--<li><a href="/Campaigns/Messages/ViewPrevious.aspx">View Previous</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Messages/SendNew.aspx">Send New</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Messages/PreviewScheduled.aspx">Preview Scheduled</a></li>--%>
+                                            <%--</ul>--%>
+                                            <!-- /.nav-third-level -->
+                                            <%--</li>--%>
+
+                                            <%--  Missing 15 - Rules--%>
+                                            <%--  Missing 16 - Rules Section - iterative per section--%>
+
+                                            <%--<li><a href="/Campaigns/Calendar.aspx">Calendar</a></li>--%>
+
+                                            <%--  Missing 18 - Special events--%>
+                                            <%--  Missing 19 - Scheduling--%>
+                                            <%--  Missing 20 - Event scheduling--%>
+
+                                            <li><a href="#">Events<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
+                                                    <li runat="server" id="liEventRegistrationApproval"><a href="/Events/RegistrationApproval.aspx">Registration Approval</a></li>
+                                                    <li><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
+                                                    <li runat="server" id="liEventDefaults"><a href="/Events/EventDefaults.aspx">Setup Defaults</a></li>
+                                                    <%--<li><a href="/Campaigns/Events/SetupMarketing.aspx">Setup Marketing</a></li> --%>
+                                                    <%--<li><a href="/Campaigns/Events/SetupFoodOptions.aspx">Setup Food Options</a></li>--%>
+                                                    <li runat="server" id="liEventAssignHousing"><a href="/Events/AssignHousing.aspx">Assign Housing</a></li>
+                                                    <%--<li><a href="/Campaigns/Events/RecordPayments.aspx">Record Payments</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Events/CheckIn.aspx">Check In</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Events/AcceptDonations.aspx">Accept Donations</a></li>--%>
+                                                    <%--<li><a href="/Campaigns/Events/ApproveCheckOut.aspx">Approve Check Out</a></li>--%>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+
+                                            <%--  Missing 23 - Shopping cart / payment--%>
+                                            <%--  Missing 26 - Setup scheduling--%>
+
+                                            <%--<li><a href="#">Characters<span class="fa arrow"></span></a>--%>
+                                            <%--<ul class="nav nav-third-level">--%>
+                                            <%--<li><a href="/Campaigns/Characters/NPCInfo.aspx">NPC Info</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Characters/NPCItems.aspx">NPC Items</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Characters/SetupTraitsAndAttributes.aspx">Setup Traits &amp; Attributes</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Characters/SetupSkillHeadersAndTypes.aspx">Setup Skill Headers &amp; Types</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Characters/SetupSkills.aspx">Setup Skills</a></li>--%>
+                                            <%--</ul>--%>
+                                            <!-- /.nav-third-level -->
+                                            <%--</li>--%>
+
+                                            <%--<li><a href="#">Roles<span class="fa arrow"></span></a>--%>
+                                            <%--<ul class="nav nav-third-level">--%>
+                                            <%--<li><a href="#">Assign Roles</a></li>--%>
+                                            <%--<li><a href="#">Setup Roles</a></li>--%>
+                                            <%--</ul>--%>
+                                            <!-- /.nav-third-level -->
+                                            <%--</li>--%>
+
+                                            <li runat="server" id="liCharacterApproveHistory"><a href="/Character/History/ApprovalList.aspx">Approve Character Histories</a></li>
+
+                                            <li><a href="#">Character Build Points<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <%--<li><a href="#">PEL Approval List</a></li>--%>
+                                                    <%--<li><a href="#">Setup Standard Points</a></li>--%>
+                                                    <%--<li><a href="#">Setup Other Points</a></li>--%>
+                                                    <li runat="server" id="liPointsAssign"><a href="/Points/PointsAssign.aspx">Assign Points</a></li>
+                                                    <li runat="server" id="liEMailPoints"><a href="#">EMail Points</a></li>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+
+                                            <li><a href="#">PELs<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <%--<li><a href="#">PEL Setup</a></li>--%>
+                                                    <li runat="server" id="liPELApprovalList"><a href="/PELs/PELApprovalList.aspx">PEL Approval List</a></li>
+                                                    <%--<li><a href="#">PEL Approval</a></li>--%>
+                                                    <%--<li><a href="#">PEL Edit</a></li>--%>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+
+                                            <%--  case 58:--%>
+                                            <%--  LineText = "Inventory/Props";--%>
+                                            <%--  LineText = "Site Location Use Setup";--%>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                    <li><a href="#">
+                                        <asp:Image ID="Image2" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
+                                        Characters<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="/Character/CharInfo.aspx">Character Info</a></li>
+                                            <li><a href="#">Teams<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li><a href="/Character/Teams/CreateTeam.aspx">Create A Team</a></li>
+                                                    <li><a href="/Character/Teams/JoinTeam.aspx">Join A Team</a></li>
+                                                    <li><a href="/Character/Teams/ManageTeams.aspx">Manage A Team</a></li>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+                                            <li><a href="/Character/CharSkills.aspx">Skills</a></li>
+                                            <li><a href="/Character/History/Edit.aspx">History</a></li>
+                                            <li><a href="/Character/CharRelationships.aspx">Relationships</a></li>
+                                            <li><a href="/Character/CharPlaces.aspx">Places</a></li>
+                                            <li><a href="/Character/CharItems.aspx">Items</a></li>
+                                            <li><a href="/Character/CharGoalsPreferences.aspx">Goals &amp; Preferences</a></li>
+                                            <li><a href="/Character/CharCardCustomization.aspx">Card Customization</a></li>
+                                            <li><a href="/Character/CharCardOrder.aspx">Card Order</a></li>
+                                            <li><a href="/Character/CharCard.aspx" target="123">Preview Character Card</a></li>
+                                            <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
+                                            <li><a href="/PELs/PELList.aspx">View PELs</a></li>
+                                            <li><a href="/Events/EventRegistration.aspx">Register for an Event</a></li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                    <li><a href="#">
+                                        <asp:Image ID="Image3" runat="server" ImageUrl="~/images/Points.png" Width="16px" />
+                                        Points<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="#">View Points</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">
+                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/images/Calendar.png" Width="16px" />
+                                        Calendar<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="/Calendar/CalGraphic.aspx#ScrollToDate">Calendar</a></li>
+                                            <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/Reports/ReportList.aspx">
+                                        <asp:Image ID="Image5" runat="server" ImageUrl="~/images/Reports.png" Width="16px" />
+                                        Reports</a></li>
+                                    <li><a href="/WhatIsLARPing.aspx">
+                                        <asp:Image ID="Image8" runat="server" ImageUrl="~/images/LARPing.png" Width="16px" />
+                                        LARPing</a></li>
+                                </ul>
+                            </div>
+                        </asp:View>
+                        <asp:View ID="vwGuest" runat="server">
+                            <div class="sidebar-nav navbar-collapse">
+                                <ul class="nav" id="side-menu2">
+                                    <li><a href="/Campaigns/JoinACampaign.aspx">Campaign Search</a></li>
+                                    <li><a href="/Calendar/CalGraphic.aspx#ScrollToDate">Campaign Schedule</a></li>
+                                    <li><a href="/WhatIsLARPing.aspx">What is LARPing</a></li>
+                                    <li><a href="/LearnMoreAboutLARPortal.aspx">What is LARPortal</a></li>
+                                    <li><a href="/Contact.aspx">Contact Us</a></li>
+
+                                </ul>
+                            </div>
+                        </asp:View>
+                    </asp:MultiView>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <asp:ContentPlaceHolder ID="MainBody" runat="server"></asp:ContentPlaceHolder>
+
+            <!-- Footer -->
+            <div id="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-inline">
+                                <li><a href="/About.aspx">About Us</a></li>
+                                <li><a href="/WhatsNew.aspx">What's New</a></li>
+                                <li><a href="/FAQs.aspx">FAQs</a></li>
+                                <li><a href="/Contact.aspx">Contact Us</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#terms">Terms of Use</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <ul class="list-inline" id="social">
+                                <li><a href="https://www.facebook.com/larportal" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row copyright">
+                        <div class="col-sm-12">
+                            <asp:Label ID="lblFooter" runat="server" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Footer -->
+        </div>
+    </form>
+
+    <!-- Modal - Terms of Use -->
+    <div class="modal fade" id="terms" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title text-center">Terms of Use</h3>
+                </div>
+                <div class="modal-body">
+                    <h4>Website Terms of Use and Privacy Policy</h4>
+                    <p>By using this website you agree that you understand, accept and agree to these Terms of Use and the LARP Portal® Privacy Statement.</p>
+                    <p>All materials posted on this site are subject to copyrights owned by the LARP Portal or other individuals or entities. Any reproduction, retransmission, or republication of all or part of any document found on this site is expressly prohibited, unless LARP Portal or the copyright owner of the material has expressly granted its prior written consent to so reproduce, retransmit or republish the material. All other rights are reserved.</p>
+                    <p>The names, trademarks, service marks and logos of LARP Portal appearing on this site may not be used in any advertising or publicity, or otherwise to indicate sponsorship of or affiliation with any product or service, without LARP Portal’s prior express written permission.</p>
+                    <p>Although the LARP Portal website includes links providing direct access to other Internet sites, LARP Portal takes no responsibility for the content or information contained on those other sites, and does not exert any editorial or other control over those other sites.</p>
+                    <p>LARP Portal is providing information and services on the Internet as a benefit and service for the LARP community. LARP Portal makes no representations about the suitability or accuracy of this information and these services for any purpose.</p>
+                    <h4>LARP Portal Website Privacy Policies</h4>
+                    <p>The owners of LARP Portal respect the privacy of the individuals who visit our website, respond to our electronic communications and send us email. This Privacy Statement outlines what information LARP Portal will collect and how it will be used.</p>
+                    <p>LARP Portal will not collect any personally identifiable information about you (name, address, telephone number, email address) unless you provide it voluntarily. In some cases LARP Portal may require that you provide such information, such as when you order a product, service or event online, or if you request information about membership, products, services or events.</p>
+                    <p>When you do provide us with personally identifiable information, we may use it in the following ways, unless stated otherwise:</p>
+                    <ul>
+                        <li>We may store and process the information to better understand and respond to member and prospective member interests, needs and references and to determine how we can improve services.</li>
+                        <li>We may use the information to contact you with new announcements and information we believe may be of interest to you.</li>
+                    </ul>
+                    <h4>Changes to these Terms and Policies</h4>
+                    <p>LARP Portal reserves the right to update or change these terms of use and the privacy policy at any time. Such changes will be posted without notice on this Web page. Contact LARP Portal with any questions or concerns about this statement at <a href="mailto:owner@larportal.com?subject=Questions about the LARP Portal website terms and conditions">owner@larportal.com</a>.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-105313143-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</body>
+</html>

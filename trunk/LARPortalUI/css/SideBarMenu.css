@@ -1,0 +1,121 @@
+/*
+    DEMO STYLE
+*/
+.wrapper2 {
+    display: flex;
+    align-items: stretch;
+}
+
+#slidingSidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#slidingSidebar.active {
+    margin-left: -250px;
+}
+
+#slidingSidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#slidingSidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#slidingSidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#slidingSidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#slidingSidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#slidingSidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+
+/*a[data-toggle="collapse"] {
+    position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+}
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+
+a.article, a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+}*/
+
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+/*@media (max-width: 768px) {
+    #slidingSidebar {
+        margin-left: -250px;
+    }
+    #slidingSidebar.active {
+        margin-left: 0;
+    }
+    #slidingSidebarCollapse span {
+        display: none;
+    }
+}*/
