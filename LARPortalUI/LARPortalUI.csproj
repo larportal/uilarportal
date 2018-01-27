@@ -1,0 +1,1404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LarpPortal</RootNamespace>
+    <AssemblyName>LARPortal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>IDE0017; IDE0018; IDE0028</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.17.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CKEditor.NET, Version=3.6.6.2, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ckeditor\bin\Release\CKEditor.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\CKEditor.NET.dll" />
+    <Content Include="Calendar\CalGraphic.aspx" />
+    <Content Include="Calendar\CalReport.aspx" />
+    <Content Include="Campaigns\CampaignInfo.aspx" />
+    <Content Include="Campaigns\JoinACampaign.aspx" />
+    <Content Include="Campaigns\Setup\Contacts.aspx" />
+    <Content Include="Campaigns\Setup\CustomFields.aspx" />
+    <Content Include="Campaigns\Setup\Demographics.aspx" />
+    <Content Include="Campaigns\Setup\Description.aspx" />
+    <Content Include="Campaigns\Setup\Policies.aspx" />
+    <Content Include="Campaigns\Setup\PlayerReqs.aspx" />
+    <Content Include="Character\CharAdd.aspx" />
+    <Content Include="Character\CharCard.aspx" />
+    <Content Include="Character\CharCardCustomization.aspx" />
+    <Content Include="Character\CharCardOrder.aspx" />
+    <Content Include="Character\CharGoalsPreferences.aspx" />
+    <Content Include="Character\CharInfo.aspx" />
+    <Content Include="Character\CharItems.aspx" />
+    <Content Include="Character\CharPlaces.aspx" />
+    <Content Include="Character\CharRelationships.aspx" />
+    <Content Include="Character\CharSkills.aspx" />
+    <Content Include="Character\EventCharCards.aspx" />
+    <Content Include="Character\History\AddAddendum.aspx" />
+    <Content Include="Character\History\ApprovalList.aspx" />
+    <Content Include="Character\History\Approve.aspx" />
+    <Content Include="Character\History\Edit.aspx" />
+    <Content Include="Character\History\List.aspx" />
+    <Content Include="Character\Teams\CreateTeam.aspx" />
+    <Content Include="Character\Teams\JoinTeam.aspx" />
+    <Content Include="Character\Teams\ManageTeams.aspx" />
+    <Content Include="ckeditor\adapters\jquery.js" />
+    <Content Include="ckeditor\build-config.js" />
+    <Content Include="ckeditor\ckeditor.js" />
+    <Content Include="ckeditor\config.js" />
+    <Content Include="ckeditor\contents.css" />
+    <Content Include="ckeditor\lang\af.js" />
+    <Content Include="ckeditor\lang\ar.js" />
+    <Content Include="ckeditor\lang\az.js" />
+    <Content Include="ckeditor\lang\bg.js" />
+    <Content Include="ckeditor\lang\bn.js" />
+    <Content Include="ckeditor\lang\bs.js" />
+    <Content Include="ckeditor\lang\ca.js" />
+    <Content Include="ckeditor\lang\cs.js" />
+    <Content Include="ckeditor\lang\cy.js" />
+    <Content Include="ckeditor\lang\da.js" />
+    <Content Include="ckeditor\lang\de-ch.js" />
+    <Content Include="ckeditor\lang\de.js" />
+    <Content Include="ckeditor\lang\el.js" />
+    <Content Include="ckeditor\lang\en-au.js" />
+    <Content Include="ckeditor\lang\en-ca.js" />
+    <Content Include="ckeditor\lang\en-gb.js" />
+    <Content Include="ckeditor\lang\en.js" />
+    <Content Include="ckeditor\lang\eo.js" />
+    <Content Include="ckeditor\lang\es-mx.js" />
+    <Content Include="ckeditor\lang\es.js" />
+    <Content Include="ckeditor\lang\et.js" />
+    <Content Include="ckeditor\lang\eu.js" />
+    <Content Include="ckeditor\lang\fa.js" />
+    <Content Include="ckeditor\lang\fi.js" />
+    <Content Include="ckeditor\lang\fo.js" />
+    <Content Include="ckeditor\lang\fr-ca.js" />
+    <Content Include="ckeditor\lang\fr.js" />
+    <Content Include="ckeditor\lang\gl.js" />
+    <Content Include="ckeditor\lang\gu.js" />
+    <Content Include="ckeditor\lang\he.js" />
+    <Content Include="ckeditor\lang\hi.js" />
+    <Content Include="ckeditor\lang\hr.js" />
+    <Content Include="ckeditor\lang\hu.js" />
+    <Content Include="ckeditor\lang\id.js" />
+    <Content Include="ckeditor\lang\is.js" />
+    <Content Include="ckeditor\lang\it.js" />
+    <Content Include="ckeditor\lang\ja.js" />
+    <Content Include="ckeditor\lang\ka.js" />
+    <Content Include="ckeditor\lang\km.js" />
+    <Content Include="ckeditor\lang\ko.js" />
+    <Content Include="ckeditor\lang\ku.js" />
+    <Content Include="ckeditor\lang\lt.js" />
+    <Content Include="ckeditor\lang\lv.js" />
+    <Content Include="ckeditor\lang\mk.js" />
+    <Content Include="ckeditor\lang\mn.js" />
+    <Content Include="ckeditor\lang\ms.js" />
+    <Content Include="ckeditor\lang\nb.js" />
+    <Content Include="ckeditor\lang\nl.js" />
+    <Content Include="ckeditor\lang\no.js" />
+    <Content Include="ckeditor\lang\oc.js" />
+    <Content Include="ckeditor\lang\pl.js" />
+    <Content Include="ckeditor\lang\pt-br.js" />
+    <Content Include="ckeditor\lang\pt.js" />
+    <Content Include="ckeditor\lang\ro.js" />
+    <Content Include="ckeditor\lang\ru.js" />
+    <Content Include="ckeditor\lang\si.js" />
+    <Content Include="ckeditor\lang\sk.js" />
+    <Content Include="ckeditor\lang\sl.js" />
+    <Content Include="ckeditor\lang\sq.js" />
+    <Content Include="ckeditor\lang\sr-latn.js" />
+    <Content Include="ckeditor\lang\sr.js" />
+    <Content Include="ckeditor\lang\sv.js" />
+    <Content Include="ckeditor\lang\th.js" />
+    <Content Include="ckeditor\lang\tr.js" />
+    <Content Include="ckeditor\lang\tt.js" />
+    <Content Include="ckeditor\lang\ug.js" />
+    <Content Include="ckeditor\lang\uk.js" />
+    <Content Include="ckeditor\lang\vi.js" />
+    <Content Include="ckeditor\lang\zh-cn.js" />
+    <Content Include="ckeditor\lang\zh.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="ckeditor\plugins\icons.png" />
+    <Content Include="ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="ckeditor\plugins\scayt\dialogs\dialog.css" />
+    <Content Include="ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\az.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\es-mx.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ko.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="ckeditor\plugins\tableselection\styles\tableselection.css" />
+    <Content Include="ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="ckeditor\samples\css\samples.css" />
+    <Content Include="ckeditor\samples\img\github-top.png" />
+    <Content Include="ckeditor\samples\img\header-bg.png" />
+    <Content Include="ckeditor\samples\img\header-separator.png" />
+    <Content Include="ckeditor\samples\img\logo.png" />
+    <Content Include="ckeditor\samples\img\navigation-tip.png" />
+    <Content Include="ckeditor\samples\index.html" />
+    <Content Include="ckeditor\samples\js\sample.js" />
+    <Content Include="ckeditor\samples\js\sf.js" />
+    <Content Include="ckeditor\samples\old\ajax.html" />
+    <Content Include="ckeditor\samples\old\api.html" />
+    <Content Include="ckeditor\samples\old\appendto.html" />
+    <Content Include="ckeditor\samples\old\assets\inlineall\logo.png" />
+    <Content Include="ckeditor\samples\old\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="ckeditor\samples\old\assets\sample.jpg" />
+    <Content Include="ckeditor\samples\old\assets\uilanguages\languages.js" />
+    <Content Include="ckeditor\samples\old\datafiltering.html" />
+    <Content Include="ckeditor\samples\old\dialog\assets\my_dialog.js" />
+    <Content Include="ckeditor\samples\old\dialog\dialog.html" />
+    <Content Include="ckeditor\samples\old\divreplace.html" />
+    <Content Include="ckeditor\samples\old\enterkey\enterkey.html" />
+    <Content Include="ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="ckeditor\samples\old\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="ckeditor\samples\old\htmlwriter\outputforflash.html" />
+    <Content Include="ckeditor\samples\old\htmlwriter\outputhtml.html" />
+    <Content Include="ckeditor\samples\old\index.html" />
+    <Content Include="ckeditor\samples\old\inlineall.html" />
+    <Content Include="ckeditor\samples\old\inlinebycode.html" />
+    <Content Include="ckeditor\samples\old\inlinetextarea.html" />
+    <Content Include="ckeditor\samples\old\jquery.html" />
+    <Content Include="ckeditor\samples\old\magicline\magicline.html" />
+    <Content Include="ckeditor\samples\old\readonly.html" />
+    <Content Include="ckeditor\samples\old\replacebyclass.html" />
+    <Content Include="ckeditor\samples\old\replacebycode.html" />
+    <Content Include="ckeditor\samples\old\sample.css" />
+    <Content Include="ckeditor\samples\old\sample.js" />
+    <Content Include="ckeditor\samples\old\tabindex.html" />
+    <Content Include="ckeditor\samples\old\toolbar\toolbar.html" />
+    <Content Include="ckeditor\samples\old\uicolor.html" />
+    <Content Include="ckeditor\samples\old\uilanguages.html" />
+    <Content Include="ckeditor\samples\old\wysiwygarea\fullpage.html" />
+    <Content Include="ckeditor\samples\old\xhtmlstyle.html" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\css\fontello.css" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.svg" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\LICENSE.txt" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\index.html" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\js\abstracttoolbarmodifier.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\js\fulltoolbareditor.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\js\toolbarmodifier.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\js\toolbartextmodifier.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.css" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\codemirror.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\javascript.js" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\neo.css" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.css" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\show-hint.js" />
+    <Content Include="ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="ckeditor\skins\moono-lisa\images\spinner.gif" />
+    <Content Include="ckeditor\styles.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Controls\CharacterSelect.ascx" />
+    <Content Include="css\SideBarMenu.css" />
+    <Content Include="Events\AssignHousing.aspx" />
+    <Content Include="Events\EventDefaults.aspx" />
+    <Content Include="Events\EventEdit.aspx" />
+    <Content Include="Events\SetupEvent.aspx" />
+    <Content Include="Events\EventRegistration.aspx" />
+    <Content Include="Events\RegistrationApproval.aspx" />
+    <Content Include="FAQs.aspx" />
+    <Content Include="ForgotPassword.aspx" />
+    <Content Include="images\Calendar.png" />
+    <Content Include="images\Campaign.png" />
+    <Content Include="images\Campaigns.png" />
+    <Content Include="images\Characters.png" />
+    <Content Include="images\CreateATeam.png" />
+    <Content Include="images\JeffJacket.jpg" />
+    <Content Include="images\JeffTie.jpg" />
+    <Content Include="images\LARPing.png" />
+    <Content Include="images\LARPLogo.png" />
+    <Content Include="images\LP_icons_Campaigns.jpg" />
+    <Content Include="images\Monique.jpg" />
+    <Content Include="images\Player.png" />
+    <Content Include="images\Points.png" />
+    <Content Include="images\PortalImageFade.jpg" />
+    <Content Include="images\RegisterForAnEvent.png" />
+    <Content Include="images\Reports.png" />
+    <Content Include="images\SignUpForACampaign.png" />
+    <Content Include="images\UpdateMyCharacter.png" />
+    <Content Include="images\ViewMyPoints.png" />
+    <Content Include="images\WriteMyPEL.png" />
+    <Content Include="img\checkbox.png" />
+    <Content Include="img\LogoCropped.jpg" />
+    <Content Include="img\portal.png" />
+    <Content Include="img\uncheckbox.png" />
+    <Content Include="index.aspx" />
+    <Content Include="font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="font-awesome\less\bordered-pulled.less" />
+    <Content Include="font-awesome\less\core.less" />
+    <Content Include="font-awesome\less\fixed-width.less" />
+    <Content Include="font-awesome\less\font-awesome.less" />
+    <Content Include="font-awesome\less\icons.less" />
+    <Content Include="font-awesome\less\larger.less" />
+    <Content Include="font-awesome\less\list.less" />
+    <Content Include="font-awesome\less\mixins.less" />
+    <Content Include="font-awesome\less\path.less" />
+    <Content Include="font-awesome\less\rotated-flipped.less" />
+    <Content Include="font-awesome\less\spinning.less" />
+    <Content Include="font-awesome\less\stacked.less" />
+    <Content Include="font-awesome\less\variables.less" />
+    <Content Include="font-awesome\scss\font-awesome.scss" />
+    <Content Include="font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="font-awesome\scss\_core.scss" />
+    <Content Include="font-awesome\scss\_fixed-width.scss" />
+    <Content Include="font-awesome\scss\_icons.scss" />
+    <Content Include="font-awesome\scss\_larger.scss" />
+    <Content Include="font-awesome\scss\_list.scss" />
+    <Content Include="font-awesome\scss\_mixins.scss" />
+    <Content Include="font-awesome\scss\_path.scss" />
+    <Content Include="font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="font-awesome\scss\_spinning.scss" />
+    <Content Include="font-awesome\scss\_stacked.scss" />
+    <Content Include="font-awesome\scss\_variables.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="InitialJoinCampaign.aspx" />
+    <Content Include="LearnMoreAboutLARPortal.aspx" />
+    <Content Include="packages.config" />
+    <Content Include="ckeditor\CHANGES.md" />
+    <Content Include="ckeditor\LICENSE.md" />
+    <Content Include="ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="ckeditor\plugins\scayt\README.md" />
+    <Content Include="ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="ckeditor\plugins\wsc\README.md" />
+    <Content Include="ckeditor\README.md" />
+    <Content Include="ckeditor\samples\old\assets\posteddata.php" />
+    <Content Include="ckeditor\samples\old\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="ckeditor\samples\old\sample_posteddata.php" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\config.json" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.eot" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
+    <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <Content Include="ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="LARPortal.Master" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="WhatsNew.aspx" />
+    <Content Include="WhatsNewDetail.aspx" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <None Include="Properties\PublishProfiles\UI Website.pubxml" />
+    <None Include="ReqForIndex\jquery-1.10.2.intellisense.js" />
+    <None Include="ReqForIndex\_references.js" />
+    <Content Include="Register.aspx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Contact.aspx" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\larportal.css" />
+    <Content Include="css\metisMenu.min.css" />
+    <Content Include="css\nav.css" />
+    <Content Include="css\sb-admin-2.css" />
+    <Content Include="css\style.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="font-awesome\css\font-awesome.css" />
+    <Content Include="font-awesome\css\font-awesome.min.css" />
+    <Content Include="font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="font-awesome\less\font-awesome.css" />
+    <Content Include="font-awesome\scss\font-awesome.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="images\larp-logo.png" />
+    <Content Include="images\Larp_logo.png" />
+    <Content Include="images\magical-portal.jpg" />
+    <Content Include="images\navbar-brand-icon.jpg" />
+    <Content Include="images\profile-photo.png" />
+    <Content Include="images\Rick.jpg" />
+    <Content Include="images\showcase-1.jpg" />
+    <Content Include="images\team-1.jpg" />
+    <Content Include="img\apps\container-box.gif" />
+    <Content Include="img\apps\pcp-box.gif" />
+    <Content Include="img\apps\pd-box.gif" />
+    <Content Include="img\apps\pdfwl-box.gif" />
+    <Content Include="img\apps\poa-box.gif" />
+    <Content Include="img\apps\server-box.gif" />
+    <Content Include="img\btn.png" />
+    <Content Include="img\bullet.gif" />
+    <Content Include="img\globe.png" />
+    <Content Include="img\icons\aspdotnet.png" />
+    <Content Include="img\icons\fail.png" />
+    <Content Include="img\icons\fastcgi.png" />
+    <Content Include="img\icons\ok.png" />
+    <Content Include="img\icons\perl.png" />
+    <Content Include="img\icons\php.png" />
+    <Content Include="img\icons\python.png" />
+    <Content Include="img\icons\ssi.png" />
+    <Content Include="img\p-box.png" />
+    <Content Include="img\panel-logo.png" />
+    <Content Include="img\parallels-logo.png" />
+    <Content Include="img\th.png" />
+    <Content Include="img\top-bottom.png" />
+    <Content Include="PELs\MissingEvent.aspx" />
+    <Content Include="PELs\PELAddAddendum.aspx" />
+    <Content Include="PELs\PELApprovalList.aspx" />
+    <Content Include="PELs\PELApprove.aspx" />
+    <Content Include="PELs\PELEdit.aspx" />
+    <Content Include="PELs\PELList.aspx" />
+    <Content Include="Points\PointsAssign.aspx" />
+    <Content Include="Points\PointsEMail.aspx" />
+    <Content Include="Profile\LARPResume.aspx" />
+    <Content Include="Profile\MedicalInfo.aspx" />
+    <Content Include="Profile\PlayerInventory.aspx" />
+    <Content Include="Profile\Preferences.aspx" />
+    <Content Include="Profile\Profile.aspx" />
+    <Content Include="Profile\Roles.aspx" />
+    <Content Include="Profile\Security.aspx" />
+    <Content Include="Profile\SystemSecurity.aspx" />
+    <Content Include="Profile\WaiversAndConsent.aspx" />
+    <Content Include="Profile\WorkResume.aspx" />
+    <Content Include="Reports\CalendarReport.aspx" />
+    <Content Include="Reports\CampaignPlayers.aspx" />
+    <Content Include="Reports\CharacterCardPrint.aspx" />
+    <Content Include="Reports\CharacterSkillStats.aspx" />
+    <Content Include="Reports\CheckIn.aspx" />
+    <Content Include="Reports\FifthGate\FifthGateCharacters.aspx" />
+    <Content Include="Reports\FifthGate\FifthGateCharacterSkills.aspx" />
+    <Content Include="Reports\HistorySearch.aspx" />
+    <Content Include="Reports\PELAnswerSummary.aspx" />
+    <Content Include="Reports\PELSearch.aspx" />
+    <Content Include="Reports\ReportList.aspx" />
+    <Content Include="Reports\SiteList.aspx" />
+    <Content Include="ReqForIndex\bootstrap.js" />
+    <Content Include="ReqForIndex\bootstrap.min.js" />
+    <Content Include="ReqForIndex\jquery-1.10.2.js" />
+    <Content Include="ReqForIndex\jquery-1.10.2.min.js" />
+    <Content Include="ReqForIndex\jquery-1.10.2.min.map" />
+    <Content Include="ReqForIndex\jquery-1.11.3.js" />
+    <Content Include="ReqForIndex\jquery-ui.js" />
+    <Content Include="ReqForIndex\jquery.maskedinput.js" />
+    <Content Include="ReqForIndex\jquery.maskedinput.min.js" />
+    <Content Include="ReqForIndex\main.css" />
+    <Content Include="ReqForIndex\modernizr-2.6.2.js" />
+    <Content Include="ReqForIndex\normalize.css" />
+    <Content Include="ReqForIndex\portal.png" />
+    <Content Include="ReqForIndex\respond.js" />
+    <Content Include="ReqForIndex\respond.min.js" />
+    <Content Include="Roles\AssignRoles.aspx" />
+    <Content Include="Roles\SetupRoles.aspx" />
+    <Content Include="Scripts\jquery.matchHeight.js" />
+    <Content Include="Scripts\metisMenu.js" />
+    <Content Include="Scripts\metisMenu.min.js" />
+    <Content Include="Scripts\sb-admin-2.js" />
+    <Content Include="Signup.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Webservices\CampaignInfo.asmx" />
+    <Content Include="WhatIsLARPing.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar\CalGraphic.aspx.cs">
+      <DependentUpon>CalGraphic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar\CalGraphic.aspx.designer.cs">
+      <DependentUpon>CalGraphic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\CalReport.aspx.cs">
+      <DependentUpon>CalReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar\CalReport.aspx.designer.cs">
+      <DependentUpon>CalReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\CampaignInfo.aspx.cs">
+      <DependentUpon>CampaignInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\CampaignInfo.aspx.designer.cs">
+      <DependentUpon>CampaignInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\JoinACampaign.aspx.cs">
+      <DependentUpon>JoinACampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\JoinACampaign.aspx.designer.cs">
+      <DependentUpon>JoinACampaign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Contacts.aspx.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Contacts.aspx.designer.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\CustomFields.aspx.cs">
+      <DependentUpon>CustomFields.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\CustomFields.aspx.designer.cs">
+      <DependentUpon>CustomFields.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Demographics.aspx.cs">
+      <DependentUpon>Demographics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Demographics.aspx.designer.cs">
+      <DependentUpon>Demographics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Description.aspx.cs">
+      <DependentUpon>Description.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Description.aspx.designer.cs">
+      <DependentUpon>Description.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Policies.aspx.cs">
+      <DependentUpon>Policies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Policies.aspx.designer.cs">
+      <DependentUpon>Policies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\PlayerReqs.aspx.cs">
+      <DependentUpon>PlayerReqs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\PlayerReqs.aspx.designer.cs">
+      <DependentUpon>PlayerReqs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharAdd.aspx.cs">
+      <DependentUpon>CharAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharAdd.aspx.designer.cs">
+      <DependentUpon>CharAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharCard.aspx.cs">
+      <DependentUpon>CharCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharCard.aspx.designer.cs">
+      <DependentUpon>CharCard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharCardCustomization.aspx.cs">
+      <DependentUpon>CharCardCustomization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharCardCustomization.aspx.designer.cs">
+      <DependentUpon>CharCardCustomization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharCardOrder.aspx.cs">
+      <DependentUpon>CharCardOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharCardOrder.aspx.designer.cs">
+      <DependentUpon>CharCardOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharGoalsPreferences.aspx.cs">
+      <DependentUpon>CharGoalsPreferences.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharGoalsPreferences.aspx.designer.cs">
+      <DependentUpon>CharGoalsPreferences.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharInfo.aspx.cs">
+      <DependentUpon>CharInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharInfo.aspx.designer.cs">
+      <DependentUpon>CharInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharItems.aspx.cs">
+      <DependentUpon>CharItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharItems.aspx.designer.cs">
+      <DependentUpon>CharItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharPlaces.aspx.cs">
+      <DependentUpon>CharPlaces.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharPlaces.aspx.designer.cs">
+      <DependentUpon>CharPlaces.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharRelationships.aspx.cs">
+      <DependentUpon>CharRelationships.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharRelationships.aspx.designer.cs">
+      <DependentUpon>CharRelationships.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharSkills.aspx.cs">
+      <DependentUpon>CharSkills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharSkills.aspx.designer.cs">
+      <DependentUpon>CharSkills.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\EventCharCards.aspx.cs">
+      <DependentUpon>EventCharCards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\EventCharCards.aspx.designer.cs">
+      <DependentUpon>EventCharCards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\History\AddAddendum.aspx.cs">
+      <DependentUpon>AddAddendum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\History\AddAddendum.aspx.designer.cs">
+      <DependentUpon>AddAddendum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\History\ApprovalList.aspx.cs">
+      <DependentUpon>ApprovalList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\History\ApprovalList.aspx.designer.cs">
+      <DependentUpon>ApprovalList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\History\Approve.aspx.cs">
+      <DependentUpon>Approve.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\History\Approve.aspx.designer.cs">
+      <DependentUpon>Approve.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\History\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\History\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\History\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\History\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\Teams\CreateTeam.aspx.cs">
+      <DependentUpon>CreateTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\Teams\CreateTeam.aspx.designer.cs">
+      <DependentUpon>CreateTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\Teams\JoinTeam.aspx.cs">
+      <DependentUpon>JoinTeam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\Teams\JoinTeam.aspx.designer.cs">
+      <DependentUpon>JoinTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\Teams\ManageTeams.aspx.cs">
+      <DependentUpon>ManageTeams.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\Teams\ManageTeams.aspx.designer.cs">
+      <DependentUpon>ManageTeams.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\cActor.cs" />
+    <Compile Include="Classes\cAddress.cs" />
+    <Compile Include="Classes\cAdminViews.cs" />
+    <Compile Include="Classes\cBank.cs" />
+    <Compile Include="Classes\cCalendar.cs" />
+    <Compile Include="Classes\cCampaignBase.cs" />
+    <Compile Include="Classes\cCampaignRaces.cs" />
+    <Compile Include="Classes\cCampaignSelection.cs" />
+    <Compile Include="Classes\cCampaignSkills.cs" />
+    <Compile Include="Classes\cCharacter.cs" />
+    <Compile Include="Classes\cCharacterDeath.cs" />
+    <Compile Include="Classes\cCharacterHistory.cs" />
+    <Compile Include="Classes\cCharacterItems.cs" />
+    <Compile Include="Classes\cCharacterPlace.cs" />
+    <Compile Include="Classes\cCharacterRelationship.cs" />
+    <Compile Include="Classes\cCharacterSkill.cs" />
+    <Compile Include="Classes\cCharacterSkillSets.cs" />
+    <Compile Include="Classes\cCharacterStatus.cs" />
+    <Compile Include="Classes\cCharacterType.cs" />
+    <Compile Include="Classes\cConstants.cs" />
+    <Compile Include="Classes\cDescriptors.cs" />
+    <Compile Include="Classes\cDonations.cs" />
+    <Compile Include="Classes\cEmail.cs" />
+    <Compile Include="Classes\cEmailMessageService.cs" />
+    <Compile Include="Classes\cEmptyClass.cs" />
+    <Compile Include="Classes\cGameSystem.cs" />
+    <Compile Include="Classes\cGameSystems.cs" />
+    <Compile Include="Classes\cLocation.cs" />
+    <Compile Include="Classes\cLocationMaintenance.cs" />
+    <Compile Include="Classes\cLocationType.cs" />
+    <Compile Include="Classes\cLogin.cs" />
+    <Compile Include="Classes\cPageTab.cs" />
+    <Compile Include="Classes\cPhone.cs" />
+    <Compile Include="Classes\cPhoneTest.cs" />
+    <Compile Include="Classes\cPicture.cs" />
+    <Compile Include="Classes\cPlace.cs" />
+    <Compile Include="Classes\cPlayer.cs" />
+    <Compile Include="Classes\cPlayerAffiliation.cs" />
+    <Compile Include="Classes\cPlayerInventory.cs" />
+    <Compile Include="Classes\cPlayerLARPResume.cs" />
+    <Compile Include="Classes\cPlayerLimitation.cs" />
+    <Compile Include="Classes\cPlayerMedical.cs" />
+    <Compile Include="Classes\cPlayerNotifications.cs" />
+    <Compile Include="Classes\cPlayerOccasionExceptions.cs" />
+    <Compile Include="Classes\cPlayerResume.cs" />
+    <Compile Include="Classes\cPlayerRole.cs" />
+    <Compile Include="Classes\cPlayerRoles.cs" />
+    <Compile Include="Classes\cPlayerSkill.cs" />
+    <Compile Include="Classes\cPlayerWaiver.cs" />
+    <Compile Include="Classes\cPointOpportunities.cs" />
+    <Compile Include="Classes\cPoints.cs" />
+    <Compile Include="Classes\cRace.cs" />
+    <Compile Include="Classes\cRole.cs" />
+    <Compile Include="Classes\cSchedule.cs" />
+    <Compile Include="Classes\cSendEmail.cs" />
+    <Compile Include="Classes\cSite.cs" />
+    <Compile Include="Classes\cSiteAvailabilityDates.cs" />
+    <Compile Include="Classes\cSiteComment.cs" />
+    <Compile Include="Classes\cSiteContact.cs" />
+    <Compile Include="Classes\cSiteImage.cs" />
+    <Compile Include="Classes\cSitePolicy.cs" />
+    <Compile Include="Classes\cSkillPool.cs" />
+    <Compile Include="Classes\cTeamInfo.cs" />
+    <Compile Include="Classes\cTransaction.cs" />
+    <Compile Include="Classes\cTransactions.cs" />
+    <Compile Include="Classes\cURLPermission.cs" />
+    <Compile Include="Classes\cUser.cs" />
+    <Compile Include="Classes\cUserCampaign.cs" />
+    <Compile Include="Classes\cUserCampaigns.cs" />
+    <Compile Include="Classes\cUserCharacter.cs" />
+    <Compile Include="Classes\cUtilities.cs" />
+    <Compile Include="Classes\ExtensionMethods.cs" />
+    <Compile Include="Classes\GeneralErrorStuff.cs" />
+    <Compile Include="Classes\LogWriter.cs" />
+    <Compile Include="Classes\ServerErrors.cs" />
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CharacterSelect.ascx.cs">
+      <DependentUpon>CharacterSelect.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CharacterSelect.ascx.designer.cs">
+      <DependentUpon>CharacterSelect.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\AssignHousing.aspx.cs">
+      <DependentUpon>AssignHousing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\AssignHousing.aspx.designer.cs">
+      <DependentUpon>AssignHousing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\EventDefaults.aspx.cs">
+      <DependentUpon>EventDefaults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\EventDefaults.aspx.designer.cs">
+      <DependentUpon>EventDefaults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\EventEdit.aspx.cs">
+      <DependentUpon>EventEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\EventEdit.aspx.designer.cs">
+      <DependentUpon>EventEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\SetupEvent.aspx.cs">
+      <DependentUpon>SetupEvent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\SetupEvent.aspx.designer.cs">
+      <DependentUpon>SetupEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\EventRegistration.aspx.cs">
+      <DependentUpon>EventRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\EventRegistration.aspx.designer.cs">
+      <DependentUpon>EventRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events\RegistrationApproval.aspx.cs">
+      <DependentUpon>RegistrationApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\RegistrationApproval.aspx.designer.cs">
+      <DependentUpon>RegistrationApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FAQs.aspx.cs">
+      <DependentUpon>FAQs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQs.aspx.designer.cs">
+      <DependentUpon>FAQs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InitialJoinCampaign.aspx.cs">
+      <DependentUpon>InitialJoinCampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InitialJoinCampaign.aspx.designer.cs">
+      <DependentUpon>InitialJoinCampaign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LARPortal.Master.cs">
+      <DependentUpon>LARPortal.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LARPortal.Master.designer.cs">
+      <DependentUpon>LARPortal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="LearnMoreAboutLARPortal.aspx.cs">
+      <DependentUpon>LearnMoreAboutLARPortal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LearnMoreAboutLARPortal.aspx.designer.cs">
+      <DependentUpon>LearnMoreAboutLARPortal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\MissingEvent.aspx.cs">
+      <DependentUpon>MissingEvent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\MissingEvent.aspx.designer.cs">
+      <DependentUpon>MissingEvent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\PELAddAddendum.aspx.cs">
+      <DependentUpon>PELAddAddendum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\PELAddAddendum.aspx.designer.cs">
+      <DependentUpon>PELAddAddendum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\PELApprovalList.aspx.cs">
+      <DependentUpon>PELApprovalList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\PELApprovalList.aspx.designer.cs">
+      <DependentUpon>PELApprovalList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\PELApprove.aspx.cs">
+      <DependentUpon>PELApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\PELApprove.aspx.designer.cs">
+      <DependentUpon>PELApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\PELEdit.aspx.cs">
+      <DependentUpon>PELEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\PELEdit.aspx.designer.cs">
+      <DependentUpon>PELEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PELs\PELList.aspx.cs">
+      <DependentUpon>PELList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PELs\PELList.aspx.designer.cs">
+      <DependentUpon>PELList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Points\PointsAssign.aspx.cs">
+      <DependentUpon>PointsAssign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Points\PointsAssign.aspx.designer.cs">
+      <DependentUpon>PointsAssign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Points\PointsEMail.aspx.cs">
+      <DependentUpon>PointsEMail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Points\PointsEMail.aspx.designer.cs">
+      <DependentUpon>PointsEMail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\LARPResume.aspx.cs">
+      <DependentUpon>LARPResume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\LARPResume.aspx.designer.cs">
+      <DependentUpon>LARPResume.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\MedicalInfo.aspx.cs">
+      <DependentUpon>MedicalInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\MedicalInfo.aspx.designer.cs">
+      <DependentUpon>MedicalInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\PlayerInventory.aspx.cs">
+      <DependentUpon>PlayerInventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\PlayerInventory.aspx.designer.cs">
+      <DependentUpon>PlayerInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\Preferences.aspx.cs">
+      <DependentUpon>Preferences.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\Preferences.aspx.designer.cs">
+      <DependentUpon>Preferences.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\Roles.aspx.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\Roles.aspx.designer.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\Security.aspx.cs">
+      <DependentUpon>Security.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\Security.aspx.designer.cs">
+      <DependentUpon>Security.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\SystemSecurity.aspx.cs">
+      <DependentUpon>SystemSecurity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\SystemSecurity.aspx.designer.cs">
+      <DependentUpon>SystemSecurity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\WaiversAndConsent.aspx.cs">
+      <DependentUpon>WaiversAndConsent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\WaiversAndConsent.aspx.designer.cs">
+      <DependentUpon>WaiversAndConsent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\WorkResume.aspx.cs">
+      <DependentUpon>WorkResume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile\WorkResume.aspx.designer.cs">
+      <DependentUpon>WorkResume.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CalendarReport.aspx.cs">
+      <DependentUpon>CalendarReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CalendarReport.aspx.designer.cs">
+      <DependentUpon>CalendarReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CampaignPlayers.aspx.cs">
+      <DependentUpon>CampaignPlayers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CampaignPlayers.aspx.designer.cs">
+      <DependentUpon>CampaignPlayers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CharacterCardPrint.aspx.cs">
+      <DependentUpon>CharacterCardPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CharacterCardPrint.aspx.designer.cs">
+      <DependentUpon>CharacterCardPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CharacterSkillStats.aspx.cs">
+      <DependentUpon>CharacterSkillStats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CharacterSkillStats.aspx.designer.cs">
+      <DependentUpon>CharacterSkillStats.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CheckIn.aspx.cs">
+      <DependentUpon>CheckIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CheckIn.aspx.designer.cs">
+      <DependentUpon>CheckIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FifthGate\FifthGateCharacters.aspx.cs">
+      <DependentUpon>FifthGateCharacters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FifthGate\FifthGateCharacters.aspx.designer.cs">
+      <DependentUpon>FifthGateCharacters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\FifthGate\FifthGateCharacterSkills.aspx.cs">
+      <DependentUpon>FifthGateCharacterSkills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\FifthGate\FifthGateCharacterSkills.aspx.designer.cs">
+      <DependentUpon>FifthGateCharacterSkills.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\HistorySearch.aspx.cs">
+      <DependentUpon>HistorySearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\HistorySearch.aspx.designer.cs">
+      <DependentUpon>HistorySearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PELAnswerSummary.aspx.cs">
+      <DependentUpon>PELAnswerSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PELAnswerSummary.aspx.designer.cs">
+      <DependentUpon>PELAnswerSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PELSearch.aspx.cs">
+      <DependentUpon>PELSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PELSearch.aspx.designer.cs">
+      <DependentUpon>PELSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ReportList.aspx.cs">
+      <DependentUpon>ReportList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportList.aspx.designer.cs">
+      <DependentUpon>ReportList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\SiteList.aspx.cs">
+      <DependentUpon>SiteList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\SiteList.aspx.designer.cs">
+      <DependentUpon>SiteList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Roles\AssignRoles.aspx.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Roles\AssignRoles.aspx.designer.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Roles\SetupRoles.aspx.cs">
+      <DependentUpon>SetupRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Roles\SetupRoles.aspx.designer.cs">
+      <DependentUpon>SetupRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Signup.aspx.cs">
+      <DependentUpon>Signup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Webservices\CampaignInfo.asmx.cs">
+      <DependentUpon>CampaignInfo.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WhatIsLARPing.aspx.cs">
+      <DependentUpon>WhatIsLARPing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WhatIsLARPing.aspx.designer.cs">
+      <DependentUpon>WhatIsLARPing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WhatsNew.aspx.cs">
+      <DependentUpon>WhatsNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WhatsNew.aspx.designer.cs">
+      <DependentUpon>WhatsNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WhatsNewDetail.aspx.cs">
+      <DependentUpon>WhatsNewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WhatsNewDetail.aspx.designer.cs">
+      <DependentUpon>WhatsNewDetail.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51749</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51713/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
