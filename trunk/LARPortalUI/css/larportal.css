@@ -735,3 +735,9 @@ btn-success {
         padding-left: 20px;
         color: white;
     }
+
+
+table .btn {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
