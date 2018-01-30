@@ -442,6 +442,8 @@
     <Content Include="images\UpdateMyCharacter.png" />
     <Content Include="images\ViewMyPoints.png" />
     <Content Include="images\WriteMyPEL.png" />
+    <Content Include="img\blank.gif" />
+    <Content Include="img\BlankProfile.png" />
     <Content Include="img\checkbox.png" />
     <Content Include="img\LogoCropped.jpg" />
     <Content Include="img\portal.png" />

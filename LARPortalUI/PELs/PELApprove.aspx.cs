@@ -407,7 +407,7 @@ namespace LarpPortal.PELs
                     pnlCommentSection.Visible = false;
                 Button btnAddComment = (Button)e.Item.FindControl("btnAddComment");
                 if (btnAddComment != null)
-                    btnAddComment.Visible = false;
+                    btnAddComment.Visible = true;
             }
         }
 

@@ -60,8 +60,6 @@
                         </div>
                     </div>
 
-
-
                     <asp:UpdatePanel ID="upComments" runat="server">
                         <ContentTemplate>
                             <div class="row">
