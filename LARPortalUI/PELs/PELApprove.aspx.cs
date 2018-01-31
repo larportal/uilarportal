@@ -356,7 +356,10 @@ namespace LarpPortal.PELs
                         Classes.cPlayer PLDemography = new Classes.cPlayer(Master.UserID, Master.UserName);
                         string pict = PLDemography.UserPhoto;
                         imgPicture.Attributes["onerror"] = "this.src='~/img/BlankProfile.png';";
-                        imgPlayerImage.ImageUrl = pict;
+						if (String.IsNullOrEmpty(pict.Trim()))
+							imgPlayerImage.ImageUrl = "/img/BlankProfile.png";
+						else
+	                        imgPlayerImage.ImageUrl = pict;
                     }
 
                     Button btnAddComment = (Button)e.Item.FindControl("btnAddComment");
@@ -533,6 +536,7 @@ namespace LarpPortal.PELs
                     Image imgPlayerImage = (Image)e.Item.FindControl("imgStaffCommentProfilePicture");
                     if (imgPlayerImage != null)
                     {
+						imgPicture.ImageUrl = "/img/BlankProfile.png";
                         Classes.cPlayer PLDemography = new Classes.cPlayer(Master.UserID, Master.UserName);
                         string pict = PLDemography.UserPhoto;
                         imgPicture.Attributes["onerror"] = "this.src='~/img/BlankProfile.png';";

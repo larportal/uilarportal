@@ -71,7 +71,7 @@
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
                                                                 <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("RegistrationID") %>' CommandName='<%# Eval("ButtonText") %>Item'
-                                                                    Text='View' CssClass="btn btn-primary" />
+                                                                    Text='View' CssClass="btn btn-primary ShortButton" />
                                                                 <asp:HiddenField ID="hidPELId" runat="server" Value='<%# Eval("PELID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>

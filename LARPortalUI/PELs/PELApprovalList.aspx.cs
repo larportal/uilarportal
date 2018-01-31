@@ -93,12 +93,15 @@ namespace LarpPortal.PELs
             ddlEventName.DataBind();
             ddlEventName.Items.Insert(0, new ListItem("No Filter", ""));
             ddlEventName.SelectedIndex = -1;
-            if (String.IsNullOrEmpty(sSelectedEventName))
-                foreach (ListItem li in ddlEventName.Items)
-                    if (li.Value == sSelectedEventName)
-                        li.Selected = true;
-                    else
-                        li.Selected = false;
+			if (String.IsNullOrEmpty(sSelectedEventName))
+				foreach (ListItem li in ddlEventName.Items)
+					if (li.Value == sSelectedEventName)
+					{
+						ddlEventName.ClearSelection();
+						li.Selected = true;
+					}
+					else
+						li.Selected = false;
             if (ddlEventName.SelectedIndex == -1)     // Didn't find what was selected.
                 ddlEventName.SelectedIndex = 0;
 
@@ -111,12 +114,15 @@ namespace LarpPortal.PELs
             ddlCharacterName.DataBind();
             ddlCharacterName.Items.Insert(0, new ListItem("No Filter", ""));
             ddlCharacterName.SelectedIndex = -1;
-            if (String.IsNullOrEmpty(sSelectedChar))
-                foreach (ListItem li in ddlCharacterName.Items)
-                    if (li.Value == sSelectedChar)
-                        li.Selected = true;
-                    else
-                        li.Selected = false;
+			if (String.IsNullOrEmpty(sSelectedChar))
+				foreach (ListItem li in ddlCharacterName.Items)
+					if (li.Value == sSelectedChar)
+					{
+						ddlCharacterName.ClearSelection();
+						li.Selected = true;
+					}
+					else
+						li.Selected = false;
             if (ddlCharacterName.SelectedIndex == -1)     // Didn't find what was selected.
                 ddlCharacterName.SelectedIndex = 0;
 
@@ -129,12 +135,15 @@ namespace LarpPortal.PELs
             ddlEventDate.DataBind();
             ddlEventDate.Items.Insert(0, new ListItem("No Filter", ""));
             ddlEventDate.SelectedIndex = -1;
-            if (String.IsNullOrEmpty(sSelectedEventDate))
-                foreach (ListItem li in ddlEventDate.Items)
-                    if (li.Value == sSelectedEventDate)
-                        li.Selected = true;
-                    else
-                        li.Selected = false;
+			if (String.IsNullOrEmpty(sSelectedEventDate))
+				foreach (ListItem li in ddlEventDate.Items)
+					if (li.Value == sSelectedEventDate)
+					{
+						ddlEventDate.ClearSelection();
+						li.Selected = true;
+					}
+					else
+						li.Selected = false;
             if (ddlEventDate.SelectedIndex == -1)     // Didn't find what was selected.
                 ddlEventDate.SelectedIndex = 0;
 
@@ -147,12 +156,15 @@ namespace LarpPortal.PELs
             ddlStatus.DataBind();
             ddlStatus.Items.Insert(0, new ListItem("No Filter", ""));
             ddlStatus.SelectedIndex = -1;
-            if (String.IsNullOrEmpty(sSelectedPELStatus))
-                foreach (ListItem li in ddlStatus.Items)
-                    if (li.Value == sSelectedPELStatus)
-                        li.Selected = true;
-                    else
-                        li.Selected = false;
+			if (String.IsNullOrEmpty(sSelectedPELStatus))
+				foreach (ListItem li in ddlStatus.Items)
+					if (li.Value == sSelectedPELStatus)
+					{
+						ddlStatus.ClearSelection();
+						li.Selected = true;
+					}
+					else
+						li.Selected = false;
             if (ddlStatus.SelectedIndex == -1)     // Didn't find what was selected.
                 ddlStatus.SelectedIndex = 0;
         }
