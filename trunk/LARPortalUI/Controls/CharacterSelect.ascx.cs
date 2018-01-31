@@ -256,6 +256,7 @@ namespace LarpPortal.Controls
                     {
                         foreach (ListItem liItem in ddlCharacterSelector.Items)
                         {
+							ddlCharacterSelector.ClearSelection();
                             if (liItem.Value == iCharID.ToString())
                                 liItem.Selected = true;
                         }
@@ -686,6 +687,7 @@ namespace LarpPortal.Controls
                 {
                     foreach (ListItem liItem in ddlCharacterSelector.Items)
                     {
+						ddlCharacterSelector.ClearSelection();
                         if (liItem.Value == iCharID.ToString())
                             liItem.Selected = true;
                     }

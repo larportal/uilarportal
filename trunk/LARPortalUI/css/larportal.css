@@ -717,6 +717,11 @@ btn-success {
 	padding-right: 10px !important;
 }
 
+.LeftMargin5 {
+    margin-left: 5px !important;
+}
+
+
 .header-background-image {
     padding: 30px 0;
     margin-left: -15px;
@@ -737,7 +742,7 @@ btn-success {
     }
 
 
-table .btn {
-    padding-top: 0px;
-    padding-bottom: 0px;
+.ShortButton {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
 }

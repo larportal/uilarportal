@@ -20,6 +20,9 @@
     <!-- Custom CSS -->
     <link href="/css/sb-admin-2.css" rel="stylesheet" />
 
+    <%-- By adding the ticks, it causes a number to be added which will force the style sheet to be reloaded. --%>
+    <link href="/css/larportal.css?t=<%= DateTime.Now.Ticks %>" rel="stylesheet" />
+
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 

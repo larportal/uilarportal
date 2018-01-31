@@ -65,22 +65,18 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="row">
-                                        <div class="col-xs-3">
                                             <asp:Button ID="btnAddStaffComment" runat="server" Text="Add Staff Only Comment" CommandName="EnterComment"
-                                                CommandArgument='<%# Eval("PELsAddendumID") %>' CssClass="btn btn-primary" />
-                                        </div>
-                                        <div class="col-xs-9">
-                                            <asp:Panel ID="pnlStaffCommentSection" runat="server" Visible="false" Style="vertical-align: top;">
+                                                CommandArgument='<%# Eval("PELsAddendumID") %>' CssClass="btn btn-primary col-xs-3" />
+                                            <asp:Panel ID="pnlStaffCommentSection" CssClass="col-xs-9" runat="server" Visible="false" Style="vertical-align: top;">
                                                 <div class="form-inline">
                                                     <asp:Image ID="imgStaffCommentProfilePicture" runat="server" Width="75" Height="75" />
                                                     <asp:TextBox ID="tbNewStaffCommentAddendum" runat="server" TextMode="MultiLine" Rows="4" Columns="80" />
-                                                    <asp:Button ID="btnSaveNewStaffComment" runat="server" Text="Save" CssClass="btn btn-primary"
+                                                    <asp:Button ID="btnSaveNewStaffComment" runat="server" Text="Save" CssClass="btn btn-primary LeftMargin5 ShortButton"
                                                         CommandName="AddComment" CommandArgument='<%# Eval("PELsAddendumID") %>' />
-                                                    <asp:Button ID="btnCancelStaffComment" runat="server" Text="Cancel" CssClass="btn btn-primary"
+                                                    <asp:Button ID="btnCancelStaffComment" runat="server" Text="Cancel" CssClass="btn btn-primary LeftMargin5 ShortButton"
                                                         CommandName="CancelComment" />
                                                 </div>
                                             </asp:Panel>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -140,10 +136,10 @@
                                                             <td>
                                                                 <asp:TextBox ID="tbNewComment" runat="server" TextMode="MultiLine" Rows="4" Columns="80" /></td>
                                                             <td>
-                                                                <asp:Button ID="btnSaveNewComment" runat="server" Text="Save" CssClass="btn btn-primary"
+                                                                <asp:Button ID="btnSaveNewComment" runat="server" Text="Save" CssClass="btn btn-primary ShortButton LeftMargin5"
                                                                     CommandName="AddComment" CommandArgument='<%# Eval("PELAnswerID") %>' /></td>
                                                             <td>
-                                                                <asp:Button ID="btnCancelComment" runat="server" Text="Cancel" CssClass="btn btn-primary" CommandName="CancelComment" /></td>
+                                                                <asp:Button ID="btnCancelComment" runat="server" Text="Cancel" CssClass="btn btn-primary ShortButton LeftMargin5" CommandName="CancelComment" /></td>
                                                         </tr>
                                                     </table>
                                                 </asp:Panel>
