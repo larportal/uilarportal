@@ -22,7 +22,8 @@ namespace LarpPortal.Character
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+			if (!IsPostBack)
             {
                 tvDisplaySkills.Attributes.Add("onclick", "postBackByObject()");
             }

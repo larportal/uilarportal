@@ -106,7 +106,8 @@ namespace LarpPortal.Controls
                 (Session["MyCharacters"] == null))
             {
                 Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
-                if (UserInfo.LastLoggedInMyCharOrCamp == "C")
+				_CharacterID = UserInfo.LastLoggedInCharacter;
+				if (UserInfo.LastLoggedInMyCharOrCamp == "C")
                 {
                     WhichSelected = Selected.CampaignCharacters;
                     Session["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
@@ -256,9 +257,11 @@ namespace LarpPortal.Controls
                     {
                         foreach (ListItem liItem in ddlCharacterSelector.Items)
                         {
-							ddlCharacterSelector.ClearSelection();
-                            if (liItem.Value == iCharID.ToString())
-                                liItem.Selected = true;
+							if (liItem.Value == iCharID.ToString())
+							{
+								ddlCharacterSelector.ClearSelection();
+								liItem.Selected = true;
+							}
                         }
                     }
                 }

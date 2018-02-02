@@ -14,7 +14,7 @@ namespace LarpPortal.Character
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+            oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
 
             if (Session["PictureList"] == null)
                 Session["PictureList"] = "";

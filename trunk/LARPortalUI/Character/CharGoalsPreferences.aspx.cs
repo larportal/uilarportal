@@ -15,7 +15,8 @@ namespace LarpPortal.Character
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ViewState["CurrentCharacter"] == null)
+			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+			if (ViewState["CurrentCharacter"] == null)
                 ViewState["CurrentCharacter"] = "";
 
             if (!IsPostBack)
@@ -39,7 +40,7 @@ namespace LarpPortal.Character
             divUserDef4.Visible = false;
             divUserDef5.Visible = false;
 
-            oCharSelect.LoadInfo();
+			oCharSelect.LoadInfo();
 
             if (oCharSelect.CharacterID.HasValue)
             {
