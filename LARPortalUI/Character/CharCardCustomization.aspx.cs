@@ -18,7 +18,8 @@ namespace LarpPortal.Character
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+			if (!IsPostBack)
             {
                 Session.Remove("SkillList");
             }
@@ -26,7 +27,7 @@ namespace LarpPortal.Character
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            MethodBase lmth = MethodBase.GetCurrentMethod();
+			MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             oCharSelect.LoadInfo();

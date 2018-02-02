@@ -17,7 +17,8 @@ namespace LarpPortal.Character
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            tvCampaignPlaces.Attributes.Add("onclick", "postBackByObject()");
+			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+			tvCampaignPlaces.Attributes.Add("onclick", "postBackByObject()");
             btnDeleteCancel.Attributes.Add("data-dismiss", "modal");
         }
 
@@ -342,5 +343,23 @@ namespace LarpPortal.Character
                 _Reload = true;
             }
         }
-    }
+
+		protected void oCharSelect_CharacterChanged(object sender, EventArgs e)
+		{
+			oCharSelect.LoadInfo();
+
+			if (oCharSelect.CharacterInfo != null)
+			{
+				if (oCharSelect.CharacterID.HasValue)
+				{
+					Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
+					UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+					UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
+					UserInfo.Save();
+				}
+				_Reload = true;
+			}
+		}
+	}
 }

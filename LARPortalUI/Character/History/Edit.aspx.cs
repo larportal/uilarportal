@@ -14,89 +14,97 @@ namespace LarpPortal.Character.History
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnCloseMessage.Attributes.Add("data-dismiss", "modal");
+			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+			btnCloseMessage.Attributes.Add("data-dismiss", "modal");
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            if ((!IsPostBack) || (_Reload))
-            {
-                divHistory.Visible = true;
-                divNoCharacter.Visible = false;
-                divSaveButtons.Visible = true;
+			try
+			{
+				if ((!IsPostBack) || (_Reload))
+				{
+					divHistory.Visible = true;
+					divNoCharacter.Visible = false;
+					divSaveButtons.Visible = true;
 
-                Classes.cCharacterHistory cCharHist = new Classes.cCharacterHistory();
-                cCharHist.Load(oCharSelect.CharacterID.Value, Master.UserID);
+					Classes.cCharacterHistory cCharHist = new Classes.cCharacterHistory();
+					cCharHist.Load(oCharSelect.CharacterID.Value, Master.UserID);
 
-                ckEditor.Text = cCharHist.History;
-                lblHistory.Text = cCharHist.History.Replace("<ul>", @"<ul style=""list-style-type: disc;"">").Replace("<li>", @"<li style=""margin-left: 15px;"">");
+					ckEditor.Text = cCharHist.History;
+					lblHistory.Text = cCharHist.History.Replace("<ul>", @"<ul style=""list-style-type: disc;"">").Replace("<li>", @"<li style=""margin-left: 15px;"">");
 
-                hidNotificationEMail.Value = cCharHist.NotificationEMail;
+					hidNotificationEMail.Value = cCharHist.NotificationEMail;
 
-                if (cCharHist.Addendums.Count > 0)
-                {
-                    DataTable dtDispAdd = new DataTable();
-                    dtDispAdd.Columns.Add("Title", typeof(string));
-                    dtDispAdd.Columns.Add("Addendum", typeof(string));
-                    dtDispAdd.Columns.Add("DateAdded", typeof(DateTime));
+					if (cCharHist.Addendums.Count > 0)
+					{
+						DataTable dtDispAdd = new DataTable();
+						dtDispAdd.Columns.Add("Title", typeof(string));
+						dtDispAdd.Columns.Add("Addendum", typeof(string));
+						dtDispAdd.Columns.Add("DateAdded", typeof(DateTime));
 
-                    foreach (Classes.cCharacterHistoryAddendum cAdd in cCharHist.Addendums)
-                    {
-                        DataRow dNewRow = dtDispAdd.NewRow();
-                        dNewRow["Title"] = "Addendum added " + cAdd.DateAdded.ToString();
-                        dNewRow["Addendum"] = cAdd.Addendum;
-                        dNewRow["DateAdded"] = cAdd.DateAdded;
-                        dtDispAdd.Rows.Add(dNewRow);
-                    }
-                    DataView dvDispAdd = new DataView(dtDispAdd, "", "DateAdded desc", DataViewRowState.CurrentRows);
-                    rptAddendum.DataSource = dvDispAdd;
-                    rptAddendum.DataBind();
-                }
-                else
-                {
-                    rptAddendum.DataSource = null;
-                    rptAddendum.DataBind();
-                }
+						foreach (Classes.cCharacterHistoryAddendum cAdd in cCharHist.Addendums)
+						{
+							DataRow dNewRow = dtDispAdd.NewRow();
+							dNewRow ["Title"] = "Addendum added " + cAdd.DateAdded.ToString();
+							dNewRow ["Addendum"] = cAdd.Addendum;
+							dNewRow ["DateAdded"] = cAdd.DateAdded;
+							dtDispAdd.Rows.Add(dNewRow);
+						}
+						DataView dvDispAdd = new DataView(dtDispAdd, "", "DateAdded desc", DataViewRowState.CurrentRows);
+						rptAddendum.DataSource = dvDispAdd;
+						rptAddendum.DataBind();
+					}
+					else
+					{
+						rptAddendum.DataSource = null;
+						rptAddendum.DataBind();
+					}
 
-                if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
-                    (oCharSelect.CharacterInfo.CharacterType != 1))
-                {
-                    btnAddAddendum.Visible = false;
-                    btnSubmit.Visible = false;
-                    btnSave.Visible = false;
-                    ckEditor.Visible = false;
-                    lblHistory.Visible = true;
-                }
-                else
-                {
-                    btnAddAddendum.Visible = true;
-                    btnSubmit.Visible = true;
-                    btnSave.Visible = true;
+					if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
+						(oCharSelect.CharacterInfo.CharacterType != 1))
+					{
+						btnAddAddendum.Visible = false;
+						btnSubmit.Visible = false;
+						btnSave.Visible = false;
+						ckEditor.Visible = false;
+						lblHistory.Visible = true;
+					}
+					else
+					{
+						btnAddAddendum.Visible = true;
+						btnSubmit.Visible = true;
+						btnSave.Visible = true;
 
-                    if (cCharHist.DateSubmitted.HasValue)
-                    {
-                        ckEditor.Visible = false;
-                        lblHistory.Visible = true;
-                        btnSave.Visible = false;
-                        btnSubmit.Visible = false;
-                        btnAddAddendum.Visible = true;
-                    }
-                    else
-                    {
-                        ckEditor.Visible = true;
-                        lblHistory.Visible = false;
-                        btnSave.Visible = true;
-                        btnSubmit.Visible = true;
-                        btnAddAddendum.Visible = false;
-                    }
-                }
-            }
-            else
-            {
-                divHistory.Visible = false;
-                divSaveButtons.Visible = false;
-                divNoCharacter.Visible = true;
-            }
+						if (cCharHist.DateSubmitted.HasValue)
+						{
+							ckEditor.Visible = false;
+							lblHistory.Visible = true;
+							btnSave.Visible = false;
+							btnSubmit.Visible = false;
+							btnAddAddendum.Visible = true;
+						}
+						else
+						{
+							ckEditor.Visible = true;
+							lblHistory.Visible = false;
+							btnSave.Visible = true;
+							btnSubmit.Visible = true;
+							btnAddAddendum.Visible = false;
+						}
+					}
+				}
+				else
+				{
+					divHistory.Visible = false;
+					divSaveButtons.Visible = false;
+					divNoCharacter.Visible = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				string t = ex.Message;
+			}
         }
 
         protected void ProcessButton(object sender, CommandEventArgs e)
