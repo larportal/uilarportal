@@ -350,7 +350,7 @@ namespace LarpPortal.Events
 						string sValue = rbl.SelectedValue;
 
 						HiddenField hidEventPELID = (HiddenField) rpItem.FindControl("hidEventPELID");
-						if (sValue != "")
+						if (!String.IsNullOrEmpty(sValue))
 						{
 							// A value was selected so we need to set it.
 							SortedList sDefaultParams = new SortedList();
