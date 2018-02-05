@@ -476,7 +476,7 @@ namespace LarpPortal.Controls
 
             LoadInfo();
             if (this.CharacterChanged != null)
-                this.CharacterChanged(this, e);
+                CharacterChanged(this, e);
         }
 
         protected void ddlCampCharSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -495,7 +495,7 @@ namespace LarpPortal.Controls
                 Session["CharacterCampaignCharID"] = iCharID;
                 Session["CampaignID"] = _CharacterInfo.CampaignID;
                 if (this.CharacterChanged != null)
-                    this.CharacterChanged(this, e);
+                    CharacterChanged(this, e);
             }
             else
                 _CharacterID = null;
@@ -521,7 +521,7 @@ namespace LarpPortal.Controls
                 Session["CharacterSelectID"] = iCharID;
                 Session["CampaignID"] = _CharacterInfo.CampaignID;
                 if (this.CharacterChanged != null)
-                    this.CharacterChanged(this, e);
+                    CharacterChanged(this, e);
             }
             else
             {
@@ -554,7 +554,7 @@ namespace LarpPortal.Controls
                         Session["CharacterCampaignCharID"] = iCharID;
                         Session["CampaignID"] = _CharacterInfo.CampaignID;
                         if (this.CharacterChanged != null)
-                            this.CharacterChanged(this, e);
+                            CharacterChanged(this, e);
                     }
                 }
             }

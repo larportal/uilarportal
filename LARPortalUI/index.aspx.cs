@@ -104,7 +104,7 @@ namespace LarpPortal
 					Session ["SuperUser"] = 1;
 
 				// Valid member. Is there a lock?
-				if (Login.SecurityResetCode != "")
+				if (!String.IsNullOrEmpty(Login.SecurityResetCode))
 				{
 					if (Login.LoginCount == 0) // New user.  First time activation.
 					{
