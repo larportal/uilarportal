@@ -26,6 +26,52 @@
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
+    <!-- jQuery -->
+    <script src="/Scripts/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/Scripts/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/Scripts/sb-admin-2.js"></script>
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/Scripts/jquery-3.1.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/Scripts/bootstrap.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/Scripts/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/Scripts/sb-admin-2.js"></script>
+
+    <script src="/Scripts/jquery.matchHeight.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+
+
+
+
+
+
+
+
+
     <style type="text/css">
         body {
             background: #fff;
@@ -85,6 +131,36 @@
         }
     </style>
 
+    <script type="text/javascript">
+        function openActivationCode() {
+            $('#modalActivationCode').modal('show');
+        }
+
+        function CheckActivationCode() {
+            var hidActivateCode = document.getElementById('<%= hidActivateCode.ClientID %>');
+            var tbActivationCode = document.getElementById("<%= tbActivationCode.ClientID %>");
+            var divError = document.getElementById("divError");
+
+            if ((hidActivateCode != null) &&
+                (tbActivationCode != null)) {
+                if (hidActivateCode.value == tbActivationCode.value) {
+                    return true;
+                }
+                else {
+                    tbActivationCode.value = "";
+                    divError.style.display = 'block';
+                    return false;
+                }
+            }
+            tbActivationCode.value = "";
+            divError.style.display = 'block';
+            return false;
+        }
+
+    </script>
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -141,17 +217,45 @@
             </div>
             <div class="margin40">&nbsp;</div>
         </div>
+
+        <div class="modal fade" id="modalActivationCode" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title text-center">Account Activation Code</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            An activation code was included in you're welcome email that was sent to you when you registered for a LARP Portal account.
+                        </p>
+                        <span id="divError" style="display: none;">
+                            <span class="text-danger">The code you entered was incorrect. Please try again.</span>
+                            <br />
+                        </span>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbActivationCode.ClientID %>">Activation Code</label>
+                                    <asp:TextBox runat="server" ID="tbActivationCode" CssClass="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-xs-6 text-left">
+                                <asp:Button ID="btnClose" runat="server" Text="Cancel" CssClass="btn btn-primary" />
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <asp:Button ID="btnActivate" runat="server" Text="Activate" CssClass="btn btn-primary" OnClientClick="return CheckActivationCode();" OnClick="btnValidateAccount_Click" />
+                            </div>
+                            <asp:HiddenField ID="hidActivateCode" runat="server" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
-    <!-- jQuery -->
-    <script src="/Scripts/jquery-3.1.1.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/Scripts/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/Scripts/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/Scripts/sb-admin-2.js"></script>
 </body>
 </html>
