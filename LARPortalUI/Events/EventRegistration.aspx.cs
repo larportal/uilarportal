@@ -106,8 +106,10 @@ namespace LarpPortal.Events
 					strSubject = "Change to registration for " + lblPlayerName.Text + " for Campaign " + drCampInfo ["CampaignName"].ToString();
 
 				string strBody;
-				strBody = lblPlayerName.Text + " has just registered for the upcoming " + drCampInfo ["CampaignName"].ToString() + " event.  <br>" +
-					"Email: " + hidPlayerEMail.Value + "<br>";
+                // RP - 2/19/2018 - added event to registration email - also put it in th production version
+                strBody = lblPlayerName.Text + " has just registered for the upcoming " + drCampInfo["CampaignName"].ToString() + " event.  <br>" +
+                    "Email: " + hidPlayerEMail.Value + "<br>" +
+                    "Event: " + ddlEventDate.SelectedItem.Text + "<br>";
 
 				if (hidCharAKA.Value.Length > 0)
 					strBody += "Character: " + ddlCharacterList.SelectedItem.Text + "<br>";
