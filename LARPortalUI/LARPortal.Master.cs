@@ -10,6 +10,8 @@ namespace LarpPortal
 {
 	public partial class LARPortal : System.Web.UI.MasterPage
 	{
+		public event EventHandler CampaignChanged;
+
 		public string UserName
 		{
 			get
@@ -203,6 +205,9 @@ namespace LarpPortal
 						Session.Remove("RoleString");
 
 						LoadData();
+
+						if (CampaignChanged != null)
+							CampaignChanged(this, EventArgs.Empty);
 					}
 					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 				}
