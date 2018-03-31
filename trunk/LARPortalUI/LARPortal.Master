@@ -16,10 +16,6 @@
     <meta http-equiv="pragma" content="no-cache" />
     <title>LARP Portal - The Gateway to Managing Your LARPs</title>
 
-    <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>
-    <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.css" rel="stylesheet" />
-
     <!-- MetisMenu CSS -->
     <link href="/css/metisMenu.min.css" rel="stylesheet" />
 
@@ -32,13 +28,18 @@
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="/Scripts/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/Scripts/bootstrap.js"></script>
 
+    <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/Scripts/metisMenu.min.js"></script>
+    <link href="/css/metisMenu.min.css" rel="stylesheet" />
 
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/sb-admin-2.js"></script>
@@ -294,6 +295,7 @@
                                         Calendar<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
                                             <li><a href="/Calendar/CalGraphic.aspx#ScrollToDate">Calendar</a></li>
+                                            <li><a href="/Calendar/MonthCalendar.aspx">Month Calendar</a></li>
                                             <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
                                         </ul>
                                     </li>
