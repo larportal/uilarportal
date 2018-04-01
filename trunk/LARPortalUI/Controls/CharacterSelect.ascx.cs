@@ -744,7 +744,6 @@ namespace LarpPortal.Controls
 			_UserInfo = new Classes.cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
 			_UserInfo.LastLoggedInCharacter = -1;
 			_UserInfo.Save();
-
 		}
 	}
 }

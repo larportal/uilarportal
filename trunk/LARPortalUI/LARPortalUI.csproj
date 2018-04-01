@@ -884,14 +884,6 @@
     <Content Include="Content\bootstrap\button-groups.less" />
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\alerts.less" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -905,6 +897,14 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="LARPortalUI.ruleset" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.min.js" />
@@ -920,6 +920,7 @@
     <Content Include="Scripts\fullcalendar\locale\ar-tn.js" />
     <Content Include="Scripts\fullcalendar\locale\ar.js" />
     <Content Include="Scripts\fullcalendar\locale\bg.js" />
+    <Content Include="Scripts\fullcalendar\locale\bs.js" />
     <Content Include="Scripts\fullcalendar\locale\ca.js" />
     <Content Include="Scripts\fullcalendar\locale\cs.js" />
     <Content Include="Scripts\fullcalendar\locale\da.js" />
@@ -951,6 +952,7 @@
     <Content Include="Scripts\fullcalendar\locale\is.js" />
     <Content Include="Scripts\fullcalendar\locale\it.js" />
     <Content Include="Scripts\fullcalendar\locale\ja.js" />
+    <Content Include="Scripts\fullcalendar\locale\ka.js" />
     <Content Include="Scripts\fullcalendar\locale\kk.js" />
     <Content Include="Scripts\fullcalendar\locale\ko.js" />
     <Content Include="Scripts\fullcalendar\locale\lb.js" />
@@ -1786,10 +1788,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
