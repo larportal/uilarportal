@@ -512,6 +512,7 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="LARPortal.Master" />
+    <Content Include="Points\MemberPointsView.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1561,6 +1562,13 @@
     </Compile>
     <Compile Include="PELs\PELList.aspx.designer.cs">
       <DependentUpon>PELList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Points\MemberPointsView.aspx.cs">
+      <DependentUpon>MemberPointsView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Points\MemberPointsView.aspx.designer.cs">
+      <DependentUpon>MemberPointsView.aspx</DependentUpon>
     </Compile>
     <Compile Include="Points\PointsAssign.aspx.cs">
       <DependentUpon>PointsAssign.aspx</DependentUpon>
