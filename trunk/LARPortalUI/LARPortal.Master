@@ -287,7 +287,7 @@
                                         <asp:Image ID="Image3" runat="server" ImageUrl="~/images/Points.png" Width="16px" />
                                         Points<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
-                                            <li><a href="#">View Points</a></li>
+                                            <li><a href="/Points/MemberPointsView.aspx">View Points</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">
