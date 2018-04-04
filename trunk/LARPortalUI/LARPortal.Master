@@ -294,8 +294,7 @@
                                         <asp:Image ID="Image4" runat="server" ImageUrl="~/images/Calendar.png" Width="16px" />
                                         Calendar<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
-                                            <li><a href="/Calendar/CalGraphic.aspx#ScrollToDate">Calendar</a></li>
-                                            <li><a href="/Calendar/MonthCalendar.aspx">Month Calendar</a></li>
+                                            <li><a href="/Calendar/MonthCalendar.aspx">Calendar</a></li>
                                             <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
                                         </ul>
                                     </li>
