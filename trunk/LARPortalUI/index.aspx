@@ -210,6 +210,9 @@
                             </ul>
                         </div>
                     </div>
+                            <div class="text-center">
+                                <h3><a href="/LearnMoreAboutLARPortal.aspx">What is LARP Portal ?</a></h3>
+                            </div>
                 </div>
                 <div class="col-lg-8 col-lg-pull-4 col-md-6">
                     <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />
