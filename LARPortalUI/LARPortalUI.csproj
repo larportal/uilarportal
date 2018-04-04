@@ -493,6 +493,7 @@
     <Content Include="font-awesome\scss\_stacked.scss" />
     <Content Include="font-awesome\scss\_variables.scss" />
     <Content Include="InitialJoinCampaign.aspx" />
+    <Content Include="TermsOfUse.aspx" />
     <Content Include="LearnMoreAboutLARPortal.aspx" />
     <Content Include="packages.config" />
     <Content Include="ckeditor\CHANGES.md" />
@@ -1514,6 +1515,13 @@
     </Compile>
     <Compile Include="LARPortal.Master.designer.cs">
       <DependentUpon>LARPortal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TermsOfUse.aspx.cs">
+      <DependentUpon>TermsOfUse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TermsOfUse.aspx.designer.cs">
+      <DependentUpon>TermsOfUse.aspx</DependentUpon>
     </Compile>
     <Compile Include="LearnMoreAboutLARPortal.aspx.cs">
       <DependentUpon>LearnMoreAboutLARPortal.aspx</DependentUpon>

@@ -42,7 +42,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainBody" runat="Server">
     <div id="page-wrapper">
-        <div class="divide40"></div>
+        <div class="divide20"></div>
         <div class="container-fluid" id="quicklinks">
             <div class="row">
                 <div class="col-md-12 text-center margin30">
@@ -58,7 +58,6 @@
                             <a href="/Campaigns/JoinACampaign.aspx">
                                 <div class="box">
                                     <asp:Image ID="imgSignUpForCamp" runat="server" ImageUrl="~/images/SignUpForACampaign.png" />
-<%--                                    <i class="fa fa-user-plus fa-3x" aria-hidden="true"></i>--%>
                                     <h4>Sign Up for a Campaign</h4>
                                     <p>Search for campaigns to PC, NPC or Staff.</p>
                                 </div>
@@ -67,8 +66,7 @@
                         <div class="col-md-4 text-center margin30">
                             <a href="/Character/CharInfo.aspx">
                                 <div class="box">
-                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/UpdateMyCharacter.png" />
-<%--                                    <i class="fa fa-cogs fa-3x" aria-hidden="true"></i>--%>
+                                    <asp:Image ID="imgUpdateMyChar" runat="server" ImageUrl="~/images/UpdateMyCharacter.png" />
                                     <h4>Update My Characters</h4>
                                     <p>Add or maintain your character.</p>
                                 </div>
@@ -77,8 +75,7 @@
                         <div class="col-md-4 text-center margin30">
                             <a href="/Events/EventRegistration.aspx">
                                 <div class="box">
-                                    <asp:Image ID="Image2" runat="server" ImageUrl="~/images/RegisterForAnEvent.png" />
-<%--                                    <i class="fa fa-file-text fa-3x" aria-hidden="true"></i>--%>
+                                    <asp:Image ID="imgRegisterForEvent" runat="server" ImageUrl="~/images/RegisterForAnEvent.png" />
                                     <h4>Register for an Event</h4>
                                     <p>Register for an event as a PC, NPC or Staff.</p>
                                 </div>
@@ -89,8 +86,7 @@
                         <div class="col-md-4 text-center margin30">
                             <a href="/Profile/Profile.aspx">
                                 <div class="box">
-                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/images/CreateATeam.png" />
-<%--                                    <i class="fa fa-users fa-3x" aria-hidden="true"></i>--%>
+                                    <asp:Image ID="imgCreateATeam" runat="server" ImageUrl="~/images/CreateATeam.png" />
                                     <h4>Update My Profile</h4>
                                     <p>Update the information about yourself.</p>
                                 </div>
@@ -99,18 +95,16 @@
                         <div class="col-md-4 text-center margin30">
                             <a href="/PELs/PELList.aspx">
                                 <div class="box">
-                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/images/WriteMyPEL.png" />
-<%--                                    <i class="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>--%>
+                                    <asp:Image ID="imgWriteMyPEL" runat="server" ImageUrl="~/images/WriteMyPEL.png" />
                                     <h4>Write My PEL</h4>
                                     <p>Write, edit, save and submit your new post event summary letters.</p>
                                 </div>
                             </a>
                         </div>
                         <div class="col-md-4 text-center margin30">
-                            <a href="#">
+                            <a href="/Points/MemberPointsView.aspx">
                                 <div class="box">
-                                    <asp:Image ID="Image5" runat="server" ImageUrl="~/images/ViewMyPoints.png" />
-<%--                                    <i class="fa fa-binoculars fa-3x" aria-hidden="true"></i>--%>
+                                    <asp:Image ID="imgMemberPoints" runat="server" ImageUrl="~/images/ViewMyPoints.png" />
                                     <h4>View My Points</h4>
                                     <p>View your earned, spent and banked points at a campaign level.</p>
                                 </div>
