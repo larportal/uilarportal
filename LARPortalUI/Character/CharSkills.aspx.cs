@@ -17,20 +17,20 @@ namespace LarpPortal.Character
     {
         protected DataTable _dtCampaignSkills = new DataTable();
         private bool _Reload = false;
-        //private //string _UserName = "";
-        //private int _UserID = 0;
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_PreInit(object sender, EventArgs e)
+		{
+			// Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+			Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+		}
+
+		protected void Page_Load(object sender, EventArgs e)
         {
 			oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
 			if (!IsPostBack)
             {
                 tvDisplaySkills.Attributes.Add("onclick", "postBackByObject()");
             }
-            //if (Session["UserName"] != null)
-            //    _UserName = Session["UserName"].ToString();
-            //if (Session["UserID"] != null)
-            //    int.TryParse(Session["UserID"].ToString(), out _UserID);
             btnCloseMessage.Attributes.Add("data-dismiss", "modal");
         }
 
@@ -1262,7 +1262,15 @@ namespace LarpPortal.Character
                 UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
                 UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
                 UserInfo.Save();
+				Master.ChangeSelectedCampaign();
             }
         }
-    }
+
+		protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+		{
+			string t = sender.GetType().ToString();
+			oCharSelect.Reset();
+			_Reload = true;
+		}
+	}
 }

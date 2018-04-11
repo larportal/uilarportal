@@ -347,6 +347,8 @@ namespace LarpPortal.Character
 					UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
 					UserInfo.Save();
 					Session ["ReloadCampaigns"] = "Y";
+					if (oCharSelect.CharacterInfo.CampaignID != Master.CampaignID)
+						Master.ChangeSelectedCampaign();
 				}
 				_Reload = true;
 			}
@@ -830,6 +832,7 @@ namespace LarpPortal.Character
 		{
 			string t = sender.GetType().ToString();
 			oCharSelect.Reset();
+			_Reload = true;
 		}
 	}
 }

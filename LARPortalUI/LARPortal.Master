@@ -332,11 +332,11 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <ul class="list-inline">
-                                <li><a href="/About.aspx">About Us</a></li>
-                                <li><a href="/WhatsNew.aspx">What's New</a></li>
                                 <li><a href="/FAQs.aspx">FAQs</a></li>
                                 <li><a href="/Contact.aspx">Contact Us</a></li>
+                                <li><a href="/WhatsNew.aspx">What's New</a></li>
                                 <li><a href="/TermsOfUse.aspx">Terms of Use</a></li>
+                                <li><a href="/About.aspx">About Us</a></li>
 <%--                                <li><a href="#" data-toggle="modal" data-target="#terms">Terms of Use</a></li>--%>
                             </ul>
                         </div>

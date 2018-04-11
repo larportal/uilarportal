@@ -742,8 +742,40 @@ namespace LarpPortal.Controls
                 Session.Remove("MyCharacters");
 
 			_UserInfo = new Classes.cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
-			_UserInfo.LastLoggedInCharacter = -1;
-			_UserInfo.Save();
+//			Session ["CharacterSelectID"] = _UserInfo.LastLoggedInCharacter;
+
+//			LoadAndSetCharacter();
+			//_UserInfo.LastLoggedInCharacter = -1;
+			//_UserInfo.Save();
+		}
+
+		public void LoadAndSetCharacter()
+		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			WhichSelected = Selected.NotSpecified;
+
+			if ((Session ["CampaignsToEdit"] == null) ||
+				(Session ["MyCharacters"] == null))
+			{
+				if (_UserInfo == null)
+					_UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
+
+				oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
+				Session ["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
+				if (UserInfo.LastLoggedInMyCharOrCamp == "C")
+				{
+					WhichSelected = Selected.CampaignCharacters;
+					Session ["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
+					Session ["CharacterCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session ["CharacterSelectGroup"] = "Campaigns";
+				}
+				else
+				{
+					WhichSelected = Selected.MyCharacters;
+				}
+			}
 		}
 	}
 }
