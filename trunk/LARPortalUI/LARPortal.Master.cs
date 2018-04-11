@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,8 +18,8 @@ namespace LarpPortal
 		{
 			get
 			{
-				if (Session ["UserName"] != null)
-					return Session ["UserName"].ToString();
+				if (Session["UserName"] != null)
+					return Session["UserName"].ToString();
 				else
 				{
 					Response.Redirect("/index.aspx", true);
@@ -30,12 +32,12 @@ namespace LarpPortal
 		{
 			get
 			{
-				if (Session ["Guest"] != null)
+				if (Session["Guest"] != null)
 					return -1;
 
 				int iUserID = 0;
-				if (Session ["UserID"] != null)
-					if (int.TryParse(Session ["UserID"].ToString(), out iUserID))
+				if (Session["UserID"] != null)
+					if (int.TryParse(Session["UserID"].ToString(), out iUserID))
 						return iUserID;
 
 				// If we got this far - there was problem with the ID.
@@ -50,18 +52,18 @@ namespace LarpPortal
 		{
 			get
 			{
-				if (Session ["Guest"] != null)
+				if (Session["Guest"] != null)
 					return -102;
 
 				int iCampID = 0;
-				if (Session ["CampaignID"] != null)
-					if (int.TryParse(Session ["CampaignID"].ToString(), out iCampID))
+				if (Session["CampaignID"] != null)
+					if (int.TryParse(Session["CampaignID"].ToString(), out iCampID))
 						return iCampID;
 
 				// if we got this far, there was a problem. Load the data so the values are filled in.
 				LoadData();
-				if (Session ["CampaignID"] != null)
-					if (int.TryParse(Session ["CampaignID"].ToString(), out iCampID))
+				if (Session["CampaignID"] != null)
+					if (int.TryParse(Session["CampaignID"].ToString(), out iCampID))
 						return iCampID;
 
 				// Still has a problem.
@@ -73,11 +75,11 @@ namespace LarpPortal
 		{
 			get
 			{
-				if (Session ["Guest"] != null)
+				if (Session["Guest"] != null)
 					return "All Campaigns";
 
 				// Assume everything is OK.
-				return Session ["CampaignName"].ToString();
+				return Session["CampaignName"].ToString();
 			}
 		}
 
@@ -85,7 +87,7 @@ namespace LarpPortal
 		{
 			get
 			{
-				return Session ["RoleString"].ToString();
+				return Session["RoleString"].ToString();
 			}
 		}
 
@@ -96,8 +98,8 @@ namespace LarpPortal
 			//string l = (string) Session ["UserName"];
 			//l = (string) Session ["UserID"];
 
-			if ((Session ["UserName"] == null) ||
-				(Session ["UserID"] == null))
+			if ((Session["UserName"] == null) ||
+				(Session["UserID"] == null))
 			{
 				Response.Redirect("/index.aspx", true);
 			}
@@ -116,9 +118,9 @@ namespace LarpPortal
 			SiteFooter.SetPageFooter();
 			lblFooter.Text = SiteFooter.SiteFooter;
 
-			if ((!IsPostBack) || (Session ["ReloadCampaigns"] != null))
+			if ((!IsPostBack) || (Session["ReloadCampaigns"] != null))
 			{
-				if (Session ["ReloadCampaigns"] != null)
+				if (Session["ReloadCampaigns"] != null)
 				{
 					Session.Remove("CampaignID");
 					Session.Remove("CampaignName");
@@ -127,20 +129,20 @@ namespace LarpPortal
 				}
 
 				Session.Remove("ReloadCampaigns");
-				if (Session ["Guest"] != null)
+				if (Session["Guest"] != null)
 				{
 					mvMenuArea.SetActiveView(vwGuest);
 					lblUserName.Text = "Guest";
 					return;
 				}
 				mvMenuArea.SetActiveView(vwFullMenu);
-				lblUserName.Text = Session ["UserName"].ToString();
+				lblUserName.Text = Session["UserName"].ToString();
 				if (!DisplayAllOptions)
 				{
-					if (Session ["CampaignID"] != null)
+					if (Session["CampaignID"] != null)
 					{
 						int iCampaignID;
-						if (int.TryParse(Session ["CampaignID"].ToString(), out iCampaignID))
+						if (int.TryParse(Session["CampaignID"].ToString(), out iCampaignID))
 							if (iCampaignID < 0)
 								Session.Remove("CampaignID");
 					}
@@ -167,6 +169,9 @@ namespace LarpPortal
 
 		protected void ddlCampaigns_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
 			if (ddlCampaigns.SelectedValue == "-1")
 			{
 				Response.Redirect("~/PublicCampaigns.aspx");
@@ -181,8 +186,8 @@ namespace LarpPortal
 				int iCampaignID;
 				if (int.TryParse(ddlCampaigns.SelectedValue, out iCampaignID))
 				{
-					Session ["CampaignID"] = iCampaignID;
-					Session ["CampaignName"] = ddlCampaigns.SelectedItem.Text;
+					Session["CampaignID"] = iCampaignID;
+					Session["CampaignName"] = ddlCampaigns.SelectedItem.Text;
 
 					oLogWriter.AddLogMessage("New campaign will be " + iCampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 
@@ -191,12 +196,26 @@ namespace LarpPortal
 						// Since the campaign has changed, need to save the last campaign to the database.
 
 						Classes.cUser UserInfo = new Classes.cUser(UserName, "NOPASSWORD", Session.SessionID);
+						Classes.cUtilities utilities = new Classes.cUtilities();
+						SortedList sParams = new SortedList();
+						sParams.Add("@intUserId", UserID);
+						DataTable dtCharList = Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", sParams, "LARPortal", UserName, lsRoutineName + ".GetCharList");
+						DataView dvCampChar = new DataView(dtCharList, "CampaignID = " + iCampaignID.ToString(), "CharacterAKA", DataViewRowState.CurrentRows);
+						if (dvCampChar.Count > 0)
+						{
+							int iTemp;
+							if (int.TryParse(dvCampChar[0]["CharacterID"].ToString(), out iTemp))
+							{
+								UserInfo.LastLoggedInCharacter = iTemp;
+								UserInfo.LastLoggedInMyCharOrCamp = "M";
+							}
+						}
 						UserInfo.LastLoggedInCampaign = iCampaignID;
 						UserInfo.Save();
 
-						oLogWriter.AddLogMessage("UserInfo was saved." + UserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
-						Classes.cUser NewUserInfo = new Classes.cUser(UserName, "NOPASSWORD", Session.SessionID);
-						oLogWriter.AddLogMessage("CampaignID after update was " + NewUserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+						//oLogWriter.AddLogMessage("UserInfo was saved." + UserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+						//Classes.cUser NewUserInfo = new Classes.cUser(UserName, "NOPASSWORD", Session.SessionID);
+						//oLogWriter.AddLogMessage("CampaignID after update was " + NewUserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 
 						// Now that we have saved the campaign ID to the database, clear the session variables so it will force a reload.
 						Session.Remove("CampaignID");
@@ -216,8 +235,8 @@ namespace LarpPortal
 
 		private void LoadData()
 		{
-			if ((Session ["UserName"] == null) ||
-				(Session ["UserID"] == null))
+			if ((Session["UserName"] == null) ||
+				(Session["UserID"] == null))
 			{
 				Response.Redirect("/index.aspx", true);
 			}
@@ -226,10 +245,10 @@ namespace LarpPortal
 
 			lblUserName.Text = this.UserName;
 
-			if ((Session ["CampaignID"] == null) ||
-				(Session ["CampaignName"] == null) ||
-				(Session ["CampaignList"] == null) ||
-				(Session ["RoleString"] == null))
+			if ((Session["CampaignID"] == null) ||
+				(Session["CampaignName"] == null) ||
+				(Session["CampaignList"] == null) ||
+				(Session["RoleString"] == null))
 			{
 				Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
 				CampaignChoices.Load(UserID);
@@ -240,59 +259,59 @@ namespace LarpPortal
 				}
 
 				int iCampID = -1;
-				Session ["CampaignID"] = "-1";
-				Session ["CampaignName"] = "";
+				Session["CampaignID"] = "-1";
+				Session["CampaignName"] = "";
 
 				oLogWriter.AddLogMessage("Starting: iCampID = " + iCampID.ToString(), "Master.LoadData", "", Session.SessionID);
 
 				if (CampaignChoices.CountOfUserCampaigns > 0)
 				{
 					// If last logged in campaign is not set, set it to the first value.
-					if (CampaignChoices.lsUserCampaigns [0].LastLoggedInCampaign == 0)
-						CampaignChoices.lsUserCampaigns [0].LastLoggedInCampaign = CampaignChoices.lsUserCampaigns [0].CampaignID;
+					if (CampaignChoices.lsUserCampaigns[0].LastLoggedInCampaign == 0)
+						CampaignChoices.lsUserCampaigns[0].LastLoggedInCampaign = CampaignChoices.lsUserCampaigns[0].CampaignID;
 
-					Session ["CampaignID"] = CampaignChoices.lsUserCampaigns [0].LastLoggedInCampaign.ToString();
+					Session["CampaignID"] = CampaignChoices.lsUserCampaigns[0].LastLoggedInCampaign.ToString();
 					foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)
 					{
 						if (Camp.LastLoggedInCampaign == Camp.CampaignID)
-							Session ["CampaignName"] = Camp.CampaignName;
+							Session["CampaignName"] = Camp.CampaignName;
 					}
 				}
-//					iCampID = CampaignChoices.lsUserCampaigns [0].CampaignID;
+				//					iCampID = CampaignChoices.lsUserCampaigns [0].CampaignID;
 
-				oLogWriter.AddLogMessage("After setting from list: iCampID = " + Session ["CampaignID"].ToString() + "/" + Session["CampaignName"].ToString(), "Master.LoadData", "", Session.SessionID);
+				oLogWriter.AddLogMessage("After setting from list: iCampID = " + Session["CampaignID"].ToString() + "/" + Session["CampaignName"].ToString(), "Master.LoadData", "", Session.SessionID);
 
 				if (ddlCampaigns != null)
 					if (ddlCampaigns.Items != null)
 						if (ddlCampaigns.Items.Count > 0)
 						{
-							Session ["CampaignID"] = ddlCampaigns.SelectedValue;
-							Session ["CampaignName"] = ddlCampaigns.SelectedItem.Text;
-//							int.TryParse(ddlCampaigns.SelectedValue, out iCampID);
+							Session["CampaignID"] = ddlCampaigns.SelectedValue;
+							Session["CampaignName"] = ddlCampaigns.SelectedItem.Text;
+							//							int.TryParse(ddlCampaigns.SelectedValue, out iCampID);
 						}
 
-				oLogWriter.AddLogMessage("After getting from ddlCampaigns: iCampID = " + Session ["CampaignID"].ToString(), "Master.LoadData", "", Session.SessionID);
+				oLogWriter.AddLogMessage("After getting from ddlCampaigns: iCampID = " + Session["CampaignID"].ToString(), "Master.LoadData", "", Session.SessionID);
 
-				int.TryParse(Session ["CampaignID"].ToString(), out iCampID);
+				int.TryParse(Session["CampaignID"].ToString(), out iCampID);
 
 				if (iCampID > 0)
 				{
 					Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
 					Roles.Load(UserID, 0, iCampID, DateTime.Today);
-					Session ["RoleString"] = Roles.PlayerRoleString;
+					Session["RoleString"] = Roles.PlayerRoleString;
 
 					//Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
 					//Roles.Load(UserID, 0, CampaignID, DateTime.Today);
-					Session ["PlayerRoleString"] = Roles.PlayerRoleString;
+					Session["PlayerRoleString"] = Roles.PlayerRoleString;
 				}
 				if (CampaignChoices.CountOfUserCampaigns == 0)
 					Response.Redirect("~/NoCurrentCampaignAssociations.aspx");
 
 				DataTable dtCampList = ConvertCampaignListToDataTable(CampaignChoices.lsUserCampaigns);
-				Session ["CampaignList"] = dtCampList;
+				Session["CampaignList"] = dtCampList;
 			}
 
-			DataTable dtCampaignList = Session ["CampaignList"] as DataTable;
+			DataTable dtCampaignList = Session["CampaignList"] as DataTable;
 			ddlCampaigns.DataTextField = "CampaignName";
 			ddlCampaigns.DataTextField = "CampaignName";
 			ddlCampaigns.DataValueField = "CampaignID";
@@ -308,12 +327,12 @@ namespace LarpPortal
 			ddlCampaigns.Items.Add(new ListItem("Add a new campaign", "-1"));
 
 			ddlCampaigns.SelectedIndex = 0;
-			Session ["CampaignID"] = ddlCampaigns.SelectedValue;
-			Session ["CampaignName"] = ddlCampaigns.SelectedItem.Text;
+			Session["CampaignID"] = ddlCampaigns.SelectedValue;
+			Session["CampaignName"] = ddlCampaigns.SelectedItem.Text;
 
-			string sRoleString = Session ["RoleString"].ToString();
+			string sRoleString = Session["RoleString"].ToString();
 			lblRoles.Text = "Roles: " + sRoleString;
-			if (Session ["SuperUser"] != null)
+			if (Session["SuperUser"] != null)
 				lblRoles.ForeColor = System.Drawing.Color.White;
 
 			liSetupCampaign.Style.Add("display", "none");
@@ -378,7 +397,7 @@ namespace LarpPortal
 				//				liEvent
 				liEventDefaults.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
-//				liCampaignMenu.Style.Add("display", "block");
+				//				liCampaignMenu.Style.Add("display", "block");
 			}
 
 			if ((sRoleString.Contains(Classes.cConstants.LOGISTICS_HOUSING_ASSIGNMENT_11)) ||
@@ -386,7 +405,7 @@ namespace LarpPortal
 			{
 				liEventAssignHousing.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
-//				liCampaignMenu.Style.Add("display", "block");
+				//				liCampaignMenu.Style.Add("display", "block");
 			}
 
 			if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
@@ -424,12 +443,32 @@ namespace LarpPortal
 			foreach (Classes.cUserCampaign Camp in ListOfCamp)
 			{
 				DataRow NewRow = dtCampList.NewRow();
-				NewRow ["CampaignID"] = Camp.CampaignID;
-				NewRow ["CampaignName"] = Camp.CampaignName;
+				NewRow["CampaignID"] = Camp.CampaignID;
+				NewRow["CampaignName"] = Camp.CampaignName;
 				dtCampList.Rows.Add(NewRow);
 			}
 
 			return dtCampList;
+		}
+
+		/// <summary>
+		/// When the user changes the campaign that is selected (usually by changing characters) this will force a reload and change to the selected campaign.
+		/// </summary>
+		public void ChangeSelectedCampaign()
+		{
+			if (Session["CampaignID"] != null)
+				Session.Remove("CampaignID");
+
+			if (Session["CampaignName"] != null)
+				Session.Remove("CampaignName");
+
+			if (Session["CampaignList"] != null)
+				Session.Remove("CampaignList");
+
+			if (Session["RoleString"] != null)
+				Session.Remove("RoleString");
+
+			LoadData();
 		}
 	}
 }
