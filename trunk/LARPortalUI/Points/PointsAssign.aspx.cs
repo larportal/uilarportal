@@ -21,6 +21,7 @@ namespace LarpPortal.Points
         {
             if (!IsPostBack)
             {
+                Session["EditMode"] = "Assign";
                 ddlAttendanceLoad(Master.UserName, Master.CampaignID);
                 ddlCharacterLoad(Master.UserName, Master.CampaignID);
                 ddlEarnReasonLoad(Master.UserName, Master.CampaignID);
@@ -183,7 +184,7 @@ namespace LarpPortal.Points
                 HiddenField hidRole = (HiddenField)gvPoints.Rows[e.RowIndex].FindControl("hidRole");
                 HiddenField hidNPCCampaignID = (HiddenField)gvPoints.Rows[e.RowIndex].FindControl("hidNPCCampaignID");
                 HiddenField hidRegistrationID = (HiddenField)gvPoints.Rows[e.RowIndex].FindControl("hidRegistrationID");
-                Label lblEarnDesc = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblEarnDescription");
+                //Label lblEarnDesc = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblEarnDescription");
                 int intCmpPlyrID = 0;
                 int intCharID = 0;
                 int intEvntID = 0;
@@ -196,7 +197,7 @@ namespace LarpPortal.Points
                 int intRegistrationID = 0;
                 string strOppNotes = hidOppNotes.Value.ToString();
                 string strExURL = hidExURL.Value.ToString();
-                string strDesc = lblEarnDesc.Text;
+                //string strDesc = lblEarnDesc.Text;
                 if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
                     intCmpPlyrID = iTemp;
                 if (int.TryParse(hidCharID.Value.ToString(), out iTemp))
@@ -218,11 +219,14 @@ namespace LarpPortal.Points
                 if (int.TryParse(hidRegistrationID.Value.ToString(), out iTemp))
                     intRegistrationID = iTemp;
                 string strComments = "";
+                string strDesc = "";
                 if (Session["EditMode"].ToString() == "Edit")
                 {
                     GridViewRow row = gvPoints.Rows[index];
                     TextBox txtComments = row.FindControl("tbStaffComments") as TextBox;
+                    TextBox txtDesc = row.FindControl("tbEarnDescription") as TextBox;
                     strComments = txtComments.Text;
+                    strDesc = txtDesc.Text;
                     TextBox txtCP = row.FindControl("txtCPValue") as TextBox;
                     if (double.TryParse(txtCP.Text.ToString(), out dblTemp))
                         CP = dblTemp;
@@ -232,9 +236,11 @@ namespace LarpPortal.Points
                 {
                     Label lblCPValue = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblCPValue");
                     Label lblStaffComents = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblStaffComments");
+                    Label lblEarnDescription = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblEarnDescription");
                     if (double.TryParse(lblCPValue.Text, out dblTemp))
                         CP = dblTemp;
                     strComments = lblStaffComents.Text;
+                    strDesc = lblEarnDescription.Text;
 
                 }
                 Classes.cPoints Point = new Classes.cPoints();
@@ -271,9 +277,9 @@ namespace LarpPortal.Points
             {
                 Classes.cPoints Points = new Classes.cPoints();
                 Points.DeleteCPOpportunity(Master.UserID, intCPOpp);
-                gvPoints.EditIndex = -1;
-                FillGrid();
             }
+            gvPoints.EditIndex = -1;
+            FillGrid();
         }
 
         protected void btnAddNewOpportunity_Click(object sender, EventArgs e)
@@ -470,6 +476,8 @@ namespace LarpPortal.Points
                 case "F5":
                     // TODO - Rick - NPC processing non-local to non-LARP Portal campaign via email
                     addOpportunityNotes = ddlAddSourceCampaign.SelectedItem + "-" + addOpportunityNotes;
+                    addStatusID = 68;   // set for sending email
+                    addEventID = 0;     // set for sending email
                     for (int i = 1; i < 4; i++)
                     {
                         // Set values for each of the NPC options and call PointAdd
@@ -483,9 +491,9 @@ namespace LarpPortal.Points
                                     int.TryParse(hidInsertCampaignCPOpportunityDefaultIDNPCEvent.Value, out addCampaignCPOpportunityDefaultID);
                                     addDescription = hidInsertDescriptionNPCEvent.Value.Trim();
                                     int.TryParse(hidInsertReasonIDNPCEvent.Value.ToString(), out addReasonID);
-                                    //PointAdd.AddManualCPEntry(addUserID, addCampaignPlayerID, addCharacterID, addCampaignCPOpportunityDefaultID, addEventID, addCampaignID,
-                                    //    addDescription, addOpportunityNotes, addExampleURL, addReasonID, addStatusID, addAddedByID, addCPValue, addApprovedByID, addReceiptDate,
-                                    //    addReceivedByID, addCPAssignmentDate, addStaffComments);
+                                    PointAdd.AddManualCPEntry(Master.UserID, addCampaignPlayerID, addCharacterID, addCampaignCPOpportunityDefaultID, addEventID, addCampaignID,
+                                        addDescription, addOpportunityNotes, addExampleURL, addReasonID, addStatusID, addAddedByID, addCPValue, addApprovedByID, addReceiptDate,
+                                        addReceivedByID, addCPAssignmentDate, addStaffComments);
                                 }
                                 break;
 
@@ -594,10 +602,6 @@ namespace LarpPortal.Points
             ResetHiddenValues();
             ResetDropDownListChoices();
         }
-
-
-
-
 
         protected void ddlAddOpportunityDefaultIDLoad(int CampaignID)
         {
