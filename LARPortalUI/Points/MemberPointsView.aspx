@@ -33,10 +33,10 @@
                                         OnRowDataBound="gvPointsList_RowDataBound">
                                         <Columns>
                                             <asp:BoundField DataField="ReceiptDate" HeaderText="Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="FullDescription" HeaderText="Type" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                                            <asp:BoundField DataField="FullDescription" HeaderText="Type" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="AdditionalNotes" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="CPAmount" HeaderText="Points" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="StatusName" HeaderText="Status" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                            <asp:BoundField DataField="StatusName" HeaderText="Status" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
                                             <asp:BoundField DataField="CPApprovedDate" HeaderText="Spend Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="RecvFromCampaign" HeaderText="Earned At" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="OwningPlayer" HeaderText="Earned By" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />

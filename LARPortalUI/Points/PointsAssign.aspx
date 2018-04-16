@@ -224,7 +224,14 @@
                                         <asp:BoundField HeaderText="Event" DataField="EventName" ReadOnly="true" />
                                         <asp:BoundField HeaderText="Player Name" ItemStyle-Wrap="true" DataField="PlayerName" ReadOnly="true" />
                                         <asp:BoundField HeaderText="Character Name" ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="false" DataField="CharacterAKA" ReadOnly="true" />
-                                        <asp:BoundField HeaderText="Earn Description" ItemStyle-Wrap="true" DataField="Description" />
+                                        <asp:TemplateField HeaderText="Earn Desc" ItemStyle-Wrap="true">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEarnDescription" runat="server" Text='<%# Eval("Description") %>' />
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="tbEarnDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"></asp:TextBox>
+                                            </EditItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Value" ItemStyle-Wrap="true">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCPValue" runat="server" Text='<%# Eval("CPValue") %>' />
