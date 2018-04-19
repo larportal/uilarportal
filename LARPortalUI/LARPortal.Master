@@ -191,7 +191,7 @@
                                                 <ul class="nav nav-third-level">
                                                     <li><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
                                                     <li runat="server" id="liEventRegistrationApproval"><a href="/Events/RegistrationApproval.aspx">Registration Approval</a></li>
-                                                    <li><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
+                                                    <li runat="server" id="liEventSetup"><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
                                                     <li runat="server" id="liEventDefaults"><a href="/Events/EventDefaults.aspx">Setup Defaults</a></li>
                                                     <%--<li><a href="/Campaigns/Events/SetupMarketing.aspx">Setup Marketing</a></li> --%>
                                                     <%--<li><a href="/Campaigns/Events/SetupFoodOptions.aspx">Setup Food Options</a></li>--%>

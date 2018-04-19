@@ -352,6 +352,7 @@ namespace LarpPortal
 			liEMailPoints.Style.Add("display", "none");
 			liCampaignSetupMenu.Style.Add("display", "none");
 			liCharacterBuildPoints.Style.Add("display", "none");
+			liEventSetup.Style.Add("display", "none");
 			//liCampaignMenu.Style.Add("display", "none");
 
 			if (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28))
@@ -417,6 +418,14 @@ namespace LarpPortal
 				liPELApprovalList.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
 				//				liCampaignMenu.Style.Add("display", "block");
+			}
+
+
+			if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_SCHEDULING_27)) ||
+				(sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+			{
+				liEventSetup.Style.Add("display", "block");
 			}
 
 			if ((sRoleString.Contains(Classes.cConstants.LOGISTICS_CP_ASSIGNMENT_15)) ||
