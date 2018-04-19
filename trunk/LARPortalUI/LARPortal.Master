@@ -228,7 +228,7 @@
 
                                             <li runat="server" id="liCharacterApproveHistory"><a href="/Character/History/ApprovalList.aspx">Approve Character Histories</a></li>
 
-                                            <li><a href="#">Character Build Points<span class="fa arrow"></span></a>
+                                            <li><a href="#" runat="server" id="liCharacterBuildPoints">Character Build Points<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
                                                     <%--<li><a href="#">PEL Approval List</a></li>--%>
                                                     <%--<li><a href="#">Setup Standard Points</a></li>--%>
@@ -239,7 +239,7 @@
                                                 <!-- /.nav-third-level -->
                                             </li>
 
-                                            <li><a href="#">PELs<span class="fa arrow"></span></a>
+                                            <li><a href="#" runat="server" id="liPELsMain">PELs<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
                                                     <%--<li><a href="#">PEL Setup</a></li>--%>
                                                     <li runat="server" id="liPELApprovalList"><a href="/PELs/PELApprovalList.aspx">PEL Approval List</a></li>

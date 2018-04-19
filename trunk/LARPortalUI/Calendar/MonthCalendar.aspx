@@ -105,7 +105,7 @@
 
         $(document).ready(function () {
 
-            $('#calendar').fullCalendar({
+            $('#<%= calendar.ClientID %>').fullCalendar({
                 height: 500,
                 header: {
                     left: 'prev,next today',
@@ -153,7 +153,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
-                                <div id='calendar'></div>
+                                <div id='calendar' runat="server"></div>
+                                <h1 id="h2NoEvents" runat="server" class="text-center"><b>This campaign has no events.</b></h1>
                             </div>
                         </div>
                     </div>
