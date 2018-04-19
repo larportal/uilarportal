@@ -347,9 +347,11 @@ namespace LarpPortal
 			liEventAssignHousing.Style.Add("display", "none");
 			liCharacterApproveHistory.Style.Add("display", "none");
 			liPELApprovalList.Style.Add("display", "none");
+			liPELsMain.Style.Add("display", "none");
 			liPointsAssign.Style.Add("display", "none");
 			liEMailPoints.Style.Add("display", "none");
 			liCampaignSetupMenu.Style.Add("display", "none");
+			liCharacterBuildPoints.Style.Add("display", "none");
 			//liCampaignMenu.Style.Add("display", "none");
 
 			if (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28))
@@ -423,6 +425,8 @@ namespace LarpPortal
 			{
 				liPointsAssign.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
+				liPELsMain.Style.Add("display", "block");
+				liCharacterBuildPoints.Style.Add("display", "block");
 				//				liCampaignMenu.Style.Add("display", "block");
 			}
 

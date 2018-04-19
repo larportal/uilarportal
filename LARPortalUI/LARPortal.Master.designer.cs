@@ -229,6 +229,15 @@ namespace LarpPortal {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liCharacterApproveHistory;
         
         /// <summary>
+        /// liCharacterBuildPoints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor liCharacterBuildPoints;
+        
+        /// <summary>
         /// liPointsAssign control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEMailPoints;
+        
+        /// <summary>
+        /// liPELsMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor liPELsMain;
         
         /// <summary>
         /// liPELApprovalList control.
