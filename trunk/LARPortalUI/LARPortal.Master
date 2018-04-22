@@ -255,7 +255,7 @@
                                         </ul>
                                         <!-- /.nav-second-level -->
                                     </li>
-                                    <li><a href="#">
+                                    <li runat="server" id="liHasCharacters"><a href="#">
                                         <asp:Image ID="Image2" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
                                         Characters<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
@@ -280,6 +280,14 @@
                                             <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
                                             <li><a href="/PELs/PELList.aspx">View PELs</a></li>
                                             <li><a href="/Events/EventRegistration.aspx">Register for an Event</a></li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                    <li runat="server" id="liHasNoCharacters"><a href="#">
+                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
+                                        Characters<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-second-level">
+                                            <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
                                         </ul>
                                         <!-- /.nav-second-level -->
                                     </li>
