@@ -58,173 +58,6 @@ namespace LarpPortal.Classes
         //public List<LarpPortal.Classes.cCharacter> UserCharacters;
 
 
-        //public Int32 DeliveryPreferenceID
-        //{
-        //    get { return _DeliveryPreferenceID; }
-        //    set { _DeliveryPreferenceID = value; }
-        //}
-        //public String DeliveryPreferenceString
-        //{
-        //    get { return _DeliveryPreferenceString; }
-        //}
-        //public string LastLoggedInLocation
-        //{
-        //    get { return _LastLoggedInLocation; }
-        //    set { _LastLoggedInLocation = value; }
-        //}
-        //public int LastLoggedInCampaign
-        //{
-        //    get { return _LastLoggedInCampaign; }
-        //    set { _LastLoggedInCampaign = value; }
-        //}
-        //public int LastLoggedInCharacter            // JLB 7/11/2015 Added to save the last character that was saved.
-        //{
-        //    get { return _LastLoggedInCharacter; }
-        //    set { _LastLoggedInCharacter = value; }
-        //}
-
-        //public string LastLoggedInMyCharOrCamp      // RGP - 5/27/2017
-        //{
-        //    get { return _LastLoggedInMyCharOrCamp; }
-        //    set { _LastLoggedInMyCharOrCamp = value; }
-        //}
-
-        //public Int32 XRefNumber
-        //{
-        //    get { return _XRefNumber; }
-        //    set { _XRefNumber = value; }
-        //}
-        //public string LoginName
-        //{
-        //    get { return _LoginName; }
-        //    set { _LoginName = value; }
-        //}
-        //public Int32 PrimaryEmailID
-        //{
-        //    get { return _PrimaryEmailID; }
-        //    set { _PrimaryEmailID = value; }
-        //}
-        //public cEMail PrimaryEmailAddress
-        //{
-        //    get { return _PrimaryEmailAddress; }
-        //    set { _PrimaryEmailAddress = value; }
-        //}
-        //public string LoginEmail
-        //{
-        //    get { return _LoginEmail; }
-        //    set { _LoginEmail = value; }
-        //}
-        //public string LoginPassword
-        //{
-        //    get { return _LoginPassword; }
-        //    set { _LoginPassword = value; }
-        //}
-        //public Int32 SecurityRoleID
-        //{
-        //    get { return _SecurityRoleID; }
-        //    set { _SecurityRoleID = value; }
-        //}
-        //public string FirstName
-        //{
-        //    get { return _FirstName; }
-        //    set { _FirstName = value; }
-        //}
-        //public string LastName
-        //{
-        //    get { return _LastName; }
-        //    set { _LastName = value; }
-        //}
-        //public string MiddleName
-        //{
-        //    get { return _MiddleName; }
-        //    set { _MiddleName = value; }
-        //}
-        //public string NickName
-        //{
-        //    get { return _NickName; }
-        //    set { _NickName = value; }
-        //}
-        //public string ForumUserName
-        //{
-        //    get { return _ForumUserName; }
-        //    set { _ForumUserName = value; }
-        //}
-        //public string AuthorName
-        //{
-        //    get { return _AuthorName; }
-        //    set { _AuthorName = value; }
-        //}
-        //public Int32 NotificationPreference
-        //{
-        //    get { return _NotificationPreference; }
-        //    set { _NotificationPreference = value; }
-        //}
-        //public string NotificationPreferenceString
-        //{
-        //    get { return _NotificationPreferenceString; }
-        //    set { _NotificationPreferenceString = value; }
-        //}
-        //public string Comments
-        //{
-        //    get { return _Comments; }
-        //    set { _Comments = value; }
-        //}
-        //public DateTime DateAdded
-        //{
-        //    get { return _DateAdded; }
-        //    set { _DateAdded = value; }
-        //}
-        //public DateTime DateChanged
-        //{
-        //    get { return _DateChanged; }
-        //    set { _DateChanged = value; }
-        //}
-        //public Int32 PrimaryAddressID
-        //{
-        //    get { return _PrimaryAddressID; }
-        //    set { _PrimaryAddressID = value; }
-        //}
-        //public List<cEMail> UserEmails
-        //{
-        //    get { return _UserEmails; }
-        //    set { _UserEmails = value; }
-        //}
-        //public cAddress PrimaryAddress
-        //{
-        //    get { return _PrimaryAddress; }
-        //    set { _PrimaryAddress = value; }
-        //}
-        //public List<cAddress> UserAddresses
-        //{
-        //    get { return _UserAddresses; }
-        //    set { _UserAddresses = value; }
-        //}
-        //public Int32 PrimaryPhoneNumberID
-        //{
-        //    get { return _PrimaryPhoneNumberID; }
-        //    set { _PrimaryPhoneNumberID = value; }
-        //}
-        //public cPhone PrimaryPhone
-        //{
-        //    get { return _PrimaryPhone; }
-        //    set { _PrimaryPhone = value; }
-        //}
-        //public List<cPhone> UserPhones
-        //{
-        //    get { return _UserPhones; }
-        //    set { _UserPhones = value; }
-        //}
-        //public cBank UserCPBank
-        //{
-        //    get { return _UserCPBank; }
-        //    set { _UserCPBank = value; }
-        //}
-        //public List<cUserCampaign> UserCampaigns
-        //{
-        //    get { return _UserCampaigns; }
-        //    set { _UserCampaigns = value; }
-        //}
-
         private cUser()
         {
             UserID = -1;
@@ -264,52 +97,7 @@ namespace LarpPortal.Classes
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            // Try and get the latest login object. This should make the whole thing much faster.
             SortedList slParams = new SortedList();
-            //slParams.Add("@SessionID", sSessionID);
-            //DataTable dtLoginObject = cUtilities.LoadDataTable("uspGetMDBLoginObjects", slParams, "LARPortal", strLoginName, lsRoutineName + ".GetMDBLoginObjects");
-            //if (dtLoginObject.Rows.Count > 0)
-            //{
-            //    var stringReader = new System.IO.StringReader(dtLoginObject.Rows[0]["LoginClassObject"].ToString());
-            //    var serializer = new XmlSerializer(typeof(cUser));
-            //    cUser ReadRecord = serializer.Deserialize(stringReader) as cUser;
-
-            //    UserID = ReadRecord.UserID;
-            //    LoginName = ReadRecord.LoginName;
-            //    PrimaryEmailID = ReadRecord.PrimaryEmailID;
-            //    PrimaryEmailAddress = ReadRecord.PrimaryEmailAddress;
-            //    UserEmails = ReadRecord.UserEmails;
-            //    LoginEmail = ReadRecord.LoginEmail;
-            //    LoginPassword = ReadRecord.LoginPassword;
-            //    SecurityRoleID = ReadRecord.SecurityRoleID;
-            //    FirstName = ReadRecord.FirstName;
-            //    MiddleName = ReadRecord.MiddleName;
-            //    LastName = ReadRecord.LastName;
-            //    NickName = ReadRecord.NickName;
-            //    ForumUserName = ReadRecord.ForumUserName;
-            //    AuthorName = ReadRecord.AuthorName;
-            //    NotificationPreference = ReadRecord.NotificationPreference;
-            //    NotificationPreferenceString = ReadRecord.NotificationPreferenceString;
-            //    PrimaryAddressID = ReadRecord.PrimaryAddressID;
-            //    PrimaryAddress = ReadRecord.PrimaryAddress;
-            //    UserAddresses = ReadRecord.UserAddresses;
-            //    PrimaryPhoneNumberID = ReadRecord.PrimaryPhoneNumberID;
-            //    UserPhones = ReadRecord.UserPhones;
-            //    DeliveryPreferenceID = ReadRecord.DeliveryPreferenceID;
-            //    LastLoggedInCampaign = ReadRecord.LastLoggedInCampaign;
-            //    UserCampaigns = ReadRecord.UserCampaigns;
-            //    LastLoggedInCampaign = ReadRecord.LastLoggedInCampaign;
-            //    LastLoggedInCharacter = ReadRecord.LastLoggedInCharacter;
-            //    LastLoggedInMyCharOrCamp = ReadRecord.LastLoggedInMyCharOrCamp;
-            //    XRefNumber = ReadRecord.XRefNumber;
-            //    Comments = ReadRecord.Comments;
-            //    DateAdded = ReadRecord.DateAdded;
-            //    DateChanged = ReadRecord.DateChanged;
-            //    UserCPBank = ReadRecord.UserCPBank;
-            //    SessionID = ReadRecord.SessionID;
-            //    return;
-            //}
-
             LoginName = strLoginName;
             LoginPassword = strLoginPassword;
             SessionID = sSessionID;
@@ -355,18 +143,6 @@ namespace LarpPortal.Classes
                 LoadAddresses(ldt.Tables["AddressInfo"], ldt.Tables["AddressType"], strLoginName);
                 LoadPhones(ldt.Tables["PhoneNumber"], ldt.Tables["PhoneType"], ldt.Tables["PhoneProviders"]);
                 LoadEmails();
-
-                //var stringwriter = new System.IO.StringWriter();
-                //var serializer = new XmlSerializer(this.GetType());
-                //serializer.Serialize(stringwriter, this);
-                //string sClass = stringwriter.ToString();
-                //int iClass = sClass.Length;
-
-                //slParams = new SortedList();
-                //slParams.Add("@SessionID", sSessionID);
-                //slParams.Add("@LoginName", strLoginName);
-                //slParams.Add("@LoginClassObject", sClass);
-                //Classes.cUtilities.PerformNonQuery("uspMDBLoginObjectsInsUpd", slParams, "LARPortal", strLoginName);
             }
             catch (Exception ex)
             {
@@ -424,29 +200,6 @@ namespace LarpPortal.Classes
 
                 UserAddresses.Add(NewAdd);
             }
-
-            //_PrimaryAddress = new cAddress(_PrimaryAddressID,_LoginName,_UserID);
-            // try
-            // {
-            //     SortedList slParams = new SortedList(); // I use a sortedlist  wich is a C# hash table to store the paramter and value
-            //     slParams.Add("@intKeyID", Master.UserID);
-            //     slParams.Add("@strKeyType", "cUser");
-            //     DataTable ldt = cUtilities.LoadDataTable("uspGetAddressByKey", slParams, "LARPortal", _LoginName, lsRoutineName);
-            //     _UserAddresses = new List<cAddress>();
-            //     if (ldt.Rows.Count > 0)
-            //     {
-            //         foreach(DataRow ldr in ldt.Rows)
-            //         {
-            //             cAddress cAdd = new cAddress(ldr["AddressID"].ToString().Trim().ToInt32(), _LoginName, Master.UserID);
-            //             _UserAddresses.Add(cAdd);
-            //         }
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     ErrorAtServer lobjError = new ErrorAtServer();
-            //     lobjError.ProcessError(ex, lsRoutineName, _LoginName + lsRoutineName);
-            // }
         }
 
         private void LoadPhones(DataTable dtPhoneNumbers, DataTable dtPhoneTypes, DataTable dtPhoneProviders)
@@ -518,31 +271,6 @@ namespace LarpPortal.Classes
                 }
                 UserPhones.Add(NewPhone);
             }
-
-            //try
-            //{
-            //    _PrimaryPhone = new cPhone(_PrimaryPhoneNumberID, Master.UserID, _LoginName);
-            //    _UserPhones = new List<cPhone>();
-
-            //    SortedList slParams = new SortedList();
-            //    slParams.Add("@intKeyID", Master.UserID);
-            //    slParams.Add("@strKeyType", "cUser");
-
-            //    DataTable ldt = cUtilities.LoadDataTable("uspGetPhoneNumberByKeyInfo", slParams, "LARPortal", _LoginName, lsRoutineName);
-            //    if (ldt.Rows.Count > 0)
-            //    {                    
-            //        foreach (DataRow ldr in ldt.Rows)
-            //        {
-            //            cPhone cPh = new cPhone(ldr["PhoneNumberID"].ToString().Trim().ToInt32(),  _UserID, _LoginName);
-            //            _UserPhones.Add(cPh);                        
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorAtServer lobjError = new ErrorAtServer();
-            //    lobjError.ProcessError(ex, lsRoutineName, _LoginName + lsRoutineName);
-            //}
         }
 
         private void LoadEmails()
@@ -658,18 +386,6 @@ namespace LarpPortal.Classes
                 slParams.Add("@EmailAddress", LoginEmail);
                 blnReturn = cUtilities.PerformNonQueryBoolean(stStoredProc, slParams, "LARPortal", LoginName);
 
-                //System.IO.StringWriter stringwriter = new System.IO.StringWriter();
-                //XmlSerializer serializer = new XmlSerializer(this.GetType());
-                //serializer.Serialize(stringwriter, this);
-                //string sClass = stringwriter.ToString();
-                //int iClass = sClass.Length;
-
-                //slParams = new SortedList();
-                //slParams.Add("@SessionID", SessionID);
-                //slParams.Add("@LoginName", LoginName);
-                //slParams.Add("@LoginClassObject", sClass);
-                //Classes.cUtilities.PerformNonQuery("uspMDBLoginObjectsInsUpd", slParams, "LARPortal", LoginName);
-                
                 blnReturn = true;
             }
             catch (Exception ex)

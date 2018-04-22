@@ -833,6 +833,9 @@ namespace LarpPortal.Character
 			string t = sender.GetType().ToString();
 			oCharSelect.Reset();
 			_Reload = true;
+			Classes.cUser user = new Classes.cUser(Master.UserName, "NOPASSWORD", Session.SessionID);
+			if (user.LastLoggedInCharacter == -1)
+				Response.Redirect("/default.aspx");
 		}
 	}
 }

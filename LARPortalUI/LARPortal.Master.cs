@@ -210,6 +210,10 @@ namespace LarpPortal
 								UserInfo.LastLoggedInMyCharOrCamp = "M";
 							}
 						}
+						else
+						{
+							UserInfo.LastLoggedInCharacter = -1;
+						}
 						UserInfo.LastLoggedInCampaign = iCampaignID;
 						UserInfo.Save();
 
@@ -235,6 +239,9 @@ namespace LarpPortal
 
 		private void LoadData()
 		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
 			if ((Session["UserName"] == null) ||
 				(Session["UserID"] == null))
 			{
@@ -445,6 +452,21 @@ namespace LarpPortal
 				liEMailPoints.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
 				//				liCampaignMenu.Style.Add("display", "block");
+			}
+
+			SortedList sParams = new SortedList();
+			sParams.Add("@intUserID", UserID);
+			DataTable dtCharacters = Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", sParams, "LARPortal", UserName, lsRoutineName + ".LoadData.GetChar");
+			DataView dCampChar = new DataView(dtCharacters, "CampaignID = " + ddlCampaigns.SelectedValue, "", DataViewRowState.CurrentRows);
+			if (dCampChar.Count == 0)
+			{
+				liHasNoCharacters.Style.Add("display", "block");
+				liHasCharacters.Style.Add("display", "none");
+			}
+			else
+			{
+				liHasNoCharacters.Style.Add("display", "none");
+				liHasCharacters.Style.Add("display", "block");
 			}
 		}
 
