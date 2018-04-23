@@ -234,7 +234,7 @@
                                                     <%--<li><a href="#">Setup Standard Points</a></li>--%>
                                                     <%--<li><a href="#">Setup Other Points</a></li>--%>
                                                     <li runat="server" id="liPointsAssign"><a href="/Points/PointsAssign.aspx">Assign Points</a></li>
-                                                    <li runat="server" id="liEMailPoints"><a href="#">EMail Points</a></li>
+                                                    <li runat="server" id="liEMailPoints"><a href="/Points/PointsEMail.aspx">EMail Points</a></li>
                                                 </ul>
                                                 <!-- /.nav-third-level -->
                                             </li>

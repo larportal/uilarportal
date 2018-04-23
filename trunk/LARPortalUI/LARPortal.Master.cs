@@ -443,6 +443,7 @@ namespace LarpPortal
 				liCampaignSetupMenu.Style.Add("display", "block");
 				liPELsMain.Style.Add("display", "block");
 				liCharacterBuildPoints.Style.Add("display", "block");
+				liEMailPoints.Style.Add("display", "block");
 				//				liCampaignMenu.Style.Add("display", "block");
 			}
 
