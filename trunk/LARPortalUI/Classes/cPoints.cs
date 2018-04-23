@@ -318,6 +318,22 @@ namespace LarpPortal.Classes
                 double.TryParse(drow["CPValue"].ToString(), out CPVal);
             }
 
+            // Get the campaign receieving the points from the registration and if it's not a LARP Portal campaign
+            //   set the StatusID to 68 (assuming it's not a PC because for PCs the points aren't going anywhere)
+            if (RoleAlignment != 1)
+            {
+                stStoredProc = "uspGetStatusForPointTransfer";
+                stCallingMethod = "cPoints.CreateRegistrationCPOpportunity.StatusForPointTransfer";
+                DataTable dtOppStatus = new DataTable();
+                slParameters.Clear();
+                slParameters.Add("@RegistrationID", RegistrationID);
+                dtOppStatus = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
+                foreach (DataRow drow2 in dtOppStatus.Rows)
+                {
+                    Int32.TryParse(drow2["StatusID"].ToString(), out StatusID);
+                }
+            }
+
             // Call the routine to add the opportunity.  Create it already assigned (last two parameters both = 1)
             InsUpdCPOpportunity(UserID, -1, _CampaignPlayerID, CharacterID, CampaignCPOpportunityDefault, EventID, strDescription, OpportunityNotes, ExampleURL, ReasonID,
                 StatusID, UserID, CPVal, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, RegistrationID);
@@ -882,6 +898,21 @@ namespace LarpPortal.Classes
 
             }
         }
+
+        public void UpdateTentativeOpportunity(int UserID, int OpportunityID, double Points, string StaffComments, int OppStatusID)
+        {
+            LoadCPOpportunity(UserID, OpportunityID);
+            InsUpdCPOpportunity(UserID, OpportunityID, _CampaignPlayerID, _CharacterID, _CampaignCPOpportunityDefaultID, _EventID, _Description, _OpportunityNotes,
+            "", _ReasonID, OppStatusID, _AddedByID, Points, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, StaffComments, _PLAuditStatus, 1, 0);
+        }
+
+        public void CommitTentativeOpportunity(int UserID, int OpportunityID, int StatusID)
+        {
+            LoadCPOpportunity(UserID, OpportunityID);
+            // Call InsUpdCPOpportunity to update the opportunity
+            InsUpdCPOpportunity(UserID, OpportunityID, _CampaignPlayerID, _CharacterID, _CampaignCPOpportunityDefaultID, _EventID, _Description, _OpportunityNotes,
+                "", _ReasonID, StatusID, _AddedByID, _CPValue, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, _StaffComments, _PLAuditStatus, 1, 0);
+
+        }
     }
 }
-
