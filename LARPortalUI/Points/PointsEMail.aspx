@@ -1,16 +1,20 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="PointsEMail.aspx.cs" Inherits="LarpPortal.Points.PointsEMail" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" validateRequest="false" CodeBehind="PointsEMail.aspx.cs" Inherits="LarpPortal.Points.PointsEMail" %>
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="PointsEMailStyles" ContentPlaceHolderID="MainStyles" runat="server">
 </asp:Content>
 <asp:Content ID="PointsEMailScripts" ContentPlaceHolderID="MainScripts" runat="server">
+    <script type="text/javascript">
+        function openMessage() {
+            $('#modalMessage').modal('show');
+            return false;
+        }
+    </script>
 </asp:Content>
-<asp:Content ID="PointsEMailBody" ContentPlaceHolderID="MainBody" runat="server">
-
-
+<asp:Content ID="PointsEMailBody" ContentPlaceHolderID="MainBody" runat="Server">
     <div id="page-wrapper">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <div class="header-background-image">
                     <h1>Send Character Points Via Email</h1>
                 </div>
@@ -18,35 +22,7 @@
         </div>
 
         <div class="row">
-            <div class="form-inline col-xs-12">
-                <label for="<%= ddlEvent.ClientID %>">Events:</label>
-                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control autoWidth" OnSelectedIndexChanged="ddlEvent_SelectedIndexChanged" AutoPostBack="true" />
-                <div class="pull-right">
-                    <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSave_Click" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12">
-                <div class="margin10"></div>
-                <asp:Label ID="lblEventInfo" runat="server" />
-                <div class="margin10"></div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-    <div role="form" class="form-horizontal form-condensed">
-        <div class="col-sm-12 row">
-            <h3 class="col-sm-5"></h3>
-        </div>
         <asp:Panel ID="pnlAssignHeader" runat="server" Visible="true">
             <div class="col-sm-12 row">
                 <div class="col-sm-4">
@@ -78,8 +54,9 @@
                 </div>
             </div>
         </asp:Panel>
-        <div class="row">
+            </div>
         </div>
+        <div class="row"></div>
         <div id="character-info" class="character-info tab-pane active">
             <section role="form">
                 <asp:Panel ID="pnlAddMissingRegistration" runat="server" Visible="false">
@@ -419,22 +396,4 @@
             </section>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </asp:Content>
