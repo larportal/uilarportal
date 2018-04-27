@@ -19,21 +19,16 @@ namespace LarpPortal.Events
         public DataTable _dtCampaignHousing = new DataTable();
         public DataTable _dtCampaignPaymentTypes = new DataTable();
 
-        ////string _UserName = "";
-        //int _UserID = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["UserName"] != null)
-            //    _UserName = Session["UserName"].ToString();
-            //if (Session["UserID"] != null)
-            //    int.TryParse(Session["UserID"].ToString(), out _UserID);
-
             if (!IsPostBack)
             {
-
-            }
-        }
+				if (Session["RegApproveSortField"] == null)
+					Session["RegApproveSortField"] = "PlayerName";
+				if (Session["RegApproveSortDir"] == null)
+					Session["RegApproveSortDir"] = "";
+			}
+		}
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -43,7 +38,7 @@ namespace LarpPortal.Events
                 sParams.Add("@CampaignID", Master.CampaignID);
                 DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetCampaignEvents", sParams, "LARPortal", Master.UserName, "RegistrationApproval.Page_PreRender");
 
-                DataView dvEvents = new DataView(dtEvents, "", "StartDate", DataViewRowState.CurrentRows);
+                DataView dvEvents = new DataView(dtEvents, "", "StartDate desc", DataViewRowState.CurrentRows);
 
                 if (dtEvents.Columns["DisplayValue"] == null)
                     dtEvents.Columns.Add("DisplayValue", typeof(string));
@@ -73,20 +68,31 @@ namespace LarpPortal.Events
                 ddlEvent.DataValueField = "EventID";
                 ddlEvent.DataBind();
 
-                if (String.IsNullOrEmpty(sMostRecentEventID))
-                {
-                    ddlEvent.ClearSelection();
-                    foreach (ListItem li in ddlEvent.Items)
-                        if (li.Value == sMostRecentEventID)
-                            li.Selected = true;
-                }
+				if (ViewState["SelectedEvent"] != null)
+				{
+					ddlEvent.ClearSelection();
+					foreach (ListItem li in ddlEvent.Items)
+						if (li.Value == ViewState["SelectedEvent"].ToString())
+							li.Selected = true;
+				}
+				if (ddlEvent.SelectedIndex < 0)
+				{
+					if (String.IsNullOrEmpty(sMostRecentEventID))
+					{
+						ddlEvent.ClearSelection();
+						foreach (ListItem li in ddlEvent.Items)
+							if (li.Value == sMostRecentEventID)
+								li.Selected = true;
+					}
+				}
                 ddlEvent_SelectedIndexChanged(null, null);
             }
         }
 
         protected void ddlEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PopulateGrid();
+			ViewState["SelectedEvent"] = ddlEvent.SelectedValue;
+			PopulateGrid();
         }
 
 
@@ -170,8 +176,10 @@ namespace LarpPortal.Events
                     dRow["DisplayEditButtons"] = false;
             }
 
-            gvRegistrations.DataSource = dsRegistrations.Tables[1];
+			DataView dvReg = new DataView(dsRegistrations.Tables[1], "", Session["RegApproveSortField"].ToString() + " " + Session["RegApproveSortDir"].ToString(), DataViewRowState.CurrentRows);
+			gvRegistrations.DataSource = dvReg;
             gvRegistrations.DataBind();
+			DisplaySorting();
             _Reload = false;
         }
 
@@ -302,5 +310,69 @@ namespace LarpPortal.Events
             {
             }
         }
-    }
+
+		protected void gvRegistrations_Sorting(object sender, GridViewSortEventArgs e)
+		{
+			//DataTable dtRegs = Session["HousingRegs"] as DataTable;
+
+			//foreach (GridViewRow i in gvRegistrations.Rows)
+			//{
+			//	HiddenField hidRegistrationID = (HiddenField) i.FindControl("hidRegistrationID");
+			//	TextBox tbAssignHousing = (TextBox) i.FindControl("tbAssignHousing");
+			//	DataRow[] FoundRows = dtRegs.Select("RegistrationID = " + hidRegistrationID.Value);
+			//	if (FoundRows.Length > 0)
+			//		FoundRows[0]["AssignHousing"] = tbAssignHousing.Text;
+			//}
+			//Session["HousingRegs"] = dtRegs;
+
+			string sField = Session["RegApproveSortField"].ToString();
+			string sDir = Session["RegApproveSortDir"].ToString();
+
+
+			if (e.SortExpression == Session["RegApproveSortField"].ToString())
+			{
+				if (String.IsNullOrEmpty(Session["RegApproveSortDir"].ToString()))
+					Session["RegApproveSortDir"] = "DESC";
+				else
+					Session["RegApproveSortDir"] = "";
+			}
+			else
+			{
+				Session["RegApproveSortField"] = e.SortExpression;
+				Session["RegApproveSortDir"] = "";
+			}
+
+			PopulateGrid();
+			//string sSort = Session["RegApproveSortField"].ToString() + " " + Session["RegApproveSortDir"].ToString();
+
+			//DataView dvDisplay = new DataView(dtRegs, "", sSort, DataViewRowState.CurrentRows);
+			//gvRegistrations.DataSource = dvDisplay;
+			//gvRegistrations.DataBind();
+			//DisplaySorting();
+		}
+
+		private void DisplaySorting()
+		{
+			if (gvRegistrations.HeaderRow != null)
+			{
+				int iSortedColumn = 0;
+				foreach (DataControlFieldHeaderCell cHeaderCell in gvRegistrations.HeaderRow.Cells)
+				{
+					if (cHeaderCell.ContainingField.SortExpression == Session["RegApproveSortField"].ToString())
+					{
+						iSortedColumn = gvRegistrations.HeaderRow.Cells.GetCellIndex(cHeaderCell);
+					}
+				}
+				if (iSortedColumn != 0)
+				{
+					Label lblArrowLabel = new Label();
+					if (Session["RegApproveSortDir"].ToString().Length == 0)
+						lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-up'> </span></a>";
+					else
+						lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-down'> </span></a>";
+					gvRegistrations.HeaderRow.Cells[iSortedColumn].Controls.Add(lblArrowLabel);
+				}
+			}
+		}
+	}
 }

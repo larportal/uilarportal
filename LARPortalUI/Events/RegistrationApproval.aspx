@@ -59,7 +59,8 @@
                             <div class="col-xs-12 pre-scrollable">
                                 <asp:GridView ID="gvRegistrations" runat="server" OnRowDataBound="gvRegistrations_RowDataBound" OnRowCommand="gvRegistrations_RowCommand"
                                     OnRowEditing="gvRegistrations_RowEditing" OnRowUpdating="gvRegistrations_RowUpdating" OnRowCancelingEdit="gvRegistrations_RowCancelingEdit"
-                                    AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false" CssClass="table table-striped table-hover table-condensed">
+                                    AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false" CssClass="table table-striped table-hover table-condensed" 
+                                    AllowSorting="true" OnSorting="gvRegistrations_Sorting">
                                     <Columns>
                                         <asp:TemplateField ItemStyle-Width="0px">
                                             <ItemTemplate>
@@ -70,32 +71,32 @@
                                                 <asp:HiddenField ID="hidPaymentDate" runat="server" Value='<%# Eval("EventPaymentDate") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Player Name" ItemStyle-Wrap="true">
+                                        <asp:TemplateField HeaderText="Player Name" ItemStyle-Wrap="true" SortExpression="PlayerName">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPlayerName" runat="server" Text='<%# Eval("PlayerName") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Role" ItemStyle-Wrap="false">
+                                        <asp:TemplateField HeaderText="Role" ItemStyle-Wrap="false" SortExpression="Role">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRole" runat="server" Text='<%# Eval("RoleAlignmentDescription") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Character Name" ItemStyle-Wrap="true">
+                                        <asp:TemplateField HeaderText="Character Name" ItemStyle-Wrap="true" SortExpression="CharacterName">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCharacterName" runat="server" Text='<%# Eval("CharacterName") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Team Name" ItemStyle-Wrap="true">
+                                        <asp:TemplateField HeaderText="Team Name" ItemStyle-Wrap="true" SortExpression="TeamName">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblTeamName" runat="server" Text='<%# Eval("TeamName") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Housing">
+                                        <asp:TemplateField HeaderText="Housing" SortExpression="CampaignHousing">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblHousing" runat="server" Text='<%# Eval("CampaignHousing") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Payment Type">
+                                        <asp:TemplateField HeaderText="Payment Type" SortExpression="DisplayPayment">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPaymentType" runat="server" Text='<%# Eval("DisplayPayment") %>' />
                                             </ItemTemplate>
@@ -104,7 +105,7 @@
                                                 <asp:TextBox ID="tbPayment" runat="server" Text='<%# Eval("EventPaymentAmount", "{0:0.00}") %>' CssClass="form-control" />
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Payment Date">
+                                        <asp:TemplateField HeaderText="Payment Date" SortExpression="EventPaymentDate">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEventPaymentDate" runat="server" Text='<%# Eval("EventPaymentDate", "{0:d}") %>' />
                                             </ItemTemplate>
