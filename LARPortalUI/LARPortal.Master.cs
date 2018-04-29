@@ -174,7 +174,7 @@ namespace LarpPortal
 
 			if (ddlCampaigns.SelectedValue == "-1")
 			{
-				Response.Redirect("~/PublicCampaigns.aspx");
+				Response.Redirect("~/Campaigns/JoinACampaign.aspx");
 			}
 
 			Classes.LogWriter oLogWriter = new Classes.LogWriter();
