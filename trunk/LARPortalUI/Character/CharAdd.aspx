@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="row col-sm-12">
-                            <h1 class="text-center">Click <a href="../PublicCampaigns.aspx" style="background-color: white;">here</a> to request to join a campaign.</h1>
+                            <h1 class="text-center">Click <a href="../Campaigns/JoinACampaign.aspx" style="background-color: white;">here</a> to request to join a campaign.</h1>
                         </div>
                     </asp:View>
                 </asp:MultiView>
