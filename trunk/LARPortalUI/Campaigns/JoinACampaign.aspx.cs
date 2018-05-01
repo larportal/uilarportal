@@ -521,10 +521,15 @@ namespace LarpPortal.Campaigns
                 DefaultPath = "";
             else
                 DefaultPath = Session["DefaultCampaignLogoPath"].ToString();
-            if (String.IsNullOrEmpty(strImage))
-                imgCampaignImage.ImageUrl = DefaultImage;
-            else
-                imgCampaignImage.ImageUrl = DefaultPath + strImage;
+			if (String.IsNullOrEmpty(strImage))
+				imgCampaignImage.ImageUrl = DefaultImage;
+			else
+			{
+				if ((DefaultPath.Length > 0) &&
+					(!DefaultPath.StartsWith("/")))
+					DefaultPath = "/" + DefaultPath;
+				imgCampaignImage.ImageUrl = DefaultPath + strImage;
+			}
         }
 
         protected void ReloadGameSystemTreeView()
