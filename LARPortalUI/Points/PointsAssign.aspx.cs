@@ -1868,6 +1868,7 @@ namespace LarpPortal.Points
             string stStoredProc = "uspGetCampaignPlayers";
             string stCallingMethod = "PointsAssign.aspx.FillHiddenCampaignPlayerUserID";
             int CampaignPlayerID = 0;
+            int UserID = 0;
             int.TryParse(strCampaignPlayerID.ToString(), out CampaignPlayerID);
             DataTable dtUsers = new DataTable();
             SortedList sParams = new SortedList();
@@ -1876,8 +1877,9 @@ namespace LarpPortal.Points
             dtUsers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
             foreach (DataRow dRow in dtUsers.Rows)
             {
-                hidCampaignPlayerUserID.Value = Master.UserID.ToString();
-                BuildCPAuditTable(Master.UserID);
+                int.TryParse(dRow["UserID"].ToString(), out UserID);
+                hidCampaignPlayerUserID.Value = UserID.ToString();
+                BuildCPAuditTable(UserID);
             }
 
         }
