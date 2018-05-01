@@ -26,6 +26,8 @@ namespace LarpPortal.Character.History
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
+			oCharSelect.LoadInfo();
+
 			try
 			{
 				if ((!IsPostBack) || (_Reload))
@@ -115,6 +117,8 @@ namespace LarpPortal.Character.History
 
         protected void ProcessButton(object sender, CommandEventArgs e)
         {
+			oCharSelect.LoadInfo();
+
             Classes.cCharacterHistory cCharHist = new Classes.cCharacterHistory();
             cCharHist.Load(oCharSelect.CharacterID.Value, Master.UserID);
             cCharHist.History = ckEditor.Text;

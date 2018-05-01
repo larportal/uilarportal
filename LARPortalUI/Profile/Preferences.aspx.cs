@@ -13,19 +13,12 @@ namespace LarpPortal.Profile
 {
     public partial class Preferences : System.Web.UI.Page
     {
-        //protected int _UserID = 0;
-        //protected //string _UserName = "";
         protected bool _bTextingAvailable = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-
-            //if (Session["Username"] != null)
-            //    _UserName = Session["Username"].ToString();
-            //if (Session["UserID"] != null)
-            //    int.TryParse(Session["UserID"].ToString(), out _UserID);
 
             if (!IsPostBack)
             {
@@ -51,7 +44,6 @@ namespace LarpPortal.Profile
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            //Session["ActiveLeftNav"] = "Demographics";
             SortedList sParams = new SortedList();
             sParams.Add("@UserID", Master.UserID);
             DataTable dtUserNotifications = Classes.cUtilities.LoadDataTable("uspGetPlayerNotificationPrefs", sParams, "LARPortal", Master.UserName, "");
