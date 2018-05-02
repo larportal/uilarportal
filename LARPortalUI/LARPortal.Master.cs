@@ -104,11 +104,6 @@ namespace LarpPortal
 				Response.Redirect("/index.aspx", true);
 			}
 
-			//if (!IsPostBack)
-			//{
-			//    lblUserName.Text = Session["UserName"].ToString();
-			//    LoadData();
-			//}
 		}
 
 
@@ -149,21 +144,21 @@ namespace LarpPortal
 				}
 				LoadData();
 
-				Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
-				Roles.Load(UserID, 0, CampaignID, DateTime.Today);
-				Classes.cURLPermission permissions = new Classes.cURLPermission();
-				bool PagePermission = true;
-				string DefaultUnauthorizedURL = "";
-				string CurrentPage = Request.RawUrl;
-				if (CurrentPage.ToUpper().EndsWith(".ASPX"))
-					CurrentPage = CurrentPage.Substring(0, CurrentPage.Length - 5);
-
-				permissions.GetURLPermissions(CurrentPage, UserName, Roles.PlayerRoleString);
-				PagePermission = permissions.PagePermission;
-				DefaultUnauthorizedURL = permissions.DefaultUnauthorizedURL;
-				if (!PagePermission)
-					Response.Redirect(DefaultUnauthorizedURL);
 			}
+			Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
+			Roles.Load(UserID, 0, CampaignID, DateTime.Today);
+			Classes.cURLPermission permissions = new Classes.cURLPermission();
+			bool PagePermission = true;
+			string DefaultUnauthorizedURL = "";
+			string CurrentPage = Request.RawUrl;
+			if (CurrentPage.ToUpper().EndsWith(".ASPX"))
+				CurrentPage = CurrentPage.Substring(0, CurrentPage.Length - 5);
+
+			permissions.GetURLPermissions(CurrentPage, UserName, Roles.PlayerRoleString);
+			PagePermission = permissions.PagePermission;
+			DefaultUnauthorizedURL = permissions.DefaultUnauthorizedURL;
+			if (!PagePermission)
+				Response.Redirect(DefaultUnauthorizedURL);
 		}
 
 
