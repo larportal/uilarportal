@@ -39,10 +39,10 @@ namespace LarpPortal.Character
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            if ((!IsPostBack) || (_Reload))
-            {
-                oCharSelect.LoadInfo();
+			oCharSelect.LoadInfo();
 
+			if ((!IsPostBack) || (_Reload))
+            {
                 if (oCharSelect.CharacterID.HasValue)
                 {
                     double TotalCP = 0.0;
@@ -50,17 +50,19 @@ namespace LarpPortal.Character
                     TotalCP = oCharSelect.CharacterInfo.TotalCP;
                     Session["TotalCP"] = TotalCP;
 
-                    DataTable dtCharSkills = Classes.cUtilities.CreateDataTable(oCharSelect.CharacterInfo.CharacterSkills);
+					Session["CharSkills"] = oCharSelect.CharacterInfo.CharacterSkills;
 
-                    if (oCharSelect.CharacterInfo.CharacterSkills.Count > 0)
-                    {
-                        List<int> SkillList = new List<int>();
-                        foreach (Classes.cCharacterSkill dSkill in oCharSelect.CharacterInfo.CharacterSkills)
-                        {
-                            SkillList.Add(dSkill.CampaignSkillNodeID);
-                        }
-                        Session["SkillList"] = SkillList;
-                    }
+					//DataTable dtCharSkills = Classes.cUtilities.CreateDataTable(oCharSelect.CharacterInfo.CharacterSkills);
+
+     //               if (oCharSelect.CharacterInfo.CharacterSkills.Count > 0)
+     //               {
+     //                   List<int> SkillList = new List<int>();
+     //                   foreach (Classes.cCharacterSkill dSkill in oCharSelect.CharacterInfo.CharacterSkills)
+     //                   {
+     //                       SkillList.Add(dSkill.CampaignSkillNodeID);
+     //                   }
+     //                   Session["SkillList"] = SkillList;
+     //               }
 
                     DataSet dsSkillSets = new DataSet();
                     SortedList sParam = new SortedList();
@@ -90,10 +92,28 @@ namespace LarpPortal.Character
                     dsSkillSets = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillsWithNodes", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignSkillsWithNodes");
 
                     _dtCampaignSkills = dsSkillSets.Tables[0];
-                    Session["SkillNodes"] = _dtCampaignSkills;
+
+					if (_dtCampaignSkills.Columns["CharHasSkill"] == null)
+					{
+						DataColumn cCharHasSkill = new DataColumn("CharHasSkill", typeof(bool));
+						cCharHasSkill.DefaultValue = false;
+						_dtCampaignSkills.Columns.Add(cCharHasSkill);
+					}
+
+					foreach (DataRow dRow in _dtCampaignSkills.Rows)
+					{
+						List<cCharacterSkill> oCharSkill = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.CampaignSkillNodeID.ToString() == dRow["CampaignSkillNodeID"].ToString()).ToList<cCharacterSkill>();
+						if (oCharSkill.Count == 0)
+							dRow["CharHasSkill"] = true;
+						else
+							dRow["CharHasSkill"] = false;
+					}
+
+					Session["SkillNodes"] = _dtCampaignSkills;
                     Session["NodePrerequisites"] = dsSkillSets.Tables[1];
                     Session["SkillTypes"] = dsSkillSets.Tables[2];
                     Session["NodeExclusions"] = dsSkillSets.Tables[3];
+
 
                     tvDisplaySkills.Nodes.Clear();
 
@@ -613,6 +633,7 @@ namespace LarpPortal.Character
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+			oCharSelect.LoadInfo();
             //            int iCharID;
 
             //if ((Session["CharSkillCharacterID"] != null) &&
@@ -1222,6 +1243,8 @@ namespace LarpPortal.Character
 
         protected void cbxShowExclusions_CheckedChanged(object sender, EventArgs e)
         {
+			oCharSelect.LoadInfo();
+
             if (cbxShowExclusions.Checked)
                 Session["SkillShowExclusions"] = "Y";
             else
@@ -1264,6 +1287,7 @@ namespace LarpPortal.Character
                 UserInfo.Save();
 				Master.ChangeSelectedCampaign();
             }
+			_Reload = true;
         }
 
 		protected void MasterPage_CampaignChanged(object sender, EventArgs e)
