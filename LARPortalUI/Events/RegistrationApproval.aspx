@@ -15,6 +15,8 @@
 
 <asp:Content ID="RegistrationApprovalBody" ContentPlaceHolderID="MainBody" runat="server">
 
+    <asp:HiddenField ID="hidScollPosition" runat="server" Value="" />
+
     <div id="page-wrapper">
         <div class="row">
             <div class="col-md-12">
@@ -56,7 +58,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12 pre-scrollable">
+                            <div class="col-xs-12 pre-scrollable" id="divRegs">
                                 <asp:GridView ID="gvRegistrations" runat="server" OnRowDataBound="gvRegistrations_RowDataBound" OnRowCommand="gvRegistrations_RowCommand"
                                     OnRowEditing="gvRegistrations_RowEditing" OnRowUpdating="gvRegistrations_RowUpdating" OnRowCancelingEdit="gvRegistrations_RowCancelingEdit"
                                     AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false" CssClass="table table-striped table-hover table-condensed" 
@@ -131,11 +133,11 @@
                                                 <asp:Button ID="btnApprove" runat="server" CommandName="Approve" Text="Approve" Width="100px" CssClass="btn btn-primary btn-sm"
                                                     CommandArgument='<%# Eval("RegistrationID") %>' Visible='<%# DataBinder.Eval(Container.DataItem,"DisplayEditButtons") %>' />
                                                 <asp:Button ID="btnEdit" runat="server" CommandName="Edit" Text="Edit" Width="100px" CssClass="btn btn-primary btn-sm"
-                                                    Visible='<%# DataBinder.Eval(Container.DataItem,"DisplayEditButtons") %>' />
+                                                    Visible='<%# DataBinder.Eval(Container.DataItem,"DisplayEditButtons") %>' OnClientClick="setScrollValue();" />
                                             </ItemTemplate>
                                             <EditItemTemplate>
-                                                <asp:Button ID="btnUpdate" runat="server" CommandName="Update" Text="Update" Width="100px" CssClass="btn btn-primary btn-sm" />
-                                                <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" Text="Cancel" Width="100px" CssClass="btn btn-primary btn-sm" />
+                                                <asp:Button ID="btnUpdate" runat="server" CommandName="Update" Text="Update" Width="100px" CssClass="btn btn-primary btn-sm" OnClientClick="setScrollValue();" />
+                                                <asp:Button ID="btnCancel" runat="server" CommandName="Cancel" Text="Cancel" Width="100px" CssClass="btn btn-primary btn-sm" OnClientClick="setScrollValue();" />
                                             </EditItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -148,4 +150,18 @@
         </div>
         <asp:HiddenField ID="hidApprovedStatus" runat="server" />
     </div>
+
+    <script>
+        function setScrollValue() {
+            var divObj = $get('divRegs');
+            var obj = $get('<%= hidScollPosition.ClientID %>');
+            if (obj) obj.value = divObj.scrollTop;
+        }
+
+        function pageLoad() {
+            var divObj = $get('divRegs');
+            var obj = $get('<%= hidScollPosition.ClientID %>');
+            if (divObj) divObj.scrollTop = obj.value;
+        }
+    </script>
 </asp:Content>

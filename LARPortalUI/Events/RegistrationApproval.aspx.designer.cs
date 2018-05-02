@@ -13,6 +13,15 @@ namespace LarpPortal.Events {
     public partial class RegistrationApproval {
         
         /// <summary>
+        /// hidScollPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidScollPosition;
+        
+        /// <summary>
         /// ddlEvent control.
         /// </summary>
         /// <remarks>
