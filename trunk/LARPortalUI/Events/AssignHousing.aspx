@@ -54,7 +54,7 @@
                             <div class="panel-heading">Event Registrations</div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="pre-scrollable">
+                                    <div class="pre-scrollable" id="divRegs">
                                         <asp:GridView ID="gvRegistrations" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
                                             CssClass="table table-striped table-hover table-condensed table-responsive Events" AllowSorting="true" OnSorting="gvRegistrations_Sorting">
                                             <Columns>
@@ -147,4 +147,21 @@
             </div>
         </div>
     </div>
+
+    <asp:HiddenField ID="hidScollPosition" runat="server" Value="" />
+
+    <script type="text/javascript">
+        function setScrollValue() {
+            var divObj = $get('divRegs');
+            var obj = $get('<%= hidScollPosition.ClientID %>');
+            if (obj) obj.value = divObj.scrollTop;
+        }
+
+        function pageLoad() {
+            var divObj = $get('divRegs');
+            var obj = $get('<%= hidScollPosition.ClientID %>');
+            if (divObj) divObj.scrollTop = obj.value;
+        }
+</script>
+
 </asp:Content>

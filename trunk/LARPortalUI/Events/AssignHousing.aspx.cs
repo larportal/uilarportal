@@ -38,7 +38,7 @@ namespace LarpPortal.Events
 				sParams.Add("@CampaignID", Master.CampaignID);
 				DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetCampaignEvents", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignEvents");
 
-				DataView dvEvents = new DataView(dtEvents, "", "StartDate", DataViewRowState.CurrentRows);
+				DataView dvEvents = new DataView(dtEvents, "", "StartDate desc", DataViewRowState.CurrentRows);
 
 				if (dtEvents.Columns ["DisplayValue"] == null)
 					dtEvents.Columns.Add("DisplayValue", typeof(string));
