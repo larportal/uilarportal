@@ -253,13 +253,6 @@ namespace LarpPortal.Events
 			}
 		}
 
-
-
-
-
-
-
-
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
 			DateTime dtTemp;
@@ -397,7 +390,6 @@ namespace LarpPortal.Events
 
 		}
 
-
 		private int GetDBInt(object oValue, TextBox sValue, bool bSetDefaultValue)
 		{
 			int iValue = 0;
@@ -529,7 +521,7 @@ namespace LarpPortal.Events
 				rblList.DataSource = dvPELS;
 				rblList.DataBind();
 				rblList.Items.Add(new ListItem("No PEL", ""));
-				if (dvPELS.Count == 1)
+				//if (dvPELS.Count == 1)
 					rblList.Items [0].Selected = true;
 
 				HiddenField hidEventPELID = (HiddenField) e.Item.FindControl("hidEventPELID");
@@ -547,14 +539,14 @@ namespace LarpPortal.Events
 					}
 				}
 
-				foreach (ListItem dItem in rblList.Items)
-				{
-					if (dItem.Value == sDefaultValue)
-					{
-						rblList.ClearSelection();
-						dItem.Selected = true;
-					}
-				}
+                //foreach (ListItem dItem in rblList.Items)
+                //{
+                //    if (dItem.Value == sDefaultValue)
+                //    {
+                //        rblList.ClearSelection();
+                //        dItem.Selected = true;
+                //    }
+                //}
 			}
 		}
 	}

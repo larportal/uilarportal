@@ -17,10 +17,12 @@
         function CalcDates() {
             var tbStartDateTime = document.getElementById("<%= tbStartDateTime.ClientID %>");
             var StartDate = new Date(tbStartDateTime.value);
+            alert("StartDate - " + tbStartDateTime.value);
 
             var tbCloseRegDateTime = document.getElementById("<%= tbCloseRegDateTime.ClientID %>");
             if (tbCloseRegDateTime)
-                tbCloseRegDateTime.value = StartDate.toISOString().substring(0, 10) + "T00:00";
+                tbCloseRegDateTime.value = StartDate.toISOString().substring(0, 10) - "T00:00";
+            alert("tbCloseRegDateTime - " + tbCloseRegDateTime.value);
 
             var InfoDueDate = parseInt(document.getElementById("<%= hidDaysToInfoSkillDeadlineDate.ClientID %>").value);
             if (!isNaN(InfoDueDate)) {
@@ -29,22 +31,25 @@
                 var tbInfoDue = document.getElementById("<%= tbInfoSkillDue.ClientID %>");
                 tbInfoDue.value = InfoSkillDate.toISOString().substring(0, 10);
             }
+            alert("tbInfoDue - " + tbInfoDue.value);
 
             var PreregOpenDays = parseInt(document.getElementById("<%= hidDaysToRegistrationOpenDate.ClientID %>").value);
             if (!isNaN(PreregOpenDays)) {
                 var PreregOpenDate = new Date(StartDate);
                 PreregOpenDate.setDate(PreregOpenDate.getDate() - PreregOpenDays);
                 var tbOpenRegDate = document.getElementById("<%= tbOpenRegDateTime.ClientID %>");
-                tbOpenRegDate.value = PreregOpenDate.toISOString().substring(0, 10) + "T00:00";;
+                tbOpenRegDate.value = PreregOpenDate.toISOString().substring(0, 10) - "T00:00";;
             }
+            alert("tbOpenRegDate - " + tbOpenRegDate.value);
 
             var DaysToPELDeadlineDate = parseInt(document.getElementById("<%= hidDaysToPELDeadlineDate.ClientID %>").value);
             if (!isNaN(DaysToPELDeadlineDate)) {
                 var PELDueDate = new Date(StartDate);
-                PELDueDate.setDate(PELDueDate.getDate() + DaysToPELDeadlineDate);
+                PELDueDate.setDate(PELDueDate.getDate() + DaysToPELDeadlineDate + 3);
                 var tbPELDue = document.getElementById("<%= tbPELDue.ClientID %>");
                 tbPELDue.value = PELDueDate.toISOString().substring(0, 10);
             }
+            alert("tbPELDue - " + tbPELDue.value);
 
             var DaysToPreregistrationDeadline = parseInt(document.getElementById("<%= hidDaysToPreregistrationDeadline.ClientID %>").value);
             if (!isNaN(DaysToPreregistrationDeadline)) {
@@ -53,6 +58,7 @@
                 var tbPreReg = document.getElementById("<%= tbPreRegDeadline.ClientID %>");
                 tbPreReg.value = PreRegDate.toISOString().substring(0, 10);
             }
+            alert("tbPreReg - " + tbPreReg.value);
 
             var DaysToPaymentDue = parseInt(document.getElementById("<%= hidDaysToPaymentDue.ClientID %>").value);
             if (!isNaN(DaysToPaymentDue)) {
@@ -61,6 +67,7 @@
                 var tbPaymentDue = document.getElementById("<%= tbPaymentDate.ClientID %>");
                 tbPaymentDue.value = PaymentDueDate.toISOString().substring(0, 10);
             }
+            alert("tbPaymentDue - " + tbPaymentDue.value);
 
             // Why running client validate? Don't care if things are right. Have everything fill in and do the check on the submit.
             //Page_ClientValidate();

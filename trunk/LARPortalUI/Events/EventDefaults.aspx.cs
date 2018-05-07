@@ -385,7 +385,7 @@ namespace LarpPortal.Events
                 RadioButtonList rbl = (RadioButtonList)rpItem.FindControl("rblPELs");
                 string sValue = rbl.SelectedValue;
 
-                if (String.IsNullOrEmpty(sValue))
+                if (!String.IsNullOrEmpty(sValue))
                 {
                     SortedList sDefaultParams = new SortedList();
                     sDefaultParams.Add("@UserID", Master.UserID);
