@@ -67,7 +67,7 @@
                 <ItemTemplate>
                     <div class="row" style="margin-bottom: 20px;">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Question: <%# Eval("Question") %></div>
+                            <div class="panel-heading">Question: <asp:Label ID="lblQuestion" runat="server" Text='<%# Eval("Question") %>' /></div>
                             <div class="panel-body">
                                 <asp:TextBox ID="tbAnswer" runat="server" Text='<%# Eval("Answer") %>' Columns="100" Style="width: 100%"
                                     BorderColor="black" BorderStyle="Solid" BorderWidth="1" TextMode="MultiLine" Rows="4"
