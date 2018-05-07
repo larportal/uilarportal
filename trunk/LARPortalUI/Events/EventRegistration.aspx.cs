@@ -1164,8 +1164,8 @@ namespace LarpPortal.Events
 						divHouseAssign.Visible = false;
 						divHousePref.Visible = false;
 						divSendCPTo.Visible = true;
-						//divTeams.Visible = false;
-						//ddlCharacterList.Visible = false;
+						divTeams.Visible = false;
+						ddlCharacterList.Visible = false;
 						Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
 						CampaignChoices.Load(Master.UserID);
 						if (CampaignChoices.CountOfUserCampaigns == 0)

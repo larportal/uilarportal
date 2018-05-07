@@ -17,7 +17,7 @@ namespace LarpPortal.Character
 	{
 		protected DataTable _dtCampaignSkills = new DataTable();
 		private bool _Reload = false;
-		private bool _RedrawTree = false;
+//		private bool _RedrawTree = false;
 
 		protected void Page_PreInit(object sender, EventArgs e)
 		{
@@ -316,7 +316,7 @@ namespace LarpPortal.Character
 						FoundRows[0]["CharacterHasSkill"] = true;
 				}
 				Session["SkillNodes"] = dtSkills;
-				_RedrawTree = true;
+				//_RedrawTree = true;
 				RebuildTreeView();
 			}
 			else
