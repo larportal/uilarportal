@@ -17,6 +17,7 @@ namespace LarpPortal.Character
 	{
 		protected DataTable _dtCampaignSkills = new DataTable();
 		private bool _Reload = false;
+		private bool _RedrawTree = false;
 
 		protected void Page_PreInit(object sender, EventArgs e)
 		{
@@ -93,21 +94,21 @@ namespace LarpPortal.Character
 
 					_dtCampaignSkills = dsSkillSets.Tables[0];
 
-					if (_dtCampaignSkills.Columns["CharHasSkill"] == null)
-					{
-						DataColumn cCharHasSkill = new DataColumn("CharHasSkill", typeof(bool));
-						cCharHasSkill.DefaultValue = false;
-						_dtCampaignSkills.Columns.Add(cCharHasSkill);
-					}
+					//if (_dtCampaignSkills.Columns["CharHasSkill"] == null)
+					//{
+					//	DataColumn cCharHasSkill = new DataColumn("CharHasSkill", typeof(bool));
+					//	cCharHasSkill.DefaultValue = false;
+					//	_dtCampaignSkills.Columns.Add(cCharHasSkill);
+					//}
 
-					foreach (DataRow dRow in _dtCampaignSkills.Rows)
-					{
-						List<cCharacterSkill> oCharSkill = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.CampaignSkillNodeID.ToString() == dRow["CampaignSkillNodeID"].ToString()).ToList<cCharacterSkill>();
-						if (oCharSkill.Count == 0)
-							dRow["CharHasSkill"] = true;
-						else
-							dRow["CharHasSkill"] = false;
-					}
+					//foreach (DataRow dRow in _dtCampaignSkills.Rows)
+					//{
+					//	List<cCharacterSkill> oCharSkill = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.CampaignSkillNodeID.ToString() == dRow["CampaignSkillNodeID"].ToString()).ToList<cCharacterSkill>();
+					//	if (oCharSkill.Count == 0)
+					//		dRow["CharHasSkill"] = true;
+					//	else
+					//		dRow["CharHasSkill"] = false;
+					//}
 
 					Session["SkillNodes"] = _dtCampaignSkills;
 					Session["NodePrerequisites"] = dsSkillSets.Tables[1];
@@ -301,9 +302,22 @@ namespace LarpPortal.Character
 				List<TreeNode> FoundNodes = FindNodesByValue(e.Node.Value);
 				foreach (TreeNode t in FoundNodes)
 				{
-					t.ShowCheckBox = false;
+					t.ShowCheckBox = true;
+					t.Checked = true;
 					EnableNodeAndChildren(t);
 				}
+
+				// Just to make absolutely sure we have everything in the datatable with the current values - will now save the values in the session table.
+				DataTable dtSkills = Session["SkillNodes"] as DataTable;
+				foreach (TreeNode tNodeSelected in tvDisplaySkills.CheckedNodes)
+				{
+					DataRow[] FoundRows = dtSkills.Select("CampaignSkillNodeID = " + tNodeSelected.Value);
+					if (FoundRows.Length > 0)
+						FoundRows[0]["CharacterHasSkill"] = true;
+				}
+				Session["SkillNodes"] = dtSkills;
+				_RedrawTree = true;
+				RebuildTreeView();
 			}
 			else
 			{
@@ -345,6 +359,19 @@ namespace LarpPortal.Character
 					t.ShowCheckBox = true;
 					EnableNodeAndChildren(t);
 				}
+
+				DataTable dtSkills = Session["SkillNodes"] as DataTable;
+				foreach (DataRow dRow in dtSkills.Rows)
+					dRow["CharacterHasSkill"] = false;
+
+				foreach (TreeNode tNodeSelected in tvDisplaySkills.CheckedNodes)
+				{
+					DataRow[] FoundRows = dtSkills.Select("CampaignSkillNodeID = " + tNodeSelected.Value);
+					if (FoundRows.Length > 0)
+						FoundRows[0]["CharacterHasSkill"] = true;
+				}
+				Session["SkillNodes"] = dtSkills;
+				RebuildTreeView();
 			}
 
 			ListSkills();
@@ -1251,7 +1278,8 @@ namespace LarpPortal.Character
 			oCharSelect.LoadInfo();
 
 			if (cbxShowExclusions.Checked)
-				Session["SkillShowExclusions"] = "Y";
+				RebuildTreeView();
+//				Session["SkillShowExclusions"] = "Y";
 			else
 			{
 				RemoveExclusions();
@@ -1312,11 +1340,13 @@ namespace LarpPortal.Character
 
 		private void RebuildTreeView()
 		{
-			DataTable dtCampaignSkills = Session["SkillNodes"] as DataTable;
+			_dtCampaignSkills = Session["SkillNodes"] as DataTable;
+			TreeView OrigTree = new TreeView();
+			CopyTreeNodes(tvDisplaySkills, OrigTree);
 
 			tvDisplaySkills.Nodes.Clear();
 
-			DataView dvTopNodes = new DataView(dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
+			DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
 			foreach (DataRowView dvRow in dvTopNodes)
 			{
 				TreeNode NewNode = new TreeNode();
@@ -1331,15 +1361,18 @@ namespace LarpPortal.Character
 					NewNode.Expanded = false;
 					NewNode.Value = iNodeID.ToString();
 					if (dvRow["CharacterHasSkill"].ToString() == "1")
-					{
 						NewNode.Checked = true;
-					}
 					NewNode.SelectAction = TreeNodeSelectAction.None;
+					List<TreeNode> OrigNode = FindNodesByValue(iNodeID.ToString());
+					if (OrigNode.Count > 0)
+						NewNode.Expanded = OrigNode[0].Expanded;
 					PopulateTreeView(iNodeID, NewNode);
 					tvDisplaySkills.Nodes.Add(NewNode);
 				}
 			}
 			CheckExclusions();
+			if (!cbxShowExclusions.Checked)
+				RemoveExclusions();
 		}
 	}
 }
