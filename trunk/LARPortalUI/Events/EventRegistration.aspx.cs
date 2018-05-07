@@ -54,30 +54,32 @@ namespace LarpPortal.Events
 			//                    mvPlayerInfo.SetActiveView(vwPlayerInfo);
 
 			DataTable dtEventDates = dvEventInfo.ToTable(true, "StartDate", "EventID", "EventName");
+            if (!IsPostBack)
+            {
+                if (dtEventDates.Rows.Count == 0)
+                {
+                    mvEventInfo.SetActiveView(vwNoEvents);
+                }
+                else
+                {
+                    mvEventInfo.SetActiveView(vwEventInfo);
+                    // Could do this as a computed column - but I want to specify the format.
+                    dtEventDates.Columns.Add("DisplayStartDate", typeof(string));
+                    DateTime dtTemp;
 
-			if (dtEventDates.Rows.Count == 0)
-			{
-				mvEventInfo.SetActiveView(vwNoEvents);
-			}
-			else
-			{
-				mvEventInfo.SetActiveView(vwEventInfo);
-				// Could do this as a computed column - but I want to specify the format.
-				dtEventDates.Columns.Add("DisplayStartDate", typeof(string));
-				DateTime dtTemp;
+                    foreach (DataRow dRow in dtEventDates.Rows)
+                        if (DateTime.TryParse(dRow["StartDate"].ToString(), out dtTemp))
+                            dRow["DisplayStartDate"] = dtTemp.ToString("MM/dd/yyyy") + " - " + dRow["EventName"].ToString();
 
-				foreach (DataRow dRow in dtEventDates.Rows)
-					if (DateTime.TryParse(dRow ["StartDate"].ToString(), out dtTemp))
-						dRow ["DisplayStartDate"] = dtTemp.ToString("MM/dd/yyyy") + " - " + dRow ["EventName"].ToString();
+                    DataView dvEventDate = new DataView(dtEventDates, "", "StartDate", DataViewRowState.CurrentRows);
 
-				DataView dvEventDate = new DataView(dtEventDates, "", "StartDate", DataViewRowState.CurrentRows);
+                    ddlEventDate.DataSource = dvEventDate;
+                    ddlEventDate.DataTextField = "DisplayStartDate";
+                    ddlEventDate.DataValueField = "EventID";
+                    ddlEventDate.DataBind();
 
-				ddlEventDate.DataSource = dvEventDate;
-				ddlEventDate.DataTextField = "DisplayStartDate";
-				ddlEventDate.DataValueField = "EventID";
-				ddlEventDate.DataBind();
-
-				ddlEventDate_SelectedIndexChanged(null, null);
+                    ddlEventDate_SelectedIndexChanged(null, null);
+                }
 			}
 		}
 
