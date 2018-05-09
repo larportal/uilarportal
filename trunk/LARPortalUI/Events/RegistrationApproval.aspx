@@ -78,7 +78,7 @@
                                                 <asp:Label ID="lblPlayerName" runat="server" Text='<%# Eval("PlayerName") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Role" ItemStyle-Wrap="false" SortExpression="Role">
+                                        <asp:TemplateField HeaderText="Role" ItemStyle-Wrap="false" SortExpression="RoleAlignmentDescription">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRole" runat="server" Text='<%# Eval("RoleAlignmentDescription") %>' />
                                             </ItemTemplate>
