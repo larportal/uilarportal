@@ -17,7 +17,6 @@ namespace LarpPortal.Character
 	{
 		protected DataTable _dtCampaignSkills = new DataTable();
 		private bool _Reload = false;
-//		private bool _RedrawTree = false;
 
 		protected void Page_PreInit(object sender, EventArgs e)
 		{
@@ -53,18 +52,6 @@ namespace LarpPortal.Character
 
 					Session["CharSkills"] = oCharSelect.CharacterInfo.CharacterSkills;
 
-					//DataTable dtCharSkills = Classes.cUtilities.CreateDataTable(oCharSelect.CharacterInfo.CharacterSkills);
-
-					//               if (oCharSelect.CharacterInfo.CharacterSkills.Count > 0)
-					//               {
-					//                   List<int> SkillList = new List<int>();
-					//                   foreach (Classes.cCharacterSkill dSkill in oCharSelect.CharacterInfo.CharacterSkills)
-					//                   {
-					//                       SkillList.Add(dSkill.CampaignSkillNodeID);
-					//                   }
-					//                   Session["SkillList"] = SkillList;
-					//               }
-
 					DataSet dsSkillSets = new DataSet();
 					SortedList sParam = new SortedList();
 
@@ -93,22 +80,6 @@ namespace LarpPortal.Character
 					dsSkillSets = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillsWithNodes", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignSkillsWithNodes");
 
 					_dtCampaignSkills = dsSkillSets.Tables[0];
-
-					//if (_dtCampaignSkills.Columns["CharHasSkill"] == null)
-					//{
-					//	DataColumn cCharHasSkill = new DataColumn("CharHasSkill", typeof(bool));
-					//	cCharHasSkill.DefaultValue = false;
-					//	_dtCampaignSkills.Columns.Add(cCharHasSkill);
-					//}
-
-					//foreach (DataRow dRow in _dtCampaignSkills.Rows)
-					//{
-					//	List<cCharacterSkill> oCharSkill = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.CampaignSkillNodeID.ToString() == dRow["CampaignSkillNodeID"].ToString()).ToList<cCharacterSkill>();
-					//	if (oCharSkill.Count == 0)
-					//		dRow["CharHasSkill"] = true;
-					//	else
-					//		dRow["CharHasSkill"] = false;
-					//}
 
 					Session["SkillNodes"] = _dtCampaignSkills;
 					Session["NodePrerequisites"] = dsSkillSets.Tables[1];
@@ -182,29 +153,17 @@ namespace LarpPortal.Character
 		/// <param name="e"></param>
 		protected void tvSkills_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
 		{
-			//if (Session["tvSkills"] == null)
-			//    return;
-
-			//_tvSkills = Session["tvSkills"] as TreeView;
-
-			//SaveNodeState(_tvSkills);
-
 			oCharSelect.LoadInfo();
 
 			TreeView OrigTree = new TreeView();
-			CopyTreeNodes(tvDisplaySkills, OrigTree);       // _tvSkills);
+			CopyTreeNodes(tvDisplaySkills, OrigTree);
 
 			if (e.Node.Checked)
 			{
 				// Save tree nodes so if they don't have enough points to buy the skill, we have the old one.
 				TreeView OrigTreeView = new TreeView();
-				//CopyTreeNodes(tvDisplaySkills, Orig
-				//CopyTreeNodes(_tvSkills, OrigTreeView);
-
 				TreeNode FoundNode = tvDisplaySkills.FindNode(e.Node.ValuePath);
 				MarkParentNodes(FoundNode);
-
-				//                List<cSkillPool> oSkillPools = Session["CharacterSkillPools"] as List<cSkillPool>;
 
 				DataTable dtPointsSpent = new DataTable();
 				dtPointsSpent.Columns.Add(new DataColumn("PoolID", typeof(int)));
@@ -213,7 +172,7 @@ namespace LarpPortal.Character
 				dtPointsSpent.Columns.Add(new DataColumn("TotalCP", typeof(double)));
 
 				// Go through all of the pools so we have the list on the screen.
-				foreach (cSkillPool cSkill in oCharSelect.CharacterInfo.SkillPools)                      //oSkillPools)
+				foreach (cSkillPool cSkill in oCharSelect.CharacterInfo.SkillPools)
 				{
 					DataRow dNewRow = dtPointsSpent.NewRow();
 					dNewRow["PoolID"] = cSkill.PoolID;
@@ -228,7 +187,7 @@ namespace LarpPortal.Character
 
 				int iPool = 0;
 
-				foreach (TreeNode SkillNode in tvDisplaySkills.CheckedNodes)            // _tvSkills.CheckedNodes)
+				foreach (TreeNode SkillNode in tvDisplaySkills.CheckedNodes)
 				{
 					int iSkillID;
 					if (int.TryParse(SkillNode.Value, out iSkillID))
@@ -274,9 +233,6 @@ namespace LarpPortal.Character
 
 				if (bSpentTooMuch)
 				{
-					//_tvSkills.Nodes.Clear();
-					//TreeView OrigTree = Session["CurrentSkillTree"] as TreeView;
-					//CopyTreeNodes(OrigTree, _tvSkills);
 					e.Node.Checked = false;
 					CopyTreeNodes(OrigTree, tvDisplaySkills);
 					DisplayErrorMessage("You do not have enough points to buy that.");
@@ -286,9 +242,6 @@ namespace LarpPortal.Character
 				{
 					if (!CheckForRequirements(e.Node.Value))
 					{
-						//_tvSkills.Nodes.Clear();
-						//TreeView OrigTree = Session["CurrentSkillTree"] as TreeView;
-						//CopyTreeNodes(OrigTree, _tvSkills);
 						e.Node.Checked = false;
 						CopyTreeNodes(OrigTree, tvDisplaySkills);
 						DisplayErrorMessage("You do not have all the requirements to purchase that item.");
@@ -313,27 +266,31 @@ namespace LarpPortal.Character
 				{
 					DataRow[] FoundRows = dtSkills.Select("CampaignSkillNodeID = " + tNodeSelected.Value);
 					if (FoundRows.Length > 0)
+					{
 						FoundRows[0]["CharacterHasSkill"] = true;
+						// If the row is the checkbox the user picked, save the cost of the skill into the record.
+						if (tNodeSelected.Value == e.Node.Value)
+						{
+							double dSkillCPCost = 0.0;
+							if (double.TryParse(FoundRows[0]["SkillCPCost"].ToString(), out dSkillCPCost))
+								FoundRows[0]["CPCostPaid"] = dSkillCPCost;
+						}
+					}
 				}
 				Session["SkillNodes"] = dtSkills;
-				//_RedrawTree = true;
 				RebuildTreeView();
 			}
 			else
 			{
-				TreeNode tnCopy = tvDisplaySkills.FindNode(e.Node.ValuePath);       // _tvSkills.FindNode(e.Node.ValuePath);
+				// Person deselected a skill.
+				TreeNode tnCopy = tvDisplaySkills.FindNode(e.Node.ValuePath);
 
-				// Check to see if we should not allow them to sell it back.
-				//if (ViewState["SkillList"] != null)
-				//{
 				int iSkillID;
 				if (int.TryParse(tnCopy.Value, out iSkillID))
 				{
-					////                        List<int> SkillList = oCharSelect.CharacterInfo.CharacterSkills;        // ViewState["SkillList"] as List<int>;
+					// Find the skill. If the skill exists, check to see if 
 					List<cCharacterSkill> cSkillList = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.CampaignSkillNodeID == iSkillID).ToList();
 
-					//                        //if (SkillList.Contains(iSkillID))
-					//                        //{
 					if (cSkillList.Count > 0)
 					{
 						if (hidAllowCharacterRebuild.Value == "0")
@@ -344,7 +301,6 @@ namespace LarpPortal.Character
 						}
 					}
 				}
-				//               }
 
 				CheckSkillRequirementExclusions();
 
@@ -354,16 +310,19 @@ namespace LarpPortal.Character
 				List<TreeNode> FoundNodes = FindNodesByValue(tnCopy.Value);
 				foreach (TreeNode t in FoundNodes)
 				{
+					// If the node is grey, change it to black. Show the checkbox, check it, enable all the children.
 					t.Text = t.Text.Replace("grey", "black");
 					t.ImageUrl = "";
 					t.ShowCheckBox = true;
 					EnableNodeAndChildren(t);
 				}
 
+				// Go through the table of skills marking all of them as not purchased.
 				DataTable dtSkills = Session["SkillNodes"] as DataTable;
 				foreach (DataRow dRow in dtSkills.Rows)
 					dRow["CharacterHasSkill"] = false;
 
+				// Go through the selected tree nodes and mark the records in the table as the character hass them.
 				foreach (TreeNode tNodeSelected in tvDisplaySkills.CheckedNodes)
 				{
 					DataRow[] FoundRows = dtSkills.Select("CampaignSkillNodeID = " + tNodeSelected.Value);
@@ -375,15 +334,9 @@ namespace LarpPortal.Character
 			}
 
 			ListSkills();
-			//            Session["CurrentSkillTree"] = _tvSkills;
 
 			lblMessage.Text = "Skills Changed";
 			lblMessage.ForeColor = Color.Red;
-
-			//tvDisplaySkills.Nodes.Clear();
-			//CopyDisplayTreeNodes(_tvSkills, tvDisplaySkills);
-			//Session["tvSkills"] = _tvSkills;
-			//}
 		}
 
 
@@ -403,7 +356,7 @@ namespace LarpPortal.Character
 			double TotalCP = 0.0;
 			double.TryParse(Session["TotalCP"].ToString(), out TotalCP);
 
-			foreach (TreeNode SkillNode in tvDisplaySkills.CheckedNodes)        // _tvSkills.CheckedNodes)
+			foreach (TreeNode SkillNode in tvDisplaySkills.CheckedNodes)
 			{
 				int iSkillID;
 				if (int.TryParse(SkillNode.Value, out iSkillID))
@@ -418,12 +371,18 @@ namespace LarpPortal.Character
 						DataRow[] drCharSkills = dtAllSkills.Select("CampaignSkillNodeID = " + iSkillID.ToString());
 						if (drCharSkills.Length > 0)
 						{
-							if (drCharSkills[0]["CharacterHasSkill"].ToString() == "1")
-								double.TryParse(drCharSkills[0]["CPCostPaid"].ToString(), out SkillCost);
-							else
-								double.TryParse(drCharSkills[0]["SkillCPCost"].ToString(), out SkillCost);
-
 							sSkillName = drCharSkills[0]["SkillName"].ToString();
+
+							//double dCPPaid;
+							//double dCPCost;
+							double.TryParse(drCharSkills[0]["CPCostPaid"].ToString(), out SkillCost);
+							//double.TryParse(drCharSkills[0]["SkillCPCost"].ToString(), out dCPCost);
+
+							//if (drCharSkills[0]["CharacterHasSkill"].ToString() == "1")
+							//	double.TryParse(drCharSkills[0]["CPCostPaid"].ToString(), out SkillCost);
+							//else
+							//	double.TryParse(drCharSkills[0]["SkillCPCost"].ToString(), out SkillCost);
+
 							double.TryParse(drCharSkills[0]["DisplayOrder"].ToString(), out DisplayOrder);
 						}
 						DataRow dNewRow = dtSkillCosts.NewRow();
@@ -439,8 +398,7 @@ namespace LarpPortal.Character
 
 			Session["SelectedSkills"] = dtSkillCosts;
 
-			//List<cSkillPool> oCampaignPools = (List<cSkillPool>)Session["CharacterSkillPools"];
-			cSkillPool DefaultPool = oCharSelect.CharacterInfo.SkillPools.Find(x => x.DefaultPool == true);         // oCampaignPools.Find(x => x.DefaultPool == true);
+			cSkillPool DefaultPool = oCharSelect.CharacterInfo.SkillPools.Find(x => x.DefaultPool == true);
 
 			DataRow[] dSkillRow = dtSkillCosts.Select("PoolID = " + DefaultPool.PoolID);
 
@@ -461,15 +419,13 @@ namespace LarpPortal.Character
 			dtDisplay.Columns.Add(new DataColumn("Color", typeof(string)));
 
 			DataRow NewRow = dtDisplay.NewRow();
-			//if (hidCharacterType.Value == "1")
-			//{
+
 			NewRow["Skill"] = "Total CP";
 			NewRow["Cost"] = TotalCP;
 			NewRow["MainSort"] = 1;
 			NewRow["SortOrder"] = 1;
 			NewRow["Color"] = DefaultPool.PoolDisplayColor;
 			dtDisplay.Rows.Add(NewRow);
-			//}
 
 			NewRow = dtDisplay.NewRow();
 			NewRow["Skill"] = "Total Spent";
@@ -479,8 +435,6 @@ namespace LarpPortal.Character
 			NewRow["Color"] = DefaultPool.PoolDisplayColor;
 			dtDisplay.Rows.Add(NewRow);
 
-			//if (hidCharacterType.Value == "1")
-			//{
 			NewRow = dtDisplay.NewRow();
 			NewRow["Skill"] = "Total Avail";
 			NewRow["Cost"] = (TotalCP - TotalSpent);
@@ -488,7 +442,6 @@ namespace LarpPortal.Character
 			NewRow["SortOrder"] = 3;
 			NewRow["Color"] = DefaultPool.PoolDisplayColor;
 			dtDisplay.Rows.Add(NewRow);
-			//}
 
 			foreach (DataRowView dItem in new DataView(dtSkillCosts, "PoolID = " + DefaultPool.PoolID.ToString(), "SortOrder", DataViewRowState.CurrentRows))
 			{
@@ -510,8 +463,6 @@ namespace LarpPortal.Character
 				if (PoolItem.DefaultPool)       // We've already taken care of this before.
 					continue;
 
-				//if (PoolItem.TotalPoints > 0)
-				//{
 				foreach (DataRowView dItem in new DataView(dtSkillCosts, "PoolID = " + PoolItem.PoolID.ToString(), "SortOrder", DataViewRowState.CurrentRows))
 				{
 					NewRow = dtDisplay.NewRow();
@@ -536,15 +487,13 @@ namespace LarpPortal.Character
 				dtDisplay.Rows.Add(NewRow);
 
 				NewRow = dtDisplay.NewRow();
-				//if (hidCharacterType.Value == "1")
-				//{
+
 				NewRow["Skill"] = "Total CP";
 				NewRow["Cost"] = PoolItem.TotalPoints;
 				NewRow["MainSort"] = PoolOrderOffset;
 				NewRow["SortOrder"] = 1;
 				NewRow["Color"] = PoolItem.PoolDisplayColor;
 				dtDisplay.Rows.Add(NewRow);
-				//}
 
 				NewRow = dtDisplay.NewRow();
 				NewRow["Skill"] = "Total Spent";
@@ -554,8 +503,6 @@ namespace LarpPortal.Character
 				NewRow["Color"] = PoolItem.PoolDisplayColor;
 				dtDisplay.Rows.Add(NewRow);
 
-				//if (hidCharacterType.Value == "1")
-				//{
 				NewRow = dtDisplay.NewRow();
 				NewRow["Skill"] = "Total Avail";
 				NewRow["Cost"] = (TotalCP - TotalSpent);
@@ -563,7 +510,6 @@ namespace LarpPortal.Character
 				NewRow["SortOrder"] = 3;
 				NewRow["Color"] = PoolItem.PoolDisplayColor;
 				dtDisplay.Rows.Add(NewRow);
-				//}
 
 				NewRow = dtDisplay.NewRow();
 				NewRow["Skill"] = "";
@@ -571,7 +517,6 @@ namespace LarpPortal.Character
 				NewRow["SortOrder"] = -1;
 				NewRow["Color"] = PoolItem.PoolDisplayColor;
 				dtDisplay.Rows.Add(NewRow);
-				//}
 			}
 			DataView dvSkillCost = new DataView(dtDisplay, "", "MainSort, SortOrder", DataViewRowState.CurrentRows);
 			gvCostList.DataSource = dvSkillCost;
@@ -607,6 +552,7 @@ namespace LarpPortal.Character
 				   @"style=""text-decoration: none; color: black; margin-left: 0px; padding-left: 0px;"" > " + dTreeNode["SkillName"].ToString() + @"</a>";
 			return sTreeNode;
 		}
+
 
 		protected double CalcSkillCost()
 		{
@@ -662,20 +608,7 @@ namespace LarpPortal.Character
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
 			oCharSelect.LoadInfo();
-			//            int iCharID;
-
-			//if ((Session["CharSkillCharacterID"] != null) &&
-			//    (Session["SkillNodes"] != null) &&
-			//    (Session["tvSkills"] != null))
-			//{
-			//    if (int.TryParse(Session["CharSkillCharacterID"].ToString(), out iCharID))
-			//    {
 			DataTable dtCampaignSkills = Session["SkillNodes"] as DataTable;
-			//_tvSkills = Session["tvSkills"] as TreeView;
-
-			//Classes.cCharacter Char = new Classes.cCharacter();
-			//Char.LoadCharacter(iCharID);
-
 			int CharacterSkillsSetID = -1;
 
 			CharacterSkillsSetID = oCharSelect.CharacterInfo.CharacterSkillSetID;
@@ -714,9 +647,6 @@ namespace LarpPortal.Character
 				}
 			}
 
-			//string sUserName = Session["UserName"].ToString();
-			//int iUserID = (int)Session["UserID"];
-
 			foreach (cCharacterSkill dSkill in oCharSelect.CharacterInfo.CharacterSkills)
 			{
 				if (dSkill.RecordStatus == RecordStatuses.Active)
@@ -728,8 +658,6 @@ namespace LarpPortal.Character
 			lblmodalMessage.Text = "Character " + oCharSelect.CharacterInfo.AKA + " has been saved.";
 			ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
 		}
-		//    }
-		//}
 
 
 		public void CopyTreeNodes(TreeView SourceTreeView, TreeView DesSourceView)
@@ -804,7 +732,6 @@ namespace LarpPortal.Character
 							List<TreeNode> FoundNodes = FindNodesByValue(iPreReq.ToString());
 							foreach (TreeNode tNode in FoundNodes)
 								if (!tNode.Checked)
-									//                            if (FoundNodes.Count == 0)
 									bMeetAllRequirements = false;
 						}
 					}
@@ -957,13 +884,13 @@ namespace LarpPortal.Character
 			if (Session["NodeExclusions"] == null)
 				return;
 
-			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
 				EnableNodeAndChildren(tNode);
 
 			DataTable dtExclusions;
 			dtExclusions = Session["NodeExclusions"] as DataTable;
 
-			foreach (TreeNode CheckedNode in tvDisplaySkills.CheckedNodes)      // _tvSkills.CheckedNodes)
+			foreach (TreeNode CheckedNode in tvDisplaySkills.CheckedNodes)
 			{
 				string sSkill = CheckedNode.Value;
 				DataView dvPreReq = new DataView(dtExclusions, "PreRequisiteSkillNodeID = " + sSkill, "", DataViewRowState.CurrentRows);
@@ -1131,7 +1058,7 @@ namespace LarpPortal.Character
 		{
 			List<string> NodeList = new List<string>();
 
-			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
 			{
 				if (tNode.ImageUrl == "/img/delete.png")
 				{
@@ -1141,7 +1068,7 @@ namespace LarpPortal.Character
 			}
 			foreach (string t in NodeList)
 			{
-				TreeNode FoundID = tvDisplaySkills.FindNode(t);       // _tvSkills.FindNode(t);
+				TreeNode FoundID = tvDisplaySkills.FindNode(t);
 				if (FoundID != null)
 					if (FoundID.Depth == 0)
 						tvDisplaySkills.Nodes.Remove(FoundID);
@@ -1279,15 +1206,9 @@ namespace LarpPortal.Character
 
 			if (cbxShowExclusions.Checked)
 				RebuildTreeView();
-//				Session["SkillShowExclusions"] = "Y";
 			else
 			{
 				RemoveExclusions();
-				//foreach (TreeNode tnNode in tvDisplaySkills.Nodes)
-				//{
-				//    if (tnNode.ImageUrl.ToUpper().Contains("DELETE.PNG"))
-				//        return;
-				//}
 			}
 		}
 
@@ -1333,9 +1254,6 @@ namespace LarpPortal.Character
 			if (user.LastLoggedInCharacter == -1)
 				Response.Redirect("/default.aspx");
 		}
-
-
-
 
 
 		private void RebuildTreeView()
