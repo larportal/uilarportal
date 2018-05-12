@@ -1225,7 +1225,6 @@
     <Content Include="Scripts\metisMenu.js" />
     <Content Include="Scripts\metisMenu.min.js" />
     <Content Include="Scripts\sb-admin-2.js" />
-    <Content Include="Signup.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1897,10 +1896,6 @@
     </Compile>
     <Compile Include="Roles\SetupRoles.aspx.designer.cs">
       <DependentUpon>SetupRoles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Signup.aspx.cs">
-      <DependentUpon>Signup.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Webservices\CampaignInfo.asmx.cs">
       <DependentUpon>CampaignInfo.asmx</DependentUpon>
