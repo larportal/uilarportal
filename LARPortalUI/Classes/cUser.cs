@@ -97,7 +97,39 @@ namespace LarpPortal.Classes
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            SortedList slParams = new SortedList();
+			// JLB 5/12/2018 - Put in default values. It appeared as if the values were defaulting.
+			UserID = -1;
+			LoginName = "";
+			PrimaryEmailID = -1;
+			PrimaryEmailAddress = new cEMail();
+			UserEmails = new List<cEMail>();
+			LoginEmail = "";
+			LoginPassword = "";
+			SecurityRoleID = -1;
+			FirstName = "";
+			LastName = "";
+			MiddleName = "";
+			NickName = "";
+			ForumUserName = "";
+			AuthorName = "";
+			NotificationPreference = -1;
+			PrimaryAddressID = -1;
+			PrimaryAddress = new cAddress();
+			UserAddresses = new List<cAddress>();
+			PrimaryPhoneNumberID = -1;
+			PrimaryPhone = new cPhone();
+			UserPhones = new List<cPhone>();
+			DeliveryPreferenceID = -1;
+			LastLoggedInLocation = "";
+			UserCampaigns = new List<cUserCampaign>();
+			LastLoggedInCampaign = 0;
+			LastLoggedInCharacter = 0;
+			LastLoggedInMyCharOrCamp = "";
+			XRefNumber = -1;
+			Comments = "";
+			UserCPBank = new cBank();
+
+			SortedList slParams = new SortedList();
             LoginName = strLoginName;
             LoginPassword = strLoginPassword;
             SessionID = sSessionID;
