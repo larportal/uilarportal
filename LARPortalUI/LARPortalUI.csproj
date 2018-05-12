@@ -100,6 +100,8 @@
     <Content Include="Campaigns\Setup\Description.aspx" />
     <Content Include="Campaigns\Setup\Policies.aspx" />
     <Content Include="Campaigns\Setup\PlayerReqs.aspx" />
+    <Content Include="Campaigns\Setup\Skills\MasterSkills.aspx" />
+    <Content Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx" />
     <Content Include="Character\CharAdd.aspx" />
     <Content Include="Character\CharCard.aspx" />
     <Content Include="Character\CharCardCustomization.aspx" />
@@ -587,6 +589,8 @@
     <Content Include="font-awesome\scss\_stacked.scss" />
     <Content Include="font-awesome\scss\_variables.scss" />
     <Content Include="InitialJoinCampaign.aspx" />
+    <Content Include="NewUserDirections.aspx" />
+    <Content Include="NewUserSelectCampaign.aspx" />
     <Content Include="TermsOfUse.aspx" />
     <Content Include="LearnMoreAboutLARPortal.aspx" />
     <Content Include="packages.config" />
@@ -1310,6 +1314,20 @@
     <Compile Include="Campaigns\Setup\PlayerReqs.aspx.designer.cs">
       <DependentUpon>PlayerReqs.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Campaigns\Setup\Skills\MasterSkills.aspx.cs">
+      <DependentUpon>MasterSkills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\MasterSkills.aspx.designer.cs">
+      <DependentUpon>MasterSkills.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx.cs">
+      <DependentUpon>MasterSkillsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx.designer.cs">
+      <DependentUpon>MasterSkillsEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Character\CharAdd.aspx.cs">
       <DependentUpon>CharAdd.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1612,6 +1630,20 @@
     </Compile>
     <Compile Include="LARPortal.Master.designer.cs">
       <DependentUpon>LARPortal.Master</DependentUpon>
+    </Compile>
+    <Compile Include="NewUserDirections.aspx.cs">
+      <DependentUpon>NewUserDirections.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewUserDirections.aspx.designer.cs">
+      <DependentUpon>NewUserDirections.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewUserSelectCampaign.aspx.cs">
+      <DependentUpon>NewUserSelectCampaign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewUserSelectCampaign.aspx.designer.cs">
+      <DependentUpon>NewUserSelectCampaign.aspx</DependentUpon>
     </Compile>
     <Compile Include="TermsOfUse.aspx.cs">
       <DependentUpon>TermsOfUse.aspx</DependentUpon>
