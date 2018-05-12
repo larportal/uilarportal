@@ -159,6 +159,11 @@ namespace LarpPortal
 			DefaultUnauthorizedURL = permissions.DefaultUnauthorizedURL;
 			if (!PagePermission)
 				Response.Redirect(DefaultUnauthorizedURL);
+
+			// Save current page to database so when person logs back in it can go to last page.
+			string PageName = Request.Url.AbsolutePath;
+			Classes.cLogin LastLoggedIn = new Classes.cLogin();
+			LastLoggedIn.LogLastPage(UserID, PageName);
 		}
 
 

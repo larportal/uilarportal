@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,9 +22,11 @@ namespace LarpPortal
 			//
 			if (!IsPostBack)
 			{
+				mvMainScreen.SetActiveView(vwLogin);
+
 				// Destroys everything in the session which is essentially what logging out does.
 				Session.Clear();
-				Session ["LoginName"] = "Guest";                    // Until login changes it
+				Session ["LoginName"] = "Guest";                // Until login changes it
 				Session ["UserID"] = 0;                         // Until login changes it
 				Session ["UserName"] = "Guest";
 				Session ["Guest"] = "Y";
@@ -36,27 +39,6 @@ namespace LarpPortal
 				OpsMode.SetSiteOperationalMode();
 				SiteOpsMode = OpsMode.SiteOperationalMode;
 				Session ["OperationalMode"] = SiteOpsMode;
-
-				//	txtName.Visible = false;
-				//txtLastLocation.Visible = false;
-				//txtLastCharacter.Visible = false;
-				//txtLastCampaign.Visible = false;
-				//txtUserID.Visible = false;
-				//lblPasswordReqs.ToolTip = "LARP Portal login passwords must be at least 7 characters long and contain at least " +
-				//	"1 uppercase letter, 1 lowercse letter, 1 number and 1 special character";
-				//if (!IsPostBack)
-				//{
-				//	txtUserName.Attributes.Add("Placeholder", "Username");
-				//	txtUserName.Focus();
-				//	txtPassword.Attributes.Add("Placeholder", "Password");
-				//	txtEmail.Attributes.Add("Placeholder", "Email");
-				//	txtNewUsername.Attributes.Add("Placeholder", "Username");
-				//	txtFirstName.Attributes.Add("Placeholder", "First Name");
-				//	txtLastName.Attributes.Add("Placeholder", "Last Name");
-				//	txtPasswordNew.Attributes.Add("Placeholder", "Password");
-				//	txtPasswordNewRetype.Attributes.Add("Placeholder", "Retype Password");
-				//	btnSignUp.Visible = false;
-				//}
 			}
 		}
 
@@ -88,8 +70,6 @@ namespace LarpPortal
 
 		protected void btnLogin_Click(object sender, EventArgs e)
 		{
-			//Session["AttemptedPassword"] = tbPassword.Text;
-			//Session["AttemptedUsername"] = tbUserName.Text;
 			Classes.cLogin Login = new Classes.cLogin();
 			Login.Load(tbUserName.Text, tbPassword.Text);
 			if (Login.MemberID == 0) // Invalid user, fall straight to fail logic
@@ -108,7 +88,9 @@ namespace LarpPortal
 				{
 					if (Login.LoginCount == 0) // New user.  First time activation.
 					{
+						mvMainScreen.SetActiveView(vwActivate);
 						hidActivateCode.Value = Login.SecurityResetCode;
+						Session["SavePassword"] = tbPassword.Text;
 						ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openActivationCode();", true);
 						Session ["SavePassword"] = tbPassword.Text;
 						tbActivationCode.Focus();
@@ -126,28 +108,19 @@ namespace LarpPortal
 			}
 		}
 
+		/// <summary>
+		/// If this is called it means the activation code was entered and is correct.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		protected void btnValidateAccount_Click(object sender, EventArgs e)
 		{
 			Classes.cLogin Login = new Classes.cLogin();
 			Login.Load(tbUserName.Text, Session ["SavePassword"].ToString());
-			//if (txtSecurityResetCode.Text == Login.SecurityResetCode)
-			//{
 			Login.SecurityResetCode = "";
 			Login.ClearNewAccount(Login.UserSecurityID, Login.MemberID);
 			MemberLogin(Login);
-			//}
-			//else
-			//{
-			//	lblInvalidActivationKey.Visible = true;
-			//	txtSecurityResetCode.Text = "";
-			//	txtSecurityResetCode.Focus();
-			//}
 		}
-
-		//protected void txtSecurityResetCode_TextChanged(object sender, EventArgs e)
-		//{
-
-		//}
 
 		/// <summary>
 		/// The person has already been verified so figure out where to go and save the assorted variables.
@@ -178,7 +151,6 @@ namespace LarpPortal
 			Session.Remove("SuperUser");
 			if (Login.SuperUser)
 				Session ["SuperUser"] = 1;
-			//			Session.Remove("Guest");
 
 			// Get OS and browser settings and save them to session variables
 			HttpBrowserCapabilities bc = HttpContext.Current.Request.Browser;
@@ -189,19 +161,29 @@ namespace LarpPortal
 			Session ["Platform"] = bc.Platform;
 			Session ["OSVersion"] = Request.UserAgent;
 
+			// Login the user and get the last logged in location so we can go there.
 			Login.LoginAudit(Login.MemberID, tbUserName.Text, sLoginPassword, HttpContext.Current.Request.UserHostAddress, bc.Browser, bc.Version, bc.Platform, Request.UserAgent);
-			string sPageGoingTo = "";
-			//if (String.IsNullOrEmpty(Login.LastLoggedInLocation))
-			//	sPageGoingTo = "Default.aspx";
-			//else
-			//{
-			//	sPageGoingTo = Login.LastLoggedInLocation;
-			//	if (sPageGoingTo.StartsWith("/"))
-			//		sPageGoingTo = sPageGoingTo.Substring(2, sPageGoingTo.Length - 1);
-			//}
 
-			sPageGoingTo = "Default.aspx";
-			Response.Redirect(sPageGoingTo, true);
+			if (NumberOfCampaigns < 1)
+			{
+				Response.Redirect("NewUserSelectCampaign.aspx", true);
+			}
+			else
+			{
+				string sPageGoingTo = "Default.aspx";
+				if (!String.IsNullOrEmpty(Login.LastLoggedInLocation))
+				{
+					sPageGoingTo = Login.LastLoggedInLocation;
+					if (sPageGoingTo.StartsWith("/"))
+						sPageGoingTo = sPageGoingTo.Substring(1);
+				}
+
+				// If the page doesn't exist, go to the default page.
+				if (!File.Exists(Server.MapPath(sPageGoingTo)))
+					sPageGoingTo = "Default.aspx";
+
+				Response.Redirect(sPageGoingTo, true);
+			}
 		}
 
 		protected void btnContactUs_Click(object sender, EventArgs e)
@@ -213,180 +195,5 @@ namespace LarpPortal
 		{
 			Response.Redirect("Contact.aspx", false);
 		}
-
-		//protected void btnSignUp_Click(object sender, EventArgs e)
-		//{
-		//	//if (Session["AttemptedPassword"] == null)
-		//	//	txtPasswordNew.Text = "";
-		//	//else
-		//	//{
-		//	//	txtPasswordNew.Text = Session["AttemptedPassword"].ToString();
-		//	//	txtPasswordNew.Attributes.Add("value", txtPasswordNew.Text);
-		//	//}
-		//	//if (Session["AttemptedPasswordRetype"] == null)
-		//	//	txtPasswordNewRetype.Text = "";
-		//	//else
-		//	//{
-		//	//	txtPasswordNewRetype.Text = Session["AttemptedPasswordRetype"].ToString();
-		//	//	txtPasswordNewRetype.Attributes.Add("value",txtPasswordNewRetype.Text);
-		//	//}
-		//	//if (Page.IsValid)
-		//	//{
-		//	//	lblSignUpErrors.Text = "";
-		//	//	// 1 - No duplicate usernames allowed
-		//	//	Classes.cLogin Login = new Classes.cLogin();
-		//	//	Login.CheckForExistingUsername(txtNewUsername.Text);
-		//	//	if (Login.MemberID != 0)  // UserID is taken
-		//	//	{
-		//	//		lblSignUpErrors.Text = "This username is already in use.  Please select a different one.";
-		//	//	}
-		//	//	// 2 - Password must meet parameter standards
-		//	//	int ValidPassword;
-		//	//	Classes.cLogin PasswordValidate = new Classes.cLogin();
-		//	//	PasswordValidate.ValidateNewPassword(txtPasswordNew.Text);
-		//	//	ValidPassword = PasswordValidate.PasswordValidation;
-		//	//	if (ValidPassword == 0)
-		//	//	{
-		//	//		if (lblSignUpErrors.Text != "")
-		//	//		{
-		//	//			lblSignUpErrors.Text = lblSignUpErrors.Text + "<p></p>" + PasswordValidate.PasswordFailMessage + ".";
-		//	//		}
-		//	//		else
-		//	//		{
-		//	//			lblSignUpErrors.Text = PasswordValidate.PasswordFailMessage + ".";
-		//	//		}
-		//	//	}
-		//	//	// 3 - Both passwords must be the same
-		//	//	if (txtPasswordNew.Text != txtPasswordNewRetype.Text)
-		//	//		//set an error message
-		//	//	{
-		//	//		if (lblSignUpErrors.Text != "")
-		//	//		{
-		//	//			lblSignUpErrors.Text = lblSignUpErrors.Text + "<p></p>Passwords don't match.  Please re-enter.";
-		//	//		}
-		//	//		else
-		//	//		{
-		//	//			lblSignUpErrors.Text = "Passwords don't match.  Please re-enter.";
-		//	//		}
-		//	//		txtPasswordNew.Text = "";
-		//	//		txtPasswordNewRetype.Text = "";
-		//	//	}
-		//	//	// 4 - New request - If the email address is already on file, warn them and suggest they go to the Forgot Username / Password section
-		//	//	Classes.cLogin ExistingEmailAddress = new Classes.cLogin();
-		//	//	ExistingEmailAddress.GetUsernameByEmail(txtEmail.Text);
-		//	//	if(ExistingEmailAddress.Username != "")
-		//	//		if (lblSignUpErrors.Text != "")
-		//	//		{
-		//	//			lblSignUpErrors.Text = lblSignUpErrors.Text + "<p></p>This email address is already associated with an account.  If you've forgotten your username or password, please use the link above.";
-		//	//		}
-		//	//		else
-		//	//		{
-		//	//			lblSignUpErrors.Text = "This email address is already associated with an account.  If you've forgotten your username or password, please use the link above.";
-		//	//		}
-		//	//	// If there were errors, display them and return to form
-		//	//	if (lblSignUpErrors.Text != "")
-		//	//	{
-		//	//		lblSignUpErrors.Visible = true;
-		//	//		txtNewUsername.Focus();
-		//	//	}
-		//	//	else
-		//	//	{
-		//	//		// Everything is ok.  Create the record.  If successful, go to the member demographics screen.
-		//	//		Classes.cUser NewUser = new Classes.cUser(txtNewUsername.Text, txtPasswordNew.Text);
-		//	//		NewUser.FirstName = txtFirstName.Text;
-		//	//		NewUser.LastName = txtLastName.Text;
-		//	//		NewUser.LoginPassword = txtPasswordNew.Text;
-		//	//		NewUser.LoginEmail = txtEmail.Text;
-		//	//		NewUser.LoginName = txtNewUsername.Text;
-		//	//		NewUser.Save();
-		//	//		Classes.cLogin Activation = new Classes.cLogin();
-		//	//		Activation.Load(txtNewUsername.Text, txtPasswordNew.Text);
-		//	//		string ActivationKey = "";
-		//	//		ActivationKey = Activation.SecurityResetCode;
-		//	//		GenerateWelcomeEmail(txtFirstName.Text, txtLastName.Text, txtNewUsername.Text, txtEmail.Text, ActivationKey);
-		//	//		Response.Write("<script>");
-		//	//		Response.Write("window.open('NewUserLoginDirections.aspx','_blank')");
-		//	//		Response.Write("</script>");
-		//	//		// TODO-Rick-0e Account for versioning of 'terms of use' and keeping track of date/time and which version user agreed to
-		//	//	}
-		//	//}
-		//	//else
-		//	//{
-		//	//	// TODO-Rick-3 On create user if something totally unexpected is wrong put up a message
-		//	//}
-		//}
-
-		//protected void GenerateWelcomeEmail(string FirstName, string LastName, string Username, string strTo, string ActivationKey)
-		//{
-		//	//string strBody;
-		//	//string strSubject = "Your LARP Portal Activation Key";
-		//	//strBody = "Hi " + FirstName + "<p></p>Welcome to LARP Portal.  The activation key for your new account is " + ActivationKey + ".  To activate your ";
-		//	//strBody = strBody + "account return to www.larportal.com.  Enter your username and password into the Member Login section and click the Login ";
-		//	//strBody = strBody + "button.  When the site prompts you for your activation key, enter it and click the Login button again.<p></p>If you have ";
-		//	//strBody = strBody + "any questions please email us at support@larportal.com.";
-		//	//Classes.cEmailMessageService NotifyStaff = new Classes.cEmailMessageService();
-		//	//try
-		//	//{
-		//	//	NotifyStaff.SendMail(strSubject, strBody, strTo, "" , "", "ActivationKey", Username);
-		//	//}
-		//	//catch (Exception)
-		//	//{
-		//	//	lblEmailFailed.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
-		//	//	lblEmailFailed.Visible = true;
-		//	//}
-		//}
-
-		//protected void chkTermsOfUse_CheckedChanged(object sender, EventArgs e)
-		//{
-		//	//if (chkTermsOfUse.Checked == true)
-		//	//{
-		//	//	btnSignUp.Visible = true;
-		//	//	btnSignUp.Focus();
-		//	//}
-		//	//else
-		//	//{
-		//	//	btnSignUp.Visible = false;
-		//	//}
-		//}
-
-		//protected void txtPasswordNewRetype_TextChanged(object sender, EventArgs e)
-		//{
-		//	//Session["AttemptedPasswordRetype"] = txtPasswordNewRetype.Text;
-		//	//chkTermsOfUse.Focus();
-		//	//if (Session["AttemptedPassword"] == null)
-		//	//	txtPasswordNew.Text = "";
-		//	//else
-		//	//{
-		//	//	txtPasswordNew.Text = Session["AttemptedPassword"].ToString();
-		//	//	txtPasswordNew.Attributes.Add("value", txtPasswordNew.Text);
-		//	//}
-		//	//if (Session["AttemptedPasswordRetype"] == null)
-		//	//	txtPasswordNewRetype.Text = "";
-		//	//else
-		//	//{
-		//	//	txtPasswordNewRetype.Text = Session["AttemptedPasswordRetype"].ToString();
-		//	//	txtPasswordNewRetype.Attributes.Add("value", txtPasswordNewRetype.Text);
-		//	//}
-		//}
-
-		//protected void txtPasswordNew_TextChanged(object sender, EventArgs e)
-		//{
-		//	//Session["AttemptedPassword"] = txtPasswordNew.Text;
-		//	//txtPasswordNewRetype.Focus();
-		//	//if (Session["AttemptedPassword"] == null)
-		//	//	txtPasswordNew.Text = "";
-		//	//else
-		//	//{
-		//	//	txtPasswordNew.Text = Session["AttemptedPassword"].ToString();
-		//	//	txtPasswordNew.Attributes.Add("value", txtPasswordNew.Text);
-		//	//}
-		//}
-
-		//protected void txtEmail_TextChanged(object sender, EventArgs e)
-		//{
-		//	//if(txtEmail.Text.Length > 0)
-		//	//	chkTermsOfUse.Visible = true;
-		//	//txtPasswordNew.Focus();
-		//}
 	}
 }
