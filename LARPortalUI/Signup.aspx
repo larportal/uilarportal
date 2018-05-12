@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="Signup.aspx.cs" Inherits="Signup" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="Signup.aspx.cs" Inherits="LarpPortal.Signup" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainStyles" Runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainScripts" Runat="Server"></asp:Content>
 
