@@ -27,7 +27,7 @@
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- jQuery -->
-    <script src="/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="/Scripts/jquery-3.3.1.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="/Scripts/bootstrap.min.js"></script>
@@ -37,12 +37,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/sb-admin-2.js"></script>
-
-
-
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/Scripts/jquery-3.1.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/Scripts/bootstrap.js"></script>
@@ -62,15 +56,6 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
-
-
-
-
-
-
-
-
 
     <style type="text/css">
         body {
@@ -156,7 +141,6 @@
             divError.style.display = 'block';
             return false;
         }
-
     </script>
 
 
@@ -173,51 +157,64 @@
 <body>
     <form id="form1" runat="server">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-lg-push-8 col-md-6">
-                    <div class="text-center">
-                        <h1>LARP Portal</h1>
-                        The Gateway to Managing Your LARPs
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Member Log In</h3>
-                        </div>
-                        <div class="panel-body">
-                            <fieldset>
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <asp:TextBox runat="server" ID="tbUserName" CssClass="form-control" />
+            <asp:MultiView ID="mvMainScreen" runat="server">
+                <asp:View ID="vwLogin" runat="server">
+                    <%--Normal login screen.--%> 
+                    <div class="row" id="divMainScreen" runat="server">
+                        <div class="col-lg-4 col-lg-push-8 col-md-6">
+                            <div class="text-center">
+                                <h1>LARP Portal</h1>
+                                The Gateway to Managing Your LARPs
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Member Log In</h3>
                                 </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <asp:TextBox runat="server" ID="tbPassword" CssClass="form-control" TextMode="Password" />
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <asp:TextBox runat="server" ID="tbUserName" CssClass="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <asp:TextBox runat="server" ID="tbPassword" CssClass="form-control" TextMode="Password" />
+                                        </div>
+                                        <p>
+                                            <asp:Button ID="btnLogin" runat="server" Text="Log In" CssClass="btn btn-block btn-success" OnClick="btnLogin_Click" />
+                                        </p>
+                                        <asp:Label ID="lblInvalidLogin" runat="server" ForeColor="Red" Visible="false"><p class="text-center lead">Invalid username and password</p></asp:Label>
+                                        <p class="text-center"><a href="ForgotPassword.aspx">Forgot User ID/Password?</a></p>
+                                    </fieldset>
+                                    <hr />
+                                    <ul class="list-inline text-center">
+                                        <li>
+                                            <asp:Button ID="btnGuest" runat="server" Text="Enter as a Guest" CssClass="btn btn-primary btn-sm" OnClick="btnGuest_Click" /></li>
+                                        <li>
+                                            <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary btn-sm" OnClick="btnRegister_Click" /></li>
+                                        <li>
+                                            <asp:Button ID="btnContactUs" runat="server" Text="Contact Us" CssClass="btn btn-primary btn-sm" OnClick="btnContactUs_Click" /></li>
+                                    </ul>
                                 </div>
-                                <p>
-                                    <asp:Button ID="btnLogin" runat="server" Text="Log In" CssClass="btn btn-block btn-success" OnClick="btnLogin_Click" />
-                                </p>
-                                <asp:Label ID="lblInvalidLogin" runat="server" ForeColor="Red" Visible="false"><p class="text-center lead">Invalid username and password</p></asp:Label>
-                                <p class="text-center"><a href="ForgotPassword.aspx">Forgot User ID/Password?</a></p>
-                            </fieldset>
-                            <hr />
-                            <ul class="list-inline text-center">
-                                <li>
-                                    <asp:Button ID="btnGuest" runat="server" Text="Enter as a Guest" CssClass="btn btn-primary btn-sm" OnClick="btnGuest_Click" /></li>
-                                <li>
-                                    <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary btn-sm" OnClick="btnRegister_Click" /></li>
-                                <li>
-                                    <asp:Button ID="btnContactUs" runat="server" Text="Contact Us" CssClass="btn btn-primary btn-sm" OnClick="btnContactUs_Click" /></li>
-                            </ul>
-                        </div>
-                    </div>
+                            </div>
                             <div class="text-center">
                                 <h3><a href="/LearnMoreAboutLARPortal.aspx">What is LARP Portal ?</a></h3>
                             </div>
-                </div>
-                <div class="col-lg-8 col-lg-pull-4 col-md-6">
-                    <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />
-                </div>
-            </div>
+                        </div>
+                        <div class="col-lg-8 col-lg-pull-4 col-md-6">
+                            <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />
+                        </div>
+                    </div>
+                </asp:View>
+                <asp:View ID="vwActivate" runat="server">
+                    <%--If need to ask for activation code, hide the member login and show just the logo.--%>
+                    <div class="row" id="divLogoOnly" runat="server">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />
+                        </div>
+                    </div>
+                </asp:View>
+            </asp:MultiView>
             <div class="margin40">&nbsp;</div>
         </div>
 
@@ -260,5 +257,8 @@
             </div>
         </div>
     </form>
+
+    <script type="text/javascript">
+</script>
 </body>
 </html>
