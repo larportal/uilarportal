@@ -31,13 +31,13 @@ namespace LarpPortal {
         protected global::System.Web.UI.ScriptManager smManager;
         
         /// <summary>
-        /// txtNewUserName control.
+        /// txtNewUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewUserName;
+        protected global::System.Web.UI.WebControls.TextBox txtNewUsername;
         
         /// <summary>
         /// RFVNewUsername control.
@@ -103,6 +103,15 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVEmailAddress;
         
         /// <summary>
+        /// rfvEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        
+        /// <summary>
         /// lblPasswordReqs control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.TextBox txtPasswordNew;
         
         /// <summary>
+        /// rfvPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
+        
+        /// <summary>
         /// txtPasswordNewRetype control.
         /// </summary>
         /// <remarks>
@@ -130,22 +148,40 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.TextBox txtPasswordNewRetype;
         
         /// <summary>
+        /// cmpPasswords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpPasswords;
+        
+        /// <summary>
         /// chkTermsOfUse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTermsOfUse;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkTermsOfUse;
         
         /// <summary>
-        /// TermsOfUse control.
+        /// lblSignUpErrors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink TermsOfUse;
+        protected global::System.Web.UI.WebControls.Label lblSignUpErrors;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
         /// btnSignUp control.
@@ -157,12 +193,21 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.Button btnSignUp;
         
         /// <summary>
-        /// lblEmailFailed control.
+        /// lblTestOfUseMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmailFailed;
+        protected global::System.Web.UI.WebControls.Label lblTestOfUseMessage;
+        
+        /// <summary>
+        /// btnCloseMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseMessage;
     }
 }
