@@ -11,7 +11,8 @@ using System.Collections;
 //   Jbradshaw  6/19/2016  Changed over to new style of definitions for variables. No need for local variables anymore.
 //                         Made changes required for user profiles.
 //   JBradshaw  3/31/2017  Changes for LARP Resume. Also made the supporting tables loaded in the original SP so it's faster.
-
+//   JBradshaw  5/13/2018  We were getting some errors on the constructor because the DOB wasn't a date. Changed everything
+//                         that was a Convert.To or .ToInt to TryParse.
 namespace LarpPortal.Classes
 {
     public class cPlayer
@@ -183,6 +184,10 @@ namespace LarpPortal.Classes
             DateAdded = DateTime.Now;
             DateChanged = DateTime.Now;
 
+			int iTemp;
+			DateTime dtTemp;
+			Boolean bTemp;
+
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             UserID = intUserId;
@@ -195,19 +200,25 @@ namespace LarpPortal.Classes
                 if (lds.Tables[0].Rows.Count > 0)
                 {
                     DataRow dRow = lds.Tables[0].Rows[0];
-                    PlayerProfileID = dRow["PlayerProfileID"].ToString().ToInt32();
+					if (int.TryParse(dRow["PlayerProfileID"].ToString(), out iTemp))
+						PlayerProfileID = iTemp;
                     AuthorName = dRow["AuthorName"].ToString();
-                    DateOfBirth = Convert.ToDateTime(dRow["DateOfBirth"].ToString());
+					if (DateTime.TryParse(dRow["DateOfBirth"].ToString(), out dtTemp))
+						DateOfBirth = dtTemp;
                     GenderStandared = dRow["GenderStandard"].ToString();
                     GenderOther = dRow["GenderOther"].ToString();
                     EmergencyContactName = dRow["EmergencyContactName"].ToString();
                     EmergencyContactPhone = dRow["EmergencyContactPhone"].ToString();
-                    MaxNumberOfEventsPerYear = dRow["MaxNumberEventsPerYear"].ToString().ToInt32();
+
+					if (int.TryParse(dRow["MaxNumberEventsPerYear"].ToString(), out iTemp))
+						MaxNumberOfEventsPerYear = iTemp;
                     CPPreferenceDefault = dRow["CPPreferenceDefault"].ToString();
-                    CPDestinationDefault = dRow["CPDestinationDefault"].ToString().ToInt32();
-                    PhotoPreference = dRow["PhotoPreference"].ToString().ToInt32();
+
+					if (int.TryParse(dRow["CPDestinationDefault"].ToString(), out iTemp))
+						CPDestinationDefault = iTemp;
+					if (int.TryParse(dRow["PhotoPreference"].ToString(), out iTemp))
+						PhotoPreference = iTemp;
                     UserPhoto = dRow["UserPhoto"].ToString();
-                    int iTemp = 0;
                     if (int.TryParse(dRow["PlayerPictureID"].ToString(), out iTemp))
                         PictureID = iTemp;
                     else
@@ -216,20 +227,28 @@ namespace LarpPortal.Classes
                     if (PictureID > 0)
                         Picture.Load(PictureID, intUserId.ToString());
 
-                    SearchableProfile = dRow["SearchableProfile"].ToString().ToBoolean();
-                    RolePlayPercentage = dRow["RoleplayPercentage"].ToString().ToInt32();
-                    CombatPercentage = dRow["CombatPercentage"].ToString().ToInt32();
-                    WriteUpLeadTimeNeeded = dRow["WriteUpLeadTimeNeeded"].ToString().ToInt32();
-                    WriteUpLengthPreference = dRow["WriteUpLengthPreference"].ToString().ToInt32();
-                    BackGroundKnowledge = dRow["BackgroundKnowledge"].ToString();
+					if (Boolean.TryParse(dRow["SearchableProfile"].ToString(), out bTemp))
+						SearchableProfile = bTemp;
+					if (int.TryParse(dRow["RoleplayPercentage"].ToString(), out iTemp))
+						RolePlayPercentage = iTemp;
+					if (int.TryParse(dRow["CombatPercentage"].ToString(), out iTemp))
+						CombatPercentage = iTemp;
+					if (int.TryParse(dRow["WriteUpLeadTimeNeeded"].ToString(), out iTemp))
+						CombatPercentage = iTemp;
+					if (int.TryParse(dRow["WriteUpLengthPreference"].ToString(), out iTemp))
+						WriteUpLengthPreference = iTemp;
+					BackGroundKnowledge = dRow["BackgroundKnowledge"].ToString();
                     LinkedInURL = dRow["LinkedInURL"].ToString();
                     Allergies = dRow["Allergies"].ToString();
                     Comments = dRow["Comments"].ToString();
                     LARPResumeComments = dRow["LARPResumeComments"].ToString();
                     ResumeComments = dRow["ResumeComments"].ToString();
                     MedicalComments = dRow["MedicalComments"].ToString();
-                    DateAdded = Convert.ToDateTime(dRow["DateAdded"].ToString());
-                    DateChanged = Convert.ToDateTime(dRow["DateChanged"].ToString());
+
+					if (DateTime.TryParse(dRow["DateAdded"].ToString(), out dtTemp))
+						DateAdded = dtTemp;
+					if (DateTime.TryParse(dRow["DateChanged"].ToString(), out dtTemp))
+						DateChanged = dtTemp;
 
                     // Cleaning up the Phone Number.
                     EmergencyContactPhone = EmergencyContactPhone.Replace("(", "").Replace(")", "").Replace("-", "").Replace(".", "");
