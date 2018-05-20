@@ -19,7 +19,6 @@ namespace LarpPortal.Campaigns
             if (!IsPostBack)
             {
                 Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                //TODO Fix CampaignID assignment to master page. CampaignID = User.LastLoggedInCampaign;
             }
             else
             {
