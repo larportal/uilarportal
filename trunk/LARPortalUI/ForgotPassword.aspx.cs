@@ -13,22 +13,18 @@ namespace LarpPortal
 		{
 			if (!IsPostBack)
 				mvInfoRequest.SetActiveView(vwInfoRequest);
-
+			divInvalid.Visible = false;
 		}
 
 		protected void btnGetInfo_Click(object sender, EventArgs e)
 		{
-			//TODO-Rick-1 Validate the username, email, last name combination.
 			Classes.cLogin ValidUser = new Classes.cLogin();
 			ValidUser.ValidateUserForPasswordReset(txtUsername.Text, txtEmailAddress.Text, txtLastName.Text);
 			if (ValidUser.MemberID == 0)
 			{
 				//If it's not valid flash a message with a clear button and tell them to try again.
-
-	
-				
-				//lblInvalidCombination.Visible = true;
-				//btnInvalidCombination.Visible = true;
+				divInvalid.Visible = true;
+				txtEmailAddress.Focus();
 			}
 			else  //If it's valid check for security questions.
 			{
