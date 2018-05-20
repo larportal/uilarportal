@@ -67,7 +67,7 @@
         }
 
         function openPayPalWindow() {
-            var win = window.open('/Events/EventPayment.aspx', '_blank');
+            var win = window.open("/Events/EventPayment.aspx", "_blank");
             win.focus();
         }
 
