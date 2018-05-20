@@ -92,6 +92,7 @@
     <Content Include="Calendar\MonthCalendar.aspx" />
     <Content Include="Calendar\CalGraphic.aspx" />
     <Content Include="Calendar\CalReport.aspx" />
+    <Content Include="Campaigns\AssignRoles.aspx" />
     <Content Include="Campaigns\CampaignInfo.aspx" />
     <Content Include="Campaigns\JoinACampaign.aspx" />
     <Content Include="Campaigns\Setup\Contacts.aspx" />
@@ -444,6 +445,7 @@
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
     <Content Include="Events\EventEdit.aspx" />
+    <Content Include="Events\EventPayment.aspx" />
     <Content Include="Events\SetupEvent.aspx" />
     <Content Include="Events\EventRegistration.aspx" />
     <Content Include="Events\RegistrationApproval.aspx" />
@@ -591,6 +593,10 @@
     <Content Include="InitialJoinCampaign.aspx" />
     <Content Include="NewUserDirections.aspx" />
     <Content Include="NewUserSelectCampaign.aspx" />
+    <Content Include="Payments\EventPayment102.aspx" />
+    <Content Include="Payments\EventPayment33.aspx" />
+    <Content Include="Payments\EventPayment80.aspx" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="TermsOfUse.aspx" />
     <Content Include="LearnMoreAboutLARPortal.aspx" />
     <Content Include="packages.config" />
@@ -1009,6 +1015,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap-toggle.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.min.js" />
@@ -1256,6 +1263,13 @@
     </Compile>
     <Compile Include="Calendar\CalReport.aspx.designer.cs">
       <DependentUpon>CalReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\AssignRoles.aspx.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\AssignRoles.aspx.designer.cs">
+      <DependentUpon>AssignRoles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Campaigns\CampaignInfo.aspx.cs">
       <DependentUpon>CampaignInfo.aspx</DependentUpon>
@@ -1571,6 +1585,13 @@
     <Compile Include="Events\EventEdit.aspx.designer.cs">
       <DependentUpon>EventEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Events\EventPayment.aspx.cs">
+      <DependentUpon>EventPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\EventPayment.aspx.designer.cs">
+      <DependentUpon>EventPayment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Events\SetupEvent.aspx.cs">
       <DependentUpon>SetupEvent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1643,6 +1664,27 @@
     </Compile>
     <Compile Include="NewUserSelectCampaign.aspx.designer.cs">
       <DependentUpon>NewUserSelectCampaign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment102.aspx.cs">
+      <DependentUpon>EventPayment102.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment102.aspx.designer.cs">
+      <DependentUpon>EventPayment102.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment33.aspx.cs">
+      <DependentUpon>EventPayment33.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment33.aspx.designer.cs">
+      <DependentUpon>EventPayment33.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment80.aspx.cs">
+      <DependentUpon>EventPayment80.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment80.aspx.designer.cs">
+      <DependentUpon>EventPayment80.aspx</DependentUpon>
     </Compile>
     <Compile Include="TermsOfUse.aspx.cs">
       <DependentUpon>TermsOfUse.aspx</DependentUpon>
