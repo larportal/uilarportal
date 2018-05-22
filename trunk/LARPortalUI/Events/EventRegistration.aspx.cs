@@ -24,39 +24,26 @@ namespace LarpPortal.Events
 
 		protected void Page_PreRender(object sender, EventArgs e)
 		{
-
-			//protected void oCampSelect_CampaignChanged(object sender, EventArgs e)
-			//{
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-			SortedList sParams = new SortedList();
-			sParams.Add("@CampaignID", Master.CampaignID);
-			DataSet dtEventInfo = Classes.cUtilities.LoadDataSet("uspGetEventInfo", sParams, "LARPortal", Master.UserName, lsRoutineName);
-
-			dtEventInfo.Tables [0].TableName = "EventInfo";
-			dtEventInfo.Tables [1].TableName = "Housing";
-			dtEventInfo.Tables [2].TableName = "PaymentType";
-
-			// Eventually the row filter needs to be     StatusName = 'Scheduled' and RegistrationOpenDateTime <= GetDate() and RegistrationCloseDateTime >= GetDate()
-			DataView dvEventInfo = new DataView(dtEventInfo.Tables ["EventInfo"], "PELDeadlineDate > '" + System.DateTime.Today.ToShortDateString() + "'",    // "StatusName = 'Scheduled'",    // and RegistrationOpenDateTime > '" + System.DateTime.Today + "'",
-				"", DataViewRowState.CurrentRows);
-
-			//if (dvEventInfo.Count == 0)
-			//{
-			//    divNoEvents.Visible = true;
-			//    return;
-			//}
-
-			//divEvents.Visible = true;
-			//divNoEvents.Visible = false;
-
-			//                    mvPlayerInfo.SetActiveView(vwPlayerInfo);
-
-			DataTable dtEventDates = dvEventInfo.ToTable(true, "StartDate", "EventID", "EventName");
-            if (!IsPostBack)
+			if (!IsPostBack)
             {
-                if (dtEventDates.Rows.Count == 0)
+				SortedList sParams = new SortedList();
+				sParams.Add("@CampaignID", Master.CampaignID);
+				DataSet dtEventInfo = Classes.cUtilities.LoadDataSet("uspGetEventInfo", sParams, "LARPortal", Master.UserName, lsRoutineName);
+
+				dtEventInfo.Tables[0].TableName = "EventInfo";
+				dtEventInfo.Tables[1].TableName = "Housing";
+				dtEventInfo.Tables[2].TableName = "PaymentType";
+
+				// Eventually the row filter needs to be     StatusName = 'Scheduled' and RegistrationOpenDateTime <= GetDate() and RegistrationCloseDateTime >= GetDate()
+				DataView dvEventInfo = new DataView(dtEventInfo.Tables["EventInfo"], "PELDeadlineDate > '" + System.DateTime.Today.ToShortDateString() + "'",    // "StatusName = 'Scheduled'",    // and RegistrationOpenDateTime > '" + System.DateTime.Today + "'",
+					"", DataViewRowState.CurrentRows);
+
+				DataTable dtEventDates = dvEventInfo.ToTable(true, "StartDate", "EventID", "EventName");
+
+				if (dtEventDates.Rows.Count == 0)
                 {
                     mvEventInfo.SetActiveView(vwNoEvents);
                 }
@@ -676,7 +663,7 @@ namespace LarpPortal.Events
 						}
 					}
 
-					if (String.IsNullOrEmpty(dReg ["TeamID"].ToString()))
+					if (!String.IsNullOrEmpty(dReg ["TeamID"].ToString()))
 					{
 						ddlTeams.ClearSelection();
 						foreach (ListItem li in ddlTeams.Items)
@@ -684,7 +671,7 @@ namespace LarpPortal.Events
 								li.Selected = true;
 					}
 					ddlRoles_SelectedIndexChanged(null, null);
-					if (String.IsNullOrEmpty(dReg ["RoleAlignmentID"].ToString()))
+					if (!String.IsNullOrEmpty(dReg ["RoleAlignmentID"].ToString()))
 					{
 						ddlRoles.ClearSelection();
 						bool bSelectionFound = false;
@@ -702,7 +689,7 @@ namespace LarpPortal.Events
 							if (ddlRoles.SelectedItem.Text != "PC")
 							{
 								if (dReg ["NPCCampaignID"] != DBNull.Value)
-									if (String.IsNullOrEmpty(dReg ["NPCCampaignID"].ToString()))
+									if (!String.IsNullOrEmpty(dReg ["NPCCampaignID"].ToString()))
 									{
 										foreach (ListItem liItem in ddlSendToCampaign.Items)
 											if (liItem.Value == dReg ["NPCCampaignID"].ToString())
@@ -714,7 +701,7 @@ namespace LarpPortal.Events
 							}
 						}
 					}
-					if (String.IsNullOrEmpty(dReg ["CharacterID"].ToString()))
+					if (!String.IsNullOrEmpty(dReg ["CharacterID"].ToString()))
 					{
 						ddlCharacterList.ClearSelection();
 						foreach (ListItem li in ddlCharacterList.Items)
