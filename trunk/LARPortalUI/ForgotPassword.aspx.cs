@@ -29,7 +29,7 @@ namespace LarpPortal
 			else  //If it's valid check for security questions.
 			{
 				Session["UserID"] = ValidUser.MemberID;
-//				UserSecurityID.Text = ValidUser.UserSecurityID.ToString();
+				//				UserSecurityID.Text = ValidUser.UserSecurityID.ToString();
 				string An1 = ValidUser.SecurityAnswer1;
 				string An2 = ValidUser.SecurityAnswer2;
 				string An3 = ValidUser.SecurityAnswer3;
@@ -73,17 +73,38 @@ namespace LarpPortal
 				//	pnlIDYourself.Visible = false;
 				//	txtAnswerQuestion1.Focus();
 				//}
-			} 
+			}
 		}
 
 		protected void btnSupportSendEmail_Click(object sender, EventArgs e)
 		{
+			string strBody;
+			string strSubject = "Trouble with username / password";
+			strBody = "From: " + txtSupportName.Text + "<br>Email: " + txtSupportEmail.Text + "<br><br>Issue Details:<br><br>";
+			strBody = strBody + txtSupportBody.Text;
+			strBody = strBody + "<br><br>Answers Provided:<br>Email Address: " + txtEmailAddress.Text + "<br>";
+			strBody = strBody + "Username: " + txtSupportName.Text + "<br>";
 
+			string strCCAddress = "";
+			if (chkSupportCCMe2.Checked)
+				strCCAddress = txtSupportEmail.Text;
+
+			Classes.cEmailMessageService MailServer = new Classes.cEmailMessageService();
+			try
+			{
+				MailServer.SendMail(strSubject, strBody, txtEmailAddress.Text, strCCAddress, "", "ForgotPasswordSupportRequest", "System");
+				lblSupportSentEmail.Text = "An email has been sent to LARP Portal support.";
+				lblSupportSentEmail.Visible = true;
+			}
+			catch (Exception)
+			{
+				lblSupportSentEmail.Text = "An email has been sent to LARP Portal support.";
+				lblSupportSentEmail.Visible = true;
+			}
 		}
 
 		protected void btnSetQuestions_Click(object sender, EventArgs e)
 		{
-
 		}
 
 		protected void btnUserQuestions_Click(object sender, EventArgs e)

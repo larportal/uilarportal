@@ -450,6 +450,7 @@
     <Content Include="Events\EventRegistration.aspx" />
     <Content Include="Events\RegistrationApproval.aspx" />
     <Content Include="FAQs.aspx" />
+    <Content Include="ForgotUserName.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="images\Calendar.png" />
     <Content Include="images\Campaign.png" />
@@ -1619,6 +1620,13 @@
     </Compile>
     <Compile Include="FAQs.aspx.designer.cs">
       <DependentUpon>FAQs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotUserName.aspx.cs">
+      <DependentUpon>ForgotUserName.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotUserName.aspx.designer.cs">
+      <DependentUpon>ForgotUserName.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>

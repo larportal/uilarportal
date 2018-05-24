@@ -72,7 +72,7 @@
                                                     <label for="<%= txtUsername.ClientID %>">Username:</label>
                                                     <asp:RequiredFieldValidator ID="rfvUserName" runat="server" ValidationGroup="GetPassword"
                                                         Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtUserName" />
-                                                    <a href="#" style="padding-left: 20px;">Forgot Username ?</a>
+                                                    <a href="/ForgotUserName.aspx" style="margin-left: 20px;">Forgot Username ?</a>
                                                     <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" />
                                                 </div>
                                                 <div class="form-group">
@@ -86,58 +86,67 @@
                                                 <h3 class="text-center text-danger">That username, email address, last name combination is not valid.  Try again.
                                                 </h3>
                                             </div>
-                                        <div class="col-lg-12 text-right">
-                                            <asp:Button ID="btnGetInfo" runat="server" CssClass="btn btn-primary" Text="Get Password" OnClick="btnGetInfo_Click" CausesValidation="true" ValidationGroup="GetPassword" />
+                                            <div class="col-lg-12 text-right">
+                                                <asp:Button ID="btnGetInfo" runat="server" CssClass="btn btn-primary" Text="Get Password" OnClick="btnGetInfo_Click" CausesValidation="true" ValidationGroup="GetPassword" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-6 col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Need assistance? Email support.
-                                </div>
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label for="<%# txtSupportName.ClientID %>">Your name:</label>
-                                                <asp:RequiredFieldValidator ID="rfvSupportName" runat="server" ValidationGroup="GetSupport"
-                                                    Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportName" />
-                                                <asp:TextBox ID="txtSupportName" runat="server" CssClass="form-control" />
+                            <div class="col-lg-6 col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Need assistance? Email support.
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="<%# txtSupportName.ClientID %>">Your name:</label>
+                                                    <asp:RequiredFieldValidator ID="rfvSupportName" runat="server" ValidationGroup="GetSupport"
+                                                        Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportName" />
+                                                    <asp:TextBox ID="txtSupportName" runat="server" CssClass="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="<%# txtSupportEmail.ClientID %>">Your email address:</label>
+                                                    <asp:RequiredFieldValidator ID="rfvSupportEmail" runat="server" ValidationGroup="GetSupport"
+                                                        Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportEmail" />
+                                                    <asp:TextBox ID="txtSupportEmail" runat="server" CssClass="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="<%# lblSupportSubject.ClientID %>">Subject:</label>
+                                                    <asp:Label ID="lblSupportSubject" runat="server" CssClass="form-control" Text="Trouble with username / password." />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="<%# txtSupportBody.ClientID %>">Details about the issue:</label>
+                                                    <asp:RequiredFieldValidator ID="rfvSupportBody" runat="server" ValidationGroup="GetSupport"
+                                                        Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportBody" />
+                                                    <asp:TextBox ID="txtSupportBody" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="chkSupportCCMe2" id="chkSupportCCMe2" runat="server" />
+                                                    <div class="btn-group">
+                                                        <label for="<%= chkSupportCCMe2.ClientID%>" class="btn btn-default">
+                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                            <span class="glyphicon glyphicon-unchecked"></span>
+                                                        </label>
+                                                        <label for="<%= chkSupportCCMe2.ClientID%>" class="btn btn-default active">
+                                                            CC me on the support request email.
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="<%# txtSupportEmail.ClientID %>">Your email address:</label>
-                                                <asp:RequiredFieldValidator ID="rfvSupportEmail" runat="server" ValidationGroup="GetSupport"
-                                                    Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportEmail" />
-                                                <asp:TextBox ID="txtSupportEmail" runat="server" CssClass="form-control" />
+                                            <div class="col-lg-12 text-right">
+                                                <asp:Button ID="btnSupportSendEmail" runat="server" OnClick="btnSupportSendEmail_Click" CssClass="btn btn-primary" Text="Send Email" ValidationGroup="GetSupport" />
+                                                <asp:Label ID="lblSupportSentEmail" runat="server"></asp:Label>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="<%# lblSupportSubject.ClientID %>">Subject:</label>
-                                                <asp:Label ID="lblSupportSubject" runat="server" CssClass="form-control" Text="Trouble with username / password." />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="<%# txtSupportBody.ClientID %>">Details about the issue:</label>
-                                                <asp:RequiredFieldValidator ID="rfvSupportBody" runat="server" ValidationGroup="GetSupport"
-                                                    Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportBody" />
-                                                <asp:TextBox ID="txtSupportBody" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control" />
-                                            </div>
-                                            <div class="form-group">
-                                                <asp:CheckBox ID="chkSupportCCMe" runat="server" Checked="true" Text="CC me on the support request email." CssClass="checkbox-inline" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 text-right">
-                                            <asp:Button ID="btnSupportSendEmail" runat="server" OnClick="btnSupportSendEmail_Click" CssClass="btn btn-primary" Text="Send Email" ValidationGroup="GetSupport" />
-                                            <asp:Label ID="lblSupportSentEmail" runat="server"></asp:Label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-            </div>
-            </asp:View>
+                    </asp:View>
                     <asp:View ID="vwSecurityQuestions" runat="server">
                         <div class="row">
                             <div class="col-lg-12">
@@ -211,108 +220,108 @@
                             </div>
                         </div>
                     </asp:View>
-            <asp:View ID="vwAnswerQuestions" runat="server">
-                <div class="row">
-                    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Security Questions</div>
-                            <div class="panel-body">
-                                <asp:Label ID="Label1" runat="server">Please answer the question<asp:Label ID="lblAnswerQuestionS" runat="server" Text="s" />
-                                    below to reset your password.
-                                </asp:Label>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <asp:Label ID="lblUserQuestion1" runat="server" AssociatedControlID="tbUserAnswer1" />
-                                            <asp:TextBox ID="tbUserAnswer1" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer1" runat="server" />
+                    <asp:View ID="vwAnswerQuestions" runat="server">
+                        <div class="row">
+                            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Security Questions</div>
+                                    <div class="panel-body">
+                                        <asp:Label ID="Label1" runat="server">Please answer the question<asp:Label ID="lblAnswerQuestionS" runat="server" Text="s" />
+                                            below to reset your password.
+                                        </asp:Label>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <asp:Label ID="lblUserQuestion1" runat="server" AssociatedControlID="tbUserAnswer1" />
+                                                    <asp:TextBox ID="tbUserAnswer1" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer1" runat="server" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row" runat="server" id="divUserQuestion2">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <asp:Label ID="lblUserQuestion2" runat="server" AssociatedControlID="tbUserAnswer2" />
-                                            <asp:TextBox ID="tbUserAnswer2" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer2" runat="server" />
+                                        <div class="row" runat="server" id="divUserQuestion2">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <asp:Label ID="lblUserQuestion2" runat="server" AssociatedControlID="tbUserAnswer2" />
+                                                    <asp:TextBox ID="tbUserAnswer2" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer2" runat="server" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row" runat="server" id="divUserQuestion3">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <asp:Label ID="lblUserQuestion3" runat="server" AssociatedControlID="tbUserAnswer3" />
-                                            <asp:TextBox ID="tbUserAnswer3" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer3" runat="server" />
+                                        <div class="row" runat="server" id="divUserQuestion3">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <asp:Label ID="lblUserQuestion3" runat="server" AssociatedControlID="tbUserAnswer3" />
+                                                    <asp:TextBox ID="tbUserAnswer3" runat="server" CssClass="form-control" /><asp:HiddenField ID="hidUserAnswer3" runat="server" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 text-right">
-                                        <asp:Button ID="btnUserQuestions" runat="server" CssClass="btn btn-primary" Text="Reset Password" OnClick="btnUserQuestions_Click" />
+                                        <div class="row">
+                                            <div class="col-xs-12 text-right">
+                                                <asp:Button ID="btnUserQuestions" runat="server" CssClass="btn btn-primary" Text="Reset Password" OnClick="btnUserQuestions_Click" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </asp:View>
+                    </asp:View>
 
-            <asp:View ID="vwSetPassword" runat="server">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Reset Password</div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Password requirements:</h3>
-                                        LARP Portal login passwords must be at least 7 characters long and contain at least
+                    <asp:View ID="vwSetPassword" runat="server">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Reset Password</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h3>Password requirements:</h3>
+                                                LARP Portal login passwords must be at least 7 characters long and contain at least
                                                 <br />
-                                        1 uppercase letter, 1 lowercase letter, 1 number and 1 special character<br />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="<%= tbPassword.ClientID %>">New Password:</label>
-                                            <div class="input-group col-md-12">
-                                                <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" TextMode="Password" />
+                                                1 uppercase letter, 1 lowercase letter, 1 number and 1 special character<br />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="<%= tbPasswordConfirm %>">Confirm Password:</label><asp:CompareValidator ID="cvConfirmPassword" runat="server"
-                                                ControlToValidate="tbPasswordConfirm"
-                                                CssClass="ValidationError"
-                                                ControlToCompare="tbPassword"
-                                                ErrorMessage="No Match"
-                                                ToolTip="Password must be the same" />
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="<%= tbPassword.ClientID %>">New Password:</label>
+                                                    <div class="input-group col-md-12">
+                                                        <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" TextMode="Password" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="<%= tbPasswordConfirm %>">Confirm Password:</label><asp:CompareValidator ID="cvConfirmPassword" runat="server"
+                                                        ControlToValidate="tbPasswordConfirm"
+                                                        CssClass="ValidationError"
+                                                        ControlToCompare="tbPassword"
+                                                        ErrorMessage="No Match"
+                                                        ToolTip="Password must be the same" />
 
-                                            <div class="input-group col-md-12">
-                                                <asp:TextBox ID="tbPasswordConfirm" runat="server" CssClass="form-control" TextMode="Password" />
+                                                    <div class="input-group col-md-12">
+                                                        <asp:TextBox ID="tbPasswordConfirm" runat="server" CssClass="form-control" TextMode="Password" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="divErrorPasswords" runat="server">
-                                    <div class="col-xs-12">
-                                        <asp:Label ID="lblErrorPasswords" runat="server" CssClass="alert alert-danger text-center" />
+                                        <div class="row" id="divErrorPasswords" runat="server">
+                                            <div class="col-xs-12">
+                                                <asp:Label ID="lblErrorPasswords" runat="server" CssClass="alert alert-danger text-center" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p class="text-right">
-                            <asp:Button ID="btnSaveNewPassword" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSaveNewPassword_Click" />
-                        </p>
-                    </div>
-                </div>
-            </asp:View>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-right">
+                                    <asp:Button ID="btnSaveNewPassword" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSaveNewPassword_Click" />
+                                </p>
+                            </div>
+                        </div>
+                    </asp:View>
 
-            </asp:MultiView>
-        </div>
+                </asp:MultiView>
+            </div>
         </div>
 
         <%--                                    <asp:Label ID="lblForgotUsername" runat="server">Forgot your username or new to the system?  Fill in the email address and click 'Forgot Username'</asp:Label>
