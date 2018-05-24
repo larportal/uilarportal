@@ -175,13 +175,13 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.TextBox txtSupportBody;
         
         /// <summary>
-        /// chkSupportCCMe control.
+        /// chkSupportCCMe2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSupportCCMe;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkSupportCCMe2;
         
         /// <summary>
         /// btnSupportSendEmail control.
