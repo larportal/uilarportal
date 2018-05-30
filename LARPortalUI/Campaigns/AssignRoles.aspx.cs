@@ -17,7 +17,7 @@ namespace LarpPortal.Campaigns
 		private DataTable _dtRoles = new DataTable();
 		private bool _ReloadUser = false;
 		private bool _SuperUser = false;
-		
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			// Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
@@ -76,6 +76,7 @@ namespace LarpPortal.Campaigns
 			dtRoles.Columns.Add(new DataColumn("DisplayDescription", typeof(string)));
 			dtRoles.Columns.Add(new DataColumn("UserHasRole", typeof(bool)));
 			dtRoles.Columns.Add(new DataColumn("CampaignPlayerRoleID", typeof(int)));
+			dtRoles.Columns.Add(new DataColumn("PageDescription", typeof(string)));
 
 			// For next two columns need to set up a column variable so we can make it not null and have a default value. Need not null because the front end needs it to display correctly.
 			DataColumn dCanAssign = new DataColumn("CanAssign", typeof(Boolean));
@@ -108,6 +109,10 @@ namespace LarpPortal.Campaigns
 					dRow["CanAssign"] = false;
 				dRow["DisplayGroup"] = dRole["DisplayGroup"].ToString();
 				dRow["DisplayDescription"] = dRole["DisplayDescription"].ToString();
+				dRow["PageDescription"] = "<b><u>" + dRole["RoleDescription"].ToString() + "</u></b>";
+				if (!string.IsNullOrEmpty(dRole["DisplayDescription"].ToString()))
+					dRow["PageDescription"] += "<br>" + dRole["DisplayDescription"].ToString();
+
 				dtRoles.Rows.Add(dRow);
 			}
 
@@ -131,10 +136,10 @@ namespace LarpPortal.Campaigns
 
 				if (ddlPlayerSelector.Items.Count > 0)
 					ddlPlayerSelector.Items[0].Selected = true;
-//				spnPlayer.Visible = true;
+				//				spnPlayer.Visible = true;
 				ddlPlayerSelector_SelectedIndexChanged(null, null);
-//				gvFullRoleList.Visible = true;
-//				gvRoleList.Visible = false;
+				//				gvFullRoleList.Visible = true;
+				//				gvRoleList.Visible = false;
 			}
 			else
 			{
@@ -173,13 +178,22 @@ namespace LarpPortal.Campaigns
 			// If user is not a superuser, limit the roles to only the ones they have.
 			if (!_SuperUser)
 				dvPlayerRoles.RowFilter = "UserHasRole = 1";
+
 			foreach (DataRowView dRow in dvPlayerRoles)
 			{
 				DataView dvExisting = new DataView(_dtRoles, "RoleID = " + dRow["RoleID"].ToString(), "", DataViewRowState.CurrentRows);
 				if (dvExisting.Count > 0)
 				{
-					dvExisting[0]["PlayerHasRole"] = true;
-					dvExisting[0]["CampaignPlayerRoleID"] = dRow["CampaignPlayerRoleID"].ToString();
+					if (dRow["CampaignPlayerRoleID"] != DBNull.Value)
+					{
+						dvExisting[0]["CampaignPlayerRoleID"] = dRow["CampaignPlayerRoleID"].ToString();
+						dvExisting[0]["PlayerHasRole"] = true;
+					}
+					else
+					{
+						dvExisting[0]["CampaignPlayerRoleID"] = "-1";
+						dvExisting[0]["PlayerHasRole"] = false;
+					}
 				}
 			}
 
@@ -194,6 +208,12 @@ namespace LarpPortal.Campaigns
 
 			rptRoles.DataSource = distinctValues;
 			rptRoles.DataBind();
+
+			foreach (DataRow dRow in dsRoles.Tables[2].Rows)
+			{
+				lblLoginName.Text = dRow["LoginUserName"].ToString();
+				lblPersonName.Text = dRow["PlayerFirstLastName"].ToString();
+			}
 		}
 
 		protected void gvFullRoleList_RowDataBound(object sender, GridViewRowEventArgs e)

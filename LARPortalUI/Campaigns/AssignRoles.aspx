@@ -3,10 +3,10 @@
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="AssignRolesStyles" ContentPlaceHolderID="MainStyles" runat="server">
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="AssignRolesScripts" ContentPlaceHolderID="MainScripts" runat="server">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </asp:Content>
 <asp:Content ID="AssignRolesBody" ContentPlaceHolderID="MainBody" runat="server">
 
@@ -43,25 +43,28 @@
                         <div class="panel-body">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <span class="">Profile: </span>
+                                    <label for="<%= lblLoginName.ClientID %>" class="font-weight-bold">Profile: </label>
                                     <asp:Label ID="lblLoginName" runat="server" />
-                                    <span class="">Person Name:</span>
+                                    <label for="<%= lblPersonName.ClientID %>" class="font-weight-bold">Person Name: </label>
                                     <asp:Label ID="lblPersonName" runat="server" />
                                 </div>
 
-                                <asp:GridView ID="gvFullRoleList" runat="server" CssClass="table table-striped table-hover NarrowTable" GridLines="None" 
-                                            OnRowDataBound="gvFullRoleList_RowDataBound" AutoGenerateColumns="false">
-                                    <Columns>
-                                        <asp:BoundField DataField="RoleDesc" HeaderText="Role" ItemStyle-CssClass="NarrowTable" />
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                            <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" id="swHasRole" /> <%-- data-size="mini">--%>
-                                                <asp:HiddenField ID="hidRoleID" runat="server" Value='<%# Eval("RoleID") %>' />
-                                                <asp:HiddenField ID="hidPlayerHasRole" runat="server" Value='<%# Eval("PlayerHasRole") %>' />
+                                <div class="row" style="padding-top: 15px;">
+                                    <asp:GridView ID="gvFullRoleList" runat="server" CssClass="table table-striped table-hover NarrowTable" GridLines="None"
+                                        OnRowDataBound="gvFullRoleList_RowDataBound" AutoGenerateColumns="false">
+                                        <Columns>
+                                            <asp:BoundField DataField="PageDescription" HeaderText="Role" ItemStyle-CssClass="NarrowTable" HtmlEncode="False" />
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" id="swHasRole" />
+                                                    <%-- data-size="mini">--%>
+                                                    <asp:HiddenField ID="hidRoleID" runat="server" Value='<%# Eval("RoleID") %>' />
+                                                    <asp:HiddenField ID="hidPlayerHasRole" runat="server" Value='<%# Eval("PlayerHasRole") %>' />
                                                 </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
 
                                 <asp:GridView ID="gvRoleList" runat="server" CssClass="table table-striped table-bordered table-hover NarrowTable" RowStyle-CssClass="NarrowTable" AutoGenerateColumns="false">
                                     <Columns>

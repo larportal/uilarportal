@@ -103,13 +103,13 @@ namespace LarpPortal {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divInvalid;
         
         /// <summary>
-        /// btnGetInfo control.
+        /// btnGetPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetInfo;
+        protected global::System.Web.UI.WebControls.Button btnGetPassword;
         
         /// <summary>
         /// rfvSupportName control.
@@ -238,24 +238,6 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.TextBox tbAnswer1;
         
         /// <summary>
-        /// divErrorQuestion1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorQuestion1;
-        
-        /// <summary>
-        /// lblErrorQuestion1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorQuestion1;
-        
-        /// <summary>
         /// tbQuestion2 control.
         /// </summary>
         /// <remarks>
@@ -274,24 +256,6 @@ namespace LarpPortal {
         protected global::System.Web.UI.WebControls.TextBox tbAnswer2;
         
         /// <summary>
-        /// divErrorQuestion2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorQuestion2;
-        
-        /// <summary>
-        /// lblErrorQuestion2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorQuestion2;
-        
-        /// <summary>
         /// tbQuestion3 control.
         /// </summary>
         /// <remarks>
@@ -308,24 +272,6 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAnswer3;
-        
-        /// <summary>
-        /// divErrorQuestion3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorQuestion3;
-        
-        /// <summary>
-        /// lblErrorQuestion3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorQuestion3;
         
         /// <summary>
         /// btnSetQuestions control.
@@ -533,5 +479,113 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNewPassword;
+        
+        /// <summary>
+        /// vwFinalStep control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwFinalStep;
+        
+        /// <summary>
+        /// btnDone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDone;
+        
+        /// <summary>
+        /// hidQuestion1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidQuestion1;
+        
+        /// <summary>
+        /// hidAnswer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAnswer1;
+        
+        /// <summary>
+        /// hidUpdate1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidUpdate1;
+        
+        /// <summary>
+        /// hidQuestion2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidQuestion2;
+        
+        /// <summary>
+        /// hidAnswer2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAnswer2;
+        
+        /// <summary>
+        /// hidUpdate2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidUpdate2;
+        
+        /// <summary>
+        /// hidQuestion3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidQuestion3;
+        
+        /// <summary>
+        /// hidAnswer3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAnswer3;
+        
+        /// <summary>
+        /// hidUpdate3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidUpdate3;
+        
+        /// <summary>
+        /// hidUserSecurityID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidUserSecurityID;
     }
 }

@@ -28,7 +28,95 @@
         body {
             background: #fff;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .Required {
+            color: red;
+            font-style: italic;
+        }
     </style>
+
+    <script type="text/javascript">
+
+        // Trying to make it so if you put in a question, the answer will say 'Required'. Same for if you put in the answer without the question.
+        // If a question or answer is missing where other isn't will also disable the save button.
+
+        function CheckSet1() {
+            var tbQuestion1 = document.getElementById('<%=tbQuestion1.ClientID%>');
+            var tbAnswer1 = document.getElementById('<%=tbAnswer1.ClientID%>');
+            var lblQuestion1Req = document.getElementById('lblQuestion1Req');
+            var lblAnswer1Req = document.getElementById('lblAnswer1Req');
+            var btnSetQuestions = document.getElementById('<%= btnSetQuestions.ClientID %>');
+
+            lblQuestion1Req.innerHTML = 'Question 1';
+            lblAnswer1Req.innerHTML = 'Answer 1';
+            btnSetQuestions.disabled = false;
+
+            if ((tbQuestion1.value == '') &&
+                (tbAnswer1.value != '')) {
+                lblQuestion1Req.innerHTML = '<span class="Required">Question 1 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+            else if ((tbQuestion1.value != '') &&
+                (tbAnswer1.value == '')) {
+                lblAnswer1Req.innerHTML = '<span class="Required">Answer 1 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+        }
+
+        function CheckSet2() {
+            var tbQuestion2 = document.getElementById('<%=tbQuestion2.ClientID%>');
+            var tbAnswer2 = document.getElementById('<%=tbAnswer2.ClientID%>');
+            var lblQuestion2Req = document.getElementById('lblQuestion2Req');
+            var lblAnswer2Req = document.getElementById('lblAnswer2Req');
+            var btnSetQuestions = document.getElementById('<%= btnSetQuestions.ClientID %>');
+
+            lblQuestion2Req.innerHTML = 'Question 2';
+            lblAnswer2Req.innerHTML = 'Answer 2';
+            btnSetQuestions.disabled = false;
+
+            if ((tbQuestion2.value == '') &&
+                (tbAnswer2.value != '')) {
+                lblQuestion2Req.innerHTML = '<span class="Required">Question 2 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+            else if ((tbQuestion2.value != '') &&
+                (tbAnswer2.value == '')) {
+                lblAnswer2Req.innerHTML = '<span class="Required">Answer 2 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+        }
+
+        function CheckSet3() {
+            var tbQuestion3 = document.getElementById('<%=tbQuestion3.ClientID%>');
+            var tbAnswer3 = document.getElementById('<%=tbAnswer3.ClientID%>');
+            var lblQuestion3Req = document.getElementById('lblQuestion3Req');
+            var lblAnswer3Req = document.getElementById('lblAnswer3Req');
+            var btnSetQuestions = document.getElementById('<%= btnSetQuestions.ClientID %>');
+
+            lblQuestion3Req.innerHTML = 'Question 3';
+            lblAnswer3Req.innerHTML = 'Answer 3';
+            btnSetQuestions.disabled = false;
+
+            if ((tbQuestion3.value == '') &&
+                (tbAnswer3.value != '')) {
+                lblQuestion3Req.innerHTML = '<span class="Required">Question 3 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+            else if ((tbQuestion3.value != '') &&
+                (tbAnswer3.value == '')) {
+                lblAnswer3Req.innerHTML = '<span class="Required">Answer 3 * Required</span>';
+                btnSetQuestions.disabled = true;
+            }
+        }
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -87,7 +175,7 @@
                                                 </h3>
                                             </div>
                                             <div class="col-lg-12 text-right">
-                                                <asp:Button ID="btnGetInfo" runat="server" CssClass="btn btn-primary" Text="Get Password" OnClick="btnGetInfo_Click" CausesValidation="true" ValidationGroup="GetPassword" />
+                                                <asp:Button ID="btnGetPassword" runat="server" CssClass="btn btn-primary" Text="Get Password" OnClick="btnGetPassword_Click" CausesValidation="true" ValidationGroup="GetPassword" />
                                             </div>
                                         </div>
                                     </div>
@@ -162,56 +250,47 @@
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblQuestion1Req" for="<%= tbQuestion1.ClientID %>">Question 1</label>
                                                     <asp:TextBox ID="tbQuestion1" runat="server" CssClass="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblAnswer1Req" for="<%= tbAnswer1.ClientID %>">Answer 1</label>
                                                     <asp:TextBox ID="tbAnswer1" runat="server" CssClass="form-control" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="divErrorQuestion1" runat="server">
-                                            <div class="col-xs-12">
-                                                <asp:Label ID="lblErrorQuestion1" runat="server" CssClass="alert alert-danger text-center" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblQuestion2Req" for="<%= tbQuestion2.ClientID %>">Question 2</label>
                                                     <asp:TextBox ID="tbQuestion2" runat="server" CssClass="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblAnswer2Req" for="<%= tbAnswer2.ClientID %>">Answer 2</label>
                                                     <asp:TextBox ID="tbAnswer2" runat="server" CssClass="form-control" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="divErrorQuestion2" runat="server">
-                                            <div class="col-xs-12">
-                                                <asp:Label ID="lblErrorQuestion2" runat="server" CssClass="alert alert-danger text-center" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblQuestion3Req" for="<%= tbQuestion3.ClientID %>">Question 3</label>
                                                     <asp:TextBox ID="tbQuestion3" runat="server" CssClass="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
                                                 <div class="form-group">
+                                                    <label id="lblAnswer3Req" for="<%= tbAnswer3.ClientID %>">Answer 3</label>
                                                     <asp:TextBox ID="tbAnswer3" runat="server" CssClass="form-control" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" id="divErrorQuestion3" runat="server">
-                                            <div class="col-xs-12">
-                                                <asp:Label ID="lblErrorQuestion3" runat="server" CssClass="alert alert-danger text-center" />
-                                            </div>
-                                        </div>
                                         <div class="row">
-                                            <div class="col-xs-12">
+                                            <div class="col-xs-12 text-right">
                                                 <asp:Button ID="btnSetQuestions" runat="server" CssClass="btn btn-primary" Text="Reset Password" OnClick="btnSetQuestions_Click" />
                                             </div>
                                         </div>
@@ -271,19 +350,19 @@
                                     <div class="panel-heading">Reset Password</div>
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 text-center">
                                                 <h3>Password requirements:</h3>
                                                 LARP Portal login passwords must be at least 7 characters long and contain at least
                                                 <br />
                                                 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character<br />
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12">
+                                        <div class="row" style="padding-top: 20px;">
+                                            <div class="col-md-4 col-md-offset-2 col-sm-12">
                                                 <div class="form-group">
                                                     <label for="<%= tbPassword.ClientID %>">New Password:</label>
                                                     <div class="input-group col-md-12">
-                                                        <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" TextMode="Password" />
+                                                        <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control col-xs-12" TextMode="Password" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -293,7 +372,7 @@
                                                         ControlToValidate="tbPasswordConfirm"
                                                         CssClass="ValidationError"
                                                         ControlToCompare="tbPassword"
-                                                        ErrorMessage="No Match"
+                                                        ErrorMessage="Passswords Must Match"
                                                         ToolTip="Password must be the same" />
 
                                                     <div class="input-group col-md-12">
@@ -302,24 +381,36 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" id="divErrorPasswords" runat="server">
+                                        <div class="row" id="divErrorPasswords" runat="server" visible="false">
                                             <div class="col-xs-12">
                                                 <asp:Label ID="lblErrorPasswords" runat="server" CssClass="alert alert-danger text-center" />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p class="text-right">
+                                                    <asp:Button ID="btnSaveNewPassword" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSaveNewPassword_Click" />
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="text-right">
-                                    <asp:Button ID="btnSaveNewPassword" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSaveNewPassword_Click" />
-                                </p>
+                    </asp:View>
+                    <asp:View ID="vwFinalStep" runat="server">
+                        <div class="row" style="padding-top: 20px;">
+                            <div class="col-lg-12 text-center">
+                                Your password has been reset.  Click the ok button to return to the login screen.
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 20px;">
+                            <div class="col-lg-12 text-center">
+                                <asp:Button ID="btnDone" runat="server" OnClick="btnDone_Click" Text="OK" />
                             </div>
                         </div>
                     </asp:View>
-
                 </asp:MultiView>
             </div>
         </div>
@@ -394,6 +485,18 @@
         </section>
         </div>
         </div>--%>
+
+        <%-- When we go to update these values, they will always be in pairs so only need one 'update' variable. --%>
+        <asp:HiddenField ID="hidQuestion1" runat="server" />
+        <asp:HiddenField ID="hidAnswer1" runat="server" />
+        <asp:HiddenField ID="hidUpdate1" runat="server" />
+        <asp:HiddenField ID="hidQuestion2" runat="server" />
+        <asp:HiddenField ID="hidAnswer2" runat="server" />
+        <asp:HiddenField ID="hidUpdate2" runat="server" />
+        <asp:HiddenField ID="hidQuestion3" runat="server" />
+        <asp:HiddenField ID="hidAnswer3" runat="server" />
+        <asp:HiddenField ID="hidUpdate3" runat="server" />
+        <asp:HiddenField ID="hidUserSecurityID" runat="server" />
     </form>
 </body>
 </html>
