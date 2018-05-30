@@ -41,7 +41,7 @@ namespace LarpPortal.Reports
                     case "EVENT":
                         lblEvent.Style["Display"] = "inline";
                         ddlEvent.Style["Display"] = "inline";
-                        if (String.IsNullOrEmpty(ddlEvent.SelectedValue))
+                        //if (String.IsNullOrEmpty(ddlEvent.SelectedValue))
                             btnRunReport.Style["Display"] = "inline";
                         break;
 
@@ -127,7 +127,11 @@ namespace LarpPortal.Reports
             }
 
             if (!string.IsNullOrEmpty(URLPath))
-                Response.Write("<script type='text/javascript'>window.open('" + URLPath + "','_blank');</script>");
+            {
+                //Response.Write(String.Format("window.open('{0}','_blank')", ResolveUrl(URLPath)));
+                Response.Redirect(URLPath);
+            
+            }
         }
     }
 }
