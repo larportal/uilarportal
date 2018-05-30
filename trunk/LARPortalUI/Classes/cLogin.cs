@@ -591,16 +591,30 @@ namespace LarpPortal.Classes
             cUtilities.PerformNonQuery("uspInsUpdMDBUserSecurity", slParameters, "LARPortal", UserID.ToString());
         }
 
-        /// <summary>
-        /// Will write out updated security questions and answers and set new password
-        /// Requires all three questions, all three answers, new password and UserID
-        /// </summary>
-        public void UpdateQAandPassword(int SecurityID, int UserID, string Q1, string Q1U, string Q2, string Q2U, string Q3, string Q3U, string A1, string A1U, string A2, string A2U, string A3, string A3U, string NewPassword)
+		/// <summary>
+		/// Will write out updated security questions and answers and set new password
+		/// Requires all three questions, all three answers, new password and UserID
+		/// </summary>
+		/// <param name="SecurityID">Security ID for the person.</param>
+		/// <param name="UserID">User ID of the person to update.</param>
+		/// <param name="Q1">Question 1.</param>
+		/// <param name="Q1U">If "1", it will update Q1.</param>
+		/// <param name="Q2">Question 2.</param>
+		/// <param name="Q2U">If "1", it will update Q2.</param>
+		/// <param name="Q3">Question 3.</param>
+		/// <param name="Q3U">If "1", it will update Q3.</param>
+		/// <param name="A1">Answer 1.</param>
+		/// <param name="A1U">If "1", it will update A1.</param>
+		/// <param name="A2">Answer 2.</param>
+		/// <param name="A2U">If "1", it will update A2.</param>
+		/// <param name="A3">Answer 3.</param>
+		/// <param name="A3U">If "1", it will update A3.</param>
+		/// <param name="NewPassword">New Password - assume it has already been checked to make sure it's a valid password.</param>
+		public void UpdateQAandPassword(int SecurityID, int UserID, string Q1, string Q1U, string Q2, string Q2U, string Q3, string Q3U, string A1, string A1U, string A2, string A2U, string A3, string A3U, string NewPassword)
         {
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-			//TODO-Rick-000-Modify code below to make it work
             SortedList slParameters = new SortedList();
             slParameters.Add("@UserID", UserID);
             slParameters.Add("@UserSecurityID", SecurityID);

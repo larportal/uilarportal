@@ -14,9 +14,15 @@ namespace LarpPortal
 			if (!IsPostBack)
 				mvInfoRequest.SetActiveView(vwInfoRequest);
 			divInvalid.Visible = false;
+			tbQuestion1.Attributes.Add("onchange", "javascript: CheckSet1();");
+			tbAnswer1.Attributes.Add("onchange", "javascript: CheckSet1();");
+			tbQuestion2.Attributes.Add("onchange", "javascript: CheckSet2();");
+			tbAnswer2.Attributes.Add("onchange", "javascript: CheckSet2();");
+			tbQuestion3.Attributes.Add("onchange", "javascript: CheckSet3();");
+			tbAnswer3.Attributes.Add("onchange", "javascript: CheckSet3();");
 		}
 
-		protected void btnGetInfo_Click(object sender, EventArgs e)
+		protected void btnGetPassword_Click(object sender, EventArgs e)
 		{
 			Classes.cLogin ValidUser = new Classes.cLogin();
 			ValidUser.ValidateUserForPasswordReset(txtUsername.Text, txtEmailAddress.Text, txtLastName.Text);
@@ -29,17 +35,21 @@ namespace LarpPortal
 			else  //If it's valid check for security questions.
 			{
 				Session["UserID"] = ValidUser.MemberID;
-				//				UserSecurityID.Text = ValidUser.UserSecurityID.ToString();
-				string An1 = ValidUser.SecurityAnswer1;
-				string An2 = ValidUser.SecurityAnswer2;
-				string An3 = ValidUser.SecurityAnswer3;
-				string Qu1 = ValidUser.SecurityQuestion1;
-				string Qu2 = ValidUser.SecurityQuestion2;
-				string Qu3 = ValidUser.SecurityQuestion3;
+				hidUserSecurityID.Value = ValidUser.UserSecurityID.ToString();
+
+				// Save all the values to the hidden fields so we can get them later.
+				hidAnswer1.Value = ValidUser.SecurityAnswer1;
+				hidAnswer2.Value = ValidUser.SecurityAnswer2;
+				hidAnswer3.Value = ValidUser.SecurityAnswer3;
+				hidQuestion1.Value = ValidUser.SecurityQuestion1;
+				hidQuestion2.Value = ValidUser.SecurityQuestion2;
+				hidQuestion3.Value = ValidUser.SecurityQuestion3;
+
 				if ((!String.IsNullOrEmpty(ValidUser.SecurityQuestion1)) ||
 					(!String.IsNullOrEmpty(ValidUser.SecurityQuestion2)) ||
 					(!String.IsNullOrEmpty(ValidUser.SecurityQuestion3)))
 				{
+					// At least one of the questions is filled in.
 					mvInfoRequest.SetActiveView(vwAnswerQuestions);
 					divUserQuestion2.Visible = false;
 					divUserQuestion3.Visible = false;
@@ -64,15 +74,11 @@ namespace LarpPortal
 						hidUserAnswer3.Value = ValidUser.SecurityAnswer3;
 					}
 				}
-				//else //If at least one question, make the 'answer question panel visible.
-				//{
-				//	lblAskQuestion1.Text = "Security Question 1: " + Q1.Text;
-				//	lblAskQuestion2.Text = "Security Question 2: " + Q2.Text;
-				//	lblAskQuestion3.Text = "Security Question 3: " + Q3.Text;
-				//	pnlAnswerQuestion.Visible = true;
-				//	pnlIDYourself.Visible = false;
-				//	txtAnswerQuestion1.Focus();
-				//}
+				else
+				{
+					mvInfoRequest.SetActiveView(vwSecurityQuestions);
+					tbQuestion1.Focus();
+				}
 			}
 		}
 
@@ -105,6 +111,18 @@ namespace LarpPortal
 
 		protected void btnSetQuestions_Click(object sender, EventArgs e)
 		{
+			// Save the values the person has entered into hidden variables so when we go to write out the password we have them.
+			hidQuestion1.Value = tbQuestion1.Text.Trim();
+			hidAnswer1.Value = tbAnswer1.Text;
+			hidUpdate1.Value = "1";
+			hidQuestion2.Value = tbQuestion2.Text.Trim();
+			hidAnswer2.Value = tbAnswer2.Text;
+			hidUpdate2.Value = "1";
+			hidQuestion3.Value = tbQuestion3.Text.Trim();
+			hidAnswer3.Value = tbAnswer3.Text;
+			hidUpdate3.Value = "1";
+			mvInfoRequest.SetActiveView(vwSetPassword);
+			tbPassword.Focus();
 		}
 
 		protected void btnUserQuestions_Click(object sender, EventArgs e)
@@ -114,7 +132,43 @@ namespace LarpPortal
 
 		protected void btnSaveNewPassword_Click(object sender, EventArgs e)
 		{
+			int ValidPassword;
+			Classes.cLogin PasswordValidate = new Classes.cLogin();
+			PasswordValidate.ValidateNewPassword(tbPassword.Text);
+			ValidPassword = PasswordValidate.PasswordValidation;
+			if (ValidPassword == 0)
+			{
 
+				lblErrorPasswords.Text = PasswordValidate.PasswordFailMessage + ".";
+				tbPassword.Text = "";
+				tbPasswordConfirm.Text = "";
+				divErrorPasswords.Visible = true;
+				tbPassword.Focus();
+			}
+			else
+			{
+				int intUserID = 0;
+				int intUserSecurityID = 0;
+				if ((int.TryParse(Session["UserID"].ToString(), out intUserID)) &&
+					(int.TryParse(hidUserSecurityID.Value, out intUserSecurityID)))
+				{
+					Classes.cLogin UpdateSecurity = new Classes.cLogin();
+					UpdateSecurity.UpdateQAandPassword(intUserSecurityID, intUserID,
+						hidQuestion1.Value, hidUpdate1.Value,
+						hidQuestion2.Value, hidUpdate2.Value,
+						hidQuestion3.Value, hidUpdate3.Value,
+						hidAnswer1.Value, hidUpdate1.Value,
+						hidAnswer2.Value, hidUpdate2.Value,
+						hidAnswer3.Value, hidUpdate3.Value,
+						tbPassword.Text);
+					mvInfoRequest.SetActiveView(vwFinalStep);
+				}
+			}
+		}
+
+		protected void btnDone_Click(object sender, EventArgs e)
+		{
+			Response.Redirect("/index.aspx", false);
 		}
 	}
 }
