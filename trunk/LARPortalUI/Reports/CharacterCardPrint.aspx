@@ -109,7 +109,7 @@
                 <label for="ddlCharacter" runat="server" id="lblCharacter" style="padding-left: 10px;">Character</label>
                 <asp:DropDownList ID="ddlCharacter" runat="server" CssClass="form-control" />
 
-                <asp:Button ID="btnRunReport" runat="server" CssClass="btn btn-primary" Text="Run Report" OnClick="btnRunReport_Click" />
+                <asp:Button ID="btnRunReport" runat="server" CssClass="btn btn-primary" Text="Run Report" OnClick="btnRunReport_Click" OnClientClick="target = '_blank';" />
             </div>
         </div>
     </div>
