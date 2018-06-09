@@ -58,24 +58,6 @@ namespace LarpPortal.Campaigns {
         protected global::System.Web.UI.WebControls.GridView gvFullRoleList;
         
         /// <summary>
-        /// gvRoleList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRoleList;
-        
-        /// <summary>
-        /// rptRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptRoles;
-        
-        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

@@ -15,7 +15,7 @@ namespace LarpPortal.Campaigns
 	public partial class AssignRoles : System.Web.UI.Page
 	{
 		private DataTable _dtRoles = new DataTable();
-		private bool _ReloadUser = false;
+		//private bool _ReloadUser = false;
 		private bool _SuperUser = false;
 
 		protected void Page_Load(object sender, EventArgs e)
@@ -71,10 +71,11 @@ namespace LarpPortal.Campaigns
 			DataTable dtRoles = new DataTable();
 			dtRoles.Columns.Add(new DataColumn("RoleID", typeof(int)));
 			dtRoles.Columns.Add(new DataColumn("RoleDesc", typeof(string)));
+			dtRoles.Columns.Add(new DataColumn("RoleTier", typeof(string)));
 			dtRoles.Columns.Add(new DataColumn("RoleLevel", typeof(int)));
 			dtRoles.Columns.Add(new DataColumn("DisplayGroup", typeof(string)));
 			dtRoles.Columns.Add(new DataColumn("DisplayDescription", typeof(string)));
-			dtRoles.Columns.Add(new DataColumn("UserHasRole", typeof(bool)));
+			dtRoles.Columns.Add(new DataColumn("HasRole", typeof(bool)));
 			dtRoles.Columns.Add(new DataColumn("CampaignPlayerRoleID", typeof(int)));
 			dtRoles.Columns.Add(new DataColumn("PageDescription", typeof(string)));
 
@@ -96,12 +97,13 @@ namespace LarpPortal.Campaigns
 				DataRow dRow = dtRoles.NewRow();
 				dRow["RoleID"] = dRole["RoleID"] as int?;
 				dRow["RoleDesc"] = dRole["RoleDescription"].ToString();
+				dRow["RoleTier"] = dRole["RoleTier"].ToString();
 				dRow["RoleLevel"] = dRole["RoleLevel"] as int?;
 				if ((dRole["HasRole"].ToString().StartsWith("1")) ||
 					(_SuperUser))
-					dRow["UserHasRole"] = true;
+					dRow["HasRole"] = true;
 				else
-					dRow["UserHasRole"] = false;
+					dRow["HasRole"] = false;
 				if ((dRole["CanAssign"].ToString().StartsWith("1")) ||
 					(_SuperUser))
 					dRow["CanAssign"] = true;
@@ -177,7 +179,7 @@ namespace LarpPortal.Campaigns
 
 			// If user is not a superuser, limit the roles to only the ones they have.
 			if (!_SuperUser)
-				dvPlayerRoles.RowFilter = "UserHasRole = 1";
+				dvPlayerRoles.RowFilter = "HasRole = 1";
 
 			foreach (DataRowView dRow in dvPlayerRoles)
 			{
@@ -200,14 +202,14 @@ namespace LarpPortal.Campaigns
 			gvFullRoleList.DataSource = _dtRoles;
 			gvFullRoleList.DataBind();
 
-			DataView dv = new DataView(_dtRoles);
-			// If current user is not a super user, limit the roles.
-			if (!_SuperUser)
-				dv.RowFilter = "UserHasRole = 1";
-			DataTable distinctValues = dv.ToTable(true, "DisplayGroup");
+			//DataView dv = new DataView(_dtRoles);
+			//// If current user is not a super user, limit the roles.
+			//if (!_SuperUser)
+			//	dv.RowFilter = "UserHasRole = 1";
+			//DataTable distinctValues = dv.ToTable(true, "DisplayGroup");
 
-			rptRoles.DataSource = distinctValues;
-			rptRoles.DataBind();
+			//rptRoles.DataSource = distinctValues;
+			//rptRoles.DataBind();
 
 			foreach (DataRow dRow in dsRoles.Tables[2].Rows)
 			{
@@ -218,8 +220,11 @@ namespace LarpPortal.Campaigns
 
 		protected void gvFullRoleList_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
-			//if (e.Row.RowType == DataControlRowType.Header)
-			//	e.Row.Cells[7].Text = "<div style='text-align: center;'>Give role to<br>" + hidDisplayName.Value + "</div>";
+			if (!_SuperUser)
+				e.Row.Cells[1].Visible = false;
+			else
+				e.Row.Cells[1].Visible = true;
+
 			if (e.Row.RowType == DataControlRowType.DataRow)
 			{
 				System.Web.UI.HtmlControls.HtmlInputCheckBox swHasRole = (System.Web.UI.HtmlControls.HtmlInputCheckBox) e.Row.FindControl("swHasRole");
@@ -255,7 +260,7 @@ namespace LarpPortal.Campaigns
 			}
 			sParams.Add("@RoleID", sValues[1]);
 			cUtilities.PerformNonQuery("uspInsUpdCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
-			_ReloadUser = true;
+//			_ReloadUser = true;
 		}
 
 		protected void btnRevokeUserRole_Command(object sender, CommandEventArgs e)
@@ -268,7 +273,7 @@ namespace LarpPortal.Campaigns
 			sParams.Add("@RecordID", sValues[0]);
 			cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
 
-			_ReloadUser = true;
+//			_ReloadUser = true;
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e)
