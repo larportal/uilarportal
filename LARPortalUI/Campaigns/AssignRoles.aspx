@@ -50,10 +50,11 @@
                                 </div>
 
                                 <div class="row" style="padding-top: 15px;">
-                                    <asp:GridView ID="gvFullRoleList" runat="server" CssClass="table table-striped table-hover NarrowTable" GridLines="None"
+                                    <asp:GridView ID="gvFullRoleList" runat="server" CssClass="table table-striped table-hover" GridLines="None"
                                         OnRowDataBound="gvFullRoleList_RowDataBound" AutoGenerateColumns="false">
                                         <Columns>
-                                            <asp:BoundField DataField="PageDescription" HeaderText="Role" ItemStyle-CssClass="NarrowTable" HtmlEncode="False" />
+                                            <asp:BoundField DataField="PageDescription" HeaderText="Role" HtmlEncode="False" />
+                                            <asp:BoundField DataField="RoleTier" HeaderText="Role Tier" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" id="swHasRole" />
@@ -66,28 +67,19 @@
                                     </asp:GridView>
                                 </div>
 
-                                <asp:GridView ID="gvRoleList" runat="server" CssClass="table table-striped table-bordered table-hover NarrowTable" RowStyle-CssClass="NarrowTable" AutoGenerateColumns="false">
+<%--                                <asp:GridView ID="gvRoleList" runat="server" CssClass="table table-striped table-bordered table-hover NarrowTable" RowStyle-CssClass="NarrowTable" AutoGenerateColumns="false">
                                     <Columns>
                                         <asp:BoundField DataField="RoleDesc" HeaderText="Roles You Have" ItemStyle-CssClass="NarrowTable" />
                                     </Columns>
-                                </asp:GridView>
+                                </asp:GridView>--%>
                             </div>
 
-                            <asp:Repeater ID="rptRoles" runat="server">
+<%--                            <asp:Repeater ID="rptRoles" runat="server">
                                 <ItemTemplate>
                                     <%# Eval("DisplayGroup") %>
                                     <br />
                                 </ItemTemplate>
-                            </asp:Repeater>
-
-
-
-
-
-
-
-
-
+                            </asp:Repeater>--%>
 
                             <div class="row">
                                 <div class="col-md-12">
