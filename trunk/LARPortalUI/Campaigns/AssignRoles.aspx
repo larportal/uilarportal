@@ -7,10 +7,13 @@
 </asp:Content>
 <asp:Content ID="AssignRolesScripts" ContentPlaceHolderID="MainScripts" runat="server">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript">
+        function openMessage() {
+            $('#modalMessage').modal('show');
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="AssignRolesBody" ContentPlaceHolderID="MainBody" runat="server">
-
-
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -57,10 +60,11 @@
                                             <asp:BoundField DataField="RoleTier" HeaderText="Role Tier" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
-                                                    <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" id="swHasRole" />
+                                                    <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" name="swHasRole" id="swHasRole" />
                                                     <%-- data-size="mini">--%>
                                                     <asp:HiddenField ID="hidRoleID" runat="server" Value='<%# Eval("RoleID") %>' />
                                                     <asp:HiddenField ID="hidPlayerHasRole" runat="server" Value='<%# Eval("PlayerHasRole") %>' />
+                                                    <asp:HiddenField ID="hidCampaignPlayerRoleID" runat="server" Value='<%# Eval("CampaignPlayerRoleID") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>

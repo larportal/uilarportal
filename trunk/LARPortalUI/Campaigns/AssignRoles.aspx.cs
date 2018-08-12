@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 using LarpPortal.Classes;
 
@@ -260,7 +261,7 @@ namespace LarpPortal.Campaigns
 			}
 			sParams.Add("@RoleID", sValues[1]);
 			cUtilities.PerformNonQuery("uspInsUpdCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
-//			_ReloadUser = true;
+			//			_ReloadUser = true;
 		}
 
 		protected void btnRevokeUserRole_Command(object sender, CommandEventArgs e)
@@ -273,12 +274,64 @@ namespace LarpPortal.Campaigns
 			sParams.Add("@RecordID", sValues[0]);
 			cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
 
-//			_ReloadUser = true;
+			//			_ReloadUser = true;
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
+			foreach (GridViewRow gvRow in gvFullRoleList.Rows)
+			{
+				HtmlInputCheckBox swHasRole = gvRow.FindControl("swHasRole") as HtmlInputCheckBox;
+				HiddenField hidRoleID = gvRow.FindControl("hidRoleID") as HiddenField;
+				HiddenField hidCampaignPlayerRoleID = gvRow.FindControl("hidCampaignPlayerRoleID") as HiddenField;
 
+				if ((swHasRole != null) &&
+					(hidRoleID != null) &&
+					(hidCampaignPlayerRoleID != null))
+				{
+					int iRoleID;
+					int iCampaignPlayerRoleID;
+
+					if ((int.TryParse(hidRoleID.Value, out iRoleID)) &&
+						(int.TryParse(hidCampaignPlayerRoleID.Value, out iCampaignPlayerRoleID)))
+					{
+						if (swHasRole.Checked)
+						{
+							Classes.cPlayer PlayerInfo = new cPlayer(iCampaignPlayerRoleID, Master.UserName);
+							SortedList sParams = new SortedList();
+							if (iCampaignPlayerRoleID == -1)
+							{
+								sParams.Add("@CampaignPlayerRoleID", -1);
+								sParams.Add("@RoleID", iRoleID);
+								sParams.Add("@CampaignPlayerID", ddlPlayerSelector.SelectedValue);
+								sParams.Add("@CPEarnedForRole", 0);
+								sParams.Add("@CPQuantityEarnedPerEvent", 0);
+								sParams.Add("@StatusID", 55);                   // Hard coded but should be read from database.
+								sParams.Add("@RoleAlignmentID", 1);
+								sParams.Add("@UserID", Master.UserID);
+								cUtilities.PerformNonQuery("uspInsUpdCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
+							}
+							else
+							{
+								// If the campaign player role ID is not -1, it means it's in the database. So since it's in the database,
+								// there is nothing we need to do.
+							}
+						}
+						else
+						{
+							if (iCampaignPlayerRoleID != -1)
+							{
+								SortedList sParams = new SortedList();
+								sParams.Add("@UserID", Master.UserID);
+								sParams.Add("@RecordID", iCampaignPlayerRoleID);
+								cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
+							}
+						}
+					}
+				}
+			}
+			lblmodalMessage.Text = "The user privileges have been saved.";
+			ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
 		}
 	}
 }
