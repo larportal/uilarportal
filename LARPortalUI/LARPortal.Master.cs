@@ -458,8 +458,16 @@ namespace LarpPortal
 			SortedList sParams = new SortedList();
 			sParams.Add("@intUserID", UserID);
 			DataTable dtCharacters = Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", sParams, "LARPortal", UserName, lsRoutineName + ".LoadData.GetChar");
-			DataView dCampChar = new DataView(dtCharacters, "CampaignID = " + ddlCampaigns.SelectedValue, "", DataViewRowState.CurrentRows);
-			if (dCampChar.Count == 0)
+			DataView dvCampChar = new DataView(dtCharacters, "CampaignID = " + ddlCampaigns.SelectedValue, "", DataViewRowState.CurrentRows);
+
+			// If the person has plot privileges, they get to edit/add characters.		JLB 8/12/2018
+			SortedList sPrivParams = new SortedList();
+			sPrivParams.Add("@UserID", UserID);
+			sPrivParams.Add("@CampaignID", ddlCampaigns.SelectedValue);
+			DataTable dtPrivs = Classes.cUtilities.LoadDataTable("prUserHasPlotPriv", sPrivParams, "LARPortal", UserName, lsRoutineName + ".LoadData.GetPlotPriv");
+
+			if ((dvCampChar.Count == 0) &&
+				(dtPrivs.Rows.Count == 0))
 			{
 				liHasNoCharacters.Style.Add("display", "block");
 				liHasCharacters.Style.Add("display", "none");
