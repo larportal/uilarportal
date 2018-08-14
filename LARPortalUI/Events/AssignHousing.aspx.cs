@@ -22,7 +22,8 @@ namespace LarpPortal.Events
 			if (!IsPostBack)
 			{
 				ViewState ["SortField"] = "PlayerName";
-				ViewState ["SortDir"] = "asc";
+				// If ascending, the sort direction should be blank. So on initial load, it will be PlayerName ascending. JBradshaw 8/14/2018.
+				ViewState ["SortDir"] = "";
 			}
 			btnClose.Attributes.Add("data-dismiss", "modal");
 		}
@@ -139,7 +140,9 @@ namespace LarpPortal.Events
 			}
 
 			Session ["HousingRegs"] = dsRegistrations.Tables [1];
-			gvRegistrations.DataSource = dsRegistrations.Tables [1];
+			// Made a gridview so it will be sorted the correct way when they are loading the event.     JBradshaw  8/14/2018
+			DataView dvRegistration = new DataView(dsRegistrations.Tables[1], "", ViewState["SortField"].ToString() + " " + ViewState["SortDir"].ToString(), DataViewRowState.CurrentRows);
+			gvRegistrations.DataSource = dvRegistration;
 			gvRegistrations.DataBind();
 			DisplaySorting();
 			_Reload = false;
@@ -193,7 +196,8 @@ namespace LarpPortal.Events
 
 			if (e.SortExpression == ViewState ["SortField"].ToString())
 			{
-				if (!String.IsNullOrEmpty(ViewState ["SortDir"].ToString()))
+				// Fixed issue with sorting. Had an extra ! in the next line so it would never sort right.  JBradshaw  8/14/2018
+				if (String.IsNullOrEmpty(ViewState ["SortDir"].ToString()))
 					ViewState ["SortDir"] = "DESC";
 				else
 					ViewState ["SortDir"] = "";
