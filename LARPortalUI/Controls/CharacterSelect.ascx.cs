@@ -76,7 +76,7 @@ namespace LarpPortal.Controls
         }
 
 
-        private Classes.LogWriter oLogWriter = new LogWriter();
+//        private Classes.LogWriter oLogWriter = new LogWriter();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -88,7 +88,7 @@ namespace LarpPortal.Controls
                 _UserInfo = null;
             }
 
-            oLogWriter.AddLogMessage("Starting up CharacterSelect", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("Starting up CharacterSelect", lsRoutineName, "", Session.SessionID);
 
             if (Session["UserID"] != null)
                 int.TryParse(Session["UserID"].ToString(), out _UserID);
@@ -97,9 +97,9 @@ namespace LarpPortal.Controls
 
             if (_UserInfo == null)
             {
-                oLogWriter.AddLogMessage("About to load user in Page Load routine.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to load user in Page Load routine.", lsRoutineName, "", Session.SessionID);
                 _UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
-                oLogWriter.AddLogMessage("Done  loading user in Page_Load routine.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done  loading user in Page_Load routine.", lsRoutineName, "", Session.SessionID);
             }
 
             if ((Session["CampaignsToEdit"] == null) ||
@@ -119,7 +119,7 @@ namespace LarpPortal.Controls
                     WhichSelected = Selected.MyCharacters;
                 }
             }
-            oLogWriter.AddLogMessage("Done loading CharacterSelect", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("Done loading CharacterSelect", lsRoutineName, "", Session.SessionID);
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -127,7 +127,7 @@ namespace LarpPortal.Controls
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            oLogWriter.AddLogMessage("Starting up CharacterSelect.PreRender", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("Starting up CharacterSelect.PreRender", lsRoutineName, "", Session.SessionID);
 
             SortedList slParameters = new SortedList();
             DataTable dtCampaignsToEdit = new DataTable();
@@ -141,7 +141,7 @@ namespace LarpPortal.Controls
                 if ( _UserInfo == null )
                     _UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
 
-                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
                 Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
                 if (UserInfo.LastLoggedInMyCharOrCamp == "C")
                 {
@@ -159,10 +159,10 @@ namespace LarpPortal.Controls
             if (Session["CampaignsToEdit"] == null)
             {
                 slParameters.Add("@UserID", _UserID);
-                oLogWriter.AddLogMessage("About to run uspGetPrivCampaignCharacterEdit.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to run uspGetPrivCampaignCharacterEdit.", lsRoutineName, "", Session.SessionID);
                 DataTable dtFullCampaignsToEdit = LarpPortal.Classes.cUtilities.LoadDataTable("uspGetPrivCampaignCharacterEdit", slParameters,
                     "LARPortal", _UserName, lsRoutineName + ".uspGetPrivCampaignCharacterEdit");
-                oLogWriter.AddLogMessage("Done running uspGetPrivCampaignCharacterEdit.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done running uspGetPrivCampaignCharacterEdit.", lsRoutineName, "", Session.SessionID);
                 dtCampaignsToEdit = new DataView(dtFullCampaignsToEdit, "", "CampaignName", DataViewRowState.CurrentRows).ToTable(true, "CampaignID", "CampaignName");
                 Session["CampaignsToEdit"] = dtCampaignsToEdit;
                 if (dtCampaignsToEdit.Rows.Count == 0)
@@ -181,10 +181,10 @@ namespace LarpPortal.Controls
             {
                 slParameters = new SortedList();
                 slParameters.Add("@intUserID", Session["UserID"].ToString());
-                oLogWriter.AddLogMessage("About to run uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to run uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
                 DataTable dtCharacters = LarpPortal.Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", slParameters,
                     "LARPortal", _UserName, lsRoutineName + ".uspGetCharacterIDsByUserID");
-                oLogWriter.AddLogMessage("Done running uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done running uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
 
                 // If the person has no characters force it to charadd.
                 if (dtCharacters.Rows.Count == 0)
@@ -233,7 +233,7 @@ namespace LarpPortal.Controls
 
             _CharacterID = null;
 
-            oLogWriter.AddLogMessage("About to run which selected.", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("About to run which selected.", lsRoutineName, "", Session.SessionID);
 
             if (WhichSelected == Selected.MyCharacters)
             {
@@ -287,21 +287,21 @@ namespace LarpPortal.Controls
                         Session["CharacterSelectID"] = iTempCharID;
                         Session["CampaignID"] = _CharacterInfo.CampaignID;
                     }
-                oLogWriter.AddLogMessage("Done with MyCharacters", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done with MyCharacters", lsRoutineName, "", Session.SessionID);
             }
             else if (WhichSelected == Selected.CampaignCharacters)
             {
-                oLogWriter.AddLogMessage("About to load campaign characters.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to load campaign characters.", lsRoutineName, "", Session.SessionID);
                 LoadCampaignCharacters();
-                oLogWriter.AddLogMessage("Done loading campaign characters.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done loading campaign characters.", lsRoutineName, "", Session.SessionID);
             }
 
             if (!IsPostBack)
                 if (this.CharacterChanged != null)
                 {
-                    oLogWriter.AddLogMessage("About to call CharacterChanged", lsRoutineName, "", Session.SessionID);
+//                    oLogWriter.AddLogMessage("About to call CharacterChanged", lsRoutineName, "", Session.SessionID);
                     this.CharacterChanged(this, e);
-                    oLogWriter.AddLogMessage("Done calling CharacterChanged", lsRoutineName, "", Session.SessionID);
+//                    oLogWriter.AddLogMessage("Done calling CharacterChanged", lsRoutineName, "", Session.SessionID);
                 }
         }
 
@@ -313,7 +313,7 @@ namespace LarpPortal.Controls
 
             WhichSelected = Selected.NotSpecified;
 
-            oLogWriter.AddLogMessage("About to check for session variables.", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("About to check for session variables.", lsRoutineName, "", Session.SessionID);
 
             if ((Session["CampaignsToEdit"] == null) ||
                 (Session["MyCharacters"] == null))
@@ -334,7 +334,7 @@ namespace LarpPortal.Controls
                     Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
                     Session["CharacterSelectGroup"] = "Characters";
                 }
-                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
             }
 
             if (Session["CharacterSelectGroup"] != null)
@@ -377,27 +377,27 @@ namespace LarpPortal.Controls
                 }
             }
 
-            oLogWriter.AddLogMessage("About to run uspGetPrivCampaignCharacterEdit", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("About to run uspGetPrivCampaignCharacterEdit", lsRoutineName, "", Session.SessionID);
 
             SortedList slParameters = new SortedList();
             slParameters.Add("@UserID", _UserID);
             DataTable dtCampaignsToEdit = LarpPortal.Classes.cUtilities.LoadDataTable("uspGetPrivCampaignCharacterEdit", slParameters,
                 "LARPortal", _UserName, lsRoutineName + ".uspGetPrivCampaignCharacterEdit");
 
-            oLogWriter.AddLogMessage("Done running uspGetPrivCampaignCharacterEdit", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("Done running uspGetPrivCampaignCharacterEdit", lsRoutineName, "", Session.SessionID);
 
             if (dtCampaignsToEdit.Rows.Count > 0)
             {
                 DataView dvCampaignsToEdit = new DataView(dtCampaignsToEdit, "", "CampaignName", DataViewRowState.CurrentRows);
                 if (int.TryParse(dvCampaignsToEdit[0]["CampaignID"].ToString(), out iCampaignID))
                 {
-                    oLogWriter.AddLogMessage("About to run uspGetCampaignCharactersAll", lsRoutineName, "", Session.SessionID);
+//                    oLogWriter.AddLogMessage("About to run uspGetCampaignCharactersAll", lsRoutineName, "", Session.SessionID);
 
                     slParameters = new SortedList();
                     slParameters.Add("@CampaignID", iCampaignID);
                     DataTable dtCampChars = Classes.cUtilities.LoadDataTable("uspGetCampaignCharactersAll", slParameters, "LARPortal", _UserName, lsRoutineName + ".uspGetCampaignCharactersAll");
 
-                    oLogWriter.AddLogMessage("Done running uspGetCampaignCharactersAll", lsRoutineName, "", Session.SessionID);
+//                    oLogWriter.AddLogMessage("Done running uspGetCampaignCharactersAll", lsRoutineName, "", Session.SessionID);
 
                     DataView dvCampChars = new DataView(dtCampChars, "", "CharacterAKA", DataViewRowState.CurrentRows);
                     if (dtCampChars.Rows.Count > 0)
@@ -411,11 +411,11 @@ namespace LarpPortal.Controls
             slParameters = new SortedList();
             slParameters.Add("@intUserID", _UserID);
 
-            oLogWriter.AddLogMessage("About to run uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("About to run uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
 
             DataTable dtCharacters = LarpPortal.Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", slParameters, "LARPortal", _UserName, lsRoutineName + ".uspGetCharacterIDsByUserID");
 
-            oLogWriter.AddLogMessage("Done running uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
+//            oLogWriter.AddLogMessage("Done running uspGetCharacterIDsByUserID", lsRoutineName, "", Session.SessionID);
 
             if (dtCharacters.Rows.Count > 0)
             {
@@ -427,9 +427,9 @@ namespace LarpPortal.Controls
                 ((WhichSelected == Selected.MyCharacters) || (WhichSelected == Selected.NotSpecified)))
             {
                 _CharacterID = iCharID;
-                oLogWriter.AddLogMessage("About to load character in MyCharacters", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to load character in MyCharacters", lsRoutineName, "", Session.SessionID);
                 _CharacterInfo.LoadCharacter(iCharID);
-                oLogWriter.AddLogMessage("Done loading character in MyCharacters", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done loading character in MyCharacters", lsRoutineName, "", Session.SessionID);
                 WhichSelected = Selected.MyCharacters;
                 Session["CharacterSelectGroup"] = "Characters";
                 Session["CharacterSelectID"] = iCharID;
@@ -443,9 +443,9 @@ namespace LarpPortal.Controls
                 ((WhichSelected == Selected.CampaignCharacters) || (WhichSelected == Selected.NotSpecified)))
             {
                 _CharacterID = iCampCharID;
-                oLogWriter.AddLogMessage("About to load character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("About to load character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
                 _CharacterInfo.LoadCharacter(iCampCharID);
-                oLogWriter.AddLogMessage("Done loading character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
+//                oLogWriter.AddLogMessage("Done loading character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
                 WhichSelected = Selected.CampaignCharacters;
                 Session["CharacterSelectGroup"] = "Campaigns";
                 Session["CharacterCampaignCharID"] = iCharID;
@@ -762,7 +762,7 @@ namespace LarpPortal.Controls
 				if (_UserInfo == null)
 					_UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
 
-				oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
+//				oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
 				Session ["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
 				if (UserInfo.LastLoggedInMyCharOrCamp == "C")
 				{
