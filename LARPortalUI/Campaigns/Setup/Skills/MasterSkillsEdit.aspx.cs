@@ -295,7 +295,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int iTemp;
-            bool blTemp;
+//            bool blTemp;
 
             SortedList sParams = new SortedList();
 
