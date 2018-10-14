@@ -177,19 +177,19 @@ namespace LarpPortal
 				Response.Redirect("~/Campaigns/JoinACampaign.aspx");
 			}
 
-			Classes.LogWriter oLogWriter = new Classes.LogWriter();
+//			Classes.LogWriter oLogWriter = new Classes.LogWriter();
 
 			// If the campaign ID has changed...
 			if (CampaignID.ToString() != ddlCampaigns.SelectedValue)
 			{
-				oLogWriter.AddLogMessage("Starting to change campaign from " + CampaignID.ToString() + " to " + ddlCampaigns.SelectedValue, "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+//				oLogWriter.AddLogMessage("Starting to change campaign from " + CampaignID.ToString() + " to " + ddlCampaigns.SelectedValue, "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 				int iCampaignID;
 				if (int.TryParse(ddlCampaigns.SelectedValue, out iCampaignID))
 				{
 					Session["CampaignID"] = iCampaignID;
 					Session["CampaignName"] = ddlCampaigns.SelectedItem.Text;
 
-					oLogWriter.AddLogMessage("New campaign will be " + iCampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+//					oLogWriter.AddLogMessage("New campaign will be " + iCampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 
 					if (iCampaignID > 0)
 					{
@@ -232,7 +232,7 @@ namespace LarpPortal
 						if (CampaignChanged != null)
 							CampaignChanged(this, EventArgs.Empty);
 					}
-					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+//					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 				}
 			}
 		}
