@@ -26,8 +26,8 @@ namespace LarpPortal.Character
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-			Classes.LogWriter oWriter = new Classes.LogWriter();
-			oWriter.AddLogMessage("Starting up CharInfo.aspx", lsRoutineName, "", Session.SessionID);
+//			Classes.LogWriter oWriter = new Classes.LogWriter();
+//			oWriter.AddLogMessage("Starting up CharInfo.aspx", lsRoutineName, "", Session.SessionID);
 
 			if (!IsPostBack)
 			{
@@ -47,7 +47,7 @@ namespace LarpPortal.Character
 			btnCancelCharDeath.Attributes.Add("data-dismiss", "modal");
 			ddlAllowRebuild.Attributes.Add("onchange", "ddlRebuildSetVisible();");
 
-			oWriter.AddLogMessage("Done with page_load", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done with page_load", lsRoutineName, "", Session.SessionID);
 		}
 
 		protected void Page_PreRender(object sender, EventArgs e)
@@ -64,12 +64,12 @@ namespace LarpPortal.Character
 				ddlStatus.Visible = true;
 			}
 
-			Classes.LogWriter oWriter = new Classes.LogWriter();
-			oWriter.AddLogMessage("About to start CharacterSelect.LoadInfo", lsRoutineName, "", Session.SessionID);
+//			Classes.LogWriter oWriter = new Classes.LogWriter();
+//			oWriter.AddLogMessage("About to start CharacterSelect.LoadInfo", lsRoutineName, "", Session.SessionID);
 
 			oCharSelect.LoadInfo();
 
-			oWriter.AddLogMessage("Done CharacterSelect.LoadInfo", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done CharacterSelect.LoadInfo", lsRoutineName, "", Session.SessionID);
 
 			if (hidActorDateProblems.Value.Length > 0)
 				lblDateProblem.Visible = true;
@@ -84,7 +84,7 @@ namespace LarpPortal.Character
 					DisplayCharacter(oCharSelect.CharacterInfo);
 				}
 			}
-			oWriter.AddLogMessage("Done PreRender", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done PreRender", lsRoutineName, "", Session.SessionID);
 		}
 
 		protected void ddlDescriptor_SelectedIndexChanged(object sender, EventArgs e)
