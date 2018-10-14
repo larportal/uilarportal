@@ -400,8 +400,6 @@ namespace LarpPortal.Character
 
 			cSkillPool DefaultPool = oCharSelect.CharacterInfo.SkillPools.Find(x => x.DefaultPool == true);
 
-			DataRow[] dSkillRow = dtSkillCosts.Select("PoolID = " + DefaultPool.PoolID);
-
 			object oResult;
 			if (DefaultPool != null)
 			{
@@ -409,6 +407,7 @@ namespace LarpPortal.Character
 				oResult = dtSkillCosts.Compute("sum(Cost)", sFilter);
 				double.TryParse(oResult.ToString(), out TotalSpent);
 				TotalCP = DefaultPool.TotalPoints;
+				DataRow[] dSkillRow = dtSkillCosts.Select("PoolID = " + DefaultPool.PoolID);
 			}
 
 			DataTable dtDisplay = new DataTable();
