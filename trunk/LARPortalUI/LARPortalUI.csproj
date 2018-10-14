@@ -101,6 +101,7 @@
     <Content Include="Campaigns\Setup\Description.aspx" />
     <Content Include="Campaigns\Setup\Policies.aspx" />
     <Content Include="Campaigns\Setup\PlayerReqs.aspx" />
+    <Content Include="Campaigns\Setup\Skills\ModifySkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\MasterSkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx" />
     <Content Include="Character\CharAdd.aspx" />
@@ -1327,6 +1328,13 @@
     </Compile>
     <Compile Include="Campaigns\Setup\PlayerReqs.aspx.designer.cs">
       <DependentUpon>PlayerReqs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\ModifySkills.aspx.cs">
+      <DependentUpon>ModifySkills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\ModifySkills.aspx.designer.cs">
+      <DependentUpon>ModifySkills.aspx</DependentUpon>
     </Compile>
     <Compile Include="Campaigns\Setup\Skills\MasterSkills.aspx.cs">
       <DependentUpon>MasterSkills.aspx</DependentUpon>
