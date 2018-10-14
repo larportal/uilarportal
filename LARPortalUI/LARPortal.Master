@@ -25,7 +25,7 @@
 
     <!-- Custom Fonts -->
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
+    <%--<script src="Scripts/jquery-3.3.1.intellisense.js"></script>--%>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/Scripts/jquery-3.3.1.min.js"></script>
@@ -36,6 +36,7 @@
     <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet" />
+<%--    <script src="/Scripts/jquery-3.3.1.min.js"></script>--%>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/Scripts/metisMenu.min.js"></script>
@@ -43,7 +44,6 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/sb-admin-2.js"></script>
-
     <script src="/Scripts/jquery.matchHeight.js"></script>
 
 
