@@ -286,7 +286,7 @@ ol.breadcrumb {
 }
 
 #footer {
-	margin-top: -100px;
+	/*margin-top: -100px;*/
 	color: #fff;
 	background-color: #002949;
 }
