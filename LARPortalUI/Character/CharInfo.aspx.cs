@@ -360,8 +360,8 @@ namespace LarpPortal.Character
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-			Classes.LogWriter oWriter = new Classes.LogWriter();
-			oWriter.AddLogMessage("Starting Display Character.", lsRoutineName, "", Session.SessionID);
+//			Classes.LogWriter oWriter = new Classes.LogWriter();
+//			oWriter.AddLogMessage("Starting Display Character.", lsRoutineName, "", Session.SessionID);
 
 			hidCharacterID.Value = CharInfo.CharacterID.ToString();
 			ViewState ["ProfilePictureID"] = CharInfo.ProfilePictureID;
@@ -556,13 +556,13 @@ namespace LarpPortal.Character
 				//                btnClearPicture.Visible = false;
 			}
 
-			oWriter.AddLogMessage("About to load races.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("About to load races.", lsRoutineName, "", Session.SessionID);
 
 			Classes.cCampaignRaces Races = new Classes.cCampaignRaces();
 			Races.CampaignID = CharInfo.CampaignID;
 			Races.Load(Master.UserName);
 
-			oWriter.AddLogMessage("Done loading races.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done loading races.", lsRoutineName, "", Session.SessionID);
 
 			DataTable dtRaces = Classes.cUtilities.CreateDataTable(Races.RaceList);
 			ddlRace.DataSource = dtRaces;
@@ -584,14 +584,14 @@ namespace LarpPortal.Character
 				}
 			}
 
-			oWriter.AddLogMessage("About to get Campaign Attributes Standard.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("About to get Campaign Attributes Standard.", lsRoutineName, "", Session.SessionID);
 
 			SortedList sParam = new SortedList();
 			sParam.Add("@CampaignID", CharInfo.CampaignID);
 			DataTable dtDescriptors = Classes.cUtilities.LoadDataTable("uspGetCampaignAttributesStandard",
 				sParam, "LARPortal", Master.UserName, lsRoutineName + ".GetCampaignAttributesStandard");
 
-			oWriter.AddLogMessage("Done getting Campaign Attributes Standard.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done getting Campaign Attributes Standard.", lsRoutineName, "", Session.SessionID);
 
 			DataView dvDescriptors = new DataView(dtDescriptors, "", "CharacterDescriptor", DataViewRowState.CurrentRows);
 			ddlDescriptor.DataTextField = "CharacterDescriptor";
@@ -599,7 +599,7 @@ namespace LarpPortal.Character
 			ddlDescriptor.DataSource = dtDescriptors;
 			ddlDescriptor.DataBind();
 
-			oWriter.AddLogMessage("About to do Descriptor SelectedIndexChanged.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("About to do Descriptor SelectedIndexChanged.", lsRoutineName, "", Session.SessionID);
 
 			if (dtDescriptors.Rows.Count > 0)
 			{
@@ -607,7 +607,7 @@ namespace LarpPortal.Character
 				ddlDescriptor_SelectedIndexChanged(null, null);
 			}
 
-			oWriter.AddLogMessage("Done Descriptor SelectedIndexChanged.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done Descriptor SelectedIndexChanged.", lsRoutineName, "", Session.SessionID);
 
 			tbStaffComments.Text = CharInfo.StaffComments;
 			if (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters)
@@ -632,7 +632,7 @@ namespace LarpPortal.Character
 
 			ReadOnlyFields();
 
-			oWriter.AddLogMessage("Done DisplayCharacter.", lsRoutineName, "", Session.SessionID);
+//			oWriter.AddLogMessage("Done DisplayCharacter.", lsRoutineName, "", Session.SessionID);
 		}
 
 		protected void ReadOnlyFields()
