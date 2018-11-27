@@ -11,26 +11,6 @@
                 __doPostBack("", "");
         }
 
-        //function Callback(result) {
-        //    var outDiv = document.getElementById("outputDiv");
-        //    outDiv.innerText = result;
-        //}
-        //function OnSuccessCall(response) {
-        //    alert(response.d);
-        //}
-
-        //function OnErrorCall(response) {
-        //    alert(response.status + " " + response.statusText);
-        //}
-
-        //function openMessageWithText(Msg) {
-        //    parent.openMessageWithText(Msg);
-        //}
-
-        //function openErrorWithText(Msg) {
-        //    parent.openErrorWithText(Msg);
-        //}
-
         function openMessage() {
             $('#modalMessage').modal('show');
         }
