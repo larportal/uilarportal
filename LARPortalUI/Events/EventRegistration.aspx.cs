@@ -363,6 +363,8 @@ namespace LarpPortal.Events
 				if (dsEventInfo.Tables ["Character"].Rows.Count == 1)
 				{
 					ddlCharacterList.Visible = false;
+					ddlCharacterList.ClearSelection();
+					ddlCharacterList.Items[0].Selected = true;
 					lblCharacter.Visible = true;
 					lblCharacter.Text = ddlCharacterList.Items [0].Text;
 				}
