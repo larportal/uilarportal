@@ -285,6 +285,15 @@ namespace LarpPortal.Character
 				// Person deselected a skill.
 				TreeNode tnCopy = tvDisplaySkills.FindNode(e.Node.ValuePath);
 
+				if (tnCopy == null)
+				{
+					return;
+				}
+
+				if (tnCopy.Value == null)
+				{
+					return;
+				}
 				int iSkillID;
 				if (int.TryParse(tnCopy.Value, out iSkillID))
 				{
