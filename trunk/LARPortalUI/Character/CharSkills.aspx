@@ -58,30 +58,6 @@
         function openMessage() {
             $('#modalMessage').modal('show');
         }
-
-        // It is important to place this JavaScript code after ScriptManager1
-        var xPos, yPos;
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-        function BeginRequestHandler(sender, args) {
-            if ($get('<%=pnlTreeView.ClientID%>') != null) {
-                // Get X and Y positions of scrollbar before the partial postback
-                xPos = $get('<%=pnlTreeView.ClientID%>').scrollLeft;
-                yPos = $get('<%=pnlTreeView.ClientID%>').scrollTop;
-            }
-        }
-
-        function EndRequestHandler(sender, args) {
-            if ($get('<%=pnlTreeView.ClientID%>') != null) {
-                // Set X and Y positions back to the scrollbar
-                // after partial postback
-                $get('<%=pnlTreeView.ClientID%>').scrollLeft = xPos;
-                $get('<%=pnlTreeView.ClientID%>').scrollTop = yPos;
-            }
-        }
-
-        prm.add_beginRequest(BeginRequestHandler);
-        prm.add_endRequest(EndRequestHandler);
     </script>
 </asp:Content>
 
@@ -163,18 +139,6 @@
                                     </div>
                                 </div>
                                 <asp:HiddenField ID="hidAllowCharacterRebuild" runat="server" Value="0" />
-
-                                <asp:HiddenField ID="hidScrollPos" runat="server" />
-
-                                <script type="text/javascript">
-                                    var hiddenStatusFlag = document.getElementById('<%= hidScrollPos.ClientID%>');
-                                    if (hiddenStatusFlag != null) {
-                                        if (!isNaN(hiddenStatusFlag.value)) {
-                                            $get('<%=pnlTreeView.ClientID%>').scrollTop = hiddenStatusFlag.value
-                                            hiddenStatusFlag.value = "";
-                                        }
-                                    }
-                                </script>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -219,4 +183,33 @@
         </div>
     </div>
     <!-- /#page-wrapper -->
+
+    <asp:HiddenField ID="hidScrollPos" runat="server" />
+
+    <script type="text/javascript">
+        // It is important to place this JavaScript code after ScriptManager1
+        var xPos, yPos;
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+
+        function BeginRequestHandler(sender, args) {
+            if ($get('<%=pnlTreeView.ClientID%>') != null) {
+                // Get X and Y positions of scrollbar before the partial postback
+                xPos = $get('<%=pnlTreeView.ClientID%>').scrollLeft;
+                yPos = $get('<%=pnlTreeView.ClientID%>').scrollTop;
+            }
+        }
+
+        function EndRequestHandler(sender, args) {
+            if ($get('<%=pnlTreeView.ClientID%>') != null) {
+                // Set X and Y positions back to the scrollbar
+                // after partial postback
+                $get('<%=pnlTreeView.ClientID%>').scrollLeft = xPos;
+                $get('<%=pnlTreeView.ClientID%>').scrollTop = yPos;
+            }
+        }
+
+        prm.add_beginRequest(BeginRequestHandler);
+        prm.add_endRequest(EndRequestHandler);
+    </script>
+
 </asp:Content>
