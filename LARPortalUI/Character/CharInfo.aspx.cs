@@ -391,7 +391,7 @@ namespace LarpPortal.Character
 				//ddlCharType.SelectedValue = CharInfo.CharType.CharacterTypeID.ToString();
 				//ddlCharType.Visible = true;
 
-				divAddDeath.Attributes ["class"] = "show text-right";
+				divAddDeath.Attributes["class"] = "hide";
 				divAddActor.Attributes ["class"] = "show text-right";
 				//lblStatus.Visible = false;
 				//ddlStatus.Visible = true;
@@ -402,6 +402,7 @@ namespace LarpPortal.Character
 
 				if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.CampaignCharacters) && (oCharSelect.CharacterInfo.CharacterType == 1))
 				{
+					divAddDeath.Attributes["class"] = "show text-right";
 					divAllowRebuild.Visible = true;
 
 					if (CharInfo.AllowCharacterRebuild)
