@@ -598,6 +598,8 @@
     <Content Include="Payments\EventPayment102.aspx" />
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
+    <Content Include="Reports\HistoryDisplay.aspx" />
+    <Content Include="Reports\PELDisplay.aspx" />
     <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="TermsOfUse.aspx" />
     <Content Include="LearnMoreAboutLARPortal.aspx" />
@@ -1701,6 +1703,20 @@
     </Compile>
     <Compile Include="Payments\EventPayment80.aspx.designer.cs">
       <DependentUpon>EventPayment80.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\HistoryDisplay.aspx.cs">
+      <DependentUpon>HistoryDisplay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\HistoryDisplay.aspx.designer.cs">
+      <DependentUpon>HistoryDisplay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PELDisplay.aspx.cs">
+      <DependentUpon>PELDisplay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\PELDisplay.aspx.designer.cs">
+      <DependentUpon>PELDisplay.aspx</DependentUpon>
     </Compile>
     <Compile Include="TermsOfUse.aspx.cs">
       <DependentUpon>TermsOfUse.aspx</DependentUpon>
