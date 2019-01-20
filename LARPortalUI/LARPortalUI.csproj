@@ -101,6 +101,7 @@
     <Content Include="Campaigns\Setup\Description.aspx" />
     <Content Include="Campaigns\Setup\Policies.aspx" />
     <Content Include="Campaigns\Setup\PlayerReqs.aspx" />
+    <Content Include="Campaigns\Setup\Skills\DisplayTestSkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\ModifySkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\MasterSkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx" />
@@ -1113,6 +1114,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Webservices\TestSkills2.asmx" />
     <Content Include="WhatsNew.aspx" />
     <Content Include="WhatsNewDetail.aspx" />
     <None Include="Properties\PublishProfiles\UI Website.pubxml" />
@@ -1330,6 +1332,13 @@
     </Compile>
     <Compile Include="Campaigns\Setup\PlayerReqs.aspx.designer.cs">
       <DependentUpon>PlayerReqs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\DisplayTestSkills.aspx.cs">
+      <DependentUpon>DisplayTestSkills.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\Skills\DisplayTestSkills.aspx.designer.cs">
+      <DependentUpon>DisplayTestSkills.aspx</DependentUpon>
     </Compile>
     <Compile Include="Campaigns\Setup\Skills\ModifySkills.aspx.cs">
       <DependentUpon>ModifySkills.aspx</DependentUpon>
@@ -1970,6 +1979,10 @@
     </Compile>
     <Compile Include="Roles\SetupRoles.aspx.designer.cs">
       <DependentUpon>SetupRoles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Webservices\TestSkills2.asmx.cs">
+      <DependentUpon>TestSkills2.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Webservices\CampaignInfo.asmx.cs">
       <DependentUpon>CampaignInfo.asmx</DependentUpon>
