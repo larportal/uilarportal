@@ -5,6 +5,14 @@
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainStyles" runat="server">
+    <script type="text/javascript">
+        function openMessage() {
+            $('#modalMessage').modal('show');
+        }
+        function closeMessage() {
+            $('#modelMessage').hide();
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainScripts" runat="server">
