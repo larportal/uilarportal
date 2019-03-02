@@ -86,6 +86,8 @@ namespace LarpPortal.Character
 					Session["SkillTypes"] = dsSkillSets.Tables[2];
 					Session["NodeExclusions"] = dsSkillSets.Tables[3];
 
+					DataView dv = new DataView(_dtCampaignSkills, "CharacterHasSkill = 1", "", DataViewRowState.CurrentRows);
+
 					tvDisplaySkills.Nodes.Clear();
 
 					DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
@@ -117,6 +119,8 @@ namespace LarpPortal.Character
 				if (!cbxShowExclusions.Checked)
 					RemoveExclusions();
 			}
+			// Have to register the javascript every time to scroll to where the tree view was last time.
+			ScriptManager.RegisterStartupScript(this, this.GetType(), "temp", "<script language='javascript'>scrollTree();</script>", false);
 		}
 
 		private void PopulateTreeView(int parentId, TreeNode parentNode)
@@ -194,6 +198,7 @@ namespace LarpPortal.Character
 					{
 						double SkillCost = 0.0;
 
+						string sNodeText = SkillNode.Text;
 						DataRow[] drSkillRow = dtAllSkills.Select("CampaignSkillNodeID = " + iSkillID.ToString());
 						if (drSkillRow.Length > 0)
 						{
@@ -262,21 +267,30 @@ namespace LarpPortal.Character
 
 				// Just to make absolutely sure we have everything in the datatable with the current values - will now save the values in the session table.
 				DataTable dtSkills = Session["SkillNodes"] as DataTable;
+				DataView dv = new DataView(dtSkills, "CharacterHasSkill = true", "", DataViewRowState.CurrentRows);
+
 				foreach (TreeNode tNodeSelected in tvDisplaySkills.CheckedNodes)
 				{
-					DataRow[] FoundRows = dtSkills.Select("CampaignSkillNodeID = " + tNodeSelected.Value);
-					if (FoundRows.Length > 0)
+					// JBradshaw  3/1/2019 - Changed from a select to a dataview because it was not saving to the table.
+					DataView dvSkill = new DataView(dtSkills, "CampaignSkillNodeID = " + tNodeSelected.Value, "", DataViewRowState.CurrentRows);
+					if (dvSkill.Count > 0)
 					{
-						FoundRows[0]["CharacterHasSkill"] = true;
-						// If the row is the checkbox the user picked, save the cost of the skill into the record.
-						if (tNodeSelected.Value == e.Node.Value)
+						int iHasSkill = 0;
+						if (!int.TryParse(dvSkill[0]["CharacterHasSkill"].ToString(), out iHasSkill))
+							iHasSkill = 0;
+
+						if (iHasSkill == 0)
 						{
+							dvSkill[0]["CharacterHasSkill"] = 1;
 							double dSkillCPCost = 0.0;
-							if (double.TryParse(FoundRows[0]["SkillCPCost"].ToString(), out dSkillCPCost))
-								FoundRows[0]["CPCostPaid"] = dSkillCPCost;
+							if (double.TryParse(dvSkill[0]["SkillCPCost"].ToString(), out dSkillCPCost))
+								dvSkill[0]["CPCostPaid"] = dSkillCPCost;
 						}
 					}
 				}
+
+				DataView dvTest = new DataView(dtSkills, "CharacterHasSkill = '1'", "", DataViewRowState.CurrentRows);
+
 				Session["SkillNodes"] = dtSkills;
 				RebuildTreeView();
 			}
@@ -738,9 +752,12 @@ namespace LarpPortal.Character
 						if (iPreReq != 0)
 						{
 							List<TreeNode> FoundNodes = FindNodesByValue(iPreReq.ToString());
-							foreach (TreeNode tNode in FoundNodes)
-								if (!tNode.Checked)
-									bMeetAllRequirements = false;
+							if (FoundNodes.Count == 0)
+								bMeetAllRequirements = false;
+							else
+								foreach (TreeNode tNode in FoundNodes)
+									if (!tNode.Checked)
+										bMeetAllRequirements = false;
 						}
 					}
 				}
