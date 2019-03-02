@@ -6,13 +6,21 @@
 <asp:Content ID="CharSkillsScripts" ContentPlaceHolderID="MainScripts" runat="Server">
     <script type="text/javascript">
         function postBackByObject() {
+                var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
+                if (hidScrollPos != null) {
+                    hidScrollPos.value = $get('<%=pnlTreeView.ClientID%>').scrollTop;
+                }
             var o = window.event.srcElement;
             if (o.tagName == "INPUT" && o.type == "checkbox") {
-                var hiddenStatusFlag = document.getElementById('<%= hidScrollPos.ClientID%>');
-                if (hiddenStatusFlag != null) {
-                    hiddenStatusFlag.value = $get('<%=pnlTreeView.ClientID%>').scrollTop;
-                }
                 __doPostBack("", "");
+            }
+        }
+
+        function scrollTree() {
+            var pnlTreeView = document.getElementById('<%=pnlTreeView.ClientID%>');
+            var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
+            if (hidScrollPos != null) {
+                pnlTreeView.scrollTop = hidScrollPos.value;
             }
         }
 
@@ -139,6 +147,8 @@
                                     </div>
                                 </div>
                                 <asp:HiddenField ID="hidAllowCharacterRebuild" runat="server" Value="0" />
+                                <asp:HiddenField ID="hidScrollPos" runat="server" />
+                                <asp:Label ID="lblPlace" runat="server" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -184,11 +194,9 @@
     </div>
     <!-- /#page-wrapper -->
 
-    <asp:HiddenField ID="hidScrollPos" runat="server" />
-
     <script type="text/javascript">
         // It is important to place this JavaScript code after ScriptManager1
-        var xPos, yPos;
+<%--        var xPos, yPos;
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         function BeginRequestHandler(sender, args) {
@@ -206,10 +214,21 @@
                 $get('<%=pnlTreeView.ClientID%>').scrollLeft = xPos;
                 $get('<%=pnlTreeView.ClientID%>').scrollTop = yPos;
             }
-        }
+        }--%>
 
-        prm.add_beginRequest(BeginRequestHandler);
-        prm.add_endRequest(EndRequestHandler);
+<%--var hdnScroll = document.getElementById('<%=hidScrollPos.ClientID%>');
+var bigDiv = document.getElementById('<%=pnlTreeView.ClientID%>');
+bigDiv.onscroll = function() {
+     hdnScroll.value = bigDiv.scrollTop;
+}
+
+window.onload = function () { 
+    bigDiv.scrollTop = hdnScroll.value;
+}
+--%>
+
+        //prm.add_beginRequest(BeginRequestHandler);
+        //prm.add_endRequest(EndRequestHandler);
     </script>
 
 </asp:Content>
