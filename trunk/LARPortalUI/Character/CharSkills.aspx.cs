@@ -547,18 +547,24 @@ namespace LarpPortal.Character
 
 		protected void MarkParentNodes(TreeNode NodeToCheck)
 		{
-			NodeToCheck.Checked = true;
-			if (NodeToCheck.Parent != null)
-				MarkParentNodes(NodeToCheck.Parent);
+			if (NodeToCheck != null)
+			{
+				NodeToCheck.Checked = true;
+				if (NodeToCheck.Parent != null)
+					MarkParentNodes(NodeToCheck.Parent);
+			}
 		}
 
 		protected void DeselectChildNodes(TreeNode NodeToCheck)
 		{
-			NodeToCheck.Checked = false;
-			foreach (TreeNode Child in NodeToCheck.ChildNodes)
+			if (NodeToCheck != null)
 			{
-				Child.Checked = false;
-				DeselectChildNodes(Child);
+				NodeToCheck.Checked = false;
+				foreach (TreeNode Child in NodeToCheck.ChildNodes)
+				{
+					Child.Checked = false;
+					DeselectChildNodes(Child);
+				}
 			}
 		}
 
