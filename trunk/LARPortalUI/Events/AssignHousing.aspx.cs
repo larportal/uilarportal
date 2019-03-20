@@ -33,8 +33,27 @@ namespace LarpPortal.Events
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
+			string sMostRecentEventID = "";
+			string sPrevSelectedID = "";
+
 			if ((!IsPostBack) || (_Reload))
 			{
+				Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
+				OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "", "");
+				foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
+				{
+					if ((Option.ObjectName.ToUpper() == "DDLEVENT") &&
+						(Option.ObjectOption.ToUpper() == "SELECTEDEVENT"))
+						sPrevSelectedID = Option.OptionValue;
+					else if (Option.ObjectName.ToUpper() == "GVREGISTRATIONS")
+					{
+						if (Option.ObjectOption.ToUpper() == "SORTDIR")
+							ViewState["SortDir"] = Option.OptionValue;
+						else if (Option.ObjectOption.ToUpper() == "SORTFIELD")
+							ViewState["SortField"] = Option.OptionValue;
+					}
+				}
+
 				SortedList sParams = new SortedList();
 				sParams.Add("@CampaignID", Master.CampaignID);
 				DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetCampaignEvents", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignEvents");
@@ -45,7 +64,6 @@ namespace LarpPortal.Events
 					dtEvents.Columns.Add("DisplayValue", typeof(string));
 
 				DateTime dtMostReventEvent = DateTime.MaxValue;
-				string sMostRecentEventID = "";
 
 				foreach (DataRow dRow in dtEvents.Rows)
 				{
@@ -69,19 +87,40 @@ namespace LarpPortal.Events
 				ddlEvent.DataValueField = "EventID";
 				ddlEvent.DataBind();
 
-				if (String.IsNullOrEmpty(sMostRecentEventID))
+				if (!String.IsNullOrEmpty(sMostRecentEventID))
 				{
-					ddlEvent.ClearSelection();
 					foreach (ListItem li in ddlEvent.Items)
 						if (li.Value == sMostRecentEventID)
+						{
+							ddlEvent.ClearSelection();
 							li.Selected = true;
+						}
 				}
+
+				if (!String.IsNullOrEmpty(sPrevSelectedID))
+				{
+					foreach (ListItem li in ddlEvent.Items)
+						if (li.Value == sPrevSelectedID)
+						{
+							ddlEvent.ClearSelection();
+							li.Selected = true;
+						}
+				}
+
 				ddlEvent_SelectedIndexChanged(null, null);
 			}
 		}
 
 		protected void ddlEvent_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			Classes.cUserOption Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "ddlEvent";
+			Option.ObjectOption = "SelectedEvent";
+			Option.OptionValue = ddlEvent.SelectedValue;
+			Option.SaveOptionValue();
+
 			PopulateGrid();
 		}
 
@@ -214,6 +253,23 @@ namespace LarpPortal.Events
 			gvRegistrations.DataSource = dvDisplay;
 			gvRegistrations.DataBind();
 			DisplaySorting();
+
+			Classes.cUserOption Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "gvRegistrations";
+			Option.ObjectOption = "SortField";
+			Option.OptionValue = ViewState["SortField"].ToString();
+			Option.SaveOptionValue();
+
+			Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "gvRegistrations";
+			Option.ObjectOption = "SortDir";
+			Option.OptionValue = ViewState["SortDir"].ToString();
+			Option.SaveOptionValue();
+
 		}
 
 		private void DisplaySorting()

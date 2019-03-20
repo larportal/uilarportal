@@ -141,7 +141,7 @@ namespace LarpPortal.Campaigns
                 (!string.IsNullOrEmpty(CampaignBase.CPNotificationEmail)))
             {
                 NewRow["EMail"] = CampaignBase.CPNotificationEmail;
-                NewRow["EMailLabel"] = "PEL EMail";
+                NewRow["EMailLabel"] = "Points EMail";
             }
             dtContacts.Rows.Add(NewRow);
 

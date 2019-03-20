@@ -257,7 +257,7 @@ namespace LarpPortal.Character
 						CheckAllNodesWithValue(e.Node.Value, true);
 					}
 				}
-				List<TreeNode> FoundNodes = FindNodesByValue(e.Node.Value);
+				List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, e.Node.Value);
 				foreach (TreeNode t in FoundNodes)
 				{
 					t.ShowCheckBox = true;
@@ -330,7 +330,7 @@ namespace LarpPortal.Character
 				DeselectChildNodes(tnCopy);
 				CheckAllNodesWithValue(tnCopy.Value, false);
 
-				List<TreeNode> FoundNodes = FindNodesByValue(tnCopy.Value);
+				List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, tnCopy.Value);
 				foreach (TreeNode t in FoundNodes)
 				{
 					// If the node is grey, change it to black. Show the checkbox, check it, enable all the children.
@@ -737,7 +737,7 @@ namespace LarpPortal.Character
 					int iPreReq;
 					if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
 					{
-						List<TreeNode> FoundNodes = FindNodesByValue(iPreReq.ToString());
+						List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
 						foreach (TreeNode tNode in FoundNodes)
 							DisableNodeAndChildren(tNode);
 					}
@@ -757,7 +757,7 @@ namespace LarpPortal.Character
 					{
 						if (iPreReq != 0)
 						{
-							List<TreeNode> FoundNodes = FindNodesByValue(iPreReq.ToString());
+							List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
 							if (FoundNodes.Count == 0)
 								bMeetAllRequirements = false;
 							else
@@ -846,11 +846,12 @@ namespace LarpPortal.Character
 		/// </summary>
 		/// <param name="ValueToSearchFor">Single string value to look for. Value is stored in nodes .Value</param>
 		/// <returns>List of tree nodes with the value searching. It should only return a single node but use a list just in case.</returns>
-		private List<TreeNode> FindNodesByValue(string ValueToSearchFor)
+		private List<TreeNode> FindNodesByValue(TreeView tView, string ValueToSearchFor)
 		{
 			List<TreeNode> FoundNodes = new List<TreeNode>();
 
-			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			//			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			foreach (TreeNode tNode in tView.Nodes)       // _tvSkills.Nodes)
 			{
 				SearchChildren(tNode, FoundNodes, ValueToSearchFor);
 			}
@@ -928,7 +929,7 @@ namespace LarpPortal.Character
 				foreach (DataRowView dExclude in dvPreReq)
 				{
 					string sExc = dExclude["SkillNodeID"].ToString();
-					List<TreeNode> ExcludedNodes = FindNodesByValue(sExc);
+					List<TreeNode> ExcludedNodes = FindNodesByValue(tvDisplaySkills, sExc);
 					foreach (TreeNode tnExc in ExcludedNodes)
 						DisableNodeAndChildren(tnExc);
 				}
@@ -1011,7 +1012,7 @@ namespace LarpPortal.Character
 							if (iPreReq != 0)       // May be set to 0 by accident.
 							{
 								// Get the single pre/req skill from the nodes
-								List<TreeNode> tnFoundNode = FindNodesByValue(iPreReq.ToString());
+								List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
 								if (tnFoundNode.Count == 0)
 								{
 									bMetRequirements = false;
@@ -1063,7 +1064,7 @@ namespace LarpPortal.Character
 								if (iPreReq.ToString() != tNode.Value)
 								{
 									// Get the node that has the value of the prereq and disable it and all of it's children.
-									List<TreeNode> tnFoundNode = FindNodesByValue(iPreReq.ToString());
+									List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
 									foreach (TreeNode tnNodesToExclude in tnFoundNode)
 									{
 										DisableNodeAndChildren(tnNodesToExclude);
@@ -1292,6 +1293,7 @@ namespace LarpPortal.Character
 			_dtCampaignSkills = Session["SkillNodes"] as DataTable;
 			TreeView OrigTree = new TreeView();
 			CopyTreeNodes(tvDisplaySkills, OrigTree);
+			List<TreeNode> FlatTreeNodes = FlattenTree(tvDisplaySkills);
 
 			tvDisplaySkills.Nodes.Clear();
 
@@ -1312,7 +1314,9 @@ namespace LarpPortal.Character
 					if (dvRow["CharacterHasSkill"].ToString() == "1")
 						NewNode.Checked = true;
 					NewNode.SelectAction = TreeNodeSelectAction.None;
-					List<TreeNode> OrigNode = FindNodesByValue(iNodeID.ToString());
+					List<TreeNode> OrigNode = FindNodesByValue(OrigTree, iNodeID.ToString());
+
+					//					List<TreeNode> OrigNode = FindNodesByValue(tvDisplaySkills, iNodeID.ToString());
 					if (OrigNode.Count > 0)
 						NewNode.Expanded = OrigNode[0].Expanded;
 					PopulateTreeView(iNodeID, NewNode);
@@ -1322,6 +1326,35 @@ namespace LarpPortal.Character
 			CheckExclusions();
 			if (!cbxShowExclusions.Checked)
 				RemoveExclusions();
+
+			var ExpandedNodes = from r in FlatTreeNodes where r.Expanded == true select r.Value;
+			foreach (string ExpNode in ExpandedNodes)
+			{
+				List<TreeNode> tnNode = FindNodesByValue(tvDisplaySkills, ExpNode);
+				if (tnNode.Count > 0)
+					tnNode[0].Expanded = true;
+			}
+		}
+
+		private List<TreeNode> FlattenTree(TreeView DataTree)
+		{
+			List<TreeNode> FlatNodes = new List<TreeNode>();
+
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
+			{
+				GetAllNodes(FlatNodes, tNode);
+				FlatNodes.Add(tNode);
+			}
+			return FlatNodes;
+		}
+
+		private void GetAllNodes(List<TreeNode> NodeList, TreeNode SourceNode)
+		{
+			foreach (TreeNode tnChild in SourceNode.ChildNodes)
+			{
+				GetAllNodes(NodeList, tnChild);
+				NodeList.Add(tnChild);
+			}
 		}
 	}
 }

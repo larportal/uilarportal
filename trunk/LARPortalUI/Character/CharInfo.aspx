@@ -71,7 +71,6 @@
             return false;
         }
 
-
         function openActor(CharacterActorID, UserName, Comments, StaffComments, StartDate, EndDate) {
             $('#modalEditUpdateActor').modal('show');
 
@@ -524,25 +523,89 @@
                     </div>
                 </div>
             </div>
-            <div class="row" runat="server" id="divStaffComments">
-                <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-6" runat="server" id="divHiddenSkills">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Staff Comments</div>
+                        <div class="panel-heading">Hidden Skills</div>
                         <div class="panel-body">
-                            <asp:TextBox ID="tbStaffComments" runat="server" TextMode="MultiLine" Rows="4" CssClass="col-sm-12" Height="75px" />
+                            <asp:GridView runat="server" ID="gvHiddenSkillAccess" AutoGenerateColumns="false" GridLines="None"
+                                BorderColor="Black" BorderStyle="Solid" BorderWidth="1"
+                                CssClass="table table-striped table-hover table-condensed col-sm-12">
+                                <Columns>
+                                    <asp:BoundField DataField="SkillName" HeaderText="Skill Path" HeaderStyle-Wrap="false" />
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            Has Skill
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbxHasSkill" runat="server" Checked='<%# Eval("AccesToSkill") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:HiddenField ID="hidCampaignSkillNodeID" runat="server" Value='<%# Eval("Comments") %>' />
+                                            <asp:HiddenField ID="hisHadOriginally" runat="server" Value='<%# Eval("HasAccess") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+                <%--                <div class="col-sm-8" runat="server" id="divHiddenSkills">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Hidden Skill Access</div>
+                        <div class="panel-body">
+                            <asp:GridView runat="server" ID="gvHiddenSkillAccess" AutoGenerateColumns="false" GridLines="None"
+                                BorderColor="Black" BorderStyle="Solid" BorderWidth="1"
+                                CssClass="table table-striped table-hover table-condensed col-sm-12">
+                                <Columns>
+                                    <asp:BoundField DataField="SkillName" HeaderText="Skill Path" HeaderStyle-Wrap="false" />
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            Has Skill
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbxHasSkill" runat="server" Checked='<%# Eval("AccesToSkill") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:HiddenField ID="hidCampaignSkillNodeID" runat="server" Value='<%# Eval("Comments") %>' />
+                                            <asp:HiddenField ID="hisHadOriginally" runat="server" Value='<%# Eval("HasAccess") %>' />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </div>--%>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-right">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
-                    </p>
+
+        <div class="row" runat="server" id="divStaffComments">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Staff Comments</div>
+                    <div class="panel-body">
+                        <asp:TextBox ID="tbStaffComments" runat="server" TextMode="MultiLine" Rows="4" CssClass="col-sm-12" Height="75px" />
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="divide30"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-right">
+                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" />
+                </p>
+            </div>
+        </div>
+        </div>
+    <div class="divide30"></div>
         <div id="push"></div>
     </div>
 
