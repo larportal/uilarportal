@@ -40,14 +40,14 @@ namespace LarpPortal.Campaigns.Setup.Skills
 				NewNode.ShowCheckBox = false;
 
 				NewNode.Text = FormatDescString(dvRow);
-				NewNode.SelectAction = TreeNodeSelectAction.None;
+				NewNode.SelectAction = TreeNodeSelectAction.Expand;
 
 				int iNodeID;
 				if (int.TryParse(dvRow["CampaignSkillNodeID"].ToString(), out iNodeID))
 				{
-//					NewNode.Expanded = true;
+					NewNode.Expanded = true;
 					NewNode.Value = iNodeID.ToString();
-					NewNode.SelectAction = TreeNodeSelectAction.None;
+					NewNode.SelectAction = TreeNodeSelectAction.Expand;
 					PopulateTreeView(iNodeID, NewNode);
 					tvDisplaySkills.Nodes.Add(NewNode);
 				}
@@ -67,9 +67,9 @@ namespace LarpPortal.Campaigns.Setup.Skills
 					childNode.ShowCheckBox = false;
 					childNode.Text = FormatDescString(dr);
 
-//					childNode.Expanded = true;
+					childNode.Expanded = true;
 					childNode.Value = iNodeID.ToString();
-					childNode.SelectAction = TreeNodeSelectAction.None;
+					childNode.SelectAction = TreeNodeSelectAction.Expand;
 					parentNode.ChildNodes.Add(childNode);
 					PopulateTreeView(iNodeID, childNode);
 				}

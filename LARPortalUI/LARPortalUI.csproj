@@ -600,6 +600,7 @@
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
+    <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
     <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="TermsOfUse.aspx" />
@@ -1560,6 +1561,7 @@
     <Compile Include="Classes\cTransaction.cs" />
     <Compile Include="Classes\cTransactions.cs" />
     <Compile Include="Classes\cURLPermission.cs" />
+    <Compile Include="Classes\cUserOptions.cs" />
     <Compile Include="Classes\cUser.cs" />
     <Compile Include="Classes\cUserCampaign.cs" />
     <Compile Include="Classes\cUserCampaigns.cs" />
@@ -1719,6 +1721,13 @@
     </Compile>
     <Compile Include="Reports\HistoryDisplay.aspx.designer.cs">
       <DependentUpon>HistoryDisplay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Medical.aspx.cs">
+      <DependentUpon>Medical.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Medical.aspx.designer.cs">
+      <DependentUpon>Medical.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\PELDisplay.aspx.cs">
       <DependentUpon>PELDisplay.aspx</DependentUpon>

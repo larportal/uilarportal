@@ -89,7 +89,12 @@
                                     <Columns>
                                         <asp:BoundField DataField="Label" ItemStyle-CssClass="LeftRightPadding10" />
                                         <asp:HyperLinkField DataNavigateUrlFields="URL" DataTextField="URLLabel" ItemStyle-CssClass="LeftRightPadding10" />
-                                        <asp:HyperLinkField DataNavigateUrlFields="EMail" DataTextField="EMailLabel" ItemStyle-CssClass="LeftRightPadding10" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:HyperLink ID="hlEMailLink" runat="server" Text='<%# Eval("EMailLabel") %>' NavigateUrl='<%# Eval("Email", "mailto:{0}") %>' />
+                                            </ItemTemplate>
+                                            <ItemStyle CssClass="LeftRightPadding10" />
+                                        </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
                             </div>
