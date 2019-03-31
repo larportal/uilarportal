@@ -127,6 +127,7 @@ namespace LarpPortal.Classes
 		private Boolean _ShowRegistrationNotificationEmail;
 		private double _PerPlayerInvoiceAmount = 0.00;
 		private string _BillingFrequency = "";
+		private bool? _AutoBuyParentSkills;
 
 		public Int32 CampaignID
 		{
@@ -705,6 +706,12 @@ namespace LarpPortal.Classes
 			set { _BillingFrequency = value; }
 		}
 
+		public bool? AutoBuyParentSkills					// JBradshaw 3/24/2019 Added. Used for buying character skill parents.
+		{
+			get { return _AutoBuyParentSkills; }
+			set { _AutoBuyParentSkills = value; }
+		}
+
 		public cCampaignBase()
 		{
 
@@ -894,6 +901,10 @@ namespace LarpPortal.Classes
 					_PrimarySiteZipCode = ldt.Rows[0]["PrimarySiteZipCode"].ToString().Trim();
 					_MarketingLocation = ldt.Rows[0]["MarketingLocation"].ToString().Trim();
 					_BillingFrequency = ldt.Rows[0]["BillingFrequency"].ToString().Trim();
+					if (bool.TryParse(ldt.Rows[0]["AutoBuyParentSkills"].ToString(), out bTemp))
+						_AutoBuyParentSkills = bTemp;
+					else
+						_AutoBuyParentSkills = true;
 					GetGenres(strUserName);
 					GetPeriods(strUserName);
 					GetTechLevels(strUserName);
