@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 using LarpPortal.Classes;
 
+// JBradshaw 3/30/2019 Ability to not automatically buy parent skill added.
 namespace LarpPortal.Character
 {
 	public partial class CharSkills : System.Web.UI.Page
@@ -57,6 +58,7 @@ namespace LarpPortal.Character
 
 					// Request # 1293 Single Character Rebuild   J.Bradshaw 7/10/2016
 					Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(oCharSelect.CharacterInfo.CampaignID, Master.UserName, Master.UserID);
+
 					if ((cCampaign.AllowCharacterRebuild) ||
 						(oCharSelect.CharacterInfo.AllowCharacterRebuild))
 					{
@@ -74,6 +76,12 @@ namespace LarpPortal.Character
 						hidAllowCharacterRebuild.Value = "0";
 						lblSkillsLocked.Visible = true;
 					}
+
+					// Save whether to auto buy skills or not.
+					hidAutoBuyParentSkills.Value = "Y";
+					if (cCampaign.AutoBuyParentSkills.HasValue)
+						if (!cCampaign.AutoBuyParentSkills.Value)
+							hidAutoBuyParentSkills.Value = "N";
 
 					sParam.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
 					sParam.Add("@CharacterID", oCharSelect.CharacterID.Value);
@@ -167,7 +175,14 @@ namespace LarpPortal.Character
 				// Save tree nodes so if they don't have enough points to buy the skill, we have the old one.
 				TreeView OrigTreeView = new TreeView();
 				TreeNode FoundNode = tvDisplaySkills.FindNode(e.Node.ValuePath);
-				MarkParentNodes(FoundNode);
+
+				if (!MarkParentNodes(FoundNode))
+				{
+					e.Node.Checked = false;
+					CopyTreeNodes(OrigTree, tvDisplaySkills);
+					DisplayErrorMessage("You do not have all the requirements to purchase that item.");
+					return;
+				}
 
 				DataTable dtPointsSpent = new DataTable();
 				dtPointsSpent.Columns.Add(new DataColumn("PoolID", typeof(int)));
@@ -545,14 +560,29 @@ namespace LarpPortal.Character
 			gvCostList.DataBind();
 		}
 
-		protected void MarkParentNodes(TreeNode NodeToCheck)
+		protected bool MarkParentNodes(TreeNode NodeToCheck)
 		{
+			bool ReturnValue = true;
+
 			if (NodeToCheck != null)
 			{
 				NodeToCheck.Checked = true;
 				if (NodeToCheck.Parent != null)
-					MarkParentNodes(NodeToCheck.Parent);
+				{
+					if (hidAutoBuyParentSkills.Value == "Y")
+						ReturnValue = MarkParentNodes(NodeToCheck.Parent);
+					else
+					{
+						if (NodeToCheck.Parent.Checked)
+							return true;
+						else
+							return false;
+					}
+				}
+				else
+					return ReturnValue;
 			}
+			return ReturnValue;
 		}
 
 		protected void DeselectChildNodes(TreeNode NodeToCheck)
@@ -1279,12 +1309,18 @@ namespace LarpPortal.Character
 
 		protected void MasterPage_CampaignChanged(object sender, EventArgs e)
 		{
-			string t = sender.GetType().ToString();
 			oCharSelect.Reset();
 			_Reload = true;
 			Classes.cUser user = new Classes.cUser(Master.UserName, "NOPASSWORD", Session.SessionID);
 			if (user.LastLoggedInCharacter == -1)
 				Response.Redirect("/default.aspx");
+
+			// Added setting 
+			Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+			hidAutoBuyParentSkills.Value = "Y";
+			if (cCampaign.AutoBuyParentSkills.HasValue)
+				if (!cCampaign.AutoBuyParentSkills.Value)
+					hidAutoBuyParentSkills.Value = "N";
 		}
 
 
