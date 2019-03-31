@@ -23,10 +23,10 @@ namespace LarpPortal.Events
         {
             if (!IsPostBack)
             {
-				if (Session["RegApproveSortField"] == null)
-					Session["RegApproveSortField"] = "PlayerName";
-				if (Session["RegApproveSortDir"] == null)
-					Session["RegApproveSortDir"] = "";
+				if (ViewState["SortField"] == null)
+					ViewState["SortField"] = "PlayerName";
+				if (ViewState["SortDir"] == null)
+					ViewState["SortDir"] = "";
 			}
 		}
 
@@ -34,7 +34,25 @@ namespace LarpPortal.Events
         {
             if ((!IsPostBack) || (_Reload))
             {
-                SortedList sParams = new SortedList();
+//				string sPrevSelectedID = "";
+
+				Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
+				OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "", "");
+				foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
+				{
+					if ((Option.ObjectName.ToUpper() == "DDLEVENT") &&
+						(Option.ObjectOption.ToUpper() == "SELECTEDEVENT"))
+						ViewState["SelectedEvent"] = Option.OptionValue;
+					else if (Option.ObjectName.ToUpper() == "GVREGISTRATIONS")
+					{
+						if (Option.ObjectOption.ToUpper() == "SORTDIR")
+							ViewState["SortDir"] = Option.OptionValue;
+						else if (Option.ObjectOption.ToUpper() == "SORTFIELD")
+							ViewState["SortField"] = Option.OptionValue;
+					}
+				}
+
+				SortedList sParams = new SortedList();
                 sParams.Add("@CampaignID", Master.CampaignID);
                 DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetCampaignEvents", sParams, "LARPortal", Master.UserName, "RegistrationApproval.Page_PreRender");
 
@@ -92,6 +110,14 @@ namespace LarpPortal.Events
         protected void ddlEvent_SelectedIndexChanged(object sender, EventArgs e)
         {
 			ViewState["SelectedEvent"] = ddlEvent.SelectedValue;
+			Classes.cUserOption Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "ddlEvent";
+			Option.ObjectOption = "SelectedEvent";
+			Option.OptionValue = ddlEvent.SelectedValue;
+			Option.SaveOptionValue();
+
 			PopulateGrid();
         }
 
@@ -176,7 +202,7 @@ namespace LarpPortal.Events
                     dRow["DisplayEditButtons"] = false;
             }
 
-			DataView dvReg = new DataView(dsRegistrations.Tables[1], "", Session["RegApproveSortField"].ToString() + " " + Session["RegApproveSortDir"].ToString(), DataViewRowState.CurrentRows);
+			DataView dvReg = new DataView(dsRegistrations.Tables[1], "", ViewState["SortField"].ToString() + " " + ViewState["SortDir"].ToString(), DataViewRowState.CurrentRows);
 			gvRegistrations.DataSource = dvReg;
             gvRegistrations.DataBind();
 			DisplaySorting();
@@ -202,19 +228,19 @@ namespace LarpPortal.Events
                 HiddenField hidRegistrationID = (HiddenField)gvRegistrations.Rows[e.RowIndex].FindControl("hidRegistrationID");
                 TextBox tbPayment = (TextBox)gvRegistrations.Rows[e.RowIndex].FindControl("tbPayment");
                 DropDownList ddlPaymentType = (DropDownList)gvRegistrations.Rows[e.RowIndex].FindControl("ddlPaymentType");
-//                Calendar calPaymentDate = (Calendar)gvRegistrations.Rows[e.RowIndex].FindControl("calPaymentDate");
+				System.Web.UI.WebControls.Calendar calPaymentDate = (System.Web.UI.WebControls.Calendar) gvRegistrations.Rows[e.RowIndex].FindControl("calPaymentDate");
                 DropDownList ddlRegStatus = (DropDownList)gvRegistrations.Rows[e.RowIndex].FindControl("ddlRegStatus");
 
                 if ((hidRegistrationID != null) &&
                     (tbPayment != null) &&
                     (ddlPaymentType != null) &&
-//                    (calPaymentDate != null) &&
+                    (calPaymentDate != null) &&
                     (ddlRegStatus != null))
                 {
                     SortedList sParam = new SortedList();
                     sParam.Add("@RegistrationID", hidRegistrationID.Value);
                     sParam.Add("@RegistrationStatus", ddlRegStatus.SelectedValue);
-//                    sParam.Add("@EventPaymentDate", calPaymentDate.SelectedDate);
+                    sParam.Add("@EventPaymentDate", calPaymentDate.SelectedDate);
                     sParam.Add("@EventPaymentTypeID", ddlPaymentType.SelectedValue);
                     sParam.Add("@EventPaymentAmount", tbPayment.Text);
                     Classes.cUtilities.PerformNonQuery("uspInsUpdCMRegistrations", sParam, "LARPortal", Master.UserName);
@@ -237,22 +263,22 @@ namespace LarpPortal.Events
                 {
                     DataRowView dRow = e.Row.DataItem as DataRowView;
 
-//                    Calendar calPaymentDate = (Calendar)e.Row.FindControl("calPaymentDate");
-                    //if (calPaymentDate != null)
-                    //{
-                    //    calPaymentDate.SelectedDate = DateTime.Today;
-                    //    HiddenField hidPaymentDate = (HiddenField)e.Row.FindControl("hidPaymentDate");
-                    //    if (hidPaymentDate != null)
-                    //    {
-                    //        DateTime dtPaymentDate;
-                    //        if (DateTime.TryParse(hidPaymentDate.Value, out dtPaymentDate))
-                    //        {
-                    //            calPaymentDate.SelectedDate = dtPaymentDate;
-                    //        }
-                    //    }
-                    //}
+					System.Web.UI.WebControls.Calendar calPaymentDate = (System.Web.UI.WebControls.Calendar)e.Row.FindControl("calPaymentDate");
+					if (calPaymentDate != null)
+					{
+					    calPaymentDate.SelectedDate = DateTime.Today;
+					    HiddenField hidPaymentDate = (HiddenField)e.Row.FindControl("hidPaymentDate");
+					    if (hidPaymentDate != null)
+					    {
+					        DateTime dtPaymentDate;
+					        if (DateTime.TryParse(hidPaymentDate.Value, out dtPaymentDate))
+					        {
+					            calPaymentDate.SelectedDate = dtPaymentDate;
+					        }
+					    }
+					}
 
-                    DropDownList ddlPaymentType = (DropDownList)e.Row.FindControl("ddlPaymentType");
+					DropDownList ddlPaymentType = (DropDownList)e.Row.FindControl("ddlPaymentType");
                     if (ddlPaymentType != null)
                     {
                         ddlPaymentType.DataSource = _dtCampaignPaymentTypes;
@@ -313,42 +339,39 @@ namespace LarpPortal.Events
 
 		protected void gvRegistrations_Sorting(object sender, GridViewSortEventArgs e)
 		{
-			//DataTable dtRegs = Session["HousingRegs"] as DataTable;
+			string sField = ViewState["SortField"].ToString();
+			string sDir = ViewState["SortDir"].ToString();
 
-			//foreach (GridViewRow i in gvRegistrations.Rows)
-			//{
-			//	HiddenField hidRegistrationID = (HiddenField) i.FindControl("hidRegistrationID");
-			//	TextBox tbAssignHousing = (TextBox) i.FindControl("tbAssignHousing");
-			//	DataRow[] FoundRows = dtRegs.Select("RegistrationID = " + hidRegistrationID.Value);
-			//	if (FoundRows.Length > 0)
-			//		FoundRows[0]["AssignHousing"] = tbAssignHousing.Text;
-			//}
-			//Session["HousingRegs"] = dtRegs;
-
-			string sField = Session["RegApproveSortField"].ToString();
-			string sDir = Session["RegApproveSortDir"].ToString();
-
-
-			if (e.SortExpression == Session["RegApproveSortField"].ToString())
+			if (e.SortExpression == sField)
 			{
-				if (String.IsNullOrEmpty(Session["RegApproveSortDir"].ToString()))
-					Session["RegApproveSortDir"] = "DESC";
+				if (String.IsNullOrEmpty(sDir))
+					ViewState["SortDir"] = "DESC";
 				else
-					Session["RegApproveSortDir"] = "";
+					ViewState["SortDir"] = "";
 			}
 			else
 			{
-				Session["RegApproveSortField"] = e.SortExpression;
-				Session["RegApproveSortDir"] = "";
+				ViewState["SortField"] = e.SortExpression;
+				ViewState["SortDir"] = "";
 			}
 
 			PopulateGrid();
-			//string sSort = Session["RegApproveSortField"].ToString() + " " + Session["RegApproveSortDir"].ToString();
 
-			//DataView dvDisplay = new DataView(dtRegs, "", sSort, DataViewRowState.CurrentRows);
-			//gvRegistrations.DataSource = dvDisplay;
-			//gvRegistrations.DataBind();
-			//DisplaySorting();
+			Classes.cUserOption Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "gvRegistrations";
+			Option.ObjectOption = "SortField";
+			Option.OptionValue = ViewState["SortField"].ToString();
+			Option.SaveOptionValue();
+
+			Option = new Classes.cUserOption();
+			Option.LoginUsername = Session["UserName"].ToString();
+			Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+			Option.ObjectName = "gvRegistrations";
+			Option.ObjectOption = "SortDir";
+			Option.OptionValue = ViewState["SortDir"].ToString();
+			Option.SaveOptionValue();
 		}
 
 		private void DisplaySorting()
@@ -358,7 +381,7 @@ namespace LarpPortal.Events
 				int iSortedColumn = 0;
 				foreach (DataControlFieldHeaderCell cHeaderCell in gvRegistrations.HeaderRow.Cells)
 				{
-					if (cHeaderCell.ContainingField.SortExpression == Session["RegApproveSortField"].ToString())
+					if (cHeaderCell.ContainingField.SortExpression == ViewState["SortField"].ToString())
 					{
 						iSortedColumn = gvRegistrations.HeaderRow.Cells.GetCellIndex(cHeaderCell);
 					}
@@ -366,7 +389,7 @@ namespace LarpPortal.Events
 				if (iSortedColumn != 0)
 				{
 					Label lblArrowLabel = new Label();
-					if (Session["RegApproveSortDir"].ToString().Length == 0)
+					if (ViewState["SortDir"].ToString().Length == 0)
 						lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-up'> </span></a>";
 					else
 						lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-down'> </span></a>";
