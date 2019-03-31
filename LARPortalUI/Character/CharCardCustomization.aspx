@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="CharCardCustomization.aspx.cs" Inherits="LarpPortal.Character.CharCardCustomization" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="CharCardCustomization.aspx.cs" Inherits="LarpPortal.Character.CharCardCustomization" 
+        MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
