@@ -298,9 +298,6 @@ namespace LarpPortal.Campaigns
         protected void btnSignUpForCampaign_Click(object sender, EventArgs e)
         {
             int intCampaignID = lblCurrentCampaign.Text.ToString().ToInt32();
-            if (Session["CampaignPlayerRoleID"] == null)
-                Session["CampaignPlayerRoleID"] = 0;
-            int CampaignPlayerRoleID = Session["CampaignPlayerRoleID"].ToString().ToInt32();
             string RequestEmail;
             Classes.cCampaignBase Campaign = new Classes.cCampaignBase(intCampaignID, Master.UserName, Master.UserID);
             if (String.IsNullOrEmpty(Campaign.JoinRequestEmail))
