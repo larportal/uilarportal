@@ -269,7 +269,6 @@ namespace LarpPortal.Events
 			Option.ObjectOption = "SortDir";
 			Option.OptionValue = ViewState["SortDir"].ToString();
 			Option.SaveOptionValue();
-
 		}
 
 		private void DisplaySorting()
