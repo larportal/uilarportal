@@ -191,6 +191,7 @@
                 </div>
             </div>
         </div>
+        <asp:HiddenField ID="hidAutoBuyParentSkills" runat="server" />
     </div>
     <!-- /#page-wrapper -->
 
