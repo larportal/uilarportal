@@ -21,22 +21,25 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-inline">
-                            <%--                            <CampSelector:Select ID="oCampSelect" runat="server" />--%>
                             <div class="form-group">
                                 <label for="<%= ddlEventDate.ClientID %>" style="padding-left: 10px;">Event Date: </label>
-                                <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" />
+                                <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                    OnSelectedIndexChanged="ddlEventDate_SelectedIndexChanged" />
                             </div>
                             <div class="form-group">
                                 <label for="<%= ddlCharacterName.ClientID %>" style="padding-left: 10px;">Character Name: </label>
-                                <asp:DropDownList ID="ddlCharacterName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" />
+                                <asp:DropDownList ID="ddlCharacterName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                    OnSelectedIndexChanged="ddlCharacterName_SelectedIndexChanged" />
                             </div>
                             <div class="form-group">
                                 <label for="<%= ddlEventName.ClientID %>" style="padding-left: 10px;">Event Name: </label>
-                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" />
+                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                    OnSelectedIndexChanged="ddlEventName_SelectedIndexChanged" />
                             </div>
                             <div class="form-group" style="padding-right: 10px;">
                                 <label for="<%= ddlStatus.ClientID %>" style="padding-left: 10px;">PEL Status: </label>
-                                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" />
+                                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                    OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" />
                             </div>
                             <asp:Button ID="btnApproveAll" runat="server" Text="Approve All" CssClass="btn btn-primary" OnClick="btnApproveAll_Click" />
                         </div>
