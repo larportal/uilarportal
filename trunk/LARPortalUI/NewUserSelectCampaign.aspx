@@ -100,6 +100,11 @@
                 </div>
             </div>
         </div>
+        <asp:HiddenField ID="hidUsername" runat="server" />
+        <asp:HiddenField ID="hidUserID" runat="server" />
+<%--        <asp:HiddenField ID="hidCampaignPlayerRoleID" runat="server" />--%>
+<%--        <asp:HiddenField ID="hidCampaignID" runat="server" />--%>
+        <asp:HiddenField ID="hidMemberEmailAddress" runat="server" />
     </form>
 </body>
 </html>
