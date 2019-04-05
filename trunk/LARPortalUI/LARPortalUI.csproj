@@ -598,6 +598,7 @@
     <Content Include="NewUserSelectCampaign.aspx" />
     <Content Include="Payments\EventPayment102.aspx" />
     <Content Include="Payments\EventPayment33.aspx" />
+    <Content Include="Payments\EventPayment69.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
     <Content Include="Reports\Medical.aspx" />
@@ -1707,6 +1708,13 @@
     </Compile>
     <Compile Include="Payments\EventPayment33.aspx.designer.cs">
       <DependentUpon>EventPayment33.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment69.aspx.cs">
+      <DependentUpon>EventPayment69.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment69.aspx.designer.cs">
+      <DependentUpon>EventPayment69.aspx</DependentUpon>
     </Compile>
     <Compile Include="Payments\EventPayment80.aspx.cs">
       <DependentUpon>EventPayment80.aspx</DependentUpon>
