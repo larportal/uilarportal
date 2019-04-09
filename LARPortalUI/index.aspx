@@ -227,7 +227,7 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            An activation code was included in you're welcome email that was sent to you when you registered for a LARP Portal account.
+                            An activation code was included in your welcome email that was sent to you when you registered for a LARP Portal account.
                         </p>
                         <span id="divError" style="display: none;">
                             <span class="text-danger">The code you entered was incorrect. Please try again.</span>
