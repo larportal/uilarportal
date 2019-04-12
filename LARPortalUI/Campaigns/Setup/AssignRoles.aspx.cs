@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 
 using LarpPortal.Classes;
 
-namespace LarpPortal.Campaigns
+namespace LarpPortal.Campaigns.Setup
 {
 	public partial class AssignRoles : System.Web.UI.Page
 	{

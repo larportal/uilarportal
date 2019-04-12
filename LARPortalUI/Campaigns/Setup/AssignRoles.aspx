@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="AssignRoles.aspx.cs" Inherits="LarpPortal.Campaigns.AssignRoles" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="AssignRoles.aspx.cs" Inherits="LarpPortal.Campaigns.Setup.AssignRoles" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
