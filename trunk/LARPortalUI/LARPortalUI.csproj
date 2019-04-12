@@ -92,7 +92,7 @@
     <Content Include="Calendar\MonthCalendar.aspx" />
     <Content Include="Calendar\CalGraphic.aspx" />
     <Content Include="Calendar\CalReport.aspx" />
-    <Content Include="Campaigns\AssignRoles.aspx" />
+    <Content Include="Campaigns\Setup\AssignRoles.aspx" />
     <Content Include="Campaigns\CampaignInfo.aspx" />
     <Content Include="Campaigns\JoinACampaign.aspx" />
     <Content Include="Campaigns\Setup\Contacts.aspx" />
@@ -604,6 +604,7 @@
     <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
     <Content Include="Scripts\bootstrap-toggle.js" />
+    <Content Include="Scripts\bootstrap.js" />
     <Content Include="TermsOfUse.aspx" />
     <Content Include="LearnMoreAboutLARPortal.aspx" />
     <Content Include="packages.config" />
@@ -1023,6 +1024,7 @@
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.ttf" />
     <Content Include="ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
+    <None Include="Properties\PublishProfiles\Beta Site.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar\fullcalendar.min.js" />
@@ -1272,11 +1274,11 @@
     <Compile Include="Calendar\CalReport.aspx.designer.cs">
       <DependentUpon>CalReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Campaigns\AssignRoles.aspx.cs">
+    <Compile Include="Campaigns\Setup\AssignRoles.aspx.cs">
       <DependentUpon>AssignRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Campaigns\AssignRoles.aspx.designer.cs">
+    <Compile Include="Campaigns\Setup\AssignRoles.aspx.designer.cs">
       <DependentUpon>AssignRoles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Campaigns\CampaignInfo.aspx.cs">
