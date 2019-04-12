@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns {
+namespace LarpPortal.Campaigns.Setup {
     
     
     public partial class AssignRoles {
