@@ -10,7 +10,6 @@
 
 namespace LarpPortal.Character {
     
-    
     public partial class CharInfo {
         
         /// <summary>
