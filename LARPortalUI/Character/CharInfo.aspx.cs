@@ -712,7 +712,6 @@ namespace LarpPortal.Character
 
 			oCharSelect.LoadInfo();
 
-
 			if ((oCharSelect.CharacterID != null) && (oCharSelect.CharacterInfo != null))
 			{
 				int i = 0;
