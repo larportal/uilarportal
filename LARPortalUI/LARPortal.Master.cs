@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace LarpPortal
 {
 	public partial class LARPortal : System.Web.UI.MasterPage
