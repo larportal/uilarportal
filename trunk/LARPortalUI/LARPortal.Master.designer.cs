@@ -9,7 +9,6 @@
 
 namespace LarpPortal {
     
-    
     public partial class LARPortal {
         
         /// <summary>
