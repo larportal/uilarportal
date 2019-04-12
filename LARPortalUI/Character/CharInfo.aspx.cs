@@ -360,7 +360,7 @@ namespace LarpPortal.Character
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-//			oCharSelect.LoadInfo();		JLB Hidden Skills.
+			//			oCharSelect.LoadInfo();		JLB Hidden Skills.
 
 			//			Classes.LogWriter oWriter = new Classes.LogWriter();
 			//			oWriter.AddLogMessage("Starting Display Character.", lsRoutineName, "", Session.SessionID);
@@ -385,18 +385,18 @@ namespace LarpPortal.Character
 			divHiddenSkills.Attributes["class"] = "hide";
 
 			// Hidden Skills.
-			//if (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.CampaignCharacters)
-			//{
-			//	SortedList sParams = new SortedList();
-			//	sParams.Add("@CharacterID", CharInfo.CharacterID);
-			//	DataSet dsSkillAccess = Classes.cUtilities.LoadDataSet("uspGetCharacterHiddenSkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
-			//	if (dsSkillAccess.Tables[0].Rows.Count > 0)
-			//	{
-			//		gvHiddenSkillAccess.DataSource = dsSkillAccess.Tables[0];
-			//		gvHiddenSkillAccess.DataBind();
-			//		divHiddenSkills.Attributes["class"] = "show";
-			//	}
-			//}
+			if (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.CampaignCharacters)
+			{
+				SortedList sParams = new SortedList();
+				sParams.Add("@CharacterID", CharInfo.CharacterID);
+				DataSet dsSkillAccess = Classes.cUtilities.LoadDataSet("uspGetCharacterHiddenSkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
+				if (dsSkillAccess.Tables[0].Rows.Count > 0)
+				{
+					gvHiddenSkillAccess.DataSource = dsSkillAccess.Tables[0];
+					gvHiddenSkillAccess.DataBind();
+					divHiddenSkills.Attributes["class"] = "show";
+				}
+			}
 
 			if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.CampaignCharacters) || (oCharSelect.CharacterInfo.CharacterType == 1))
 			{
@@ -631,9 +631,15 @@ namespace LarpPortal.Character
 
 			tbStaffComments.Text = CharInfo.StaffComments;
 			if (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters)
+			{
 				divStaffComments.Visible = false;
+				divHiddenSkills.Visible = false;
+			}
 			else
+			{
 				divStaffComments.Visible = true;
+				divHiddenSkills.Visible = true;
+			}
 
 			BindActors(CharInfo.Actors);
 
@@ -708,6 +714,61 @@ namespace LarpPortal.Character
 
 			if ((oCharSelect.CharacterID != null) && (oCharSelect.CharacterInfo != null))
 			{
+				int i = 0;
+				foreach (GridViewRow row in gvHiddenSkillAccess.Rows)
+				{
+					if (row.RowType == DataControlRowType.DataRow)
+					{
+						CheckBox cbxHasSkill = (row.Cells[1].FindControl("cbxHasSkill") as CheckBox);
+						HiddenField hidHadOriginally = (row.Cells[2].FindControl("hidHadOriginally") as HiddenField);
+						HiddenField hidCampaignSkillNodeID = (row.Cells[2].FindControl("hidCampaignSkillNodeID") as HiddenField);
+
+						if ((cbxHasSkill != null) &&
+							(hidHadOriginally != null) &&
+							(hidCampaignSkillNodeID != null))
+						{
+							bool bHasOriginally = false;
+							if (hidHadOriginally.Value == "1")
+								bHasOriginally = true;
+							if (bHasOriginally != cbxHasSkill.Checked)
+							{
+								if (cbxHasSkill.Checked)
+								{
+									// Since the value has changed, and it's checked, it means we need to add the value;
+									int iCampaignSkillNodeID;
+									if (int.TryParse(hidCampaignSkillNodeID.Value, out iCampaignSkillNodeID))
+									{
+										SortedList sParams = new SortedList();
+										sParams.Add("@UserID", Master.UserID);
+										sParams.Add("@CampaignSkillsStandardID", iCampaignSkillNodeID);
+										sParams.Add("@CharacterID", oCharSelect.CharacterID);
+										sParams.Add("@Comments", "Skill added by " + Master.UserName);
+										Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillAccess", sParams, "LARPortal", Master.UserName);
+									}
+								}
+								else
+								{
+									// Since the value has changed, and it's not checked, it means we need to delete the value;
+									HiddenField hidCampaignSkillAccessID = (row.Cells[2].FindControl("hidCampaignSkillAccessID") as HiddenField);
+									if (hidCampaignSkillAccessID != null)
+									{
+										int iCampaignSkillAccessID;
+										if (int.TryParse(hidCampaignSkillAccessID.Value, out iCampaignSkillAccessID))
+										{
+											SortedList sParams = new SortedList();
+											sParams.Add("@CampaignSkillAccessID", iCampaignSkillAccessID);
+											sParams.Add("@UserName", Master.UserName);
+											sParams.Add("@UserID", Master.UserID);
+											Classes.cUtilities.PerformNonQuery("uspDelCHCampaignSkillAccess", sParams, "LARPortal", Master.UserName);
+										}
+									}
+								}
+							}
+						}
+					}
+					i++;
+				}
+
 				if ((tbAKA.Text.Length == 0) &&
 					(tbFirstName.Text.Length == 0))
 				{

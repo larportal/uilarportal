@@ -162,6 +162,7 @@
                                                     <li runat="server" id="liSetupPolicies"><a href="/Campaigns/Setup/Policies.aspx">Policies</a></li>
                                                     <li runat="server" id="liSetupDescription"><a href="/Campaigns/Setup/Description.aspx">Description</a></li>
                                                     <li runat="server" id="liSetupCustomFields"><a href="/Campaigns/Setup/CustomFields.aspx">Custom Fields</a></li>
+                                                    <li runat="server" id="liSetupAssignRoles"><a href="/Campaigns/Setup/AssignRoles.aspx">Assign Roles</a></li>
                                                     <%--<li><a href="/Campaigns/Setup/People.aspx">People</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Places.aspx">Places</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Rules.aspx">Rules</a></li>--%>

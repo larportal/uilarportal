@@ -348,6 +348,7 @@ namespace LarpPortal
 			liSetupPlayerReqs.Style.Add("display", "none");
 			liSetupContacts.Style.Add("display", "none");
 			liSetupPolicies.Style.Add("display", "none");
+			liSetupAssignRoles.Style.Add("display", "none");
 			liSetupDescription.Style.Add("display", "none");
 			liEventRegistrationApproval.Style.Add("display", "none");
 			liEventDefaults.Style.Add("display", "none");
@@ -378,6 +379,7 @@ namespace LarpPortal
 				liSetupContacts.Style.Add("display", "block");
 				liSetupPolicies.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
+				liSetupAssignRoles.Style.Add("display", "block");
 				//liCampaignMenu.Style.Add("display", "block");
 			}
 
