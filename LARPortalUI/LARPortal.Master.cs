@@ -177,19 +177,19 @@ namespace LarpPortal
 				Response.Redirect("~/Campaigns/JoinACampaign.aspx");
 			}
 
-//			Classes.LogWriter oLogWriter = new Classes.LogWriter();
+			//			Classes.LogWriter oLogWriter = new Classes.LogWriter();
 
 			// If the campaign ID has changed...
 			if (CampaignID.ToString() != ddlCampaigns.SelectedValue)
 			{
-//				oLogWriter.AddLogMessage("Starting to change campaign from " + CampaignID.ToString() + " to " + ddlCampaigns.SelectedValue, "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+				//				oLogWriter.AddLogMessage("Starting to change campaign from " + CampaignID.ToString() + " to " + ddlCampaigns.SelectedValue, "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 				int iCampaignID;
 				if (int.TryParse(ddlCampaigns.SelectedValue, out iCampaignID))
 				{
 					Session["CampaignID"] = iCampaignID;
 					Session["CampaignName"] = ddlCampaigns.SelectedItem.Text;
 
-//					oLogWriter.AddLogMessage("New campaign will be " + iCampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+					//					oLogWriter.AddLogMessage("New campaign will be " + iCampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 
 					if (iCampaignID > 0)
 					{
@@ -232,7 +232,7 @@ namespace LarpPortal
 						if (CampaignChanged != null)
 							CampaignChanged(this, EventArgs.Empty);
 					}
-//					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
+					//					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 				}
 			}
 		}
@@ -248,7 +248,7 @@ namespace LarpPortal
 				Response.Redirect("/index.aspx", true);
 			}
 
-//			Classes.LogWriter oLogWriter = new Classes.LogWriter();
+			//			Classes.LogWriter oLogWriter = new Classes.LogWriter();
 
 			lblUserName.Text = this.UserName;
 
@@ -262,14 +262,14 @@ namespace LarpPortal
 
 				foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)
 				{
-//					oLogWriter.AddLogMessage("ID:" + Camp.CampaignID.ToString() + "/" + Camp.CampaignName + "/" + Camp.LastLoggedInCampaign.ToString(), "Master.LoadData", "", Session.SessionID);
+					//					oLogWriter.AddLogMessage("ID:" + Camp.CampaignID.ToString() + "/" + Camp.CampaignName + "/" + Camp.LastLoggedInCampaign.ToString(), "Master.LoadData", "", Session.SessionID);
 				}
 
 				int iCampID = -1;
 				Session["CampaignID"] = "-1";
 				Session["CampaignName"] = "";
 
-//				oLogWriter.AddLogMessage("Starting: iCampID = " + iCampID.ToString(), "Master.LoadData", "", Session.SessionID);
+				//				oLogWriter.AddLogMessage("Starting: iCampID = " + iCampID.ToString(), "Master.LoadData", "", Session.SessionID);
 
 				if (CampaignChoices.CountOfUserCampaigns > 0)
 				{
@@ -286,7 +286,7 @@ namespace LarpPortal
 				}
 				//					iCampID = CampaignChoices.lsUserCampaigns [0].CampaignID;
 
-//				oLogWriter.AddLogMessage("After setting from list: iCampID = " + Session["CampaignID"].ToString() + "/" + Session["CampaignName"].ToString(), "Master.LoadData", "", Session.SessionID);
+				//				oLogWriter.AddLogMessage("After setting from list: iCampID = " + Session["CampaignID"].ToString() + "/" + Session["CampaignName"].ToString(), "Master.LoadData", "", Session.SessionID);
 
 				if (ddlCampaigns != null)
 					if (ddlCampaigns.Items != null)
@@ -297,7 +297,7 @@ namespace LarpPortal
 							//							int.TryParse(ddlCampaigns.SelectedValue, out iCampID);
 						}
 
-//				oLogWriter.AddLogMessage("After getting from ddlCampaigns: iCampID = " + Session["CampaignID"].ToString(), "Master.LoadData", "", Session.SessionID);
+				//				oLogWriter.AddLogMessage("After getting from ddlCampaigns: iCampID = " + Session["CampaignID"].ToString(), "Master.LoadData", "", Session.SessionID);
 
 				int.TryParse(Session["CampaignID"].ToString(), out iCampID);
 
@@ -455,6 +455,18 @@ namespace LarpPortal
 				liEMailPoints.Style.Add("display", "block");
 				liCampaignSetupMenu.Style.Add("display", "block");
 				//				liCampaignMenu.Style.Add("display", "block");
+			}
+
+			if ((sRoleString.Contains(Classes.cConstants.LARPORTAL_DATABASE_OWNER_1)) ||
+				(sRoleString.Contains(Classes.cConstants.LARPORTAL_DATABASE_ADMINISTRATOR_2)) ||
+				(sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_NPC_COORDINATOR_12)) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_MONSTER_MASTER_20)) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_ROLE_ASSIGNMENT_21)) ||
+				(sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+			{
+				liCampaignSetupMenu.Style.Add("display", "block");
+				liSetupAssignRoles.Style.Add("display", "block");
 			}
 
 			SortedList sParams = new SortedList();
