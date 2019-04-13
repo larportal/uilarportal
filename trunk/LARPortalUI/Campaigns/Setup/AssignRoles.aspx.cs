@@ -133,7 +133,7 @@ namespace LarpPortal.Campaigns.Setup
 
 				DataView dvPlayers = new DataView(dtPlayers, "", "DisplayValue", DataViewRowState.CurrentRows);
 				ddlPlayerSelector.DataSource = dvPlayers;
-				ddlPlayerSelector.DataTextField = "DisplayValue";
+				ddlPlayerSelector.DataTextField = "PlayerName";
 				ddlPlayerSelector.DataValueField = "CampaignPlayerID";
 				ddlPlayerSelector.DataBind();
 
