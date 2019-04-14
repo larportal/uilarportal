@@ -125,6 +125,7 @@ namespace LarpPortal.Points
                 double TotalCharacterCap = 0;
                 double RemainingCP = 0;
                 double BankedCP = 0;
+                double ToBankCP = 0;
                 if (int.TryParse(ddl.SelectedValue.ToString(), out iTemp))
                     CharacterID = iTemp;
                 HiddenField hidTotalCharacterCapForCampaign = (HiddenField)row.FindControl("hidTotalCharacterCap");
@@ -163,6 +164,7 @@ namespace LarpPortal.Points
                 RemainingCP = TotalCharacterCap - TotalCP;
                 if (double.TryParse(row.Cells[3].Text, out dTemp))
                     BankedCP = dTemp;
+                ToBankCP = BankedCP - RemainingCP;
                 if (RemainingCP - BankedCP >= 0)
                 {
                     //Apply and display applied message
@@ -185,12 +187,30 @@ namespace LarpPortal.Points
                 {
                     if (RemainingCP > 0)
                     {
-                        //Leave banked and display over cap message
-                        string jsString = "alert('This entry would put this character over the maximum allowed points.');";
+                        // This is where we need to split the line into balance you can apply and the leftover and then apply the line.
+                        stStoredProc = "uspApplyBankedPointsSplit";
+                        stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound3";
+                        sParams.Clear();
+                        sParams.Add("@UserID", UserID);
+                        sParams.Add("@CharacterID", CharacterID);
+                        sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
+                        sParams.Add("@PointsToApply", RemainingCP);
+                        sParams.Add("@PointsToBank", ToBankCP);
+                        cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
+                        string jsString = "alert('Banked points have been applied up to the cap. The balance has been banked.');";
                         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
                                 "MyApplication",
                                 jsString,
                                 true);
+                        // Refresh page
+                        BuildCPAuditTable(UserID);
+
+                        //Leave banked and display over cap message
+                        //string jsString = "alert('This entry would put this character over the maximum allowed points.');";
+                        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+                        //        "MyApplication",
+                        //        jsString,
+                        //        true);
                     }
                     else
                     {
