@@ -467,6 +467,7 @@ namespace LarpPortal
 			{
 				liCampaignSetupMenu.Style.Add("display", "block");
 				liSetupAssignRoles.Style.Add("display", "block");
+				liSetupCampaign.Style.Add("display", "block");
 			}
 
 			SortedList sParams = new SortedList();
