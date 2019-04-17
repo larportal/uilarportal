@@ -91,8 +91,16 @@ namespace LarpPortal.Campaigns.Setup
 			dPlayerHasRole.DefaultValue = false;
 			dtRoles.Columns.Add(dPlayerHasRole);
 
-			DataView dvHasRoles = new DataView(dsRoles.Tables[1], "RoleLevel <= " + iMaxRole, "RoleLevel desc", DataViewRowState.CurrentRows);
+			DataView dvHasRoles = new DataView(dsRoles.Tables[1]);
 
+			if (!_SuperUser)
+			{
+				// If user is a superuser we are going to include everything.
+				dvHasRoles.RowFilter = "RoleLevel <= " + iMaxRole + " and CanAssign = 1";
+			}
+
+			dvHasRoles.Sort = "RoleLevel desc";
+		
 			foreach (DataRowView dRole in dvHasRoles)
 			{
 				DataRow dRow = dtRoles.NewRow();
@@ -225,9 +233,15 @@ namespace LarpPortal.Campaigns.Setup
 		protected void gvFullRoleList_RowDataBound(object sender, GridViewRowEventArgs e)
 		{
 			if (!_SuperUser)
+			{
 				e.Row.Cells[1].Visible = false;
+				e.Row.Cells[2].Visible = false;
+			}
 			else
+			{
 				e.Row.Cells[1].Visible = true;
+				e.Row.Cells[2].Visible = true;
+			}
 
 			if (e.Row.RowType == DataControlRowType.DataRow)
 			{
