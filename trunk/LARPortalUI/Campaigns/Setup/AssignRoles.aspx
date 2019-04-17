@@ -46,8 +46,8 @@
                         <div class="panel-body">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <label for="<%= lblLoginName.ClientID %>" class="font-weight-bold">Profile: </label>
-                                    <asp:Label ID="lblLoginName" runat="server" />
+<%--                                    <label for="<%= lblLoginName.ClientID %>" class="font-weight-bold">Profile: </label>
+                                    <asp:Label ID="lblLoginName" runat="server" />--%>
                                     <label for="<%= lblPersonName.ClientID %>" class="font-weight-bold">Person Name: </label>
                                     <asp:Label ID="lblPersonName" runat="server" />
                                 </div>
@@ -58,6 +58,7 @@
                                         <Columns>
                                             <asp:BoundField DataField="PageDescription" HeaderText="Role" HtmlEncode="False" />
                                             <asp:BoundField DataField="RoleTier" HeaderText="Role Tier" />
+                                            <asp:BoundField DataField="RoleID" HeaderText="RoleID" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <input type="checkbox" data-toggle="toggle" data-size="small" runat="server" name="swHasRole" id="swHasRole" />
@@ -65,6 +66,7 @@
                                                     <asp:HiddenField ID="hidRoleID" runat="server" Value='<%# Eval("RoleID") %>' />
                                                     <asp:HiddenField ID="hidPlayerHasRole" runat="server" Value='<%# Eval("PlayerHasRole") %>' />
                                                     <asp:HiddenField ID="hidCampaignPlayerRoleID" runat="server" Value='<%# Eval("CampaignPlayerRoleID") %>' />
+                                                    <asp:HiddenField ID="hidCanAssign" runat="server" Value='<%# Eval("CanAssign") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>

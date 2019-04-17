@@ -96,6 +96,9 @@ namespace LarpPortal.Campaigns.Setup
 			foreach (DataRowView dRole in dvHasRoles)
 			{
 				DataRow dRow = dtRoles.NewRow();
+				int iRoleID = 0;
+				int.TryParse(dRole["RoleID"].ToString(), out iRoleID);
+
 				dRow["RoleID"] = dRole["RoleID"] as int?;
 				dRow["RoleDesc"] = dRole["RoleDescription"].ToString();
 				dRow["RoleTier"] = dRole["RoleTier"].ToString();
@@ -214,7 +217,7 @@ namespace LarpPortal.Campaigns.Setup
 
 			foreach (DataRow dRow in dsRoles.Tables[2].Rows)
 			{
-				lblLoginName.Text = dRow["LoginUserName"].ToString();
+				//lblLoginName.Text = dRow["LoginUserName"].ToString();
 				lblPersonName.Text = dRow["PlayerFirstLastName"].ToString();
 			}
 		}
@@ -231,6 +234,7 @@ namespace LarpPortal.Campaigns.Setup
 				System.Web.UI.HtmlControls.HtmlInputCheckBox swHasRole = (System.Web.UI.HtmlControls.HtmlInputCheckBox) e.Row.FindControl("swHasRole");
 				HiddenField hidRoleID = (HiddenField) e.Row.FindControl("hidRoleID");
 				HiddenField hidPlayerHasRole = (HiddenField) e.Row.FindControl("hidPlayerHasRole");
+				HiddenField hidCanAssign = (HiddenField) e.Row.FindControl("hidCanAssign");
 				if ((swHasRole != null) &&
 					(hidRoleID != null) &&
 					(hidPlayerHasRole != null))
@@ -241,6 +245,16 @@ namespace LarpPortal.Campaigns.Setup
 							swHasRole.Checked = true;
 						else
 							swHasRole.Checked = false;
+				}
+				if ((swHasRole != null) &&
+					(hidCanAssign != null))
+				{
+					bool bCanAssign = false;
+					Boolean.TryParse(hidCanAssign.Value, out bCanAssign);
+					if (bCanAssign)
+						swHasRole.Disabled = false;
+					else
+						swHasRole.Disabled = true;
 				}
 			}
 		}
