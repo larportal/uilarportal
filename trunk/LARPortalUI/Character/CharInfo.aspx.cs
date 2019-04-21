@@ -715,6 +715,8 @@ namespace LarpPortal.Character
 			if ((oCharSelect.CharacterID != null) && (oCharSelect.CharacterInfo != null))
 			{
 				int i = 0;
+				string sHiddenSkillList = "";
+
 				foreach (GridViewRow row in gvHiddenSkillAccess.Rows)
 				{
 					if (row.RowType == DataControlRowType.DataRow)
@@ -722,6 +724,7 @@ namespace LarpPortal.Character
 						CheckBox cbxHasSkill = (row.Cells[1].FindControl("cbxHasSkill") as CheckBox);
 						HiddenField hidHadOriginally = (row.Cells[2].FindControl("hidHadOriginally") as HiddenField);
 						HiddenField hidCampaignSkillNodeID = (row.Cells[2].FindControl("hidCampaignSkillNodeID") as HiddenField);
+						HiddenField hidSkillName = (row.Cells[2].FindControl("hidSkillName") as HiddenField);
 
 						if ((cbxHasSkill != null) &&
 							(hidHadOriginally != null) &&
@@ -744,6 +747,11 @@ namespace LarpPortal.Character
 										sParams.Add("@CharacterID", oCharSelect.CharacterID);
 										sParams.Add("@Comments", "Skill added by " + Master.UserName);
 										Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillAccess", sParams, "LARPortal", Master.UserName);
+
+										if (hidSkillName != null)
+										{
+											sHiddenSkillList += hidSkillName.Value + "<br>";
+										}
 									}
 								}
 								else
@@ -767,6 +775,19 @@ namespace LarpPortal.Character
 						}
 					}
 					i++;
+				}
+
+				// If there were any hidden skills given to the character, send them an email.
+				if (sHiddenSkillList.Length > 0)
+				{
+					string sSubject = "LARP Portal Notification - " + Master.CampaignName + " staff has given you access to a hidden skill.";
+					string sBody = "The staff of " + Master.CampaignName + " has given your character " + oCharSelect.CharacterInfo.AKA + " access to the following skill(s):<br>" +
+						"<br>" +
+						sHiddenSkillList;
+
+					Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
+					Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
+					cEMS.SendMail(sSubject, sBody, oCharSelect.CharacterInfo.CharacterEmail, "", User.PrimaryEmailAddress.EmailAddress, "CharInfo - Hidden Skills", Master.UserName);
 				}
 
 				if ((tbAKA.Text.Length == 0) &&

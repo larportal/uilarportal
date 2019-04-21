@@ -531,7 +531,7 @@
                             BorderColor="Black" BorderStyle="Solid" BorderWidth="1"
                             CssClass="table table-striped table-hover table-condensed col-sm-12">
                             <Columns>
-                                <asp:BoundField DataField="SkillName" HeaderText="Skill Path" HeaderStyle-Wrap="false" />
+                                <asp:BoundField DataField="SkillNamePath" HeaderText="Skill Path" HeaderStyle-Wrap="false" />
                                 <asp:TemplateField>
                                     <ItemStyle HorizontalAlign="Center" Width="70" />
                                     <HeaderStyle HorizontalAlign="Center" />
@@ -547,6 +547,7 @@
                                         <asp:HiddenField ID="hidCampaignSkillNodeID" runat="server" Value='<%# Eval("CampaignSkillNodeID") %>' />
                                         <asp:HiddenField ID="hidHadOriginally" runat="server" Value='<%# Eval("HasAccess") %>' />
                                         <asp:HiddenField ID="hidCampaignSkillAccessID" runat="server" Value='<%# Eval("CampaignSkillAccessID") %>' />
+                                        <asp:HiddenField ID="hidSkillName" runat="server" Value='<%# Eval("SkillName") %>' />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
