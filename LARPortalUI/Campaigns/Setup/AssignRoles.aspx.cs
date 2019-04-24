@@ -100,7 +100,7 @@ namespace LarpPortal.Campaigns.Setup
 			}
 
 			dvHasRoles.Sort = "RoleLevel desc";
-		
+
 			foreach (DataRowView dRole in dvHasRoles)
 			{
 				DataRow dRow = dtRoles.NewRow();
@@ -150,18 +150,10 @@ namespace LarpPortal.Campaigns.Setup
 
 				if (ddlPlayerSelector.Items.Count > 0)
 					ddlPlayerSelector.Items[0].Selected = true;
-				//				spnPlayer.Visible = true;
 				ddlPlayerSelector_SelectedIndexChanged(null, null);
-				//				gvFullRoleList.Visible = true;
-				//				gvRoleList.Visible = false;
 			}
 			else
 			{
-				//spnPlayer.Visible = false;
-				//gvRoleList.DataSource = dtRoles;
-				//gvRoleList.DataBind();
-				//gvFullRoleList.Visible = false;
-				//gvRoleList.Visible = true;
 			}
 		}
 
@@ -181,11 +173,6 @@ namespace LarpPortal.Campaigns.Setup
 				dRow["PlayerHasRole"] = false;
 				dRow["CampaignPlayerRoleID"] = DBNull.Value;
 			}
-
-			//if (dsRoles.Tables[1].Rows.Count > 0)
-			//	hidDisplayName.Value = dsRoles.Tables[1].Rows[0]["PlayerDisplayName"].ToString();
-			//else
-			//	hidDisplayName.Value = "";
 
 			DataView dvPlayerRoles = new DataView(dsRoles.Tables[1]);
 
@@ -214,18 +201,8 @@ namespace LarpPortal.Campaigns.Setup
 			gvFullRoleList.DataSource = _dtRoles;
 			gvFullRoleList.DataBind();
 
-			//DataView dv = new DataView(_dtRoles);
-			//// If current user is not a super user, limit the roles.
-			//if (!_SuperUser)
-			//	dv.RowFilter = "UserHasRole = 1";
-			//DataTable distinctValues = dv.ToTable(true, "DisplayGroup");
-
-			//rptRoles.DataSource = distinctValues;
-			//rptRoles.DataBind();
-
 			foreach (DataRow dRow in dsRoles.Tables[2].Rows)
 			{
-				//lblLoginName.Text = dRow["LoginUserName"].ToString();
 				lblPersonName.Text = dRow["PlayerFirstLastName"].ToString();
 			}
 		}
@@ -289,7 +266,6 @@ namespace LarpPortal.Campaigns.Setup
 			}
 			sParams.Add("@RoleID", sValues[1]);
 			cUtilities.PerformNonQuery("uspInsUpdCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
-			//			_ReloadUser = true;
 		}
 
 		protected void btnRevokeUserRole_Command(object sender, CommandEventArgs e)
@@ -301,8 +277,6 @@ namespace LarpPortal.Campaigns.Setup
 
 			sParams.Add("@RecordID", sValues[0]);
 			cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
-
-			//			_ReloadUser = true;
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e)
@@ -318,17 +292,16 @@ namespace LarpPortal.Campaigns.Setup
 					(hidCampaignPlayerRoleID != null))
 				{
 					int iRoleID;
-					int iCampaignPlayerRoleID;
 
-					if ((int.TryParse(hidRoleID.Value, out iRoleID)) &&
-						(int.TryParse(hidCampaignPlayerRoleID.Value, out iCampaignPlayerRoleID)))
+					if (int.TryParse(hidRoleID.Value, out iRoleID))
 					{
 						if (swHasRole.Checked)
 						{
-							Classes.cPlayer PlayerInfo = new cPlayer(iCampaignPlayerRoleID, Master.UserName);
 							SortedList sParams = new SortedList();
-							if (iCampaignPlayerRoleID == -1)
+
+							if (hidCampaignPlayerRoleID.Value == "")
 							{
+								// The campaign player role id is blank if the user doesn't have it (returns a null from db.)
 								sParams.Add("@CampaignPlayerRoleID", -1);
 								sParams.Add("@RoleID", iRoleID);
 								sParams.Add("@CampaignPlayerID", ddlPlayerSelector.SelectedValue);
@@ -339,15 +312,12 @@ namespace LarpPortal.Campaigns.Setup
 								sParams.Add("@UserID", Master.UserID);
 								cUtilities.PerformNonQuery("uspInsUpdCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
 							}
-							else
-							{
-								// If the campaign player role ID is not -1, it means it's in the database. So since it's in the database,
-								// there is nothing we need to do.
-							}
 						}
 						else
 						{
-							if (iCampaignPlayerRoleID != -1)
+							// If the campaign player role is filled in, it means they have the skill and it should be removed.
+							int iCampaignPlayerRoleID;
+							if (int.TryParse(hidCampaignPlayerRoleID.Value, out iCampaignPlayerRoleID))
 							{
 								SortedList sParams = new SortedList();
 								sParams.Add("@UserID", Master.UserID);
