@@ -46,8 +46,6 @@
                         <div class="panel-body">
                             <div class="container-fluid">
                                 <div class="row">
-<%--                                    <label for="<%= lblLoginName.ClientID %>" class="font-weight-bold">Profile: </label>
-                                    <asp:Label ID="lblLoginName" runat="server" />--%>
                                     <label for="<%= lblPersonName.ClientID %>" class="font-weight-bold">Person Name: </label>
                                     <asp:Label ID="lblPersonName" runat="server" />
                                 </div>
@@ -72,21 +70,7 @@
                                         </Columns>
                                     </asp:GridView>
                                 </div>
-
-<%--                                <asp:GridView ID="gvRoleList" runat="server" CssClass="table table-striped table-bordered table-hover NarrowTable" RowStyle-CssClass="NarrowTable" AutoGenerateColumns="false">
-                                    <Columns>
-                                        <asp:BoundField DataField="RoleDesc" HeaderText="Roles You Have" ItemStyle-CssClass="NarrowTable" />
-                                    </Columns>
-                                </asp:GridView>--%>
                             </div>
-
-<%--                            <asp:Repeater ID="rptRoles" runat="server">
-                                <ItemTemplate>
-                                    <%# Eval("DisplayGroup") %>
-                                    <br />
-                                </ItemTemplate>
-                            </asp:Repeater>--%>
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="text-right">
