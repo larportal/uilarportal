@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -47,6 +48,13 @@ namespace LarpPortal.Character
 			{
 				if (oCharSelect.CharacterID.HasValue)
 				{
+					string sAddInfo = "";
+					sAddInfo = String.Format("Character Selected: {0}/{1}" + ", Campaign Selected {2}/{3}",
+						oCharSelect.CharacterID, oCharSelect.CharacterInfo.CampaignName, Master.CampaignID, Master.CampaignName);
+
+					LogWriter oLog = new LogWriter();
+					oLog.AddLogMessage("Loading/reloading a character.", Master.UserName, lsRoutineName, sAddInfo, Session.SessionID);
+
 					double TotalCP = 0.0;
 					lblMessage.Text = "";
 					TotalCP = oCharSelect.CharacterInfo.TotalCP;
@@ -166,10 +174,19 @@ namespace LarpPortal.Character
 		/// <param name="e"></param>
 		protected void tvSkills_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
 		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
 			oCharSelect.LoadInfo();
 
 			TreeView OrigTree = new TreeView();
 			CopyTreeNodes(tvDisplaySkills, OrigTree);
+
+			string sAddInfo = "";
+			string sDisplayNodeText = Regex.Replace(e.Node.Text, "<.*?>", String.Empty);
+			sAddInfo = String.Format("NodeID {0}/{1}, ", e.Node.Value, sDisplayNodeText);
+			LogWriter oLog = new LogWriter();
+			oLog.AddLogMessage("Skills Checked Clicked", Master.UserName, lsRoutineName, sAddInfo, Session.SessionID);
 
 			if (e.Node.Checked)
 			{
@@ -182,6 +199,7 @@ namespace LarpPortal.Character
 					e.Node.Checked = false;
 					CopyTreeNodes(OrigTree, tvDisplaySkills);
 					DisplayErrorMessage("You do not have all the requirements to purchase that item.");
+					oLog.AddLogMessage("Skills Checked Clicked - MarkParentNodes", Master.UserName, lsRoutineName + ".MarkParentNodes", "Don't have the requirements.", Session.SessionID);
 					return;
 				}
 
@@ -257,6 +275,7 @@ namespace LarpPortal.Character
 					e.Node.Checked = false;
 					CopyTreeNodes(OrigTree, tvDisplaySkills);
 					DisplayErrorMessage("You do not have enough points to buy that.");
+					oLog.AddLogMessage("Skills Checked Clicked - SpentToMuch", Master.UserName, lsRoutineName, "Don't have enough points.", Session.SessionID);
 					return;
 				}
 				else
@@ -266,6 +285,8 @@ namespace LarpPortal.Character
 						e.Node.Checked = false;
 						CopyTreeNodes(OrigTree, tvDisplaySkills);
 						DisplayErrorMessage("You do not have all the requirements to purchase that item.");
+						oLog.AddLogMessage("Skills Checked Clicked - CheckRequirements", Master.UserName, lsRoutineName, "Don't have requirements.", Session.SessionID);
+
 						return;
 					}
 					else
@@ -309,6 +330,8 @@ namespace LarpPortal.Character
 
 				Session["SkillNodes"] = dtSkills;
 				RebuildTreeView();
+				oLog.AddLogMessage("Skills Checked Clicked - RebuildTreeView", Master.UserName, lsRoutineName + ".RebuildTreeView", "", Session.SessionID);
+
 			}
 			else
 			{
@@ -336,6 +359,7 @@ namespace LarpPortal.Character
 						{
 							tnCopy.Checked = true;
 							DisplayErrorMessage("This campaign is not allowing skills to be rebuilt at this time.  Once a skill is selected and saved, it cannot be changed.");
+							oLog.AddLogMessage("Skills Checked Clicked - Rebuild", Master.UserName, lsRoutineName + ".CharacterRebuild", "Campaign doesn't allow rebuild.", Session.SessionID);
 							return;
 						}
 					}
@@ -666,6 +690,11 @@ namespace LarpPortal.Character
 
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			LogWriter oLog = new LogWriter();
+
 			oCharSelect.LoadInfo();
 			DataTable dtCampaignSkills = Session["SkillNodes"] as DataTable;
 			int CharacterSkillsSetID = -1;
@@ -752,376 +781,71 @@ namespace LarpPortal.Character
 				string t = ex.Message;
 			}
 
-lblmodalMessage.Text = "Character " + oCharSelect.CharacterInfo.AKA + " has been saved.";
+			oLog.AddLogMessage("Skills - Save Button", Master.UserName, lsRoutineName, "", Session.SessionID);
+			lblmodalMessage.Text = "Character " + oCharSelect.CharacterInfo.AKA + " has been saved.";
 			ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
-}
+		}
 
 
-public void CopyTreeNodes(TreeView SourceTreeView, TreeView DesSourceView)
-{
-	TreeNode newTn = null;
-	foreach (TreeNode tn in SourceTreeView.Nodes)
-	{
-		newTn = new TreeNode(tn.Text, tn.Value);
-		newTn.Checked = tn.Checked;
-		newTn.Expanded = tn.Expanded;
-		newTn.ShowCheckBox = tn.ShowCheckBox;
-		newTn.ImageUrl = tn.ImageUrl;
-
-		CopyChildren(newTn, tn);
-		DesSourceView.Nodes.Add(newTn);
-	}
-}
-public void CopyChildren(TreeNode parent, TreeNode original)
-{
-	TreeNode newTn;
-	foreach (TreeNode tn in original.ChildNodes)
-	{
-		newTn = new TreeNode(tn.Text, tn.Value);
-		newTn.Checked = tn.Checked;
-		newTn.Expanded = tn.Expanded;
-		newTn.ShowCheckBox = tn.ShowCheckBox;
-		newTn.ImageUrl = tn.ImageUrl;
-
-		parent.ChildNodes.Add(newTn);
-		CopyChildren(newTn, tn);
-	}
-}
-
-private bool CheckForRequirements(string sValueToCheckFor)
-{
-	bool bMeetAllRequirements = true;
-
-	SortedList sParams = new SortedList();
-	sParams.Add("@SkillNodeID", sValueToCheckFor);
-	DataSet dsRequire = cUtilities.LoadDataSet("uspGetNodeRequirements", sParams, "LARPortal", Master.UserName, "CharSkill.aspx_CheckForRequirements");
-
-	// Get the list of items we can't have if we purchased the item.
-	DataView dvExcludeRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = true", "SkillNodeID", DataViewRowState.CurrentRows);
-
-	foreach (DataRowView dRow in dvExcludeRows)
-	{
-		if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
+		public void CopyTreeNodes(TreeView SourceTreeView, TreeView DesSourceView)
 		{
-			int iPreReq;
-			if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
+			TreeNode newTn = null;
+			foreach (TreeNode tn in SourceTreeView.Nodes)
 			{
-				List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
-				foreach (TreeNode tNode in FoundNodes)
-					DisableNodeAndChildren(tNode);
+				newTn = new TreeNode(tn.Text, tn.Value);
+				newTn.Checked = tn.Checked;
+				newTn.Expanded = tn.Expanded;
+				newTn.ShowCheckBox = tn.ShowCheckBox;
+				newTn.ImageUrl = tn.ImageUrl;
+
+				CopyChildren(newTn, tn);
+				DesSourceView.Nodes.Add(newTn);
 			}
 		}
-	}
-
-	bMeetAllRequirements = true;
-
-	DataView dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = false", "SkillNodeID", DataViewRowState.CurrentRows);
-
-	foreach (DataRowView dRow in dvRequiredRows)
-	{
-		if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
+		public void CopyChildren(TreeNode parent, TreeNode original)
 		{
-			int iPreReq;
-			if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
+			TreeNode newTn;
+			foreach (TreeNode tn in original.ChildNodes)
 			{
-				if (iPreReq != 0)
+				newTn = new TreeNode(tn.Text, tn.Value);
+				newTn.Checked = tn.Checked;
+				newTn.Expanded = tn.Expanded;
+				newTn.ShowCheckBox = tn.ShowCheckBox;
+				newTn.ImageUrl = tn.ImageUrl;
+
+				parent.ChildNodes.Add(newTn);
+				CopyChildren(newTn, tn);
+			}
+		}
+
+		private bool CheckForRequirements(string sValueToCheckFor)
+		{
+			bool bMeetAllRequirements = true;
+
+			SortedList sParams = new SortedList();
+			sParams.Add("@SkillNodeID", sValueToCheckFor);
+			DataSet dsRequire = cUtilities.LoadDataSet("uspGetNodeRequirements", sParams, "LARPortal", Master.UserName, "CharSkill.aspx_CheckForRequirements");
+
+			// Get the list of items we can't have if we purchased the item.
+			DataView dvExcludeRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = true", "SkillNodeID", DataViewRowState.CurrentRows);
+
+			foreach (DataRowView dRow in dvExcludeRows)
+			{
+				if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
 				{
-					List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
-					if (FoundNodes.Count == 0)
-						bMeetAllRequirements = false;
-					else
-						foreach (TreeNode tNode in FoundNodes)
-							if (!tNode.Checked)
-								bMeetAllRequirements = false;
-				}
-			}
-		}
-	}
-
-	dvRequiredRows = new DataView(dsRequire.Tables[0], "PrerequisiteGroupID is not null", "", DataViewRowState.CurrentRows);
-
-	foreach (DataRowView dRow in dvRequiredRows)
-	{
-		// Since there is at least one group process it.
-		int iPreReqGroup;
-		int iNumReq;
-		if ((int.TryParse(dRow["PrerequisiteGroupID"].ToString(), out iPreReqGroup)) &&
-			(int.TryParse(dRow["NumGroupSkillsRequired"].ToString(), out iNumReq)))
-		{
-			// Get the items for the specific group.
-			DataView dReqGroup = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
-			if (dReqGroup.Count > 0)
-			{
-				// There were records. Convert the dataview of reuired nodes convert to a list of string - easier to process.
-				List<string> ReqSkillNodes = dReqGroup.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
-				// If we find the value we are looking for - remove it.
-				ReqSkillNodes.Remove(sValueToCheckFor);
-				List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
-				if (FoundNode.Count < iNumReq)
-					bMeetAllRequirements = false;
-			}
-		}
-	}
-	return bMeetAllRequirements;
-}
-
-private void CheckAllNodesWithValue(string sValueToCheckFor, bool bValueToSet)
-{
-	foreach (TreeNode trMainNodes in tvDisplaySkills.Nodes)     // _tvSkills.Nodes)
-		SetChildNodes(trMainNodes, sValueToCheckFor, bValueToSet);
-}
-
-private void SetChildNodes(TreeNode NodeToCheck, string sValueToCheckFor, bool bValueToSet)
-{
-	if (NodeToCheck.Value == sValueToCheckFor)
-		NodeToCheck.Checked = bValueToSet;
-
-	foreach (TreeNode trChildNode in NodeToCheck.ChildNodes)
-		SetChildNodes(trChildNode, sValueToCheckFor, bValueToSet);
-}
-
-
-/// <summary>
-/// Go through a node and it's children and 'disable' them. Disabling really means add an image and remove the check box.
-/// </summary>
-/// <param name="tNode"></param>
-private void DisableNodeAndChildren(TreeNode tNode)
-{
-	tNode.Text = tNode.Text.Replace("black", "grey");
-	tNode.ImageUrl = "/img/delete.png";
-	tNode.ShowCheckBox = false;
-	foreach (TreeNode ChildNode in tNode.ChildNodes)
-		DisableNodeAndChildren(ChildNode);
-}
-
-
-/// <summary>
-/// Go through a node and it's children and 'enable' them. Enabling it removing the image and turning the check box on.
-/// </summary>
-/// <param name="tNode"></param>
-private void EnableNodeAndChildren(TreeNode tNode)
-{
-	tNode.Text = tNode.Text.Replace("grey", "black");
-	tNode.ImageUrl = "";
-	tNode.ShowCheckBox = true;
-
-	foreach (TreeNode tnChild in tNode.ChildNodes)
-		EnableNodeAndChildren(tnChild);
-}
-
-
-/// <summary>
-/// Given a tree node, see if it's value is in the value we are searching for. For each node, go through the child nodes.
-/// </summary>
-/// <param name="ValueToSearchFor">Single string value to look for. Value is stored in nodes .Value</param>
-/// <returns>List of tree nodes with the value searching. It should only return a single node but use a list just in case.</returns>
-private List<TreeNode> FindNodesByValue(TreeView tView, string ValueToSearchFor)
-{
-	List<TreeNode> FoundNodes = new List<TreeNode>();
-
-	//			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
-	foreach (TreeNode tNode in tView.Nodes)       // _tvSkills.Nodes)
-	{
-		SearchChildren(tNode, FoundNodes, ValueToSearchFor);
-	}
-
-	return FoundNodes;
-}
-
-
-/// <summary>
-/// Given a tree node, see if it is the value we are looking for. Have to go through all of the children's node.
-/// </summary>
-/// <param name="tNode">The node to check the value and to search the children off.</param>
-/// <param name="FoundNodes">List of nodes to be returned.</param>
-/// <param name="ValueToSearchFor">The value that we are going to search for.</param>
-private void SearchChildren(TreeNode tNode, List<TreeNode> FoundNodes, string ValueToSearchFor)
-{
-	if (tNode.Value == ValueToSearchFor)
-		FoundNodes.Add(tNode);
-
-	foreach (TreeNode ChildNode in tNode.ChildNodes)
-		SearchChildren(ChildNode, FoundNodes, ValueToSearchFor);
-}
-
-
-/// <summary>
-/// Given a tree node, see if it's value is in the list we are searching for. For each node, go through the child nodes.
-/// </summary>
-/// <param name="lValueList">List of string values we are searching for.</param>
-/// <returns>List of tree nodes with the value values we have found.</returns>
-private List<TreeNode> FindNodesByValueList(List<string> lValueList)
-{
-	List<TreeNode> FoundNodes = new List<TreeNode>();
-
-	foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
-	{
-		SearchChildrenList(tNode, FoundNodes, lValueList);
-	}
-
-	return FoundNodes;
-}
-
-
-/// <summary>
-/// Given a tree node, see if it is one of the values we are looking for. Have to go through all of the children's node.
-/// </summary>
-/// <param name="tNode">The node to check the value and to search the children off.</param>
-/// <param name="FoundNodes">List of nodes to be returned.</param>
-/// <param name="ValueToSearchFor">List of values we are searching for.</param>
-private void SearchChildrenList(TreeNode tNode, List<TreeNode> FoundNodes, List<string> lValueList)
-{
-	// See if the tree value is in the list we are search for. If so, add it to the nodes.
-	if (tNode.Checked)
-		if (lValueList.Exists(x => x == tNode.Value))
-			FoundNodes.Add(tNode);
-
-	foreach (TreeNode ChildNode in tNode.ChildNodes)
-		SearchChildrenList(ChildNode, FoundNodes, lValueList);
-}
-
-protected void CheckExclusions()
-{
-	if (Session["NodeExclusions"] == null)
-		return;
-
-	foreach (TreeNode tNode in tvDisplaySkills.Nodes)
-		EnableNodeAndChildren(tNode);
-
-	DataTable dtExclusions;
-	dtExclusions = Session["NodeExclusions"] as DataTable;
-
-	foreach (TreeNode CheckedNode in tvDisplaySkills.CheckedNodes)
-	{
-		string sSkill = CheckedNode.Value;
-		DataView dvPreReq = new DataView(dtExclusions, "PreRequisiteSkillNodeID = " + sSkill, "", DataViewRowState.CurrentRows);
-		foreach (DataRowView dExclude in dvPreReq)
-		{
-			string sExc = dExclude["SkillNodeID"].ToString();
-			List<TreeNode> ExcludedNodes = FindNodesByValue(tvDisplaySkills, sExc);
-			foreach (TreeNode tnExc in ExcludedNodes)
-				DisableNodeAndChildren(tnExc);
-		}
-	}
-}
-
-/// <summary>
-/// Add the Javascript to display an error alert.
-/// </summary>
-/// <param name="pvMessage"></param>
-private void DisplayErrorMessage(string pvMessage)
-{
-	lblmodalMessage.Text = pvMessage;
-	ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
-}
-
-
-/// <summary>
-/// Go through all of the checked nodes and make sure you have all the requirements. This is for when somebody unchecks something.
-/// You then have to go through all of the nodes to make sure that you still have the requirements for everything else.
-/// </summary>
-private void CheckSkillRequirementExclusions()
-{
-	SortedList sParams = new SortedList();
-	if (Session["CampaignID"] == null)
-		Response.Redirect("/default.aspx", true);
-
-	// Get all the prereqs/exclusions for the entire campaign so we don't have to keep reloading it.
-	sParams.Add("@CampaignID", Session["CampaignID"].ToString());
-	DataSet dsRequire = cUtilities.LoadDataSet("uspGetCampaignNodeRequirements", sParams, "LARPortal", Master.UserName, "CharSkill.aspx_CheckSkillRequirementExclusions");
-
-	bool bChangesMade = false;
-
-	// Enable everything. Then we will go through and disable nodes as needed.
-	foreach (TreeNode tBaseNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
-		EnableNodeAndChildren(tBaseNode);
-
-	// As long as we have made a change to the tree, keep rechecking.
-	do
-	{
-		bChangesMade = false;
-		foreach (TreeNode tNode in tvDisplaySkills.CheckedNodes)        // _tvSkills.CheckedNodes)
-		{
-			// Do we have all of the requirements for this node?
-			if (!CheckNodeRequirement(tNode, dsRequire))
-			{
-				// Don't have the requirements so the node has already been unchecked. We need to start over and check all the requirements.
-				bChangesMade = true;
-				break;
-			}
-		}
-	} while (bChangesMade);
-}
-
-
-/// <summary>
-/// Give a node and the dataset for the campaign, see if the node has all the requirements it needs. If it doesn't uncheck it.
-/// </summary>
-/// <param name="tNode">Checked node that needs to be check if all the requirements are met.</param>
-/// <param name="dsRequire">The dataset with the prereqs/exclusions for the campaign.</param>
-/// <returns>True means it has everything it needs, False it doesn't have all the requirements.</returns>
-private bool CheckNodeRequirement(TreeNode tNode, DataSet dsRequire)
-{
-	bool bMetRequirements = true;
-
-	try
-	{
-		// Table 0 is the prereq of a single node.
-		DataView dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = false and PrerequisiteGroupID is null and SkillNodeID = " + tNode.Value,
-			"SkillNodeID", DataViewRowState.CurrentRows);
-
-		// Go through all of the single requirements and make sure they are all there.
-		foreach (DataRowView dRow in dvRequiredRows)
-		{
-			if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
-			{
-				int iPreReq;
-				if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
-				{
-					if (iPreReq != 0)       // May be set to 0 by accident.
+					int iPreReq;
+					if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
 					{
-						// Get the single pre/req skill from the nodes
-						List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
-						if (tnFoundNode.Count == 0)
-						{
-							bMetRequirements = false;
-						}
+						List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
+						foreach (TreeNode tNode in FoundNodes)
+							DisableNodeAndChildren(tNode);
 					}
 				}
 			}
-		}
 
-		// Check to make sure the node has all the required skills for purchase based on a group of skills.
-		dvRequiredRows = new DataView(dsRequire.Tables[0], "PrerequisiteGroupID is not null and SkillNodeID = " + tNode.Value, "", DataViewRowState.CurrentRows);
+			bMeetAllRequirements = true;
 
-		foreach (DataRowView dRow in dvRequiredRows)
-		{
-			// Since there is at least one group process it.
-			int iPreReqGroup;       // What's the number of the group to process.
-			int iNumReq;            // How many of the requirements do we have to have?
-			if ((int.TryParse(dRow["PrerequisiteGroupID"].ToString(), out iPreReqGroup)) &&
-				(int.TryParse(dRow["NumGroupSkillsRequired"].ToString(), out iNumReq)))
-			{
-				// Get the items for the specific group. Table1 is the group requirements.
-				DataView dReqGroup = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
-				if (dReqGroup.Count > 0)
-				{
-					// There were records. Convert the dataview of required nodes to a list of strings - easier to process. The 2nd field is the skill nodes.
-					List<string> ReqSkillNodes = dReqGroup.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
-					// If we find the value we are looking for - remove it.
-					ReqSkillNodes.Remove(tNode.Value);
-					List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
-					if (FoundNode.Count < iNumReq)
-						bMetRequirements = false;
-				}
-			}
-		}
-
-		// Only need to check exclusions if the all of the requirements have been met.
-		if (bMetRequirements)
-		{
-			// Check exclusions. Disable all nodes sthat are excluded because of this.
-			dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = true and SkillNodeID = " + tNode.Value, "SkillNodeID", DataViewRowState.CurrentRows);
+			DataView dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = false", "SkillNodeID", DataViewRowState.CurrentRows);
 
 			foreach (DataRowView dRow in dvRequiredRows)
 			{
@@ -1130,306 +854,624 @@ private bool CheckNodeRequirement(TreeNode tNode, DataSet dsRequire)
 					int iPreReq;
 					if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
 					{
-						if (iPreReq.ToString() != tNode.Value)
+						if (iPreReq != 0)
 						{
-							// Get the node that has the value of the prereq and disable it and all of it's children.
-							List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
-							foreach (TreeNode tnNodesToExclude in tnFoundNode)
+							List<TreeNode> FoundNodes = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
+							if (FoundNodes.Count == 0)
+								bMeetAllRequirements = false;
+							else
+								foreach (TreeNode tNode in FoundNodes)
+									if (!tNode.Checked)
+										bMeetAllRequirements = false;
+						}
+					}
+				}
+			}
+
+			dvRequiredRows = new DataView(dsRequire.Tables[0], "PrerequisiteGroupID is not null", "", DataViewRowState.CurrentRows);
+
+			foreach (DataRowView dRow in dvRequiredRows)
+			{
+				// Since there is at least one group process it.
+				int iPreReqGroup;
+				int iNumReq;
+				if ((int.TryParse(dRow["PrerequisiteGroupID"].ToString(), out iPreReqGroup)) &&
+					(int.TryParse(dRow["NumGroupSkillsRequired"].ToString(), out iNumReq)))
+				{
+					// Get the items for the specific group.
+					DataView dReqGroup = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
+					if (dReqGroup.Count > 0)
+					{
+						// There were records. Convert the dataview of reuired nodes convert to a list of string - easier to process.
+						List<string> ReqSkillNodes = dReqGroup.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
+						// If we find the value we are looking for - remove it.
+						ReqSkillNodes.Remove(sValueToCheckFor);
+						List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
+						if (FoundNode.Count < iNumReq)
+							bMeetAllRequirements = false;
+					}
+				}
+			}
+			return bMeetAllRequirements;
+		}
+
+		private void CheckAllNodesWithValue(string sValueToCheckFor, bool bValueToSet)
+		{
+			foreach (TreeNode trMainNodes in tvDisplaySkills.Nodes)     // _tvSkills.Nodes)
+				SetChildNodes(trMainNodes, sValueToCheckFor, bValueToSet);
+		}
+
+		private void SetChildNodes(TreeNode NodeToCheck, string sValueToCheckFor, bool bValueToSet)
+		{
+			if (NodeToCheck.Value == sValueToCheckFor)
+				NodeToCheck.Checked = bValueToSet;
+
+			foreach (TreeNode trChildNode in NodeToCheck.ChildNodes)
+				SetChildNodes(trChildNode, sValueToCheckFor, bValueToSet);
+		}
+
+
+		/// <summary>
+		/// Go through a node and it's children and 'disable' them. Disabling really means add an image and remove the check box.
+		/// </summary>
+		/// <param name="tNode"></param>
+		private void DisableNodeAndChildren(TreeNode tNode)
+		{
+			tNode.Text = tNode.Text.Replace("black", "grey");
+			tNode.ImageUrl = "/img/delete.png";
+			tNode.ShowCheckBox = false;
+			foreach (TreeNode ChildNode in tNode.ChildNodes)
+				DisableNodeAndChildren(ChildNode);
+		}
+
+
+		/// <summary>
+		/// Go through a node and it's children and 'enable' them. Enabling it removing the image and turning the check box on.
+		/// </summary>
+		/// <param name="tNode"></param>
+		private void EnableNodeAndChildren(TreeNode tNode)
+		{
+			tNode.Text = tNode.Text.Replace("grey", "black");
+			tNode.ImageUrl = "";
+			tNode.ShowCheckBox = true;
+
+			foreach (TreeNode tnChild in tNode.ChildNodes)
+				EnableNodeAndChildren(tnChild);
+		}
+
+
+		/// <summary>
+		/// Given a tree node, see if it's value is in the value we are searching for. For each node, go through the child nodes.
+		/// </summary>
+		/// <param name="ValueToSearchFor">Single string value to look for. Value is stored in nodes .Value</param>
+		/// <returns>List of tree nodes with the value searching. It should only return a single node but use a list just in case.</returns>
+		private List<TreeNode> FindNodesByValue(TreeView tView, string ValueToSearchFor)
+		{
+			List<TreeNode> FoundNodes = new List<TreeNode>();
+
+			//			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			foreach (TreeNode tNode in tView.Nodes)       // _tvSkills.Nodes)
+			{
+				SearchChildren(tNode, FoundNodes, ValueToSearchFor);
+			}
+
+			return FoundNodes;
+		}
+
+
+		/// <summary>
+		/// Given a tree node, see if it is the value we are looking for. Have to go through all of the children's node.
+		/// </summary>
+		/// <param name="tNode">The node to check the value and to search the children off.</param>
+		/// <param name="FoundNodes">List of nodes to be returned.</param>
+		/// <param name="ValueToSearchFor">The value that we are going to search for.</param>
+		private void SearchChildren(TreeNode tNode, List<TreeNode> FoundNodes, string ValueToSearchFor)
+		{
+			if (tNode.Value == ValueToSearchFor)
+				FoundNodes.Add(tNode);
+
+			foreach (TreeNode ChildNode in tNode.ChildNodes)
+				SearchChildren(ChildNode, FoundNodes, ValueToSearchFor);
+		}
+
+
+		/// <summary>
+		/// Given a tree node, see if it's value is in the list we are searching for. For each node, go through the child nodes.
+		/// </summary>
+		/// <param name="lValueList">List of string values we are searching for.</param>
+		/// <returns>List of tree nodes with the value values we have found.</returns>
+		private List<TreeNode> FindNodesByValueList(List<string> lValueList)
+		{
+			List<TreeNode> FoundNodes = new List<TreeNode>();
+
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+			{
+				SearchChildrenList(tNode, FoundNodes, lValueList);
+			}
+
+			return FoundNodes;
+		}
+
+
+		/// <summary>
+		/// Given a tree node, see if it is one of the values we are looking for. Have to go through all of the children's node.
+		/// </summary>
+		/// <param name="tNode">The node to check the value and to search the children off.</param>
+		/// <param name="FoundNodes">List of nodes to be returned.</param>
+		/// <param name="ValueToSearchFor">List of values we are searching for.</param>
+		private void SearchChildrenList(TreeNode tNode, List<TreeNode> FoundNodes, List<string> lValueList)
+		{
+			// See if the tree value is in the list we are search for. If so, add it to the nodes.
+			if (tNode.Checked)
+				if (lValueList.Exists(x => x == tNode.Value))
+					FoundNodes.Add(tNode);
+
+			foreach (TreeNode ChildNode in tNode.ChildNodes)
+				SearchChildrenList(ChildNode, FoundNodes, lValueList);
+		}
+
+		protected void CheckExclusions()
+		{
+			if (Session["NodeExclusions"] == null)
+				return;
+
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
+				EnableNodeAndChildren(tNode);
+
+			DataTable dtExclusions;
+			dtExclusions = Session["NodeExclusions"] as DataTable;
+
+			foreach (TreeNode CheckedNode in tvDisplaySkills.CheckedNodes)
+			{
+				string sSkill = CheckedNode.Value;
+				DataView dvPreReq = new DataView(dtExclusions, "PreRequisiteSkillNodeID = " + sSkill, "", DataViewRowState.CurrentRows);
+				foreach (DataRowView dExclude in dvPreReq)
+				{
+					string sExc = dExclude["SkillNodeID"].ToString();
+					List<TreeNode> ExcludedNodes = FindNodesByValue(tvDisplaySkills, sExc);
+					foreach (TreeNode tnExc in ExcludedNodes)
+						DisableNodeAndChildren(tnExc);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Add the Javascript to display an error alert.
+		/// </summary>
+		/// <param name="pvMessage"></param>
+		private void DisplayErrorMessage(string pvMessage)
+		{
+			lblmodalMessage.Text = pvMessage;
+			ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
+		}
+
+
+		/// <summary>
+		/// Go through all of the checked nodes and make sure you have all the requirements. This is for when somebody unchecks something.
+		/// You then have to go through all of the nodes to make sure that you still have the requirements for everything else.
+		/// </summary>
+		private void CheckSkillRequirementExclusions()
+		{
+			SortedList sParams = new SortedList();
+			if (Session["CampaignID"] == null)
+				Response.Redirect("/default.aspx", true);
+
+			// Get all the prereqs/exclusions for the entire campaign so we don't have to keep reloading it.
+			sParams.Add("@CampaignID", Session["CampaignID"].ToString());
+			DataSet dsRequire = cUtilities.LoadDataSet("uspGetCampaignNodeRequirements", sParams, "LARPortal", Master.UserName, "CharSkill.aspx_CheckSkillRequirementExclusions");
+
+			bool bChangesMade = false;
+
+			// Enable everything. Then we will go through and disable nodes as needed.
+			foreach (TreeNode tBaseNode in tvDisplaySkills.Nodes)       // _tvSkills.Nodes)
+				EnableNodeAndChildren(tBaseNode);
+
+			// As long as we have made a change to the tree, keep rechecking.
+			do
+			{
+				bChangesMade = false;
+				foreach (TreeNode tNode in tvDisplaySkills.CheckedNodes)        // _tvSkills.CheckedNodes)
+				{
+					// Do we have all of the requirements for this node?
+					if (!CheckNodeRequirement(tNode, dsRequire))
+					{
+						// Don't have the requirements so the node has already been unchecked. We need to start over and check all the requirements.
+						bChangesMade = true;
+						break;
+					}
+				}
+			} while (bChangesMade);
+		}
+
+
+		/// <summary>
+		/// Give a node and the dataset for the campaign, see if the node has all the requirements it needs. If it doesn't uncheck it.
+		/// </summary>
+		/// <param name="tNode">Checked node that needs to be check if all the requirements are met.</param>
+		/// <param name="dsRequire">The dataset with the prereqs/exclusions for the campaign.</param>
+		/// <returns>True means it has everything it needs, False it doesn't have all the requirements.</returns>
+		private bool CheckNodeRequirement(TreeNode tNode, DataSet dsRequire)
+		{
+			bool bMetRequirements = true;
+
+			try
+			{
+				// Table 0 is the prereq of a single node.
+				DataView dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = false and PrerequisiteGroupID is null and SkillNodeID = " + tNode.Value,
+					"SkillNodeID", DataViewRowState.CurrentRows);
+
+				// Go through all of the single requirements and make sure they are all there.
+				foreach (DataRowView dRow in dvRequiredRows)
+				{
+					if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
+					{
+						int iPreReq;
+						if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
+						{
+							if (iPreReq != 0)       // May be set to 0 by accident.
 							{
-								DisableNodeAndChildren(tnNodesToExclude);
+								// Get the single pre/req skill from the nodes
+								List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
+								if (tnFoundNode.Count == 0)
+								{
+									bMetRequirements = false;
+								}
 							}
 						}
+					}
+				}
+
+				// Check to make sure the node has all the required skills for purchase based on a group of skills.
+				dvRequiredRows = new DataView(dsRequire.Tables[0], "PrerequisiteGroupID is not null and SkillNodeID = " + tNode.Value, "", DataViewRowState.CurrentRows);
+
+				foreach (DataRowView dRow in dvRequiredRows)
+				{
+					// Since there is at least one group process it.
+					int iPreReqGroup;       // What's the number of the group to process.
+					int iNumReq;            // How many of the requirements do we have to have?
+					if ((int.TryParse(dRow["PrerequisiteGroupID"].ToString(), out iPreReqGroup)) &&
+						(int.TryParse(dRow["NumGroupSkillsRequired"].ToString(), out iNumReq)))
+					{
+						// Get the items for the specific group. Table1 is the group requirements.
+						DataView dReqGroup = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
+						if (dReqGroup.Count > 0)
+						{
+							// There were records. Convert the dataview of required nodes to a list of strings - easier to process. The 2nd field is the skill nodes.
+							List<string> ReqSkillNodes = dReqGroup.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
+							// If we find the value we are looking for - remove it.
+							ReqSkillNodes.Remove(tNode.Value);
+							List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
+							if (FoundNode.Count < iNumReq)
+								bMetRequirements = false;
+						}
+					}
+				}
+
+				// Only need to check exclusions if the all of the requirements have been met.
+				if (bMetRequirements)
+				{
+					// Check exclusions. Disable all nodes sthat are excluded because of this.
+					dvRequiredRows = new DataView(dsRequire.Tables[0], "ExcludeFromPurchase = true and SkillNodeID = " + tNode.Value, "SkillNodeID", DataViewRowState.CurrentRows);
+
+					foreach (DataRowView dRow in dvRequiredRows)
+					{
+						if (dRow["PrerequisiteSkillNodeID"] != DBNull.Value)
+						{
+							int iPreReq;
+							if (int.TryParse(dRow["PrerequisiteSkillNodeID"].ToString(), out iPreReq))
+							{
+								if (iPreReq.ToString() != tNode.Value)
+								{
+									// Get the node that has the value of the prereq and disable it and all of it's children.
+									List<TreeNode> tnFoundNode = FindNodesByValue(tvDisplaySkills, iPreReq.ToString());
+									foreach (TreeNode tnNodesToExclude in tnFoundNode)
+									{
+										DisableNodeAndChildren(tnNodesToExclude);
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if (!bMetRequirements)
+					tNode.Checked = false;
+			}
+			catch (Exception ex)
+			{
+				string l = ex.Message;
+			}
+
+			return bMetRequirements;
+		}
+
+		protected void RemoveExclusions()
+		{
+			List<string> NodeList = new List<string>();
+
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
+			{
+				if (tNode.ImageUrl == "/img/delete.png")
+				{
+					NodeList.Add(tNode.ValuePath);
+				}
+				RemoveNodes(tNode, NodeList);
+			}
+			foreach (string t in NodeList)
+			{
+				TreeNode FoundID = tvDisplaySkills.FindNode(t);
+				if (FoundID != null)
+					if (FoundID.Depth == 0)
+						tvDisplaySkills.Nodes.Remove(FoundID);
+					else
+						FoundID.Parent.ChildNodes.Remove(FoundID);
+			}
+		}
+
+		protected void RemoveNodes(TreeNode tNode, List<string> NodeList)
+		{
+			string t = tNode.Text;
+			if (tNode.ImageUrl == "/img/delete.png")
+			{
+				NodeList.Add(tNode.ValuePath);
+			}
+			else
+			{
+				foreach (TreeNode tChild in tNode.ChildNodes)
+					RemoveNodes(tChild, NodeList);
+			}
+		}
+
+		public void SaveNodeState(TreeView tvMemorySkills)
+		{
+			foreach (TreeNode tMainNode in tvDisplaySkills.Nodes)
+			{
+				TreeNode tCopy = tvMemorySkills.FindNode(tMainNode.ValuePath);
+				if (tCopy != null)
+				{
+					tCopy.Expanded = tMainNode.Expanded;
+					foreach (TreeNode tChild in tMainNode.ChildNodes)
+					{
+						ProcessChildren(tChild, tvMemorySkills);
 					}
 				}
 			}
 		}
 
-		if (!bMetRequirements)
-			tNode.Checked = false;
-	}
-	catch (Exception ex)
-	{
-		string l = ex.Message;
-	}
-
-	return bMetRequirements;
-}
-
-protected void RemoveExclusions()
-{
-	List<string> NodeList = new List<string>();
-
-	foreach (TreeNode tNode in tvDisplaySkills.Nodes)
-	{
-		if (tNode.ImageUrl == "/img/delete.png")
+		public void ProcessChildren(TreeNode tChild, TreeView tvMemorySkills)
 		{
-			NodeList.Add(tNode.ValuePath);
-		}
-		RemoveNodes(tNode, NodeList);
-	}
-	foreach (string t in NodeList)
-	{
-		TreeNode FoundID = tvDisplaySkills.FindNode(t);
-		if (FoundID != null)
-			if (FoundID.Depth == 0)
-				tvDisplaySkills.Nodes.Remove(FoundID);
-			else
-				FoundID.Parent.ChildNodes.Remove(FoundID);
-	}
-}
-
-protected void RemoveNodes(TreeNode tNode, List<string> NodeList)
-{
-	string t = tNode.Text;
-	if (tNode.ImageUrl == "/img/delete.png")
-	{
-		NodeList.Add(tNode.ValuePath);
-	}
-	else
-	{
-		foreach (TreeNode tChild in tNode.ChildNodes)
-			RemoveNodes(tChild, NodeList);
-	}
-}
-
-public void SaveNodeState(TreeView tvMemorySkills)
-{
-	foreach (TreeNode tMainNode in tvDisplaySkills.Nodes)
-	{
-		TreeNode tCopy = tvMemorySkills.FindNode(tMainNode.ValuePath);
-		if (tCopy != null)
-		{
-			tCopy.Expanded = tMainNode.Expanded;
-			foreach (TreeNode tChild in tMainNode.ChildNodes)
+			TreeNode tCopy = tvMemorySkills.FindNode(tChild.ValuePath);
+			if (tCopy != null)
 			{
-				ProcessChildren(tChild, tvMemorySkills);
+				tCopy.Expanded = tChild.Expanded;
+				foreach (TreeNode tNextNode in tChild.ChildNodes)
+					ProcessChildren(tNextNode, tvMemorySkills);
 			}
 		}
-	}
-}
 
-public void ProcessChildren(TreeNode tChild, TreeView tvMemorySkills)
-{
-	TreeNode tCopy = tvMemorySkills.FindNode(tChild.ValuePath);
-	if (tCopy != null)
-	{
-		tCopy.Expanded = tChild.Expanded;
-		foreach (TreeNode tNextNode in tChild.ChildNodes)
-			ProcessChildren(tNextNode, tvMemorySkills);
-	}
-}
-
-public void CopyDisplayTreeNodes(TreeView InMemory, TreeView DisplayTree)
-{
-	DisplayTree.Nodes.Clear();
-
-	bool ReadOnly = false;
-
-	if (Session["CharSkillReadOnly"] != null)
-		if (Session["CharSkillReadOnly"].ToString() == "Y")
-			ReadOnly = true;
-
-	bool DisplayExcluded = false;
-	if (Session["SkillShowExclusions"] != null)
-		if (Session["SkillShowExclusions"].ToString() == "Y")
-			DisplayExcluded = true;
-
-	TreeNode tnDisplay = new TreeNode();
-
-	foreach (TreeNode tnInMemory in InMemory.Nodes)
-	{
-		// If the node has an image of DELETE and don't want to show exclusions, don't copy the node.
-		if (!DisplayExcluded)
-			if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
-				continue;
-
-		if ((ReadOnly) &&           // JBradshaw 3/5/2017 If readonly (NPC) only display checked values.
-			(!tnInMemory.Checked))
-			continue;
-
-		tnDisplay = new TreeNode(tnInMemory.Text, tnInMemory.Value);
-		tnDisplay.Checked = tnInMemory.Checked;
-		tnDisplay.Expanded = tnInMemory.Expanded;
-		tnDisplay.ShowCheckBox = tnInMemory.ShowCheckBox;
-		tnDisplay.ImageUrl = tnInMemory.ImageUrl;
-
-		if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
-			tnDisplay.ShowCheckBox = false;
-
-		if ((ReadOnly) || (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG")))
-			tnDisplay.ShowCheckBox = false;
-		else
-			tnDisplay.ShowCheckBox = true;
-
-		CopyDisplayChildren(tnInMemory, tnDisplay, DisplayExcluded, ReadOnly);
-		DisplayTree.Nodes.Add(tnDisplay);
-	}
-	if (ReadOnly)
-		DisplayTree.ShowCheckBoxes = TreeNodeTypes.None;
-	if (DisplayTree.Nodes.Count == 0)
-		lblMessage.Text += " This character has no skills purchased.";
-}
-
-public void CopyDisplayChildren(TreeNode InMemory, TreeNode Display, bool DisplayExcluded, bool ReadOnly)
-{
-	foreach (TreeNode tnInMemory in InMemory.ChildNodes)
-	{
-		// If the node has an image of DELETE and don't want to show exclusions, don't copy the node.
-		if (!DisplayExcluded)
-			if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
-				continue;
-
-		TreeNode tnDisplay = new TreeNode();
-
-		if ((ReadOnly) &&
-			(!tnInMemory.Checked))
-			continue;
-
-		tnDisplay = new TreeNode(tnInMemory.Text, tnInMemory.Value);
-		tnDisplay.Checked = tnInMemory.Checked;
-		tnDisplay.Expanded = tnInMemory.Expanded;
-		tnDisplay.ShowCheckBox = tnInMemory.ShowCheckBox;
-		tnDisplay.ImageUrl = tnInMemory.ImageUrl;
-
-		if ((ReadOnly) || (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG")))
-			tnDisplay.ShowCheckBox = false;
-		else
-			tnDisplay.ShowCheckBox = true;
-
-		Display.ChildNodes.Add(tnDisplay);
-		CopyDisplayChildren(tnInMemory, tnDisplay, DisplayExcluded, ReadOnly);
-	}
-}
-
-protected void cbxShowExclusions_CheckedChanged(object sender, EventArgs e)
-{
-	oCharSelect.LoadInfo();
-
-	if (cbxShowExclusions.Checked)
-		RebuildTreeView();
-	else
-	{
-		RemoveExclusions();
-	}
-}
-
-protected void oCharSelect_CharacterChanged(object sender, EventArgs e)
-{
-	oCharSelect.LoadInfo();
-
-	if (oCharSelect.CharacterID.HasValue)
-	{
-		Session["CharSkillCharacterID"] = oCharSelect.CharacterID.Value;
-		Session["ReloadCharacter"] = "Y";
-		if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
-			(oCharSelect.CharacterInfo.CharacterType != 1))
+		public void CopyDisplayTreeNodes(TreeView InMemory, TreeView DisplayTree)
 		{
-			Session["CharSkillReadOnly"] = "Y";
-			btnSave.Enabled = false;
-			btnSave.CssClass = "btn-default";
-			btnSave.Style["background-color"] = "grey";
-		}
-		else
-		{
-			Session["CharSkillReadOnly"] = "N";
-			btnSave.Enabled = true;
-			btnSave.Style["background-color"] = null;
+			DisplayTree.Nodes.Clear();
+
+			bool ReadOnly = false;
+
+			if (Session["CharSkillReadOnly"] != null)
+				if (Session["CharSkillReadOnly"].ToString() == "Y")
+					ReadOnly = true;
+
+			bool DisplayExcluded = false;
+			if (Session["SkillShowExclusions"] != null)
+				if (Session["SkillShowExclusions"].ToString() == "Y")
+					DisplayExcluded = true;
+
+			TreeNode tnDisplay = new TreeNode();
+
+			foreach (TreeNode tnInMemory in InMemory.Nodes)
+			{
+				// If the node has an image of DELETE and don't want to show exclusions, don't copy the node.
+				if (!DisplayExcluded)
+					if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
+						continue;
+
+				if ((ReadOnly) &&           // JBradshaw 3/5/2017 If readonly (NPC) only display checked values.
+					(!tnInMemory.Checked))
+					continue;
+
+				tnDisplay = new TreeNode(tnInMemory.Text, tnInMemory.Value);
+				tnDisplay.Checked = tnInMemory.Checked;
+				tnDisplay.Expanded = tnInMemory.Expanded;
+				tnDisplay.ShowCheckBox = tnInMemory.ShowCheckBox;
+				tnDisplay.ImageUrl = tnInMemory.ImageUrl;
+
+				if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
+					tnDisplay.ShowCheckBox = false;
+
+				if ((ReadOnly) || (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG")))
+					tnDisplay.ShowCheckBox = false;
+				else
+					tnDisplay.ShowCheckBox = true;
+
+				CopyDisplayChildren(tnInMemory, tnDisplay, DisplayExcluded, ReadOnly);
+				DisplayTree.Nodes.Add(tnDisplay);
+			}
+			if (ReadOnly)
+				DisplayTree.ShowCheckBoxes = TreeNodeTypes.None;
+			if (DisplayTree.Nodes.Count == 0)
+				lblMessage.Text += " This character has no skills purchased.";
 		}
 
-		Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-		UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
-		UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
-		UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
-		UserInfo.Save();
-		Master.ChangeSelectedCampaign();
-	}
-	_Reload = true;
-}
-
-protected void MasterPage_CampaignChanged(object sender, EventArgs e)
-{
-	oCharSelect.Reset();
-	_Reload = true;
-	Classes.cUser user = new Classes.cUser(Master.UserName, "NOPASSWORD", Session.SessionID);
-	if (user.LastLoggedInCharacter == -1)
-		Response.Redirect("/default.aspx");
-
-	// Added setting 
-	Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
-	hidAutoBuyParentSkills.Value = "Y";
-	if (cCampaign.AutoBuyParentSkills.HasValue)
-		if (!cCampaign.AutoBuyParentSkills.Value)
-			hidAutoBuyParentSkills.Value = "N";
-}
-
-
-private void RebuildTreeView()
-{
-	_dtCampaignSkills = Session["SkillNodes"] as DataTable;
-	TreeView OrigTree = new TreeView();
-	CopyTreeNodes(tvDisplaySkills, OrigTree);
-	List<TreeNode> FlatTreeNodes = FlattenTree(tvDisplaySkills);
-
-	tvDisplaySkills.Nodes.Clear();
-
-	DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
-	foreach (DataRowView dvRow in dvTopNodes)
-	{
-		TreeNode NewNode = new TreeNode();
-		NewNode.ShowCheckBox = true;
-
-		NewNode.Text = FormatDescString(dvRow);
-		NewNode.SelectAction = TreeNodeSelectAction.None;
-
-		int iNodeID;
-		if (int.TryParse(dvRow["CampaignSkillNodeID"].ToString(), out iNodeID))
+		public void CopyDisplayChildren(TreeNode InMemory, TreeNode Display, bool DisplayExcluded, bool ReadOnly)
 		{
-			NewNode.Expanded = false;
-			NewNode.Value = iNodeID.ToString();
-			if (dvRow["CharacterHasSkill"].ToString() == "1")
-				NewNode.Checked = true;
-			NewNode.SelectAction = TreeNodeSelectAction.None;
-			List<TreeNode> OrigNode = FindNodesByValue(OrigTree, iNodeID.ToString());
+			foreach (TreeNode tnInMemory in InMemory.ChildNodes)
+			{
+				// If the node has an image of DELETE and don't want to show exclusions, don't copy the node.
+				if (!DisplayExcluded)
+					if (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG"))
+						continue;
 
-			//					List<TreeNode> OrigNode = FindNodesByValue(tvDisplaySkills, iNodeID.ToString());
-			if (OrigNode.Count > 0)
-				NewNode.Expanded = OrigNode[0].Expanded;
-			PopulateTreeView(iNodeID, NewNode);
-			tvDisplaySkills.Nodes.Add(NewNode);
+				TreeNode tnDisplay = new TreeNode();
+
+				if ((ReadOnly) &&
+					(!tnInMemory.Checked))
+					continue;
+
+				tnDisplay = new TreeNode(tnInMemory.Text, tnInMemory.Value);
+				tnDisplay.Checked = tnInMemory.Checked;
+				tnDisplay.Expanded = tnInMemory.Expanded;
+				tnDisplay.ShowCheckBox = tnInMemory.ShowCheckBox;
+				tnDisplay.ImageUrl = tnInMemory.ImageUrl;
+
+				if ((ReadOnly) || (tnInMemory.ImageUrl.ToUpper().Contains("DELETE.PNG")))
+					tnDisplay.ShowCheckBox = false;
+				else
+					tnDisplay.ShowCheckBox = true;
+
+				Display.ChildNodes.Add(tnDisplay);
+				CopyDisplayChildren(tnInMemory, tnDisplay, DisplayExcluded, ReadOnly);
+			}
 		}
-	}
-	CheckExclusions();
-	if (!cbxShowExclusions.Checked)
-		RemoveExclusions();
 
-	var ExpandedNodes = from r in FlatTreeNodes where r.Expanded == true select r.Value;
-	foreach (string ExpNode in ExpandedNodes)
-	{
-		List<TreeNode> tnNode = FindNodesByValue(tvDisplaySkills, ExpNode);
-		if (tnNode.Count > 0)
-			tnNode[0].Expanded = true;
-	}
-}
+		protected void cbxShowExclusions_CheckedChanged(object sender, EventArgs e)
+		{
+			oCharSelect.LoadInfo();
 
-private List<TreeNode> FlattenTree(TreeView DataTree)
-{
-	List<TreeNode> FlatNodes = new List<TreeNode>();
+			if (cbxShowExclusions.Checked)
+				RebuildTreeView();
+			else
+			{
+				RemoveExclusions();
+			}
+		}
 
-	foreach (TreeNode tNode in tvDisplaySkills.Nodes)
-	{
-		GetAllNodes(FlatNodes, tNode);
-		FlatNodes.Add(tNode);
-	}
-	return FlatNodes;
-}
+		protected void oCharSelect_CharacterChanged(object sender, EventArgs e)
+		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-private void GetAllNodes(List<TreeNode> NodeList, TreeNode SourceNode)
-{
-	foreach (TreeNode tnChild in SourceNode.ChildNodes)
-	{
-		GetAllNodes(NodeList, tnChild);
-		NodeList.Add(tnChild);
-	}
-}
+			LogWriter oLog = new LogWriter();
+
+			oCharSelect.LoadInfo();
+
+			if (oCharSelect.CharacterID.HasValue)
+			{
+				Session["CharSkillCharacterID"] = oCharSelect.CharacterID.Value;
+				Session["ReloadCharacter"] = "Y";
+				if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
+					(oCharSelect.CharacterInfo.CharacterType != 1))
+				{
+					Session["CharSkillReadOnly"] = "Y";
+					btnSave.Enabled = false;
+					btnSave.CssClass = "btn-default";
+					btnSave.Style["background-color"] = "grey";
+				}
+				else
+				{
+					Session["CharSkillReadOnly"] = "N";
+					btnSave.Enabled = true;
+					btnSave.Style["background-color"] = null;
+				}
+
+				Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
+				UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+				UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+				UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
+				UserInfo.Save();
+				Master.ChangeSelectedCampaign();
+				oLog.AddLogMessage("Skills - Change Selected Character", Master.UserName, lsRoutineName, "", Session.SessionID);
+			}
+			_Reload = true;
+		}
+
+		protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			LogWriter oLog = new LogWriter();
+			oLog.AddLogMessage("Skills - Campaign Changed", Master.UserName, lsRoutineName, "", Session.SessionID);
+
+			oCharSelect.Reset();
+			_Reload = true;
+			Classes.cUser user = new Classes.cUser(Master.UserName, "NOPASSWORD", Session.SessionID);
+			if (user.LastLoggedInCharacter == -1)
+				Response.Redirect("/default.aspx");
+
+			// Added setting 
+			Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+			hidAutoBuyParentSkills.Value = "Y";
+			if (cCampaign.AutoBuyParentSkills.HasValue)
+				if (!cCampaign.AutoBuyParentSkills.Value)
+					hidAutoBuyParentSkills.Value = "N";
+		}
+
+
+		private void RebuildTreeView()
+		{
+			_dtCampaignSkills = Session["SkillNodes"] as DataTable;
+			TreeView OrigTree = new TreeView();
+			CopyTreeNodes(tvDisplaySkills, OrigTree);
+			List<TreeNode> FlatTreeNodes = FlattenTree(tvDisplaySkills);
+
+			tvDisplaySkills.Nodes.Clear();
+
+			DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
+			foreach (DataRowView dvRow in dvTopNodes)
+			{
+				TreeNode NewNode = new TreeNode();
+				NewNode.ShowCheckBox = true;
+
+				NewNode.Text = FormatDescString(dvRow);
+				NewNode.SelectAction = TreeNodeSelectAction.None;
+
+				int iNodeID;
+				if (int.TryParse(dvRow["CampaignSkillNodeID"].ToString(), out iNodeID))
+				{
+					NewNode.Expanded = false;
+					NewNode.Value = iNodeID.ToString();
+					if (dvRow["CharacterHasSkill"].ToString() == "1")
+						NewNode.Checked = true;
+					NewNode.SelectAction = TreeNodeSelectAction.None;
+					List<TreeNode> OrigNode = FindNodesByValue(OrigTree, iNodeID.ToString());
+
+					//					List<TreeNode> OrigNode = FindNodesByValue(tvDisplaySkills, iNodeID.ToString());
+					if (OrigNode.Count > 0)
+						NewNode.Expanded = OrigNode[0].Expanded;
+					PopulateTreeView(iNodeID, NewNode);
+					tvDisplaySkills.Nodes.Add(NewNode);
+				}
+			}
+			CheckExclusions();
+			if (!cbxShowExclusions.Checked)
+				RemoveExclusions();
+
+			var ExpandedNodes = from r in FlatTreeNodes where r.Expanded == true select r.Value;
+			foreach (string ExpNode in ExpandedNodes)
+			{
+				List<TreeNode> tnNode = FindNodesByValue(tvDisplaySkills, ExpNode);
+				if (tnNode.Count > 0)
+					tnNode[0].Expanded = true;
+			}
+		}
+
+		private List<TreeNode> FlattenTree(TreeView DataTree)
+		{
+			List<TreeNode> FlatNodes = new List<TreeNode>();
+
+			foreach (TreeNode tNode in tvDisplaySkills.Nodes)
+			{
+				GetAllNodes(FlatNodes, tNode);
+				FlatNodes.Add(tNode);
+			}
+			return FlatNodes;
+		}
+
+		private void GetAllNodes(List<TreeNode> NodeList, TreeNode SourceNode)
+		{
+			foreach (TreeNode tnChild in SourceNode.ChildNodes)
+			{
+				GetAllNodes(NodeList, tnChild);
+				NodeList.Add(tnChild);
+			}
+		}
 	}
 }
