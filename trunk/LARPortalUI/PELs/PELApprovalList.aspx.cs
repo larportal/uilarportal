@@ -98,6 +98,16 @@ namespace LarpPortal.PELs
 			}
 
 			DataView dvPELs = new DataView(dtPELs, sRowFilter, "PELStatus desc, DateSubmitted", DataViewRowState.CurrentRows);
+			if (dvPELs.Count == 0)
+			{
+				dvPELs.RowFilter = "";
+				ViewState["CharacterName"] = "";
+				ViewState["EventDate"] = "";
+				ViewState["EventName"] = "";
+				ViewState["PELStatus"] = "";
+				sRowFilter = "";
+			}
+
 			gvPELList.DataSource = dvPELs;
 			gvPELList.DataBind();
 
