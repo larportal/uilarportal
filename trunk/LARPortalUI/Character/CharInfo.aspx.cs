@@ -787,7 +787,8 @@ namespace LarpPortal.Character
 
 					Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
 					Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
-					cEMS.SendMail(sSubject, sBody, oCharSelect.CharacterInfo.CharacterEmail, "", User.PrimaryEmailAddress.EmailAddress, "CharInfo - Hidden Skills", Master.UserName);
+					if (!string.IsNullOrEmpty(oCharSelect.CharacterInfo.CharacterEmail))
+						cEMS.SendMail(sSubject, sBody, oCharSelect.CharacterInfo.CharacterEmail, "", User.PrimaryEmailAddress.EmailAddress, "CharInfo - Hidden Skills", Master.UserName);
 				}
 
 				if ((tbAKA.Text.Length == 0) &&
