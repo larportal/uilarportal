@@ -299,7 +299,8 @@ namespace LarpPortal.Campaigns.Setup
 						{
 							SortedList sParams = new SortedList();
 
-							if (hidCampaignPlayerRoleID.Value == "")
+							if ((hidCampaignPlayerRoleID.Value == "") ||
+								(hidCampaignPlayerRoleID.Value == "-1"))
 							{
 								// The campaign player role id is blank if the user doesn't have it (returns a null from db.)
 								sParams.Add("@CampaignPlayerRoleID", -1);
@@ -319,10 +320,13 @@ namespace LarpPortal.Campaigns.Setup
 							int iCampaignPlayerRoleID;
 							if (int.TryParse(hidCampaignPlayerRoleID.Value, out iCampaignPlayerRoleID))
 							{
-								SortedList sParams = new SortedList();
-								sParams.Add("@UserID", Master.UserID);
-								sParams.Add("@RecordID", iCampaignPlayerRoleID);
-								cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
+								if (iCampaignPlayerRoleID != -1)
+								{
+									SortedList sParams = new SortedList();
+									sParams.Add("@UserID", Master.UserID);
+									sParams.Add("@RecordID", iCampaignPlayerRoleID);
+									cUtilities.PerformNonQuery("uspDelCMCampaignPlayerRoles", sParams, "LARPortal", Master.UserName);
+								}
 							}
 						}
 					}
