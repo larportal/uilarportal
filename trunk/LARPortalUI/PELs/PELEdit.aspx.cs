@@ -79,7 +79,7 @@ namespace LarpPortal.PELs
                     if (iCharacterID != 0)
                     {
                         Classes.cCharacter cChar = new Classes.cCharacter();
-                        cChar.LoadCharacter(iCharacterID);
+                        cChar.LoadCharacterByCharacterID(iCharacterID);
                         //imgPicture.ImageUrl = "/img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.
                         //if (cChar.ProfilePicture != null)
                         //    if (!string.IsNullOrEmpty(cChar.ProfilePicture.PictureURL))

@@ -46,11 +46,11 @@ namespace LarpPortal.Character
 
 			if ((!IsPostBack) || (_Reload))
 			{
-				if (oCharSelect.CharacterID.HasValue)
+				if (oCharSelect.SkillSetID.HasValue)
 				{
 					string sAddInfo = "";
-					sAddInfo = String.Format("Character Selected: {0}/{1}" + ", Campaign Selected {2}/{3}",
-						oCharSelect.CharacterID, oCharSelect.CharacterInfo.CampaignName, Master.CampaignID, Master.CampaignName);
+					sAddInfo = String.Format("Character Selected: {0}/{1}, SkillSetID: {4}" + ", Campaign Selected {2}/{3}",
+						oCharSelect.CharacterID, oCharSelect.CharacterInfo.CampaignName, Master.CampaignID, Master.CampaignName, oCharSelect.SkillSetID);
 
 					LogWriter oLog = new LogWriter();
 					oLog.AddLogMessage("Loading/reloading a character.", Master.UserName, lsRoutineName, sAddInfo, Session.SessionID);
@@ -66,7 +66,7 @@ namespace LarpPortal.Character
 					SortedList sParam = new SortedList();
 
 					// Request # 1293 Single Character Rebuild   J.Bradshaw 7/10/2016
-					Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(oCharSelect.CharacterInfo.CampaignID, Master.UserName, Master.UserID);
+					Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(oCharSelect.CampaignID.Value, Master.UserName, Master.UserID);
 
 					if ((cCampaign.AllowCharacterRebuild) ||
 						(oCharSelect.CharacterInfo.AllowCharacterRebuild))
@@ -92,8 +92,8 @@ namespace LarpPortal.Character
 						if (!cCampaign.AutoBuyParentSkills.Value)
 							hidAutoBuyParentSkills.Value = "N";
 
-					sParam.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
-					sParam.Add("@CharacterID", oCharSelect.CharacterID.Value);
+					sParam.Add("@CampaignID", oCharSelect.CampaignID.Value);
+					sParam.Add("@SkillSetID", oCharSelect.SkillSetID.Value);
 					dsSkillSets = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillsWithNodes", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignSkillsWithNodes");
 
 					_dtCampaignSkills = dsSkillSets.Tables[0];
@@ -699,12 +699,13 @@ namespace LarpPortal.Character
 			DataTable dtCampaignSkills = Session["SkillNodes"] as DataTable;
 			int CharacterSkillsSetID = -1;
 
-			CharacterSkillsSetID = oCharSelect.CharacterInfo.CharacterSkillSetID;
+			CharacterSkillsSetID = oCharSelect.CharacterInfo.SkillSetID;
 
 			foreach (Classes.cCharacterSkill cSkill in oCharSelect.CharacterInfo.CharacterSkills)
 			{
 				cSkill.RecordStatus = Classes.RecordStatuses.Delete;
-				CharacterSkillsSetID = cSkill.CharacterSkillSetID;
+				cSkill.CharacterSkillSetID = CharacterSkillsSetID;
+//				CharacterSkillsSetID = cSkill.CharacterSkillSetID;
 			}
 
 			foreach (TreeNode SkillNode in tvDisplaySkills.CheckedNodes)
@@ -1352,9 +1353,9 @@ namespace LarpPortal.Character
 
 			oCharSelect.LoadInfo();
 
-			if (oCharSelect.CharacterID.HasValue)
+			if (oCharSelect.SkillSetID.HasValue)
 			{
-				Session["CharSkillCharacterID"] = oCharSelect.CharacterID.Value;
+				Session["CharSkillCharacterID"] = oCharSelect.SkillSetID.Value;
 				Session["ReloadCharacter"] = "Y";
 				if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
 					(oCharSelect.CharacterInfo.CharacterType != 1))
@@ -1372,8 +1373,9 @@ namespace LarpPortal.Character
 				}
 
 				Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-				UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+				UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
 				UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+				UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
 				UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
 				UserInfo.Save();
 				Master.ChangeSelectedCampaign();

@@ -106,7 +106,7 @@ namespace LarpPortal.PELs
                     if (iCharacterID != 0)
                     {
                         Classes.cCharacter cChar = new Classes.cCharacter();
-                        cChar.LoadCharacter(iCharacterID);
+                        cChar.LoadCharacterByCharacterID(iCharacterID);
                         sEventInfo += "&nbsp;&nbsp;<b>Character: </b> " + dsQuestions.Tables[0].Rows[0]["CharacterAKA"].ToString();
                         hidCharacterAKA.Value = dsQuestions.Tables[0].Rows[0]["CharacterAKA"].ToString();
                         imgPicture.ImageUrl = "/img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.

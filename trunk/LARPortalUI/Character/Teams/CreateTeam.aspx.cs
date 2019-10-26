@@ -36,10 +36,10 @@ namespace LarpPortal.Character.Teams
 
             if ((!IsPostBack) || (_Reload))
             {
-                hidCampaignID.Value = oCharSelect.CharacterInfo.CampaignID.ToString();
+                hidCampaignID.Value = oCharSelect.CampaignID.Value.ToString();
 
                 SortedList slParameters = new SortedList();
-                slParameters.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
+                slParameters.Add("@CampaignID", oCharSelect.CampaignID.Value);
 
                 DataTable dtTeams = Classes.cUtilities.LoadDataTable("uspGetTeamsByCampaignID", slParameters, "LARPortal", Master.UserName, lsRoutineName + ".GetTeamsByCampaignID");
 
@@ -49,29 +49,30 @@ namespace LarpPortal.Character.Teams
             }
         }
 
-        private void SendSubmittedEmail(string sHistory, Classes.cCharacterHistory cHist)
-        {
-            try
-            {
-                if (hidNotificationEMail.Value.Length > 0)
-                {
-                    Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                    string sSubject = cHist.CampaignName + " character history from " + cHist.PlayerName + " - " + cHist.CharacterAKA;
+        //private void SendSubmittedEmail(string sHistory, Classes.cCharacterHistory cHist)
+        //{
+        //    try
+        //    {
+        //        if (hidNotificationEMail.Value.Length > 0)
+        //        {
+        //            Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
+        //            string sSubject = cHist.CampaignName + " character history from " + cHist.PlayerName + " - " + cHist.CharacterAKA;
 
-                    string sBody = (string.IsNullOrEmpty(User.NickName) ? User.FirstName : User.NickName) +
-                        " " + User.LastName + " has submitted a character history for " + cHist.CharacterAKA + ".<br><br>" +
-                         sHistory;
-                    Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
-                    cEMS.SendMail(sSubject, sBody, cHist.NotificationEMail, "", "", "CharacterHistory", Master.UserName);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Write the exception to error log and then throw it again...
-                Classes.ErrorAtServer lobjError = new Classes.ErrorAtServer();
-                lobjError.ProcessError(ex, "CharacterEdit.aspx.SendSubmittedEmail", "", Session.SessionID);
-            }
-        }
+
+        //            string sBody = (string.IsNullOrEmpty(User.NickName) ? User.FirstName : User.NickName) +
+        //                " " + User.LastName + " has submitted a character history for " + cHist.CharacterAKA + ".<br><br>" +
+        //                 sHistory;
+        //            Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
+        //            cEMS.SendMail(sSubject, sBody, cHist.NotificationEMail, "", "", "CharacterHistory", Master.UserName);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Write the exception to error log and then throw it again...
+        //        Classes.ErrorAtServer lobjError = new Classes.ErrorAtServer();
+        //        lobjError.ProcessError(ex, "CharacterEdit.aspx.SendSubmittedEmail", "", Session.SessionID);
+        //    }
+        //}
 
         protected void btnCloseMessage_Click(object sender, EventArgs e)
         {
@@ -127,8 +128,9 @@ namespace LarpPortal.Character.Teams
                 if (oCharSelect.CharacterID.HasValue)
                 {
                     Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                    UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+                    UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
                     UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
                     UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
                     UserInfo.Save();
                 }

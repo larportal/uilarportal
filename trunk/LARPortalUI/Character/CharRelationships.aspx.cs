@@ -37,11 +37,11 @@ namespace LarpPortal.Character
                 MethodBase lmth = MethodBase.GetCurrentMethod();
                 string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-                if (oCharSelect.CharacterID.HasValue)
+                if (oCharSelect.SkillSetID.HasValue)
                 {
                     DataTable dtCharactersForCampaign = new DataTable();
                     SortedList sParam = new SortedList();
-                    sParam.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
+                    sParam.Add("@CampaignID", oCharSelect.CampaignID.Value);
                     dtCharactersForCampaign = Classes.cUtilities.LoadDataTable("prGetCharactersForCampaign", sParam, "LARPortal", Master.UserName, "");
 
                     DataView dvCharactersForCampaign = new DataView(dtCharactersForCampaign, "", "CharacterAKA", DataViewRowState.CurrentRows);
@@ -167,7 +167,7 @@ namespace LarpPortal.Character
             NewRel.RelationTypeID = Convert.ToInt32(ddlRelationshipNonChar.SelectedValue);
             NewRel.RelationCharacterID = -1;
             NewRel.CharacterID = oCharSelect.CharacterID.Value;
-
+			NewRel.CampaignID = oCharSelect.CampaignID.Value;
             if (ddlRelationshipNonChar.SelectedItem.Text.ToUpper() == "OTHER")
             {
                 NewRel.RelationDescription = tbOtherNonChar.Text;
@@ -339,8 +339,9 @@ namespace LarpPortal.Character
                 if (oCharSelect.CharacterID.HasValue)
                 {
                     Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                    UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+                    UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
                     UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
                     UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
                     UserInfo.Save();
                 }

@@ -14,6 +14,7 @@ namespace LarpPortal.Classes
     {
         public int CharacterPlaceID { get; set; }
         public int CharacterID { get; set; }
+		public int CampaignID { get; set; } = -1;
         public int? CampaignPlaceID { get; set; }
         public int PlaceTypeID { get; set; }
         public string PlaceName { get; set; }
@@ -27,6 +28,7 @@ namespace LarpPortal.Classes
         {
             CharacterPlaceID = -1;
             CharacterID = -1;
+			CampaignID = -1;
             CampaignPlaceID = null;
             PlaceTypeID = -1;
             PlaceName = "";
@@ -71,6 +73,7 @@ namespace LarpPortal.Classes
                     sParam.Add("@PlaceID", CampaignPlaceID.Value);
                 else
                     sParam.Add("@ClearCampaignPlaceID", 1);
+				sParam.Add("@CampaignID", CampaignID);
                 sParam.Add("@PlaceName", PlaceName.ToString());
                 sParam.Add("@LocatedInPlaceID", LocaleID);
                 sParam.Add("@StaffComments", StaffComments.ToString());
@@ -105,6 +108,9 @@ namespace LarpPortal.Classes
 
                     if (int.TryParse(dRow["CharacterID"].ToString(), out iTemp))
                         CharacterID = iTemp;
+
+					if (int.TryParse(dRow["CampaignID"].ToString(), out iTemp))
+						CampaignID = iTemp;
 
                     CampaignPlaceID = null;
                     if (int.TryParse(dRow["CampaignPlaceID"].ToString(), out iTemp))

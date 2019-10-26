@@ -51,6 +51,7 @@ namespace LarpPortal.Character
             if (oCharSelect.CharacterID.HasValue)
             {
                 SortedList sParam = new SortedList();
+				sParam.Add("@CampaignID", oCharSelect.CampaignID.Value);
                 sParam.Add("@CharacterID", oCharSelect.CharacterID.Value);
                 DataTable dtUserDef = Classes.cUtilities.LoadDataTable("uspGetCharacterUserDef", sParam, "LARPortal", Master.UserName, lsRoutineName);
                 foreach (DataRow dRow in dtUserDef.Rows)
@@ -142,6 +143,7 @@ namespace LarpPortal.Character
             {
                 SortedList sParam = new SortedList();
                 sParam.Add("@CharacterID", oCharSelect.CharacterID.Value);
+				sParam.Add("@CampaignID", oCharSelect.CampaignID.Value);
                 sParam.Add("@UserDefinedField1", tbUserField1.Text.Trim());
                 sParam.Add("@UserDefinedField2", tbUserField2.Text.Trim());
                 sParam.Add("@UserDefinedField3", tbUserField3.Text.Trim());
@@ -165,11 +167,12 @@ namespace LarpPortal.Character
 
             if (oCharSelect.CharacterInfo != null)
             {
-                if (oCharSelect.CharacterID.HasValue)
+                if (oCharSelect.SkillSetID.HasValue)
                 {
                     Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                    UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+                    UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
                     UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
                     UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
                     UserInfo.Save();
 					Master.ChangeSelectedCampaign();

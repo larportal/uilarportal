@@ -45,8 +45,9 @@ namespace LarpPortal.Character.Teams
                 if (oCharSelect.CharacterID.HasValue)
                 {
                     Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                    UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+                    UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
                     UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
                     UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
                     UserInfo.Save();
                 }

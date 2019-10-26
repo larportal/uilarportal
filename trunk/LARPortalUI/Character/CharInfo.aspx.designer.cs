@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
 namespace LarpPortal.Character {
+
     
     public partial class CharInfo {
         
@@ -803,6 +803,15 @@ namespace LarpPortal.Character {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveActor;
+        
+        /// <summary>
+        /// hidSkillSetID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidSkillSetID;
         
         /// <summary>
         /// hidCharacterID control.

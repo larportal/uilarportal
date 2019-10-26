@@ -863,6 +863,7 @@
         </div>
     </div>
 
+    <asp:HiddenField ID="hidSkillSetID" runat="server" />
     <asp:HiddenField ID="hidCharacterID" runat="server" />
     <asp:HiddenField ID="hidActorDateProblems" runat="server" Value="" />
     <!-- /#page-wrapper -->

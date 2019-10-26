@@ -33,6 +33,10 @@ namespace LarpPortal.Classes
         }
 
         public int CharacterID { get; set; }
+		public int CampaignID { get; set; }
+		public string CampaignName { get; set; }
+		public int SkillSetID { get; set; }
+		public string SkillSetName { get; set; }
         public int CurrentUserID { get; set; }
         public int CharacterStatusID { get; set; }
         public int CharacterStatusDesc { get; set; }
@@ -66,9 +70,10 @@ namespace LarpPortal.Classes
         public string StaffComments { get; set; }
         public int ProfilePictureID { get; set; }
         public cPicture ProfilePicture { get; set; }
-        public int CampaignID { get; set; }
-        public string CampaignName { get; set; }
-        public int CharacterSkillSetID { get; set; }
+		//        public int CampaignID { get; set; }
+		//        public string CampaignName { get; set; }
+		//		public int[] CharacterSkillSetID { get; set; }
+
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public string PlayerName { get; set; }
@@ -87,6 +92,7 @@ namespace LarpPortal.Classes
             }
         }              // Added J.Bradshaw Request #1293
         public DateTime? AllowCharacterRebuildToDate { get; set; }    // Added J.Bradshaw  3/12/2017
+		public bool SingleSkillSet { get; set; }                      // Added J.Bradshaw  5/08/2019
 
         public List<cCharacterPlace> Places = new List<cCharacterPlace>();
         public List<cCharacterDeath> Deaths = new List<cCharacterDeath>();
@@ -102,19 +108,49 @@ namespace LarpPortal.Classes
         public cCharacterStatus Status = new cCharacterStatus();
         public List<cSkillPool> SkillPools = new List<cSkillPool>();
         public List<cTeamInfo> Teams = new List<cTeamInfo>();
+		public List<cCharacterSkillSet> SkillSet = new List<cCharacterSkillSet>();
 
-        public int LoadCharacter(int CharacterIDToLoad)
+		//public int LoadCharacter(int CharacterIDToLoad)
+		//{
+		//	return LoadCharacter(CharacterIDToLoad, null);
+		//}
+
+
+
+		public int LoadCharacterByCharacterID(int CharacterIDToLoad)
         {
-            int iNumCharacterRecords = 0;
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
+			SortedList sParam = new SortedList();
+			sParam.Add("@CharacterID", CharacterIDToLoad);
+
+			DataSet dsCharacterInfo = new DataSet();
+			dsCharacterInfo = cUtilities.LoadDataSet("uspGetCharacterInfo", sParam, "LARPortal", "GeneralUser", lsRoutineName);
+
+			return _LoadCharacter(dsCharacterInfo);
+		}
+
+		public int LoadCharacterBySkillSetID(int SkillSetID)
+		{
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             SortedList sParam = new SortedList();
-            sParam.Add("@CharacterID", CharacterIDToLoad);
+			sParam.Add("@SkillSetID", SkillSetID);
 
             DataSet dsCharacterInfo = new DataSet();
             dsCharacterInfo = cUtilities.LoadDataSet("uspGetCharacterInfo", sParam, "LARPortal", "GeneralUser", lsRoutineName);
+
+			return _LoadCharacter(dsCharacterInfo);
+		}
+
+		private int _LoadCharacter(DataSet dsCharacterInfo)
+		{
+			int iNumCharacterRecords = 0;
+
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             int iTemp;
             bool bTemp;
@@ -248,10 +284,10 @@ namespace LarpPortal.Classes
 
                 if (int.TryParse(dRow["CampaignID"].ToString(), out iTemp))
                     CampaignID = iTemp;
-                CampaignName = dRow["CampaignName"].ToString();
+				//CampaignName = dRow["CampaignName"].ToString();
 
-                if (int.TryParse(dRow["CharacterSkillSetID"].ToString(), out iTemp))
-                    CharacterSkillSetID = iTemp;
+				//if (int.TryParse(dRow["CharacterSkillSetID"].ToString(), out iTemp))
+				//    CharacterSkillSetID[0] = iTemp;
 
                 if (int.TryParse(dRow["PrimaryTeamID"].ToString(), out iTemp))
                 {
@@ -286,7 +322,70 @@ namespace LarpPortal.Classes
 
                 if (DateTime.TryParse(dRow["DateAdded"].ToString(), out dtTemp))
                     dtDateCharacterCreated = dtTemp;
+
+				if (int.TryParse(dRow["CharacterSkillSetID"].ToString(), out iTemp))
+					SkillSetID = iTemp;
+
+				SkillSetName = dRow["SkillSetName"].ToString();
+				CampaignName = dRow["CampaignName"].ToString();
             }
+
+			//foreach (DataRow dSkillSet in dsCharacterInfo.Tables["CHCharacterSkillSets"].Rows)
+			//{
+			//	if (!(CharacterSkillSetID.HasValue) ||
+			//		((CharacterSkillSetID.HasValue) && (CharacterSkillSetID.Value.ToString() == dSkillSet["CharacterSkillSetID"].ToString())))
+			//	{
+			//		cCharacterSkillSet cSkillSet = new cCharacterSkillSet()
+			//		{
+			//			SkillSetName = dSkillSet["SkillSetName"].ToString(),
+			//			CampaignName = dSkillSet["CampaignName"].ToString(),
+			//			PlayerComments = dSkillSet["PlayerComments"].ToString(),
+			//			Comments = dSkillSet["Comments"].ToString()
+			//		};
+
+			//		if (int.TryParse(dSkillSet["CharacterSkillSetID"].ToString(), out iTemp))
+			//			cSkillSet.CharacterSkillSetID = iTemp;
+
+			//		if (int.TryParse(dSkillSet["CharacterID"].ToString(), out iTemp))
+			//			cSkillSet.CharacterID = iTemp;
+
+			//		if (int.TryParse(dSkillSet["CampaignID"].ToString(), out iTemp))
+			//			cSkillSet.CampaignID = iTemp;
+			//		if (int.TryParse(dSkillSet["SkillSetStatusID"].ToString(), out iTemp))
+			//			cSkillSet.SkillSetStatusID = iTemp;
+
+			//		if (int.TryParse(dSkillSet["SkillSetTypeID"].ToString(), out iTemp))
+			//			cSkillSet.SkillSetTypeID = iTemp;
+
+			//		if (DateTime.TryParse(dSkillSet["AllowSkillRebuildToDate"].ToString(), out dtTemp))
+			//			cSkillSet.AllowSkillRebuildToDate = dtTemp;
+			//		else
+			//			cSkillSet.AllowSkillRebuildToDate = null;
+
+			//		if (DateTime.TryParse(dSkillSet["DateAdded"].ToString(), out dtTemp))
+			//			cSkillSet.DateAdded = dtTemp;
+			//		else
+			//			cSkillSet.DateAdded = null;
+
+			//		if (DateTime.TryParse(dSkillSet["DateChanged"].ToString(), out dtTemp))
+			//			cSkillSet.DateChanged = dtTemp;
+			//		else
+			//			cSkillSet.DateChanged = null;
+
+			//		SkillSet.Add(cSkillSet);
+			//	}
+			//}
+
+			if (SkillSet.Count == 1)
+			{
+				this.SingleSkillSet = true;
+			}
+			else
+				this.SingleSkillSet = false;
+
+
+
+
 
             foreach (DataRow dItems in dsCharacterInfo.Tables["CharacterItems"].Rows)
             {
@@ -335,7 +434,7 @@ namespace LarpPortal.Classes
                 cCharacterPlace NewPlace = new cCharacterPlace()
                 {
                     CharacterPlaceID = -1,
-                    CharacterID = CharacterIDToLoad,
+					CharacterID = CharacterID,
                     CampaignPlaceID = -1,
                     LocaleID = -1,
                     PlaceName = dPlaces["PlaceName"].ToString(),
@@ -363,7 +462,7 @@ namespace LarpPortal.Classes
                 cCharacterDeath NewDeath = new cCharacterDeath()
                 {
                     CharacterDeathID = -1,
-                    CharacterID = CharacterIDToLoad,
+					CharacterID = CharacterID,
                     StaffComments = dDeaths["StaffComments"].ToString(),
                     Comments = dDeaths["Comments"].ToString(),
                     RecordStatus = RecordStatuses.Active
@@ -399,7 +498,7 @@ namespace LarpPortal.Classes
                     RecordStatus = RecordStatuses.Active
                 };
 
-                NewActor.CharacterID = CharacterIDToLoad;
+				NewActor.CharacterID = CharacterID;
 
                 if (int.TryParse(dActors["CharacterActorID"].ToString(), out iTemp))
                     NewActor.CharacterActorID = iTemp;
@@ -421,7 +520,7 @@ namespace LarpPortal.Classes
                 cRelationship NewRelationship = new cRelationship()
                 {
                     CharacterRelationshipID = -1,
-                    CharacterID = CharacterIDToLoad,
+					CharacterID = CharacterID,
                     Name = dRelationship["Name"].ToString(),
                     RelationDescription = dRelationship["RelationDescription"].ToString(),
                     OtherDescription = dRelationship["OtherDescription"].ToString(),
@@ -538,6 +637,9 @@ namespace LarpPortal.Classes
 
                 if (int.TryParse(dSkill["CharacterSkillSetStatusID"].ToString(), out iTemp))
                     NewSkill.CharacterSkillSetStatusID = iTemp;
+
+				if (int.TryParse(dSkill["CharacterSkillSetID"].ToString(), out iTemp))
+					NewSkill.CharacterSkillSetID = iTemp;
 
                 if (int.TryParse(dSkill["StatusType"].ToString(), out iTemp))
                     NewSkill.StatusType = iTemp;
@@ -781,7 +883,6 @@ namespace LarpPortal.Classes
 
             foreach (cCharacterSkill Skill in CharacterSkills)
             {
-                Skill.CharacterSkillSetID = CharacterSkillSetID;
                 if (Skill.RecordStatus == RecordStatuses.Delete)
                     Skill.Delete(sUserUpdating, iUserID);
                 else
@@ -792,7 +893,7 @@ namespace LarpPortal.Classes
 
             foreach (cDescriptor Desc in Descriptors)
             {
-                Desc.CharacterSkillSetID = CharacterSkillSetID;
+				Desc.CharacterSkillSetID = SkillSetID;			// CharacterSkillSetID[0];
                 if (Desc.RecordStatus == RecordStatuses.Delete)
                     Desc.Delete(sUserUpdating, iUserID);
                 else

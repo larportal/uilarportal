@@ -90,7 +90,7 @@
                                 <asp:Button ID="printButton" runat="server" CssClass="PrintButton" Text="Print" OnClientClick="javascript:window.print();" /></td>
                         </tr>
                         <tr>
-                            <td class="TableLabel">Common Name: <asp:HiddenField ID="hidCharID" runat="server" Value='<%# Eval("ID") %>' /></td>
+                            <td class="TableLabel">Common Name: <asp:HiddenField ID="hidSkillSetID" runat="server" Value='<%# Eval("ID") %>' /></td>
                             <td>
                                 <%# Eval("AKA") %>
                             </td>

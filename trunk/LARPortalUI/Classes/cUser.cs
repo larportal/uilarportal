@@ -45,6 +45,7 @@ namespace LarpPortal.Classes
         public int LastLoggedInCampaign { get; set; }
         public int LastLoggedInCharacter { get; set; }              // JLB 7/11/2015 Added to save the last character that was saved.
         public string LastLoggedInMyCharOrCamp { get; set; }        // RGP - 5/27/2017
+		public int LastLoggedInSkillSetID { get; set; }			// JLB 5/8/2019 - needed as part of the multiple skill sets.
         public Int32 XRefNumber { get; set; }
         public string Comments { get; set; }
         public DateTime DateAdded { get; set; }
@@ -87,6 +88,7 @@ namespace LarpPortal.Classes
             LastLoggedInCampaign = 0;
             LastLoggedInCharacter = 0;
             LastLoggedInMyCharOrCamp = "";
+			LastLoggedInSkillSetID = 0;
             XRefNumber = -1;
             Comments = "";
             UserCPBank = new cBank();
@@ -124,7 +126,8 @@ namespace LarpPortal.Classes
 			UserCampaigns = new List<cUserCampaign>();
 			LastLoggedInCampaign = 0;
 			LastLoggedInCharacter = 0;
-			LastLoggedInMyCharOrCamp = "";
+			LastLoggedInSkillSetID = 0;
+			LastLoggedInMyCharOrCamp = "";			// 5/8/2019 JLB Needed for multiple skill sets.
 			XRefNumber = -1;
 			Comments = "";
 			UserCPBank = new cBank();
@@ -166,7 +169,7 @@ namespace LarpPortal.Classes
 
                     LastLoggedInCharacter = dUserInfo["LastLoggedInCharacter"].ToString().ToInt32();
                     LastLoggedInMyCharOrCamp = dUserInfo["LastLoggedInMyCharOrCamp"].ToString();
-
+					LastLoggedInSkillSetID = dUserInfo["LastLoggedInSkillSetID"].ToString().ToInt32();                  // 5/8/2019 JLB Needed for multiple skill sets.
                     XRefNumber = dUserInfo["XRefNumber"].ToString().ToInt32();
                     DateAdded = Convert.ToDateTime(dUserInfo["DateAdded"].ToString());
                     DateChanged = Convert.ToDateTime(dUserInfo["DateChanged"].ToString());
@@ -410,6 +413,7 @@ namespace LarpPortal.Classes
                 slParams.Add("@LastLoggedInCampaign", LastLoggedInCampaign);
                 slParams.Add("@LastLoggedInCharacter", LastLoggedInCharacter);     //JLB 07/11/2015 Save the last character selected.
                 slParams.Add("@LastLoggedInMyCharOrCamp", LastLoggedInMyCharOrCamp);   //RGP 5/27/2017
+				slParams.Add("@LastLoggedInSkillSetID", LastLoggedInSkillSetID);		// 5/8/2019 JLB Needed for multiple skill sets.
                 slParams.Add("@XRefNumber", XRefNumber);
                 slParams.Add("@Comments", Comments);
                 slParams.Add("@LogonPassword", LoginPassword);

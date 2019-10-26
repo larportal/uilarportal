@@ -76,9 +76,9 @@ namespace LarpPortal.Character
 			else
 				lblDateProblem.Visible = false;
 
-			if ((oCharSelect.CharacterID != null) && (oCharSelect.CharacterInfo != null))
+			if ((oCharSelect.SkillSetID.HasValue) && (oCharSelect.CharacterInfo != null))
 			{
-				int iSelectedCharID = oCharSelect.CharacterID.Value;
+//				int iSelectedCharID = oCharSelect.SkillSetID.Value;
 				if ((!IsPostBack) || (_Reload))
 				{
 					DisplayCharacter(oCharSelect.CharacterInfo);
@@ -134,7 +134,7 @@ namespace LarpPortal.Character
 				NewDesc.CampaignAttributeDescriptorID = CampaignAttDescriptorID;
 			NewDesc.CharacterAttributesBasicID = -1;
 			NewDesc.RecordStatus = Classes.RecordStatuses.Active;
-			NewDesc.CharacterSkillSetID = oCharSelect.CharacterInfo.CharacterSkillSetID;
+			NewDesc.CharacterSkillSetID = oCharSelect.CharacterInfo.SkillSetID;
 
 			NewDesc.Save(Master.UserName, Master.UserID);
 			BindDescriptors();
@@ -274,7 +274,7 @@ namespace LarpPortal.Character
 		{
 			oCharSelect.LoadInfo();
 
-			if (oCharSelect.CharacterID.HasValue)
+			if (oCharSelect.SkillSetID.HasValue)
 			{
 				int iDeathID;
 				if (int.TryParse(hidDeathID.Value, out iDeathID))
@@ -339,15 +339,16 @@ namespace LarpPortal.Character
 
 			if (oCharSelect.CharacterInfo != null)
 			{
-				if (oCharSelect.CharacterID.HasValue)
+				if (oCharSelect.SkillSetID.HasValue)
 				{
 					Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-					UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+					UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
 					UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
 					UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
 					UserInfo.Save();
 					Session["ReloadCampaigns"] = "Y";
-					if (oCharSelect.CharacterInfo.CampaignID != Master.CampaignID)
+					if (oCharSelect.CampaignID.Value != Master.CampaignID)
 						Master.ChangeSelectedCampaign();
 				}
 				_Reload = true;
@@ -365,6 +366,7 @@ namespace LarpPortal.Character
 			//			Classes.LogWriter oWriter = new Classes.LogWriter();
 			//			oWriter.AddLogMessage("Starting Display Character.", lsRoutineName, "", Session.SessionID);
 
+			hidSkillSetID.Value = CharInfo.SkillSetID.ToString();
 			hidCharacterID.Value = CharInfo.CharacterID.ToString();
 			ViewState["ProfilePictureID"] = CharInfo.ProfilePictureID;
 
@@ -388,7 +390,7 @@ namespace LarpPortal.Character
 			if (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.CampaignCharacters)
 			{
 				SortedList sParams = new SortedList();
-				sParams.Add("@CharacterID", CharInfo.CharacterID);
+				sParams.Add("@SkillSetID", CharInfo.SkillSetID);
 				DataSet dsSkillAccess = Classes.cUtilities.LoadDataSet("uspGetCharacterHiddenSkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
 				if (dsSkillAccess.Tables[0].Rows.Count > 0)
 				{
@@ -498,7 +500,7 @@ namespace LarpPortal.Character
 				divPlayer.Attributes["class"] = "hide";
 
 				SortedList sParams = new SortedList();
-				sParams.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
+				sParams.Add("@CampaignID", oCharSelect.CampaignID.Value);
 				DataTable dtPlayers = new DataTable();
 				dtPlayers = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayers", sParams, "LARPortal", Master.UserName, lsRoutineName);
 
@@ -712,7 +714,7 @@ namespace LarpPortal.Character
 
 			oCharSelect.LoadInfo();
 
-			if ((oCharSelect.CharacterID != null) && (oCharSelect.CharacterInfo != null))
+			if ((oCharSelect.SkillSetID.HasValue) && (oCharSelect.CharacterInfo != null))
 			{
 				int i = 0;
 				string sHiddenSkillList = "";
@@ -744,7 +746,7 @@ namespace LarpPortal.Character
 										SortedList sParams = new SortedList();
 										sParams.Add("@UserID", Master.UserID);
 										sParams.Add("@CampaignSkillsStandardID", iCampaignSkillNodeID);
-										sParams.Add("@CharacterID", oCharSelect.CharacterID);
+										sParams.Add("@SkillSetID", oCharSelect.SkillSetID);
 										sParams.Add("@Comments", "Skill added by " + Master.UserName);
 										Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillAccess", sParams, "LARPortal", Master.UserName);
 
@@ -787,7 +789,6 @@ namespace LarpPortal.Character
 
 					Classes.cUser User = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
 					Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
-					if (!string.IsNullOrEmpty(oCharSelect.CharacterInfo.CharacterEmail))
 						cEMS.SendMail(sSubject, sBody, oCharSelect.CharacterInfo.CharacterEmail, "", User.PrimaryEmailAddress.EmailAddress, "CharInfo - Hidden Skills", Master.UserName);
 				}
 
@@ -801,7 +802,7 @@ namespace LarpPortal.Character
 				}
 
 				Classes.cCharacter cChar = new Classes.cCharacter();
-				cChar.LoadCharacter(oCharSelect.CharacterID.Value);
+				cChar.LoadCharacterBySkillSetID(oCharSelect.SkillSetID.Value);
 
 				if (ulFile.HasFile)
 				{

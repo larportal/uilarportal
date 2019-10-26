@@ -14,12 +14,15 @@ namespace LarpPortal.Character
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
             Classes.cUser User = new Classes.cUser(Session["Username"].ToString(), "PasswordNotNeeded", Session.SessionID);
 
             Classes.cCharacter cChar = new Classes.cCharacter();
 
-            cChar.LoadCharacter(User.LastLoggedInCharacter);
-            lblCharName.Text = cChar.AKA + " - " + cChar.CampaignName;
+            cChar.LoadCharacterBySkillSetID(User.LastLoggedInSkillSetID);
+            lblCharName.Text = cChar.AKA + " ( " + cChar.SkillSetName + " ) - " + cChar.CampaignName;
             lblAKA.Text = cChar.AKA;
             lblFullName.Text = cChar.FirstName;
             if (cChar.MiddleName.Trim().Length > 0)
@@ -34,11 +37,7 @@ namespace LarpPortal.Character
 
             DataTable dtCharacterSkills = new DataTable();
             SortedList sParams = new SortedList();
-            sParams.Add("@CharacterID", cChar.CharacterID);
-
-            MethodBase lmth = MethodBase.GetCurrentMethod();
-            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-
+            sParams.Add("@SkillSetID", cChar.SkillSetID);
             dtCharacterSkills = Classes.cUtilities.LoadDataTable("uspGetCharCardSkills", sParams, "LARPortal", Session["UserName"].ToString(), lsRoutineName);
 
             if (dtCharacterSkills.Columns["FullDescription"] == null)
