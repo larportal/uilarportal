@@ -43,7 +43,7 @@ namespace LarpPortal.Character
 
                     DataSet dsCampaignPlaces = new DataSet();
                     SortedList sParam = new SortedList();
-                    sParam.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
+                    sParam.Add("@CampaignID", oCharSelect.CampaignID);
                     dsCampaignPlaces = Classes.cUtilities.LoadDataSet("uspGetCampaignPlaces", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignPlaces");
 
                     _dtCampaignPlaces = dsCampaignPlaces.Tables[0];
@@ -191,6 +191,7 @@ namespace LarpPortal.Character
                     {
                         Classes.cCharacterPlace PlaceToSave = new Classes.cCharacterPlace();
                         PlaceToSave.CharacterPlaceID = iPlaceID;
+						PlaceToSave.CampaignID = oCharSelect.CampaignID.Value;
                         PlaceToSave.Load(Master.UserName);
 
                         PlaceToSave.CampaignPlaceID = null;
@@ -220,6 +221,7 @@ namespace LarpPortal.Character
                             NewPlace.LocaleID = iLocaleID;
                         }
                         NewPlace.CharacterID = oCharSelect.CharacterID.Value;
+						NewPlace.CampaignID = oCharSelect.CampaignID.Value;
                         NewPlace.Save(Master.UserID);
                     }
                 }
@@ -300,6 +302,7 @@ namespace LarpPortal.Character
                     else
                         cNewPlace.CampaignPlaceID = null;
                     cNewPlace.CharacterID = oCharSelect.CharacterID.Value;
+					cNewPlace.CampaignID = oCharSelect.CampaignID.Value;
 
                     cNewPlace.PlaceName = tbCampaignPlaceName.Text;
                     cNewPlace.Comments = tbCampaignPlayerComments.Text;
@@ -359,8 +362,9 @@ namespace LarpPortal.Character
 				if (oCharSelect.CharacterID.HasValue)
 				{
 					Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-					UserInfo.LastLoggedInCampaign = oCharSelect.CharacterInfo.CampaignID;
+					UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
 					UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
+					UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
 					UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
 					UserInfo.Save();
 					Master.ChangeSelectedCampaign();

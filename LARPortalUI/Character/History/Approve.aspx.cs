@@ -422,8 +422,8 @@ namespace LarpPortal.Character.History
 			if (int.TryParse(hidCharacterID.Value, out iTemp))
 				iCharacterID = iTemp;
 
-			Classes.cCharacter cChar = new Classes.cCharacter();
-			cChar.LoadCharacter(iCharacterID);
+			//Classes.cCharacter cChar = new Classes.cCharacter();
+			//cChar.LoadCharacter(iCharacterID);
 
 			SortedList sParams = new SortedList();
 			sParams.Add("@UserID", Master.UserID);

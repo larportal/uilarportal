@@ -161,8 +161,8 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12" runat="server" id="divCharacters">
                                                 <div class="form-group autoWidth">
                                                     <label for="">Character</label>
-                                                    <asp:Label ID="lblCharacter" runat="server" CssClass="form-control NoShadow autoWidth" />
-                                                    <asp:DropDownList ID="ddlCharacterList" runat="server" CssClass="form-control autoWidth" />
+                                                    <asp:Label ID="lblSkillSet" runat="server" CssClass="form-control NoShadow autoWidth" />
+                                                    <asp:DropDownList ID="ddlSkillSetID" runat="server" CssClass="form-control autoWidth" />
                                                 </div>
                                                 <div class="form-group autoWidth" id="divSendCPTo" runat="server">
                                                     <label for="ddlSendToCampaign">Send CP to</label>

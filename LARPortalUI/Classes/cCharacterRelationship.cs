@@ -20,6 +20,7 @@ namespace LarpPortal.Classes
             RecordStatus = RecordStatuses.Active;
             OtherDescription = "";
             CharacterID = -1;
+			CampaignID = -1;
             Name = "";
             RelationCharacterID = -1;
             RelationTypeID = -1;
@@ -46,6 +47,7 @@ namespace LarpPortal.Classes
 
         public int CharacterRelationshipID { get; set; }
         public int CharacterID { get; set; }
+		public int CampaignID { get; set; } = -1;
         public string Name { get; set; }
         public int RelationTypeID { get; set; }
         public int RelationCharacterID { get; set; }
@@ -98,6 +100,7 @@ namespace LarpPortal.Classes
                 sParams.Add("@CharacterRelationshipID", CharacterRelationshipID);
                 sParams.Add("@UserID", iUserID);
                 sParams.Add("@CharacterID", CharacterID);
+				sParams.Add("@CampaignID", CampaignID);
                 sParams.Add("@RelationTypeID", RelationTypeID);
                 sParams.Add("@RelationCharacterID", RelationCharacterID);
                 sParams.Add("@OtherDescription", OtherDescription);
@@ -136,6 +139,9 @@ namespace LarpPortal.Classes
                     int iTemp;
                     if (int.TryParse(dRow["CharacterID"].ToString(), out iTemp))
                         CharacterID = iTemp;
+
+					if (int.TryParse(dRow["CampaignID"].ToString(), out iTemp))
+						CampaignID = iTemp;
 
                     if (int.TryParse(dRow["RelationTypeID"].ToString(), out iTemp))
                         RelationTypeID = iTemp;

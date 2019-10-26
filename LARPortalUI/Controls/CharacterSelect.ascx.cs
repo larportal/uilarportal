@@ -20,8 +20,10 @@ namespace LarpPortal.Controls
         /// </summary>
         public event EventHandler CharacterChanged;
         private int? _CharacterID = null;
+		private int? _CampaignID = null;
         private int _UserID = 0;
         private string _UserName = "";
+		private int? _SkillSetID = null;
 
         /// <summary>
         /// Public enum used to tell whether doing user's character or character for a campaign.
@@ -61,6 +63,15 @@ namespace LarpPortal.Controls
         }
 
         /// <summary>
+		/// Returns campaign ID for currently selected character.
+		/// </summary>
+		public int? CampaignID
+		{
+			get { return _CampaignID; }
+			set { _CampaignID = value; }
+		}
+
+		/// <summary>
         /// Character info for the currently selected character.
         /// </summary>
         public Classes.cCharacter CharacterInfo
@@ -75,6 +86,11 @@ namespace LarpPortal.Controls
             set { _UserInfo = value; }
         }
 
+		public int? SkillSetID
+		{
+			get { return _SkillSetID; }
+			set { _SkillSetID = value; }
+		}
 
 //        private Classes.LogWriter oLogWriter = new LogWriter();
 
@@ -105,18 +121,25 @@ namespace LarpPortal.Controls
             if ((Session["CampaignsToEdit"] == null) ||
                 (Session["MyCharacters"] == null))
             {
-                Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
 				_CharacterID = UserInfo.LastLoggedInCharacter;
+				_SkillSetID = UserInfo.LastLoggedInSkillSetID;
+				_CampaignID = UserInfo.LastLoggedInCampaign;
+
 				if (UserInfo.LastLoggedInMyCharOrCamp == "C")
                 {
                     WhichSelected = Selected.CampaignCharacters;
-                    Session["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
-                    Session["CharacterCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignCampaignID"] = UserInfo.LastLoggedInCampaign;
+					Session["CharCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
                     Session["CharacterSelectGroup"] = "Campaigns";
                 }
                 else
                 {
                     WhichSelected = Selected.MyCharacters;
+					Session["CharSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
+					Session["CharCharacterID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignID"] = UserInfo.LastLoggedInCampaign;
+					Session["CharacterSelectGroup"] = "Characters";
                 }
             }
 //            oLogWriter.AddLogMessage("Done loading CharacterSelect", lsRoutineName, "", Session.SessionID);
@@ -142,17 +165,22 @@ namespace LarpPortal.Controls
                     _UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
 
 //                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
-                Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
+				//                Session["CharCharacterID"] = UserInfo.LastLoggedInCharacter;
                 if (UserInfo.LastLoggedInMyCharOrCamp == "C")
                 {
                     WhichSelected = Selected.CampaignCharacters;
-                    Session["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
-                    Session["CharacterCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignCampaignID"] = UserInfo.LastLoggedInCampaign;
+					Session["CharCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
                     Session["CharacterSelectGroup"] = "Campaigns";
                 }
                 else
                 {
                     WhichSelected = Selected.MyCharacters;
+					Session["CharSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
+					Session["CharCharacterID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignID"] = UserInfo.LastLoggedInCampaign;
+					Session["CharacterSelectGroup"] = "Characters";
                 }
             }
 
@@ -188,9 +216,15 @@ namespace LarpPortal.Controls
 
                 // If the person has no characters force it to charadd.
                 if (dtCharacters.Rows.Count == 0)
+				{
+					if (!HttpContext.Current.Request.Url.AbsoluteUri.ToUpper().Contains("CHARADD.ASPX"))
+					{
                     Response.Redirect("~/Character/CharAdd.aspx", true);
-
-                dtMyCharacters = new DataView(dtCharacters, "", "CharacterAKA", DataViewRowState.CurrentRows).ToTable(true, "CharacterAKA", "CharacterID");
+					}
+					else
+						return;
+				}
+				dtMyCharacters = new DataView(dtCharacters, "", "DisplayName", DataViewRowState.CurrentRows).ToTable(true, "DisplayName", "CharacterID", "CharacterSkillSetID");
                 Session["MyCharacters"] = dtMyCharacters;
             }
             else
@@ -238,10 +272,10 @@ namespace LarpPortal.Controls
             if (WhichSelected == Selected.MyCharacters)
             {
                 rbMyCharacters.Checked = true;
-                DataView dvCharacters = new DataView(dtMyCharacters, "", "CharacterAKA", DataViewRowState.CurrentRows);
+				DataView dvCharacters = new DataView(dtMyCharacters, "", "DisplayName", DataViewRowState.CurrentRows);
                 ddlCharacterSelector.DataSource = dvCharacters;
-                ddlCharacterSelector.DataTextField = "CharacterAKA";
-                ddlCharacterSelector.DataValueField = "CharacterID";
+				ddlCharacterSelector.DataTextField = "DisplayName";
+				ddlCharacterSelector.DataValueField = "CharacterSkillSetID";
                 ddlCharacterSelector.DataBind();
                 ddlCharacterSelector.Visible = true;
                 ddlCampCharSelector.Visible = false;
@@ -250,14 +284,14 @@ namespace LarpPortal.Controls
 
                 ddlCharacterSelector.ClearSelection();
 
-                if (Session["CharacterSelectID"] != null)
+				if (Session["CharSkillSetID"] != null)
                 {
-                    int iCharID;
-                    if (int.TryParse(Session["CharacterSelectID"].ToString(), out iCharID))
+					int iCharSkillSetID;
+					if (int.TryParse(Session["CharSkillSetID"].ToString(), out iCharSkillSetID))
                     {
                         foreach (ListItem liItem in ddlCharacterSelector.Items)
                         {
-							if (liItem.Value == iCharID.ToString())
+							if (liItem.Value == iCharSkillSetID.ToString())
 							{
 								ddlCharacterSelector.ClearSelection();
 								liItem.Selected = true;
@@ -269,23 +303,29 @@ namespace LarpPortal.Controls
                 if (ddlCharacterSelector.SelectedIndex < 0)
                     ddlCharacterSelector.Items[0].Selected = true;
 
-                int iTempCharID;
-                if (int.TryParse(ddlCharacterSelector.SelectedValue, out iTempCharID))
-                    if (iTempCharID == 0)
+				int iSkillSetID;
+				if (int.TryParse(ddlCharacterSelector.SelectedValue, out iSkillSetID))
+					if (iSkillSetID == 0)
                     {
                         _CharacterID = null;
                         _CharacterInfo = null;
-                        Session["CharacterSelectID"] = "0";
+						_SkillSetID = null;
+						Session.Remove("CharSkillSetID");
+						Session.Remove("CharCharacterID");
+						Session.Remove("CharCampaignID");
                     }
                     else
                     {
-                        _CharacterID = iTempCharID;
-                        _CharacterInfo.LoadCharacter(iTempCharID);
+						_SkillSetID = iSkillSetID;
+						_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+						_CharacterID = _CharacterInfo.CharacterID;
+						_CampaignID = _CharacterInfo.CampaignID;
                         lblSelectedCampaign.Visible = true;
                         lblSelectedCampaign.Text = _CharacterInfo.CampaignName;
                         ddlCampaigns.Visible = false;
-                        Session["CharacterSelectID"] = iTempCharID;
-                        Session["CampaignID"] = _CharacterInfo.CampaignID;
+						Session["CharSkillSetID"] = iSkillSetID;
+						Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+						Session["CharCampaignID"] = _CharacterInfo.CampaignID;
                     }
 //                oLogWriter.AddLogMessage("Done with MyCharacters", lsRoutineName, "", Session.SessionID);
             }
@@ -313,6 +353,16 @@ namespace LarpPortal.Controls
 
             WhichSelected = Selected.NotSpecified;
 
+			if (UserInfo != null)
+			{
+				if (UserInfo.LastLoggedInSkillSetID == 0)
+				{
+					UserInfo.LastLoggedInCampaign = 0;
+					UserInfo.LastLoggedInCharacter = 0;
+					UserInfo.LastLoggedInMyCharOrCamp = "";
+				}
+			}
+
 //            oLogWriter.AddLogMessage("About to check for session variables.", lsRoutineName, "", Session.SessionID);
 
             if ((Session["CampaignsToEdit"] == null) ||
@@ -324,14 +374,35 @@ namespace LarpPortal.Controls
                 if (UserInfo.LastLoggedInMyCharOrCamp == "C")
                 {
                     WhichSelected = Selected.CampaignCharacters;
-                    Session["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
-                    Session["CharacterCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					if (UserInfo.LastLoggedInSkillSetID != 0)
+					{
+						Session["CharCampaignCampaignID"] = UserInfo.LastLoggedInCampaign;
+						Session["CharCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+						Session["CharCampaignSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
+					}
+					else
+					{
+						Session.Remove("CharCampaignCampaignID");
+						Session.Remove("CharCampaignCharID");
+						Session.Remove("CharCampaignSkillSetID");
+					}
                     Session["CharacterSelectGroup"] = "Campaigns";
                 }
                 else
                 {
                     WhichSelected = Selected.MyCharacters;
-                    Session["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
+					if (UserInfo.LastLoggedInSkillSetID != 0)
+					{
+						Session["CharSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
+						Session["CharCharacterID"] = UserInfo.LastLoggedInCharacter;
+						Session["CharCampaignID"] = UserInfo.LastLoggedInCampaign;
+					}
+					else
+					{
+						Session.Remove("CharSkillSetID");
+						Session.Remove("CharCharacterID");
+						Session.Remove("CharCampaignID");
+					}
                     Session["CharacterSelectGroup"] = "Characters";
                 }
 //                oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
@@ -343,39 +414,54 @@ namespace LarpPortal.Controls
                 else if (Session["CharacterSelectGroup"].ToString() == "Characters")
                     WhichSelected = Selected.MyCharacters;
 
-            int iCharID = 0;
             int iCampaignID = 0;
-            int iCampCharID = 0;
 
             // This is a fake out. If it's not defined we define it as a non valid value so it will fall through to the bottom.
             if (Session["CharacterSelectGroup"] == null)
                 Session["CharacterSelectGroup"] = "PlaceHolder";
 
+			int iCampSkillSetID = 0;
+			int iCharSkillSetID = 0;
             _CharacterID = null;
 
             if ((WhichSelected == Selected.MyCharacters) &&
-                (Session["CharacterSelectID"] != null))
+				(Session["CharSkillSetID"] != null))
             {
-                if (int.TryParse(Session["CharacterSelectID"].ToString(), out iCharID))
+				if (int.TryParse(Session["CharSkillSetID"].ToString(), out iCharSkillSetID))
                 {
-                    _CharacterID = iCharID;
-                    _CharacterInfo.LoadCharacter(iCharID);
-                    Session["CampaignID"] = _CharacterInfo.CampaignID;
+					if (iCharSkillSetID != 0)
+					{
+						_SkillSetID = iCharSkillSetID;
+						//                    _CharacterID = iCharID;
+						_CharacterInfo.LoadCharacterBySkillSetID(iCharSkillSetID);
+						_CharacterID = _CharacterInfo.CharacterID;
+						_CampaignID = _CharacterInfo.CampaignID;
+						Session["CharSkillSetID"] = iCharSkillSetID;
+						Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+						Session["CharCampaignID"] = _CharacterInfo.CampaignID;
                     return;
                 }
             }
+			}
 
             if ((WhichSelected == Selected.CampaignCharacters) &&
-                (Session["CharacterCampaignCharID"] != null))
+				(Session["CharCampaignSkillSetID"] != null))
             {
-                if (int.TryParse(Session["CharacterCampaignCharID"].ToString(), out iCharID))
+				if (int.TryParse(Session["CharCampaignSkillSetID"].ToString(), out iCampSkillSetID))
                 {
-                    _CharacterID = iCharID;
-                    _CharacterInfo.LoadCharacter(iCharID);
-                    Session["CampaignID"] = _CharacterInfo.CampaignID;
+					if (iCampSkillSetID != 0)
+					{
+						_CharacterInfo.LoadCharacterBySkillSetID(iCampSkillSetID);
+						_CharacterID = _CharacterInfo.CharacterID;
+						_CampaignID = _CharacterInfo.CampaignID;
+						_SkillSetID = iCampSkillSetID;
+						Session["CharCampaignSkillSetID"] = iCampSkillSetID;
+						Session["CharCampaignCharacterID"] = _CharacterInfo.CharacterID;
+						Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
                     return;
                 }
             }
+			}
 
 //            oLogWriter.AddLogMessage("About to run uspGetPrivCampaignCharacterEdit", lsRoutineName, "", Session.SessionID);
 
@@ -399,10 +485,10 @@ namespace LarpPortal.Controls
 
 //                    oLogWriter.AddLogMessage("Done running uspGetCampaignCharactersAll", lsRoutineName, "", Session.SessionID);
 
-                    DataView dvCampChars = new DataView(dtCampChars, "", "CharacterAKA", DataViewRowState.CurrentRows);
+					DataView dvCampChars = new DataView(dtCampChars, "", "DisplayName", DataViewRowState.CurrentRows);
                     if (dtCampChars.Rows.Count > 0)
                     {
-                        int.TryParse(dvCampChars[0]["CharacterID"].ToString(), out iCampCharID);
+						int.TryParse(dvCampChars[0]["CharacterSkillSetID"].ToString(), out iCampSkillSetID);
                     }
                 }
             }
@@ -419,38 +505,44 @@ namespace LarpPortal.Controls
 
             if (dtCharacters.Rows.Count > 0)
             {
-                DataView dvCharacters = new DataView(dtCharacters, "", "CharacterAKA", DataViewRowState.CurrentRows);
-                int.TryParse(dvCharacters[0]["CharacterID"].ToString(), out iCharID);
+				DataView dvCharacters = new DataView(dtCharacters, "", "DisplayName", DataViewRowState.CurrentRows);
+				int.TryParse(dvCharacters[0]["CharacterSkillSetID"].ToString(), out iCharSkillSetID);
             }
 
-            if ((iCharID != 0) &&
+			if ((iCharSkillSetID != 0) &&
                 ((WhichSelected == Selected.MyCharacters) || (WhichSelected == Selected.NotSpecified)))
             {
-                _CharacterID = iCharID;
 //                oLogWriter.AddLogMessage("About to load character in MyCharacters", lsRoutineName, "", Session.SessionID);
-                _CharacterInfo.LoadCharacter(iCharID);
+				_CharacterInfo.LoadCharacterBySkillSetID(iCharSkillSetID);
 //                oLogWriter.AddLogMessage("Done loading character in MyCharacters", lsRoutineName, "", Session.SessionID);
+				_CharacterID = _CharacterInfo.CharacterID;
+				_CampaignID = _CharacterInfo.CampaignID;
+				_SkillSetID = iCharSkillSetID;
                 WhichSelected = Selected.MyCharacters;
                 Session["CharacterSelectGroup"] = "Characters";
-                Session["CharacterSelectID"] = iCharID;
-                Session["CampaignID"] = _CharacterInfo.CampaignID;
+				Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+				Session["CharSkillSetID"] = iCharSkillSetID;
+				Session["CharCampaignID"] = _CharacterInfo.CampaignID;
                 ddlCampCharSelector.Visible = false;
                 ddlCharacterSelector.Visible = true;
                 return;
             }
 
-            if (((iCampCharID != 0) && (iCampaignID != 0)) &&
+			if (((iCampSkillSetID != 0) && (iCampaignID != 0)) &&
                 ((WhichSelected == Selected.CampaignCharacters) || (WhichSelected == Selected.NotSpecified)))
             {
-                _CharacterID = iCampCharID;
 //                oLogWriter.AddLogMessage("About to load character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
-                _CharacterInfo.LoadCharacter(iCampCharID);
+				_CharacterInfo.LoadCharacterBySkillSetID(iCampSkillSetID);
 //                oLogWriter.AddLogMessage("Done loading character in CampaignCharacters", lsRoutineName, "", Session.SessionID);
                 WhichSelected = Selected.CampaignCharacters;
                 Session["CharacterSelectGroup"] = "Campaigns";
-                Session["CharacterCampaignCharID"] = iCharID;
-                Session["CharacterSelectCampaign"] = _CharacterInfo.CampaignID;
-                Session["CampaignID"] = _CharacterInfo.CampaignID;
+				Session["CharCampaignSkillSetID"] = iCampSkillSetID;
+				Session["CharCampaignCharacterID"] = _CharacterInfo.CharacterID;
+				Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
+				_SkillSetID = iCampSkillSetID;
+				_CharacterID = _CharacterInfo.CharacterID;
+				_CampaignID = _CharacterInfo.CampaignID;
+
                 ddlCampCharSelector.Visible = true;
                 ddlCharacterSelector.Visible = false;
                 return;
@@ -482,18 +574,31 @@ namespace LarpPortal.Controls
         protected void ddlCampCharSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["CharacterSelectGroup"] = "Campaigns";
-            int iCharID;
-            if (int.TryParse(ddlCampCharSelector.SelectedValue, out iCharID))
+			int iSkillSetID;
+			if (int.TryParse(ddlCampCharSelector.SelectedValue, out iSkillSetID))
             {
-                if (iCharID < 0)
+				if (iSkillSetID < 0)
                     Response.Redirect("~/Character/CharAdd.aspx", true);
 
                 WhichSelected = Selected.CampaignCharacters;
-                _CharacterID = iCharID;
                 _CharacterInfo = new cCharacter();
-                _CharacterInfo.LoadCharacter(iCharID);
-                Session["CharacterCampaignCharID"] = iCharID;
-                Session["CampaignID"] = _CharacterInfo.CampaignID;
+				_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+				_SkillSetID = iSkillSetID;
+				_CharacterID = _CharacterInfo.CharacterID;
+				_CampaignID = _CharacterInfo.CampaignID;
+
+				Session["CharCampaignSkillSetID"] = iSkillSetID;
+				Session["CharCampaignCharID"] = _CharacterInfo.CharacterID;
+				Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
+
+				Classes.cUser UserInfo = new Classes.cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
+				UserInfo.LastLoggedInCampaign = _CampaignID.Value;
+				UserInfo.LastLoggedInCharacter = _CharacterID.Value;
+				UserInfo.LastLoggedInSkillSetID = _SkillSetID.Value;
+				UserInfo.LastLoggedInMyCharOrCamp = "C";
+				UserInfo.Save();
+
+//				_CharacterInfo.LoadCharacterBySkillSetID(_SkillSetID.Value);
                 if (this.CharacterChanged != null)
                     CharacterChanged(this, e);
             }
@@ -503,23 +608,28 @@ namespace LarpPortal.Controls
 
         protected void ddlCharacterSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int iCharID = 0;
+			int iSkillSetID = 0;
 
             if (ddlCharacterSelector.SelectedIndex >= 0)
             {
-                int.TryParse(ddlCharacterSelector.SelectedValue, out iCharID);
-                if (iCharID == -1)
+				int.TryParse(ddlCharacterSelector.SelectedValue, out iSkillSetID);
+				if (iSkillSetID == -1)
                 {
                     // Person choose to add a new character.
                     Response.Redirect("~/Character/CharAdd.aspx", true);
                 }
 
-                _CharacterID = iCharID;
                 _CharacterInfo = new cCharacter();
-                _CharacterInfo.LoadCharacter(iCharID);
+				_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+
+				_SkillSetID = iSkillSetID;
+				_CharacterID = _CharacterInfo.CharacterID;
+				_CampaignID = _CharacterInfo.CampaignID;
+
                 Session["CharacterSelectGroup"] = "Characters";
-                Session["CharacterSelectID"] = iCharID;
-                Session["CampaignID"] = _CharacterInfo.CampaignID;
+				Session["CharSkillSetID"] = iSkillSetID;
+				Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+				Session["CharCampaignID"] = _CharacterInfo.CampaignID;
                 if (this.CharacterChanged != null)
                     CharacterChanged(this, e);
             }
@@ -533,26 +643,33 @@ namespace LarpPortal.Controls
         {
             if (ddlCampaigns.SelectedIndex >= 0)
             {
-                Session["CharacterSelectCampaign"] = ddlCampaigns.SelectedValue;
+				//                Session["CharacterSelectCampaign"] = ddlCampaigns.SelectedValue;
                 Session["CharacterSelectGroup"] = "Campaigns";
 
                 int iCampaignID = 0;
                 if (int.TryParse(ddlCampaigns.SelectedValue, out iCampaignID))
                 {
+					Session["CharCampaignCampaignID"] = iCampaignID;
                     LoadCampaignCharacters();
 
-                    int iCharID;
-                    if (int.TryParse(ddlCampCharSelector.SelectedValue, out iCharID))
+					int iSkillSetID;
+					if (int.TryParse(ddlCampCharSelector.SelectedValue, out iSkillSetID))
                     {
-                        if (iCharID < 0)
+						if (iSkillSetID < 0)
                             Response.Redirect("~/Character/CharAdd.aspx", true);
 
                         WhichSelected = Selected.CampaignCharacters;
-                        _CharacterID = iCharID;
+
                         _CharacterInfo = new cCharacter();
-                        _CharacterInfo.LoadCharacter(iCharID);
-                        Session["CharacterCampaignCharID"] = iCharID;
-                        Session["CampaignID"] = _CharacterInfo.CampaignID;
+						_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+						_SkillSetID = iSkillSetID;
+						_CharacterID = _CharacterInfo.CharacterID;
+						_CampaignID = _CharacterInfo.CampaignID;
+
+						Session["CharCampaignSkillSetID"] = iSkillSetID;
+						Session["CharCampaignCharID"] = _CharacterInfo.CharacterID;
+						Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
+						Session["CharacterSelectGroup"] = "Campaigns";
                         if (this.CharacterChanged != null)
                             CharacterChanged(this, e);
                     }
@@ -571,17 +688,30 @@ namespace LarpPortal.Controls
             rbCampaignCharacters.Checked = true;
             int iCampaignID = 0;
 
-            if (Session["CharacterSelectCampaign"] != null)
-                int.TryParse(Session["CharacterSelectCampaign"].ToString(), out iCampaignID);
+			if (Session["CharCampaignCampaignID"] != null)
+				int.TryParse(Session["CharCampaignCampaignID"].ToString(), out iCampaignID);
 
             if (dtCampaignsToEdit.Rows.Count == 1)
             {
                 ddlCampaigns.Visible = false;
                 lblSelectedCampaign.Visible = true;
                 lblSelectedCampaign.Text = dtCampaignsToEdit.Rows[0]["CampaignName"].ToString();
-                Session["CharacterSelectCampaign"] = dtCampaignsToEdit.Rows[0]["CampaignID"].ToString();
-                int.TryParse(dtCampaignsToEdit.Rows[0]["CampaignID"].ToString(), out iCampaignID);
-                Session["CharacterID"] = iCampaignID;
+				Session["CharCampaignCampaignID"] = dtCampaignsToEdit.Rows[0]["CampaignID"].ToString();
+				//--Session.Remove("CharCampaignSkillSetID");
+				//--Session.Remove("CharCampaignCharID");
+
+				//int.TryParse(dtCampaignsToEdit.Rows[0]["CampaignID"].ToString(), out iCampaignID);
+				//            Session["CharacterID"] = iCampaignID;
+
+				//_CharacterInfo = new cCharacter();
+				//_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+				//_SkillSetID = iSkillSetID;
+				//_CharacterID = _CharacterInfo.CharacterID;
+				//_CampaignID = _CharacterInfo.CamaignID;
+
+				//Session["CampSkillSetID"] = iSkillSetID;
+				//Session["CampCharacterID"] = _CharacterInfo.CharacterID;
+				//Session["CampCampaignID"] = _CharacterInfo.CampaignID;
             }
             else
             {
@@ -606,11 +736,11 @@ namespace LarpPortal.Controls
             SortedList slParameters = new SortedList();
             slParameters.Add("@CampaignID", iCampaignID);
             DataTable dtChars = Classes.cUtilities.LoadDataTable("uspGetCampaignCharactersAll", slParameters, "LARPortal", Session["UserID"].ToString(), lsRoutineName);
-            DataView dvChars = new DataView(dtChars, "", "CharacterType, CharacterAKA", DataViewRowState.CurrentRows);
+			DataView dvChars = new DataView(dtChars, "", "CharacterType, DisplayName", DataViewRowState.CurrentRows);
 
             ddlCampCharSelector.DataSource = dvChars;
-            ddlCampCharSelector.DataTextField = "CharacterName";
-            ddlCampCharSelector.DataValueField = "CharacterID";
+			ddlCampCharSelector.DataTextField = "DisplayName";
+			ddlCampCharSelector.DataValueField = "CharacterSkillSetID";
             ddlCampCharSelector.DataBind();
             ddlCampCharSelector.Visible = true;
             ddlCharacterSelector.Visible = false;
@@ -622,13 +752,13 @@ namespace LarpPortal.Controls
 
             ddlCampCharSelector.ClearSelection();
 
-            if (Session["CharacterCampaignCharID"] != null)
+			if (Session["CharCampaignSkillSetID"] != null)
             {
-                int iChar;
-                if (int.TryParse(Session["CharacterCampaignCharID"].ToString(), out iChar))
+				int iSkillSetID;
+				if (int.TryParse(Session["CharCampaignSkillSetID"].ToString(), out iSkillSetID))
                 {
                     foreach (ListItem liItem in ddlCampCharSelector.Items)
-                        if (liItem.Value == iChar.ToString())
+						if (liItem.Value == iSkillSetID.ToString())
                             liItem.Selected = true;
                 }
             }
@@ -640,20 +770,19 @@ namespace LarpPortal.Controls
             {
                 _CharacterID = null;
                 _CharacterInfo = null;
-                Session["CharacterCampaignCharID"] = "0";
+				Session.Remove("CharCampaignCharID");
+				Session.Remove("CharCampaignSkillSetID");
             }
             else
             {
-                int iTempCharID;
-                if (int.TryParse(ddlCampCharSelector.SelectedValue, out iTempCharID))
+				int iSkillSetID;
+				if (int.TryParse(ddlCampCharSelector.SelectedValue, out iSkillSetID))
                 {
-                    _CharacterID = iTempCharID;
-                    _CharacterInfo.LoadCharacter(iTempCharID);
-                    //                    lblSelectedCampaign.Visible = true;
-                    //                    lblSelectedCampaign.Text = _CharacterInfo.CampaignName;
-                    //                    ddlCampaigns.Visible = false;
-                    Session["CampaignID"] = _CharacterInfo.CampaignID;
-                    Session["CharacterCampaignCharID"] = iTempCharID;
+					//                    _CharacterID = iTempCharID;
+					_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
+					Session["CharCampaignSkillSetID"] = iSkillSetID;
+					Session["CharCampaignCharID"] = _CharacterInfo.CharacterID;
+					Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
                 }
             }
             //  }
@@ -671,10 +800,10 @@ namespace LarpPortal.Controls
             DataTable dtCharacters = LarpPortal.Classes.cUtilities.LoadDataTable("uspGetCharacterIDsByUserID", slParameters,
                 "LARPortal", "Character", lsRoutineName);
 
-            DataView dvCharacters = new DataView(dtCharacters, "", "CharacterAKA", DataViewRowState.CurrentRows);
+			DataView dvCharacters = new DataView(dtCharacters, "", "DisplayName", DataViewRowState.CurrentRows);
             ddlCharacterSelector.DataSource = dvCharacters;
-            ddlCharacterSelector.DataTextField = "CharacterAKA";
-            ddlCharacterSelector.DataValueField = "CharacterID";
+			ddlCharacterSelector.DataTextField = "DisplayName";
+			ddlCharacterSelector.DataValueField = "CharacterSkillSetID";
             ddlCharacterSelector.DataBind();
             ddlCharacterSelector.Visible = true;
             ddlCampCharSelector.Visible = false;
@@ -683,15 +812,15 @@ namespace LarpPortal.Controls
 
             ddlCharacterSelector.ClearSelection();
 
-            if (Session["CharacterSelectID"] != null)
+			int iSkillSetID;
+			if (Session["CharSkillSetID"] != null)
             {
-                int iCharID;
-                if (int.TryParse(Session["CharacterSelectID"].ToString(), out iCharID))
+				if (int.TryParse(Session["CharSkillSetID"].ToString(), out iSkillSetID))
                 {
                     foreach (ListItem liItem in ddlCharacterSelector.Items)
                     {
 						ddlCharacterSelector.ClearSelection();
-                        if (liItem.Value == iCharID.ToString())
+						if (liItem.Value == iSkillSetID.ToString())
                             liItem.Selected = true;
                     }
                 }
@@ -700,53 +829,54 @@ namespace LarpPortal.Controls
             if (ddlCharacterSelector.SelectedIndex < 0)
                 ddlCharacterSelector.Items[0].Selected = true;
 
-            int iTempCharID;
-            if (int.TryParse(ddlCharacterSelector.SelectedValue, out iTempCharID))
-                if (iTempCharID == 0)
+			if (int.TryParse(ddlCharacterSelector.SelectedValue, out iSkillSetID))
+				if (iSkillSetID == 0)
                 {
                     _CharacterID = null;
                     _CharacterInfo = null;
-                    Session["CharacterSelectID"] = "0";
+					Session.Remove("CharSkillSetID");
                 }
                 else
                 {
-                    _CharacterID = iTempCharID;
-                    _CharacterInfo.LoadCharacter(iTempCharID);
+					_SkillSetID = iSkillSetID;
+					_CharacterInfo = new cCharacter();
+					_CharacterInfo.LoadCharacterBySkillSetID(iSkillSetID);
                     lblSelectedCampaign.Visible = true;
                     lblSelectedCampaign.Text = _CharacterInfo.CampaignName;
                     ddlCampaigns.Visible = false;
-                    Session["CharacterSelectID"] = iTempCharID;
-                    Session["CampaignID"] = _CharacterInfo.CampaignID;
+
+					_SkillSetID = iSkillSetID;
+					_CharacterID = _CharacterInfo.CharacterID;
+					_CampaignID = _CharacterInfo.CampaignID;
+
+					Session["CharSkillSetID"] = iSkillSetID;
+					Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+					Session["CharCampaignID"] = _CharacterInfo.CampaignID;
                 }
         }
 
 
         public void Reset()
         {
-            if (Session["CharacterCampaignCharID"] != null)
-                Session.Remove("CharacterCampaignCharID");
-
-            if (Session["CharacterSelectCampaign"] != null)
-                Session.Remove("CharacterSelectCampaign");
-
+			if (Session["CharCampaignCampaignID"] != null)
+				Session.Remove("CharCampaignCampaignID");
+			if (Session["CharCampaignCharID"] != null)
+				Session.Remove("CharCampaignCharID");
+			if (Session["CharCampaignSkillSetID"] != null)
+				Session.Remove("CharCampaignSkillSetID");
             if (Session["CharacterSelectGroup"] != null)
                 Session.Remove("CharacterSelectGroup");
-
-            if (Session["CharacterSelectID"] != null)
-                Session.Remove("CharacterSelectID");
-
+			if (Session["CharSkillSetID"] != null)
+				Session.Remove("CharSkillSetID");
+			if (Session["CharCharID"] != null)
+				Session.Remove("CharCharID");
+			if (Session["CharCampaignID"] != null)
+				Session.Remove("CharCampaignID");
+			if (Session["MyCharacters"] != null)
+				Session.Remove("MyCharacters");
             if (Session["CampaignsToEdit"] != null)
                 Session.Remove("CampaignsToEdit");
-
-            if (Session["MyCharacters"] != null)
-                Session.Remove("MyCharacters");
-
-			_UserInfo = new Classes.cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
-//			Session ["CharacterSelectID"] = _UserInfo.LastLoggedInCharacter;
-
-//			LoadAndSetCharacter();
-			//_UserInfo.LastLoggedInCharacter = -1;
-			//_UserInfo.Save();
+			_UserInfo = null;
 		}
 
 		public void LoadAndSetCharacter()
@@ -763,17 +893,28 @@ namespace LarpPortal.Controls
 					_UserInfo = new cUser(_UserName, "PasswordNotNeeded", Session.SessionID);
 
 //				oLogWriter.AddLogMessage("Done loading user.", lsRoutineName, "", Session.SessionID);
-				Session ["CharacterSelectID"] = UserInfo.LastLoggedInCharacter;
+				_CharacterInfo = new cCharacter();
+				_CharacterInfo.LoadCharacterBySkillSetID(UserInfo.LastLoggedInSkillSetID);
+
+				_SkillSetID = UserInfo.LastLoggedInSkillSetID;
+				_CharacterID = _CharacterInfo.CharacterID;
+				_CampaignID = _CharacterInfo.CampaignID;
+
+				Session["CharSelectSetID"] = UserInfo.LastLoggedInCharacter;
 				if (UserInfo.LastLoggedInMyCharOrCamp == "C")
 				{
 					WhichSelected = Selected.CampaignCharacters;
-					Session ["CharacterSelectCampaign"] = UserInfo.LastLoggedInCampaign;
-					Session ["CharacterCampaignCharID"] = UserInfo.LastLoggedInCharacter;
+					Session["CharCampaignSkillSetID"] = _UserInfo.LastLoggedInSkillSetID;
+					Session["CharCampaignCharID"] = _CharacterInfo.CharacterID;
+					Session["CharCampaignCampaignID"] = _CharacterInfo.CampaignID;
 					Session ["CharacterSelectGroup"] = "Campaigns";
 				}
 				else
 				{
 					WhichSelected = Selected.MyCharacters;
+					Session["CharSkillSetID"] = UserInfo.LastLoggedInSkillSetID;
+					Session["CharCharacterID"] = _CharacterInfo.CharacterID;
+					Session["CharCampaignID"] = _CharacterInfo.CampaignID;
 				}
 			}
 		}

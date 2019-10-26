@@ -25,10 +25,15 @@ namespace LarpPortal.Classes
         public int CharacterSkillSetID { get; set; }
         public int CharacterID { get; set; }
         public string SkillSetName { get; set; }
-        public int CharacterSkillSetStatusID { get; set; }
-        public int CharacterSkillSetTypeID { get; set; }
+		public int CampaignID { get; set; }
+		public string CampaignName { get; set; }
+        public int SkillSetStatusID { get; set; }
+        public int SkillSetTypeID { get; set; }
+		public DateTime? AllowSkillRebuildToDate { get; set; }
         public string PlayerComments { get; set; }
         public string Comments { get; set; }
+		public DateTime? DateAdded { get; set; }
+		public DateTime? DateChanged { get; set; }
         public RecordStatuses RecordStatus { get; set; }
 
         /// <summary>
@@ -68,8 +73,8 @@ namespace LarpPortal.Classes
                 CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterSkillSetID", CharacterSkillSetID);
                 CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterID", CharacterID);
                 CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@SkillSetName", SkillSetName);
-                CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterSkillSetStatusID", CharacterSkillSetStatusID);
-                CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterSkillSetTypeID", CharacterSkillSetTypeID);
+                CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterSkillSetStatusID", SkillSetStatusID);
+                CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@CharacterSkillSetTypeID", SkillSetTypeID);
                 CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@PlayerComments", PlayerComments);
                 CmdInsUpdCHCharacterActors.Parameters.AddWithValue("@Comments", Comments);
 
@@ -104,10 +109,10 @@ namespace LarpPortal.Classes
                         CharacterID = iTemp;
 
                     if (int.TryParse(dRow["CharacterSkillSetStatusID"].ToString(), out iTemp))
-                        CharacterSkillSetStatusID = iTemp;
+                        SkillSetStatusID = iTemp;
 
                     if (int.TryParse(dRow["CharacterSkillSetTypeID"].ToString(), out iTemp))
-                        CharacterSkillSetTypeID = iTemp;
+                        SkillSetTypeID = iTemp;
 
                     PlayerComments = dRow["PlayerComments"].ToString();
                     Comments = dRow["Comments"].ToString();

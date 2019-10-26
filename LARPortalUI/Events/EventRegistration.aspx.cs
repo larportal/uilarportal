@@ -101,7 +101,7 @@ namespace LarpPortal.Events
                     "Event: " + ddlEventDate.SelectedItem.Text + "<br>";
 
 				if (hidCharAKA.Value.Length > 0)
-					strBody += "Character: " + ddlCharacterList.SelectedItem.Text + "<br>";
+					strBody += "Character: " + ddlSkillSetID.SelectedItem.Text + "<br>";
 				//strBody += "Character: " + hidCharAKA.Value + "<br>";
 
 				strBody += "Payment Method: " + ddlPaymentChoice.SelectedItem.Text + "<br>" +
@@ -213,9 +213,12 @@ namespace LarpPortal.Events
 			dsEventInfo.Tables [1].TableName = "Housing";
 			dsEventInfo.Tables [2].TableName = "PaymentType";
 
+			ViewState.Remove("CharacterTable");
+
 			if (dsEventInfo.Tables.Count >= 5)
 			{
 				bIncludeReg = true;
+				ViewState["CharacterTable"] = (DataTable) dsEventInfo.Tables[3];
 				dsEventInfo.Tables [3].TableName = "Character";
 				dsEventInfo.Tables [4].TableName = "Teams";
 				dsEventInfo.Tables [5].TableName = "Registration";
@@ -336,13 +339,13 @@ namespace LarpPortal.Events
 
 			if (dsEventInfo.Tables ["Character"].Rows.Count > 0)
 			{
-				ddlCharacterList.DataSource = dsEventInfo.Tables ["Character"];
-				ddlCharacterList.DataTextField = "CharacterAKA";
-				ddlCharacterList.DataValueField = "CharacterID";
-				ddlCharacterList.DataBind();
-				ddlCharacterList.SelectedIndex = 0;
-				ddlCharacterList.Visible = true;
-				lblCharacter.Visible = false;
+				ddlSkillSetID.DataSource = dsEventInfo.Tables["Character"];
+				ddlSkillSetID.DataTextField = "DisplayName";
+				ddlSkillSetID.DataValueField = "CharacterSkillSetID";
+				ddlSkillSetID.DataBind();
+				ddlSkillSetID.SelectedIndex = 0;
+				ddlSkillSetID.Visible = true;
+				lblSkillSet.Visible = false;
 
 				hidCharAKA.Value = dsEventInfo.Tables ["Character"].Rows [0] ["CharacterAKA"].ToString();
 				hidPlayerEMail.Value = dsEventInfo.Tables ["Character"].Rows [0] ["EMailAddress"].ToString();
@@ -354,7 +357,7 @@ namespace LarpPortal.Events
 
 			if (dsEventInfo.Tables ["Character"].Rows.Count == 0)
 			{
-				ddlCharacterList.Visible = false;
+				ddlSkillSetID.Visible = false;
 				hidHasPCChar.Value = "0";
 			}
 			else
@@ -362,16 +365,16 @@ namespace LarpPortal.Events
 				hidHasPCChar.Value = "1";
 				if (dsEventInfo.Tables ["Character"].Rows.Count == 1)
 				{
-					ddlCharacterList.Visible = false;
-					ddlCharacterList.ClearSelection();
-					ddlCharacterList.Items[0].Selected = true;
-					lblCharacter.Visible = true;
-					lblCharacter.Text = ddlCharacterList.Items [0].Text;
+					ddlSkillSetID.Visible = false;
+					ddlSkillSetID.ClearSelection();
+					ddlSkillSetID.Items[0].Selected = true;
+					lblSkillSet.Visible = true;
+					lblSkillSet.Text = ddlSkillSetID.Items[0].Text;
 				}
 				else
 				{
-					ddlCharacterList.Visible = true;
-					lblCharacter.Visible = false;
+					ddlSkillSetID.Visible = true;
+					lblSkillSet.Visible = false;
 				}
 			}
 
@@ -703,14 +706,14 @@ namespace LarpPortal.Events
 							}
 						}
 					}
-					if (!String.IsNullOrEmpty(dReg ["CharacterID"].ToString()))
+					if (!String.IsNullOrEmpty(dReg["SkillSetID"].ToString()))
 					{
-						ddlCharacterList.ClearSelection();
-						foreach (ListItem li in ddlCharacterList.Items)
-							if (li.Value == dReg ["CharacterID"].ToString())
+						ddlSkillSetID.ClearSelection();
+						foreach (ListItem li in ddlSkillSetID.Items)
+							if (li.Value == dReg["SkillSetID"].ToString())
 								li.Selected = true;
-						if ((ddlCharacterList.SelectedIndex < 0) && (ddlCharacterList.Items.Count > 0))
-							ddlCharacterList.SelectedIndex = 0;
+						if ((ddlSkillSetID.SelectedIndex < 0) && (ddlSkillSetID.Items.Count > 0))
+							ddlSkillSetID.SelectedIndex = 0;
 					}
 					tbComments.Text = dReg ["PlayerCommentsToStaff"].ToString();
 				}
@@ -858,21 +861,42 @@ namespace LarpPortal.Events
 			else
 				sRegistrationMessage = "Your registration has been updated.";
 
-			int iRegistrationID = 0;
+			//int iRegistrationID = 0;
 			int iRoleAlignment = 0;
 			int iEventID = 0;
 			int iCharacterID = 0;
-			int.TryParse(hidRegistrationID.Value, out iRegistrationID);
-			int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
-			int.TryParse(ddlEventDate.SelectedValue, out iEventID);
-			int.TryParse(ddlCharacterList.SelectedValue, out iCharacterID);
+			//int.TryParse(hidRegistrationID.Value, out iRegistrationID);
+			//int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
+			//int.TryParse(ddlEventDate.SelectedValue, out iEventID);
+			//int.TryParse(ddlCharacterList.SelectedValue, out iCharacterID);
+
+			// Need to get the character ID from the SkillSetID
+			if (ViewState["CharacterTable"] != null)
+			{
+				DataTable dtCharacters = (DataTable) ViewState["CharacterTable"];
+				string sRowFilter = "";
+				if (ddlSkillSetID.SelectedValue != "")
+				{
+					int iTemp;
+					if (int.TryParse(ddlSkillSetID.SelectedValue, out iTemp))
+						sRowFilter = "CharacterSkillSetID = " + iTemp.ToString();
+				}
+				DataView dvChar = new DataView(dtCharacters, sRowFilter, "", DataViewRowState.CurrentRows);
+				if (dvChar.Count > 0)
+				{
+					int iTemp = -1;
+					if (int.TryParse(dvChar[0]["CharacterID"].ToString(), out iTemp))
+						iCharacterID = iTemp;
+				}
+			}
 
 			SortedList sParam = new SortedList();
 			sParam.Add("@RegistrationID", hidRegistrationID.Value);
 			sParam.Add("@UserID", Master.UserID);
 			sParam.Add("@EventID", ddlEventDate.SelectedValue);
 			sParam.Add("@RoleAlignmentID", ddlRoles.SelectedValue);
-			sParam.Add("@CharacterID", ddlCharacterList.SelectedValue);
+			sParam.Add("@SkillSetID", ddlSkillSetID.SelectedValue);
+//			sParam.Add("@CharacterID", ddlCharacterList.SelectedValue);
 			sParam.Add("@DateRegistered", DateTime.Now);
 			sParam.Add("@EventPaymentTypeID", ddlPaymentChoice.SelectedValue);
 			sParam.Add("@PlayerCommentsToStaff", tbComments.Text.Trim());
@@ -937,7 +961,7 @@ namespace LarpPortal.Events
 
 				foreach (DataRow dRegRecord in dtUser.Rows)
 				{
-					iRegistrationID = 0;
+					int iRegistrationID = 0;
 					int.TryParse(dRegRecord ["RegistrationID"].ToString(), out iRegistrationID);
 					Session ["RegistrationID"] = iRegistrationID;
 
@@ -1154,7 +1178,8 @@ namespace LarpPortal.Events
 						divHousePref.Visible = false;
 						divSendCPTo.Visible = true;
 						divTeams.Visible = false;
-						ddlCharacterList.Visible = false;
+						ddlSkillSetID.Visible = false;
+//						ddlCharacterList.Visible = false;
 						Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
 						CampaignChoices.Load(Master.UserID);
 						if (CampaignChoices.CountOfUserCampaigns == 0)

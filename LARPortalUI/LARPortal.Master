@@ -279,6 +279,7 @@
                                             <li><a href="/Character/CharCardOrder.aspx">Card Order</a></li>
                                             <li><a href="/Character/CharCard.aspx" target="123">Preview Character Card</a></li>
                                             <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
+                                            <li><a href="/Character/SkillSets.aspx">Skill Sets</a></li>
                                             <li><a href="/PELs/PELList.aspx">View PELs</a></li>
                                             <li><a href="/Events/EventRegistration.aspx">Register for an Event</a></li>
                                         </ul>

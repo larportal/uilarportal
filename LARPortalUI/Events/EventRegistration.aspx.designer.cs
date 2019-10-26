@@ -103,22 +103,22 @@ namespace LarpPortal.Events {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCharacters;
         
         /// <summary>
-        /// lblCharacter control.
+        /// lblSkillSet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCharacter;
+        protected global::System.Web.UI.WebControls.Label lblSkillSet;
         
         /// <summary>
-        /// ddlCharacterList control.
+        /// ddlSkillSetID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCharacterList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSkillSetID;
         
         /// <summary>
         /// divSendCPTo control.

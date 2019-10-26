@@ -62,7 +62,7 @@
                                     <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="right" ItemStyle-Wrap="false" ItemStyle-Width="30px">
                                         <ItemTemplate>
                                             <a href="#" data-toggle="tooltip" title="Should the standard description be displayed?">
-                                                <asp:Image ID="imgDisplay" runat="server" ImageUrl='<%# Boolean.Parse(Eval("CardDisplayDescription").ToString()) ? "../img/checkbox.png" : "../img/delete.png" %>' ToolTip="Should the Skill Card Description Be Displayed" />
+                                                <asp:Image ID="imgDisplay" runat="server" ImageUrl='<%# Boolean.Parse(Eval("CardDisplayDescription").ToString()) ? "../../img/checkbox.png" : "../../img/uncheckbox.png" %>' ToolTip="Should the Skill Card Description Be Displayed" />
                                             </a>
                                         </ItemTemplate>
                                         <EditItemTemplate>
@@ -79,7 +79,7 @@
                                     <asp:TemplateField HeaderText="" ItemStyle-HorizontalAlign="right" ItemStyle-Wrap="false" ItemStyle-Width="30px">
                                         <ItemTemplate>
                                             <a href="#" data-toggle="tooltip" title="Should the standard incant be displayed?">
-                                                <asp:Image ID="imgIncant" runat="server" ImageUrl='<%# Boolean.Parse(Eval("CardDisplayIncant").ToString()) ? "../img/checkbox.png" : "../img/delete.png" %>' />
+                                                <asp:Image ID="imgIncant" runat="server" ImageUrl='<%# Boolean.Parse(Eval("CardDisplayIncant").ToString()) ? "../../img/checkbox.png" : "../../img/uncheckbox.png" %>' />
                                             </a>
                                         </ItemTemplate>
                                         <EditItemTemplate>

@@ -93,7 +93,7 @@ namespace LarpPortal.PELs
                     if (iCharacterID != 0)
                     {
                         Classes.cCharacter cChar = new Classes.cCharacter();
-                        cChar.LoadCharacter(iCharacterID);
+                        cChar.LoadCharacterByCharacterID(iCharacterID);
                         sEventInfo += "&nbsp;&nbsp;<b>Character: </b> " + dtQuestions.Rows[0]["CharacterAKA"].ToString();
                         hidCharacterAKA.Value = dtQuestions.Rows[0]["CharacterAKA"].ToString();
 

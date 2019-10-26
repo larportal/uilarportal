@@ -106,6 +106,7 @@
     <Content Include="Campaigns\Setup\Skills\MasterSkills.aspx" />
     <Content Include="Campaigns\Setup\Skills\MasterSkillsEdit.aspx" />
     <Content Include="Character\CharAdd.aspx" />
+    <Content Include="Character\CharAddNoCharacters.aspx" />
     <Content Include="Character\CharCard.aspx" />
     <Content Include="Character\CharCardCustomization.aspx" />
     <Content Include="Character\CharCardOrder.aspx" />
@@ -1371,6 +1372,13 @@
     </Compile>
     <Compile Include="Character\CharAdd.aspx.designer.cs">
       <DependentUpon>CharAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\CharAddNoCharacters.aspx.cs">
+      <DependentUpon>CharAddNoCharacters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\CharAddNoCharacters.aspx.designer.cs">
+      <DependentUpon>CharAddNoCharacters.aspx</DependentUpon>
     </Compile>
     <Compile Include="Character\CharCard.aspx.cs">
       <DependentUpon>CharCard.aspx</DependentUpon>

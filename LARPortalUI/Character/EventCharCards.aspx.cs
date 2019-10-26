@@ -51,15 +51,15 @@ namespace LarpPortal.Character
 
         protected void rptrCharacter_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            HiddenField hidID = (HiddenField)e.Item.FindControl("hidCharID");
-            if (hidID != null)
+            HiddenField hidSkillSetID = (HiddenField)e.Item.FindControl("hidSkillSetID");
+            if (hidSkillSetID != null)
             {
-                int iCharID;
-                if (int.TryParse(hidID.Value, out iCharID))
+                int iSkillSetID;
+                if (int.TryParse(hidSkillSetID.Value, out iSkillSetID))
                 {
 
                     Classes.cCharacter cChar = new Classes.cCharacter();
-                    cChar.LoadCharacter(iCharID);
+                    cChar.LoadCharacterBySkillSetID(iSkillSetID);
 
                     Label lblTotalCP = (Label)e.Item.FindControl("lblTotalCP");
                     if (lblTotalCP != null)
@@ -67,7 +67,7 @@ namespace LarpPortal.Character
 
                     DataTable dtCharacterSkills = new DataTable();
                     SortedList sParams = new SortedList();
-                    sParams.Add("@CharacterID", cChar.CharacterID);
+                    sParams.Add("@SkillSetID", iSkillSetID);
 
                     MethodBase lmth = MethodBase.GetCurrentMethod();
                     string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
