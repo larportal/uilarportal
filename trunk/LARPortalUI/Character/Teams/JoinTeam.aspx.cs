@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 using LarpPortal.Classes;
 
+//  JBradshaw   2/16/2020  Fixed issue where the list of teams was for the character not the skill set. 
 namespace LarpPortal.Character.Teams
 {
     public partial class JoinTeam : System.Web.UI.Page
@@ -140,7 +141,7 @@ namespace LarpPortal.Character.Teams
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             SortedList slParameters = new SortedList();
-            slParameters.Add("@CharacterID", oCharSelect.CharacterID.Value);
+			slParameters.Add("@SkillSetID", oCharSelect.SkillSetID.Value);		// CharacterID.Value);
             DataTable dtTeams = cUtilities.LoadDataTable("uspGetTeamsForCampaignAndCharacterInd", slParameters, "LARPortal", Master.UserName, lsRoutineName + ".CampaignAndCharacterInd");
 
             if (dtTeams.Columns["Accept"] == null)

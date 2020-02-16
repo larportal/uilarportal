@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
+using System.Web.Script.Serialization;
 
 namespace LarpPortal.Webservices
 {
@@ -121,5 +124,59 @@ namespace LarpPortal.Webservices
             }
             return sCampaignInfo;
         }
-    }
+
+
+
+		[WebMethod(Description = "Get the values for the additional description.")]
+		[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+		public string GetSkillValues(int CampaignSkillNodeID)
+		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			Values RetVal = new Values { CampaignSkillNodeID = -1, DataType = "", CurrentValue = "" };
+
+			SortedList sParams = new SortedList();
+			sParams.Add("@CampaignSkillNodeID", CampaignSkillNodeID);
+			DataTable dtValues = Classes.cUtilities.LoadDataTable("uspGetCharacterSkillAddValuesList", sParams, 
+				"LARPortal", "WebService", lsRoutineName);
+
+			if (dtValues.Rows.Count > 0)
+			{
+				int iTemp;
+				if (int.TryParse(dtValues.Rows[0]["CampaignSkillNodeID"].ToString(), out iTemp))
+					RetVal.CampaignSkillNodeID = iTemp;
+				if (int.TryParse(dtValues.Rows[0]["AddInfoType"].ToString(), out iTemp))
+				{
+					if (iTemp == 1)
+					{
+						RetVal.DataType = "Text";
+					}
+					else if (iTemp == 2)
+					{
+						RetVal.DataType = "DropDown";
+						List<string> AvailValues = new List<string>();
+						DataView dvValue = new DataView(dtValues, "", "SortOrder", DataViewRowState.CurrentRows);
+						foreach (DataRowView dv in dvValue)
+						{
+							AvailValues.Add(dv["DisplayValue"].ToString());
+						}
+						RetVal.AvailValues = AvailValues.ToArray();
+					}
+				}
+			}
+
+			JavaScriptSerializer js = new JavaScriptSerializer();
+			string strJSON = js.Serialize(RetVal);
+			return strJSON;
+		}
+	}
+
+	public class Values
+	{
+		public int CampaignSkillNodeID;
+		public string DataType;
+		public string CurrentValue;
+		public string[] AvailValues;
+	}
 }
