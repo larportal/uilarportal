@@ -460,9 +460,6 @@
     <Content Include="images\Campaigns.png" />
     <Content Include="images\Characters.png" />
     <Content Include="images\CreateATeam.png" />
-    <Content Include="images\JeffJacket.jpg" />
-    <Content Include="images\JeffTie.jpg" />
-    <Content Include="images\JeffTie2.jpg" />
     <Content Include="images\LARPing.png" />
     <Content Include="images\LARPLogo.png" />
     <Content Include="images\LP_icons_Campaigns.jpg" />
