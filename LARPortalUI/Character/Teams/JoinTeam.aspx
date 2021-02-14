@@ -79,11 +79,11 @@
                                 <asp:TemplateField ItemStyle-Wrap="false" ItemStyle-CssClass="text-right" ItemStyle-Width="250">
                                     <ItemTemplate>
                                         <asp:Button ID="btnJoin" runat="server" CssClass="btn btn-primary btn-sm" Text="Join Team"
-                                            Visible='<%# Eval("Join") == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="JoinTeam" OnClientClick="setScrollValue();" />
+                                            Visible='<%# Eval("Join").ToString() == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="JoinTeam" OnClientClick="setScrollValue();" />
                                         <asp:Button ID="btnAccept" runat="server" CssClass="btn btn-primary btn-sm" Text="Accept"
-                                            Visible='<%# Eval("Accept") == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="AcceptInvite" OnClientClick="setScrollValue();" />
+                                            Visible='<%# Eval("Accept").ToString() == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="AcceptInvite" OnClientClick="setScrollValue();" />
                                         <asp:Button ID="btnDecline" runat="server" CssClass="btn btn-primary btn-sm" Text="Decline"
-                                            Visible='<%# Eval("Accept") == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="DeclineInvite" OnClientClick="setScrollValue();" />
+                                            Visible='<%# Eval("Accept").ToString() == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="DeclineInvite" OnClientClick="setScrollValue();" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -103,7 +103,7 @@
                                 <asp:TemplateField ItemStyle-Width="150" ItemStyle-HorizontalAlign="right">
                                     <ItemTemplate>
                                         <asp:Button ID="btnLeave" runat="server" CssClass="btn btn-primary btn-sm" Text="Leave"
-                                            Visible='<%# Eval("DisplayLeave") == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="LeaveTeam" OnClientClick="setScrollValue();" />
+                                            Visible='<%# Eval("DisplayLeave").ToString() == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="LeaveTeam" OnClientClick="setScrollValue();" />
                                         <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary btn-sm" Text="Cancel"
                                             Visible='<%# Eval("Requested").ToString() == "1" %>' CommandArgument='<%# Eval("TeamID") %>' CommandName="CancelRequest" OnClientClick="setScrollValue();" />
                                     </ItemTemplate>

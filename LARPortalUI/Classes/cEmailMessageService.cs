@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Web;
 using System.Net;
-using System.Net.Mail;
+//using System.Net.Mail;
 using System.Data;
 using LarpPortal.Classes;
 using System.Reflection;
@@ -12,13 +12,21 @@ using System.Collections;
 using System.Configuration;
 using System.Data.SqlClient;
 
+using MimeKit;
+using MailKit;
+using MailKit.Security;
+using MailKit.Net.Smtp;
 
 
 namespace LarpPortal.Classes
 {
+	/// <summary>
+	/// Send out an email. 
+	/// JBradshaw  4/19/2020  - Changed over to using MailKit.
+	/// </summary>
     public class cEmailMessageService   // This is far from working.
     {
-        private MailMessage mail { get; set; }
+		//        private MailMessage mail { get; set; }
 
         /// <summary>
         /// Send email and write message to email log.
@@ -35,8 +43,10 @@ namespace LarpPortal.Classes
                 throw new ArgumentException("There are no To email addresses");
             if (string.IsNullOrEmpty(body))
                 throw new ArgumentException("The body is empty");
-            if (subject == null)
-                throw new ArgumentException("The subject is empty");
+
+			//if (subject == null)
+			//    throw new ArgumentException("The subject is empty");
+
             // RP - 7/2/2016 - Added strFrom as a passed in parameter.  
             //      Look it up and return all associated address information (SMTP client, password, port, etc) 
             //      First hard code a default just in case all else fails.
@@ -45,7 +55,7 @@ namespace LarpPortal.Classes
             string stStoredProc = "uspGetSMTPParametersByCallingJob";
             string stCallingMethod = "cEmailMessageService.SendMail.GetDefault";
             string strFrom = "support@larportal.com";
-            string strSMTPPassword = "Piccolo1";
+            string strSMTPPassword = "Picco!o7246";
             string strSMTPClient = "smtpout.secureserver.net";
             int intPort = 80;
             SortedList sParams = new SortedList();
@@ -69,45 +79,80 @@ namespace LarpPortal.Classes
                 strSMTPClient = dRowCJ["SMTPClient"].ToString();
                 Int32.TryParse(dRowCJ["Port"].ToString(), out intPort);
             }
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(strFrom);
-            mail.Subject = subject;
-            mail.Body = body;
+
+			//         MailMessage mail = new MailMessage();
+			//         mail.From = new MailAddress(strFrom);
+			//         mail.Subject = subject;
+			//         mail.Body = body;
+			//         string[] recipients = Tos.Split(",;".ToArray());
+			//         foreach (string rec in recipients)
+			//             if (rec.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
+			//                 mail.To.Add(rec.Trim());
+			//         if (!string.IsNullOrEmpty(ccs))
+			//         {
+			//             string[] ccEmails = ccs.Split(",;".ToArray());
+			//             foreach (string cc in ccEmails)
+			//                 if (cc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
+			//                     mail.CC.Add(cc.Trim());
+			//         }
+			//         if (!string.IsNullOrEmpty(bccs))
+			//         {
+			//             string[] bccEmails = bccs.Split(",;".ToArray());
+			//             foreach (string bcc in bccEmails)
+			//                 if (bcc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
+			//                     mail.Bcc.Add(bcc.Trim());
+			//         }
+			////            SmtpClient client = new SmtpClient(strSMTPClient, intPort);
+
+
+			//MailKit.
+
+
+			MimeMessage MailMessage = new MimeMessage();
+			BodyBuilder MailBody = new BodyBuilder();
+
+			//			MailMessage.Subject = subject;
+			MailMessage.Subject = subject ?? throw new ArgumentException("The subject is empty");
+			MailMessage.From.Add(new MailboxAddress(strFrom));
+
             string[] recipients = Tos.Split(",;".ToArray());
             foreach (string rec in recipients)
                 if (rec.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-                    mail.To.Add(rec.Trim());
+					MailMessage.To.Add(new MailboxAddress(rec.Trim()));
             if (!string.IsNullOrEmpty(ccs))
             {
                 string[] ccEmails = ccs.Split(",;".ToArray());
                 foreach (string cc in ccEmails)
                     if (cc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-                        mail.CC.Add(cc.Trim());
+						MailMessage.Cc.Add(new MailboxAddress(cc.Trim()));
             }
             if (!string.IsNullOrEmpty(bccs))
             {
                 string[] bccEmails = bccs.Split(",;".ToArray());
                 foreach (string bcc in bccEmails)
                     if (bcc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-                        mail.Bcc.Add(bcc.Trim());
+						MailMessage.Bcc.Add(new MailboxAddress(bcc.Trim()));
             }
-            SmtpClient client = new SmtpClient(strSMTPClient, intPort);
-            client.EnableSsl = false;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(strFrom, strSMTPPassword);
-            client.Timeout = 10000;
-            mail.IsBodyHtml = true;
+			MailBody.HtmlBody = body;
+			MailMessage.Body = MailBody.ToMessageBody();
+
+			var client = new SmtpClient();
 
             try
             {
-                client.Send(mail);
+				client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+				client.Connect(strSMTPClient, intPort, SecureSocketOptions.SslOnConnect);
+				client.Authenticate(strFrom, strSMTPPassword);
+				client.Send(MailMessage);
+				client.Disconnect(true);
+
                 WriteEmailLog(strFrom, Tos, ccs, bccs, subject, body);
             }
-            catch (Exception)
+			catch (Exception ex)
             {
-                //This was the catch I used in the new member login.  It needs something way better but I was in a hurry to get the programming done. - Rick
-                //lblEmailFailed.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
-                //lblEmailFailed.Visible = true;
+				//             //This was the catch I used in the new member login.  It needs something way better but I was in a hurry to get the programming done. - Rick
+				//             //lblEmailFailed.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
+				//             //lblEmailFailed.Visible = true;
             }
         }
 

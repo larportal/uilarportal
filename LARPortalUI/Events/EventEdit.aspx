@@ -19,8 +19,13 @@
             var StartDate = new Date(tbStartDateTime.value);
 
             var tbCloseRegDateTime = document.getElementById("<%= tbCloseRegDateTime.ClientID %>");
-            if (tbCloseRegDateTime)
-                tbCloseRegDateTime.value = StartDate.toISOString().substring(0, 10) - "T00:00";
+            if (tbCloseRegDateTime) {
+                var month = StartDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+                var year = StartDate.getFullYear();
+                var day = StartDate.getDate();
+                var dateStr = year + '-' + ('00' + month).slice(-2) + '-' + ('00' + day).slice(-2) + "T10:00";
+                tbCloseRegDateTime.value = dateStr;
+            }
 
             var InfoDueDate = parseInt(document.getElementById("<%= hidDaysToInfoSkillDeadlineDate.ClientID %>").value);
             if (!isNaN(InfoDueDate)) {
@@ -34,9 +39,24 @@
             if (!isNaN(PreregOpenDays)) {
                 var PreregOpenDate = new Date(StartDate);
                 PreregOpenDate.setDate(PreregOpenDate.getDate() - PreregOpenDays);
-                var tbOpenRegDate = document.getElementById("<%= tbOpenRegDateTime.ClientID %>");
-                tbOpenRegDate.value = PreregOpenDate.toISOString().substring(0, 10) - "T00:00";;
+                var month = PreregOpenDate.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+                var year = PreregOpenDate.getFullYear();
+                var day = PreregOpenDate.getDate();
+                var dateStr = year + '-' + ('00' + month).slice(-2) + '-' + ('00' + day).slice(-2) + "T10:00";
+                PreregOpenDays.value = dateStr;
             }
+
+
+
+<%--
+                var tbOpenRegDate = document.getElementById("<%= tbOpenRegDateTime.ClientID %>");
+                var t = PreregOpenDate.toISOString().substring(0, 10);
+                alert(t);
+                tbOpenRegDate.value = PreregOpenDate.toISOString().substring(0, 10) + "T00:00";
+                alert(tbOpenRegDate.value);
+            }--%>
+            else
+                alert("Couldn't find PreregOpenDate");
 
             var DaysToPELDeadlineDate = parseInt(document.getElementById("<%= hidDaysToPELDeadlineDate.ClientID %>").value);
             if (!isNaN(DaysToPELDeadlineDate)) {

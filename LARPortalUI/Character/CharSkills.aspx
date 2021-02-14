@@ -1,8 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="CharSkills.aspx.cs" Inherits="LarpPortal.Character.CharSkills" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="CharSkills.aspx.cs" Inherits="LarpPortal.Character.CharSkills" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
-<asp:Content ID="CharSkillsStyles" ContentPlaceHolderID="MainStyles" runat="Server"></asp:Content>
+<asp:Content ID="CharSkillsStyles" ContentPlaceHolderID="MainStyles" runat="Server">
+    <style type="text/css">
+        .nopadding {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    </style>
+</asp:Content>
 <asp:Content ID="CharSkillsScripts" ContentPlaceHolderID="MainScripts" runat="Server">
     <script type="text/javascript">
         function postBackByObject() {
@@ -14,6 +21,54 @@
             if (o.tagName == "INPUT" && o.type == "checkbox") {
                 __doPostBack("", "");
             }
+        }
+
+        function SaveValue() {
+                        var ddlAddValue = document.getElementById('<%= ddlAddValue2.ClientID %>');
+            var strUser = ddlAddValue.options[ddlAddValue.selectedIndex].value;
+            var hid = document.getElementById('<%= hidNewDropDownValue.ClientID %>');
+            hid.value = strUser;
+        }
+
+        function ChangeValue(CampSkillNodeID, CurrentValue) {
+//                       alert(CampSkillNodeID);
+            $.ajax({
+                contentType: "application/json; charset=utf-8",
+                data: "{'CampaignSkillNodeID':'" + CampSkillNodeID.toString() + "'}",
+                url: "/Webservices/CampaignInfo.asmx/GetSkillValues",
+                type: "POST",
+                dataType: 'json',
+                success: function (result) {
+                    var ret = JSON.parse(result.d);
+                    if (ret["DataType"] == "Text") {
+                        var hidCampaignSkillNodeID = document.getElementById('<%= hidCampaignSkillNodeID.ClientID %>');
+                        hidCampaignSkillNodeID.value = CampSkillNodeID.toString();
+                        var lblOrigTextValue = document.getElementById('<%=lblOrigTextValue.ClientID%>')
+                        lblOrigTextValue.innerText = CurrentValue;
+                        var tbNewValue = document.getElementById('<%= tbNewValue.ClientID %>');
+                        tbNewValue.value = ret["CurrentValue"];
+                        $("#modalChangeTextValue").modal('show');
+                    } else if (ret["DataType"] == "DropDown") {
+                        var hidCampaignSkillNodeID = document.getElementById('<%= hidCampaignSkillNodeID.ClientID %>');
+                        hidCampaignSkillNodeID.value = CampSkillNodeID.toString();
+                        var lblOrigDropDownValue = document.getElementById('<%= lblOrigDropDownValue.ClientID %>');
+                        lblOrigDropDownValue.innerText = CurrentValue;
+                        var ddlAddValue = document.getElementById('<%= ddlAddValue2.ClientID %>');
+                        var iSelectedIndex = 0;
+                        for (var i = 0; i < ret["AvailValues"].length; i++) {
+                            var opt = ret["AvailValues"][i];
+                            var el = document.createElement("option");
+                            el.textContent = opt;
+                            el.value = opt;
+                            if (opt == CurrentValue)
+                                iSelectedIndex = i;
+                            ddlAddValue.appendChild(el);
+                        }
+                        ddlAddValue.selectedIndex = iSelectedIndex;
+                        $('#modalChangeDropDownValue').modal('show');
+                    }
+                }
+            });
         }
 
         function scrollTree() {
@@ -65,6 +120,10 @@
 
         function openMessage() {
             $('#modalMessage').modal('show');
+        }
+
+        function openTextValueChange() {
+            $("#modalChangeTextValue").show();
         }
     </script>
 </asp:Content>
@@ -149,6 +208,7 @@
                                 <asp:HiddenField ID="hidAllowCharacterRebuild" runat="server" Value="0" />
                                 <asp:HiddenField ID="hidScrollPos" runat="server" />
                                 <asp:Label ID="lblPlace" runat="server" />
+                                <asp:HiddenField ID="hidNewDropDownValue" runat="server" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -193,6 +253,125 @@
         </div>
         <asp:HiddenField ID="hidAutoBuyParentSkills" runat="server" />
     </div>
+
+
+    <asp:HiddenField ID="hidCampaignSkillNodeID" runat="server" />
+
+    <!--  Change the text additional value -->
+    <div class="modal fade" id="modalChangeTextValue" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="padding-top: 0px !important; padding-bottom: 0px !important; margin-top: 0px; margin-bottom: 0px;">Change Skill Qualifier</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <div class="controls">
+                                                <label for="<%= lblOrigTextValue.ClientID %>">Original Value:</label>
+                                                <asp:Label ID="lblOrigTextValue" runat="server" CssClass="form-control NoShadow nopadding" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <div class="controls">
+                                                <label for="<%= tbNewValue.ClientID %>">New Value:</label>
+                                                <asp:TextBox ID="tbNewValue" runat="server" CssClass="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 NoGutters text-right">
+                            <asp:Button ID="btnCancelTextChanges" runat="server" Text="Cancel" CssClass="btn btn-danger" />&nbsp;&nbsp;
+                            <asp:Button ID="btnSaveTextChanges" runat="server" Text="Save Changes" CssClass="btn btn-primary" OnClick="btnSaveTextChanges_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Change the text additional value -->
+
+
+
+    <!--  Change the text additional value -->
+    <div class="modal fade" id="modalChangeDropDownValue" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="padding-top: 0px !important; padding-bottom: 0px !important; margin-top: 0px; margin-bottom: 0px;">Change Skill Qualifier</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="form-group col-sm-12">
+                                            <div class="controls">
+                                                <label for="<%= lblOrigDropDownValue.ClientID %>">Original Value:</label>
+                                                <asp:Label ID="lblOrigDropDownValue" runat="server" CssClass="form-control NoShadow nopadding" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <div class="controls">
+                                                <label for="<%= tbNewValue.ClientID %>">New Value:</label>
+                                                <select id="ddlAddValue2" runat="server" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 NoGutters text-right">
+                            <asp:Button ID="btnCancelDropDown" runat="server" Text="Cancel" CssClass="btn btn-danger" />&nbsp;&nbsp;
+                            <asp:Button ID="btnSaveDropDownChanges" runat="server" Text="Save Changes" CssClass="btn btn-primary" OnClientClick="SaveValue();" OnClick="btnSaveDropDownChanges_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Change the drop down additional value -->
+
+
+
+
+
+
+
+
+
+
     <!-- /#page-wrapper -->
 
     <script type="text/javascript">

@@ -8,8 +8,22 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 
+// JBradhaw 11/3/2019  Added addition information fields and saving to database.
 namespace LarpPortal.Classes
 {
+	public class cCharacterSkillAddValues
+	{
+		public string Value { get; set; }
+		public int SortOrder { get; set; }
+	}
+
+	public enum enumAddInfoType
+	{
+		None = 0,
+		FreeText = 1,
+		DropDown = 2
+	};
+
     public class cCharacterSkill
     {
         public cCharacterSkill()
@@ -20,6 +34,9 @@ namespace LarpPortal.Classes
             SuppressCampaignIncant = false;
             CardDisplayDescription = true;
             CardDisplayIncant = true;
+			AddInfoValue = "";
+			AddAvailableValues = new List<cCharacterSkillAddValues>();
+			AddInfoType = enumAddInfoType.None;
         }
 
         public override string ToString()
@@ -39,12 +56,9 @@ namespace LarpPortal.Classes
         public string SkillName { get; set; }
         public int CampaignSkillNodeID { get; set; }
         public int SkillTypeID { get; set; }
-        //public int SkillHeaderTypeID { get; set; }
-        //public string SkillTypeDescription { get; set; }
         public bool CanBeUsedPassively { get; set; }
         public double SkillCPCost { get; set; }
         public string SkillShortDescription { get; set; }
-//        public string SkillLongDescription { get; set; }
         public string PlayerDescription { get; set; }
         public string PlayerIncant { get; set; }
         public string SkillCardDescription { get; set; }
@@ -58,6 +72,9 @@ namespace LarpPortal.Classes
         public bool OpenToAll { get; set; }
         public string SkillTypeComments { get; set; }
         public int DisplayOrder { get; set; }
+		public enumAddInfoType AddInfoType { get; set; }
+		public string AddInfoValue { get; set; }
+		public List<cCharacterSkillAddValues> AddAvailableValues { get; set; }
         public RecordStatuses RecordStatus { get; set; }
 
         ///// <summary>
@@ -95,6 +112,7 @@ namespace LarpPortal.Classes
                 sParam.Add("@CardIncant", SkillCardIncant);
             sParam.Add("@SuppressCampaignDescription", SuppressCampaignDescription);
             sParam.Add("@SuppressCampaignIncant", SuppressCampaignIncant);
+			sParam.Add("@AddInfoValue", AddInfoValue);
             sParam.Add("@UserID", iUserID);
 
             cUtilities.PerformNonQuery("uspInsUpdCHCharacterSkills", sParam, "LARPortal", sUserName);

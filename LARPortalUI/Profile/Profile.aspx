@@ -27,6 +27,22 @@
             .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
                 display: none;
             }
+
+        .profilePictureSize {
+            max-height: 250px;
+            max-width: 250px;
+        }
+
+        .paddingLeftRight {
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .centerPicture {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 
 
@@ -439,13 +455,22 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="gutter">
-                                    <p>
-                                        <img src="/images/profile-photo.png" alt="" class="img-thumbnail" />
-                                    </p>
-                                    <p>To add a profile picture, use the buttons below.</p>
-                                    <button class="btn btn-sm btn-default" type="submit">Choose File</button>
-                                    <button class="btn btn-sm btn-primary" type="submit">Upload</button>
+                                <div class="row">
+                                    <asp:Image ID="imgPlayerImage" runat="server" CssClass="profilePictureSize centerPicture" />
+                                </div>
+                                <div class="row">
+                                    To add a profile picture, use the buttons below.
+                                </div>
+                                <div class="row">
+                                    <asp:FileUpload ID="ulFile" runat="server" CssClass="form-control" />
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-lg-6">
+                                        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="btn btn-primary col-sm-12" OnClick="btnSavePicture_Click" />
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12">
+                                        <asp:Button ID="btnClearPicture" runat="server" Text="Clear Picture" CssClass="btn btn-primary col-sm-12" OnClick="btnClearPicture_Click" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

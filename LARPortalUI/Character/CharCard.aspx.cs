@@ -129,6 +129,10 @@ namespace LarpPortal.Character
 
                 string FullDesc = "";
                 bool bDisplay;
+
+				if (dSkillRow["AddInfoValue"].ToString().Length > 0)
+					FullDesc += dSkillRow["AddInfoValue"].ToString() + "; ";
+
                 if (bool.TryParse(dSkillRow["CardDisplayDescription"].ToString(), out bDisplay))
                 {
                     if (bDisplay)

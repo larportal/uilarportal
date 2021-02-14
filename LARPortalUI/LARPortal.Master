@@ -36,11 +36,29 @@
     <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet" />
-<%--    <script src="/Scripts/jquery-3.3.1.min.js"></script>--%>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/Scripts/metisMenu.min.js"></script>
     <link href="/css/metisMenu.min.css" rel="stylesheet" />
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <style>
+        .SliderSwitch {
+            padding: 5px;
+            margin-top: 5px;
+            border: solid;
+            border-width: 2px;
+            border-color: lightgray;
+            border-radius: 5px;
+        }
+        .SliderBoxBorder {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            margin-right: -10px;
+        }
+    </style>
 
     <!-- Custom Theme JavaScript -->
     <script src="/Scripts/sb-admin-2.js"></script>
@@ -163,6 +181,7 @@
                                                     <li runat="server" id="liSetupDescription"><a href="/Campaigns/Setup/Description.aspx">Description</a></li>
                                                     <li runat="server" id="liSetupCustomFields"><a href="/Campaigns/Setup/CustomFields.aspx">Custom Fields</a></li>
                                                     <li runat="server" id="liSetupAssignRoles"><a href="/Campaigns/Setup/AssignRoles.aspx">Assign Roles</a></li>
+                                                    <li runat="server" id="liSkillQualifiers"><a href="/Campaigns/Setup/Skills/SkillQualifiers.aspx">Skill Qualifiers</a></li>
                                                     <%--<li><a href="/Campaigns/Setup/People.aspx">People</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Places.aspx">Places</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Rules.aspx">Rules</a></li>--%>

@@ -14,7 +14,7 @@ namespace LarpPortal.Campaigns.Setup
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnClose.Attributes.Add("data-dismiss", "modal");
+//            btnClose.Attributes.Add("data-dismiss", "modal");
             lblmodalMessage.Text = "";
         }
 
@@ -38,6 +38,7 @@ namespace LarpPortal.Campaigns.Setup
             chkPCApprovalRequired.Checked = Campaigns.PlayerApprovalRequired;
             chkShareLocationUseNotes.Checked = Campaigns.ShareLocationUseNotes;
             chkUseCampaignCharacters.Checked = Campaigns.UseCampaignCharacters;
+			chkAllowAddInfo.Checked = Campaigns.AllowAdditionalInfo;
             tbEarliestCPApplicationYear.Text = Campaigns.EarliestCPApplicationYear.ToString();
             if (tbEarliestCPApplicationYear.Text == null)
             {
@@ -92,6 +93,12 @@ namespace LarpPortal.Campaigns.Setup
             Campaigns.NPCApprovalRequired = chkNPCApprovalRequired.Checked;
             Campaigns.UseCampaignCharacters = chkUseCampaignCharacters.Checked;
             Campaigns.PlayerApprovalRequired = chkPCApprovalRequired.Checked;
+			Campaigns.AllowAdditionalInfo = chkAllowAddInfo.Checked;
+
+			if (chkAllowAddInfo.Checked)
+				Session["AllowAdditionalInfo"] = "T";
+			else
+				Session["AllowAdditionalInfo"] = "F";
 
             if (int.TryParse(ddlPELApprovalLevel.SelectedValue, out iTemp))
             Campaigns.PELApprovalLevel = iTemp;
@@ -111,5 +118,10 @@ namespace LarpPortal.Campaigns.Setup
             lblmodalMessage.Text = "Campaign policy changes have been saved.";
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
         }
+
+		protected void btnClose_Click(object sender, EventArgs e)
+		{
+			Response.Redirect(Request.RawUrl);
+		}
     }
-}
+    }

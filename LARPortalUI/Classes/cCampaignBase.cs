@@ -128,6 +128,7 @@ namespace LarpPortal.Classes
 		private double _PerPlayerInvoiceAmount = 0.00;
 		private string _BillingFrequency = "";
 		private bool? _AutoBuyParentSkills;
+		private Boolean _AllowAdditionalInfo = false;
 
 		public Int32 CampaignID
 		{
@@ -712,6 +713,12 @@ namespace LarpPortal.Classes
 			set { _AutoBuyParentSkills = value; }
 		}
 
+		public Boolean AllowAdditionalInfo					// JBradshaw  1/21/2020 Added to enable/disable additional info.
+		{
+			get { return _AllowAdditionalInfo; }
+			set { _AllowAdditionalInfo = value; }
+		}
+
 		public cCampaignBase()
 		{
 
@@ -905,6 +912,10 @@ namespace LarpPortal.Classes
 						_AutoBuyParentSkills = bTemp;
 					else
 						_AutoBuyParentSkills = true;
+					if (bool.TryParse(ldt.Rows[0]["AllowAdditionalInfo"].ToString(), out bTemp))			// JBradshaw  1/21/2020
+						_AllowAdditionalInfo = bTemp;
+					else
+						_AllowAdditionalInfo = false;
 					GetGenres(strUserName);
 					GetPeriods(strUserName);
 					GetTechLevels(strUserName);
@@ -1012,6 +1023,7 @@ namespace LarpPortal.Classes
 				slParams.Add("@ShowRegistrationNotificationEmail", ShowRegistrationNotificationEmail);
 				slParams.Add("@PerPlayerInvoiceAmount", _PerPlayerInvoiceAmount);
 				slParams.Add("@BillingFrequency", _BillingFrequency);
+				slParams.Add("@AllowAdditionalInfo", _AllowAdditionalInfo);
 				slParams.Add("@Comments", _Comments);
 				cUtilities.PerformNonQuery("uspInsUpdCMCampaigns", slParams, "LARPortal", _UserName);
 				blnReturn = true;

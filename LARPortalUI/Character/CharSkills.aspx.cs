@@ -631,8 +631,54 @@ namespace LarpPortal.Character
 		/// <returns></returns>
 		protected string FormatDescString(DataRowView dTreeNode)
 		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			string t = dTreeNode["AllowAdditionalInfo"].ToString();
+						string s = dTreeNode["CharacterHasSkill"].ToString().ToString();
+
 			string sTreeNode = @"<a onmouseover=""GetContent(" + dTreeNode["CampaignSkillNodeID"].ToString() + @"); """ +
 				   @"style=""text-decoration: none; color: black; margin-left: 0px; padding-left: 0px;"" > " + dTreeNode["SkillName"].ToString() + @"</a>";
+
+			if (dTreeNode["AllowAdditionalInfo"].ToString().ToUpper() == "FALSE")
+				return sTreeNode;
+
+			int iAddInfoType;
+			if (!int.TryParse(dTreeNode["AddInfoType"].ToString(), out iAddInfoType))
+				return sTreeNode;
+
+			if ((iAddInfoType != (int) enumAddInfoType.DropDown) &&
+				(iAddInfoType != (int) enumAddInfoType.FreeText))
+				return sTreeNode;
+
+			if ((dTreeNode["Changeable"].ToString().ToUpper() == "FALSE") &&
+				(dTreeNode["CharacterHasSkill"].ToString().ToString() == "TRUE"))
+				return sTreeNode;
+
+			// If we got this far - it means the add info is enabled, is either text or drop down and 
+			// either the person doesn't have the skill or they have the skill and it's changeable.
+
+			if (dTreeNode["AddInfoValue"].ToString().Length > 0)
+			{
+				sTreeNode += @" <a href='javascript:ChangeValue(""" + dTreeNode["CampaignSkillNodeID"].ToString() + @"""";
+				if (dTreeNode["AddInfoValue"].ToString().Length > 0)
+					sTreeNode += @",""" + dTreeNode["AddInfoValue"].ToString().Replace("'", "''") + @""");'>&nbsp;" +
+						dTreeNode["AddInfoValue"].ToString().Replace("'", "''");
+				sTreeNode += "</a>";
+			}
+			else if (iAddInfoType == (int) enumAddInfoType.DropDown)
+			{
+				sTreeNode += @" <a href='javascript:ChangeValue(""" + dTreeNode["CampaignSkillNodeID"].ToString() + @"""";
+				sTreeNode += @", """");'>&nbsp;Select Value";
+				sTreeNode += "</a>";
+			}
+			else if (iAddInfoType == (int) enumAddInfoType.FreeText)
+			{
+				sTreeNode += @" <a href='javascript:ChangeValue(""" + dTreeNode["CampaignSkillNodeID"].ToString() + @"""";
+				sTreeNode += @", """");'>&nbsp;Add Value";
+				sTreeNode += "</a>";
+			}
+
 			return sTreeNode;
 		}
 
@@ -715,7 +761,14 @@ namespace LarpPortal.Character
 				{
 					var FoundRecord = oCharSelect.CharacterInfo.CharacterSkills.Find(x => x.CampaignSkillNodeID == iSkillNodeID);
 					if (FoundRecord != null)
+					{
 						FoundRecord.RecordStatus = Classes.RecordStatuses.Active;
+						DataView dvCampaignSkill = new DataView(dtCampaignSkills, "CampaignSkillNodeID = " + iSkillNodeID.ToString(), "", DataViewRowState.CurrentRows);
+						if (dvCampaignSkill.Count > 0)
+						{
+							FoundRecord.AddInfoValue = dvCampaignSkill[0]["AddInfoValue"].ToString();
+						}
+					}
 					else
 					{
 						Classes.cCharacterSkill Newskill = new Classes.cCharacterSkill();
@@ -730,6 +783,7 @@ namespace LarpPortal.Character
 							double dSkillCPCost = 0;
 							if (double.TryParse(dvCampaignSkill[0]["SkillCPCost"].ToString(), out dSkillCPCost))
 								Newskill.CPCostPaid = dSkillCPCost;
+							Newskill.AddInfoValue = dvCampaignSkill[0]["AddInfoValue"].ToString();
 						}
 						oCharSelect.CharacterInfo.CharacterSkills.Add(Newskill);
 					}
@@ -1474,6 +1528,33 @@ namespace LarpPortal.Character
 				GetAllNodes(NodeList, tnChild);
 				NodeList.Add(tnChild);
 			}
+		}
+
+		public string GetValue(string it)
+		{
+			return "Got it!" + it;
+		}
+
+		protected void btnSaveTextChanges_Click(object sender, EventArgs e)
+		{
+			_dtCampaignSkills = Session["SkillNodes"] as DataTable;
+			string sCampaignSkillNodeID = hidCampaignSkillNodeID.Value;
+			DataView dv = new DataView(_dtCampaignSkills, "CampaignSkillNodeID = " + sCampaignSkillNodeID, "", DataViewRowState.CurrentRows);
+			if (dv.Count > 0)
+				dv[0]["AddInfoValue"] = tbNewValue.Text;
+			Session["SkillNodes"] = _dtCampaignSkills;
+			RebuildTreeView();
+		}
+
+		protected void btnSaveDropDownChanges_Click(object sender, EventArgs e)
+		{
+			_dtCampaignSkills = Session["SkillNodes"] as DataTable;
+			string sCampaignSkillNodeID = hidCampaignSkillNodeID.Value;
+			DataView dv = new DataView(_dtCampaignSkills, "CampaignSkillNodeID = " + sCampaignSkillNodeID, "", DataViewRowState.CurrentRows);
+			if (dv.Count > 0)
+				dv[0]["AddInfoValue"] = hidNewDropDownValue.Value;
+			Session["SkillNodes"] = _dtCampaignSkills;
+			RebuildTreeView();
 		}
 	}
 }

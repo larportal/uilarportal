@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -107,24 +108,24 @@ namespace LarpPortal.Profile
 
                 string pict = PLDemography.UserPhoto;
 
-                //if (PLDemography.HasPicture)
-                //{
-                //    imgPlayerImage.ImageUrl = PLDemography.Picture.PictureURL;
-                //    ViewState["UserIDPicture"] = PLDemography.Picture.PictureID;
-                //}
-                //else
-                //{
-                //    if (PLDemography.UserPhoto.Length > 0)
-                //    {
-                //        imgPlayerImage.ImageUrl = PLDemography.UserPhoto;
-                //        ViewState.Remove("UserIDPicture");
-                //    }
-                //    else
-                //    {
-                //        imgPlayerImage.ImageUrl = "http://placehold.it/150x150";
-                //        ViewState.Remove("UserIDPicture");
-                //    }
-                //}
+				if (PLDemography.HasPicture)
+				{
+					imgPlayerImage.ImageUrl = PLDemography.Picture.PictureURL;
+					ViewState["UserIDPicture"] = PLDemography.Picture.PictureID;
+				}
+				else
+				{
+					if (PLDemography.UserPhoto.Length > 0)
+					{
+						imgPlayerImage.ImageUrl = PLDemography.UserPhoto;
+						ViewState.Remove("UserIDPicture");
+					}
+					else
+					{
+						imgPlayerImage.ImageUrl = "http://placehold.it/150x150";
+						ViewState.Remove("UserIDPicture");
+					}
+				}
 
                 string emergencyContactPhone = string.Empty;
                 if (PLDemography.EmergencyContactPhone != null)
@@ -429,5 +430,67 @@ namespace LarpPortal.Profile
             lblMessage.Text = "Changes saved successfully.";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
         }
+
+
+		protected void btnSavePicture_Click(object sender, EventArgs e)
+		{
+			if (ulFile.HasFile)
+			{
+				try
+				{
+					string sUser = Session["LoginName"].ToString();
+					Classes.cPicture NewPicture = new Classes.cPicture();
+					NewPicture.PictureType = Classes.cPicture.PictureTypes.Profile;
+					NewPicture.CreateNewPictureRecord(sUser);
+					string sExtension = Path.GetExtension(ulFile.FileName);
+					NewPicture.PictureFileName = "PL" + NewPicture.PictureID.ToString("D10") + sExtension;
+
+					//int iCharacterID = 0;
+					//int.TryParse(ViewState["CurrentCharacter"].ToString(), out iCharacterID);
+					//NewPicture.CharacterID = iCharacterID;
+
+					string LocalName = NewPicture.PictureLocalName;
+
+					if (!Directory.Exists(Path.GetDirectoryName(NewPicture.PictureLocalName)))
+						Directory.CreateDirectory(Path.GetDirectoryName(NewPicture.PictureLocalName));
+
+					ulFile.SaveAs(NewPicture.PictureLocalName);
+					NewPicture.Save(sUser);
+
+					ViewState["UserIDPicture"] = NewPicture.PictureID;
+					ViewState.Remove("PictureDeleted");
+
+					imgPlayerImage.ImageUrl = NewPicture.PictureURL;
+					imgPlayerImage.Visible = true;
+					btnClearPicture.Visible = true;
+				}
+				catch (Exception ex)
+				{
+					lblMessage.Text = ex.Message + "<br>" + ex.StackTrace;
+				}
+			}
+		}
+
+		protected void btnClearPicture_Click(object sender, EventArgs e)
+		{
+			if (ViewState["UserIDPicture"] != null)
+				ViewState.Remove("UserIDPicture");
+
+			imgPlayerImage.Visible = false;
+			btnClearPicture.Visible = false;
+
+			//SortedList sParam = new SortedList();
+			//sParam.Add("@CharacterID", Session["SelectedCharacter"].ToString());
+
+			//Classes.cUtilities.LoadDataTable("uspClearCharacterProfilePicture", sParam, "LARPortal", Session["UserID"].ToString(), "CharInfo.btnClearPicture");
+		}
+
+
+
+
+
+
+
+
     }
 }

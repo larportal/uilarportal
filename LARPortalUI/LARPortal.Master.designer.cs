@@ -9,6 +9,7 @@
 
 namespace LarpPortal {
     
+    
     public partial class LARPortal {
         
         /// <summary>
@@ -199,6 +200,15 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSetupAssignRoles;
+        
+        /// <summary>
+        /// liSkillQualifiers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSkillQualifiers;
         
         /// <summary>
         /// liEventRegistrationApproval control.

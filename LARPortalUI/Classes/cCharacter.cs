@@ -615,17 +615,14 @@ namespace LarpPortal.Classes
                     SkillSetTypeDescription = dSkill["SkillSetTypeDescription"].ToString(),
                     SkillName = dSkill["SkillName"].ToString(),
                     SkillShortDescription = dSkill["SkillShortDescription"].ToString(),
-                    //                    SkillLongDescription = dSkill["SkillLongDescription"].ToString(),
                     CampaignSkillsStandardComments = dSkill["CampaignSkillsStandardComments"].ToString(),
-                    //                    SkillTypeDescription = dSkill["SkillTypeDescription"].ToString(),
                     SkillTypeComments = dSkill["SkillTypeComments"].ToString(),
                     PlayerDescription = dSkill["PlayerDescription"].ToString(),
                     PlayerIncant = dSkill["PlayerIncant"].ToString(),
                     SkillCardDescription = dSkill["SkillCardDescription"].ToString(),
-                    SkillCardIncant = dSkill["SkillIncant"].ToString()
-                    //if (SuppressCampaignDescription != null)
-                    //if (SuppressCampaignIncant != null)
-                    // DisplayOnCard
+					SkillCardIncant = dSkill["SkillIncant"].ToString(),
+					AddInfoValue = dSkill["AddInfoValue"].ToString(),
+					AddInfoType = (int) enumAddInfoType.None
                 };
 
 
@@ -701,6 +698,37 @@ namespace LarpPortal.Classes
                 if (bool.TryParse(dSkill["CardDisplayIncant"].ToString(), out bTemp))
                     NewSkill.CardDisplayIncant = bTemp;
 
+				NewSkill.AddInfoValue = "";
+				if (int.TryParse(dSkill["AddInfoType"].ToString(), out iTemp))
+				{
+					switch (iTemp)
+					{
+						case (int) enumAddInfoType.DropDown:
+							NewSkill.AddInfoType = enumAddInfoType.DropDown;
+							NewSkill.AddInfoValue = dSkill["AddInfoValue"].ToString();
+							SortedList sSkillAddValues = new SortedList();
+							sSkillAddValues.Add("@CharacterSkillID", NewSkill.CharacterSkillID);
+							//DataTable dtValues = cUtilities.LoadDataTable("uspGetCharacterSkillAddValuesList", sSkillAddValues, "LARPortal", 
+							//	"GeneralUser", lsRoutineName + ".GetAvailValues");
+							//foreach (DataRow dRow in dtValues.Rows)
+							//{
+							//	cCharacterSkillAddValues NewValue = new cCharacterSkillAddValues();
+							//	NewValue.Value = dRow["DisplayValue"].ToString();
+							//	if (int.TryParse(dRow["SortOrder"].ToString(), out iTemp))
+							//		NewValue.SortOrder = iTemp;
+							//	else
+							//		NewValue.SortOrder = 1;
+							//	NewSkill.AddAvailableValues.Add(NewValue);
+							//}
+							break;
+
+						case (int) enumAddInfoType.FreeText:
+							NewSkill.AddInfoType = enumAddInfoType.FreeText;
+							NewSkill.AddInfoValue = dSkill["AddInfoValue"].ToString();
+							NewSkill.AddAvailableValues = new List<cCharacterSkillAddValues>();
+							break;
+					};
+				}
 
                 NewSkill.RecordStatus = RecordStatuses.Active;
 

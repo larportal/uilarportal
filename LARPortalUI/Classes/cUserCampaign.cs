@@ -35,6 +35,7 @@ namespace LarpPortal.Classes
         private int _OwnerCriticalityRating = 3;
         private int _StatusID = 0;
         private string _Comments = "";
+		private bool? _AllowAdditionalInfo = false;
 
         public Int32 CampaignPlayerID
         {
@@ -121,41 +122,46 @@ namespace LarpPortal.Classes
             get { return _PlayerWaiverID; }
             set { _PlayerWaiverID = value; }
         }
-        private decimal CreditAmount
+        public decimal CreditAmount
         {
             get { return _CreditAmount; }
             set { _CreditAmount = value; }
         }
-        private Boolean ShowRolesToOtherCampaigns
+        public Boolean ShowRolesToOtherCampaigns
         {
             get { return _ShowRolesToOtherCampaigns; }
             set { _ShowRolesToOtherCampaigns = value; }
         }
-        private Boolean AutoregisterForEvents
+        public Boolean AutoregisterForEvents
         {
             get { return _AutoregisterForEvents; }
             set { _AutoregisterForEvents = value; }
         }
-        private int AutoregisterType
+        public int AutoregisterType
         {
             get { return _AutoregisterType; }
             set { _AutoregisterType = value; }
         }
-        private int OwnerCriticalityRating
+        public int OwnerCriticalityRating
         {
             get { return _OwnerCriticalityRating; }
             set { _OwnerCriticalityRating = value; }
         }
-        private int StatusID
+        public int StatusID
         {
             get { return _StatusID; }
             set { _StatusID = value; }
         }
-        private string Comments
+        public string Comments
         {
             get { return _Comments; }
             set { _Comments = value; }
         }
+		public bool? AllowAdditionalInfo
+		{
+			get { return _AllowAdditionalInfo; }
+			set { _AllowAdditionalInfo = value; }
+		}
 
         /// <summary>
         /// This will load the details of a particular user campaign
@@ -189,6 +195,12 @@ namespace LarpPortal.Classes
                 CampaignName = dRow["CampaignName"].ToString();
                 EmailAddress = dRow["EmailAddress"].ToString();
                 Sort = dRow["Sort"].ToString();
+				bool AllowAdd = false;
+				AllowAdditionalInfo = false;
+				if (bool.TryParse(dRow["AllowAdditionalInfo"].ToString(), out AllowAdd))
+				{
+					AllowAdditionalInfo = AllowAdd;
+				}
             }
         }
 

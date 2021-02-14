@@ -217,6 +217,13 @@ namespace LarpPortal
 						UserInfo.LastLoggedInCampaign = iCampaignID;
 						UserInfo.Save();
 
+						Classes.cCampaignBase Campaign = new Classes.cCampaignBase(iCampaignID, UserName, UserID);
+
+
+
+
+
+
 						//oLogWriter.AddLogMessage("UserInfo was saved." + UserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 						//Classes.cUser NewUserInfo = new Classes.cUser(UserName, "NOPASSWORD", Session.SessionID);
 						//oLogWriter.AddLogMessage("CampaignID after update was " + NewUserInfo.LastLoggedInCampaign.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
@@ -255,15 +262,16 @@ namespace LarpPortal
 			if ((Session["CampaignID"] == null) ||
 				(Session["CampaignName"] == null) ||
 				(Session["CampaignList"] == null) ||
-				(Session["RoleString"] == null))
+				(Session["RoleString"] == null) ||
+				(Session["AllowAdditionalInfo"] == null))
 			{
 				Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
 				CampaignChoices.Load(UserID);
 
-				foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)
-				{
+				//foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)
+				//{
 					//					oLogWriter.AddLogMessage("ID:" + Camp.CampaignID.ToString() + "/" + Camp.CampaignName + "/" + Camp.LastLoggedInCampaign.ToString(), "Master.LoadData", "", Session.SessionID);
-				}
+				//}
 
 				int iCampID = -1;
 				Session["CampaignID"] = "-1";
@@ -278,10 +286,16 @@ namespace LarpPortal
 						CampaignChoices.lsUserCampaigns[0].LastLoggedInCampaign = CampaignChoices.lsUserCampaigns[0].CampaignID;
 
 					Session["CampaignID"] = CampaignChoices.lsUserCampaigns[0].LastLoggedInCampaign.ToString();
+					Session["AllowAdditionalInfo"] = "FALSE";
 					foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)
 					{
 						if (Camp.LastLoggedInCampaign == Camp.CampaignID)
+						{
 							Session["CampaignName"] = Camp.CampaignName;
+							if (Camp.AllowAdditionalInfo.HasValue)
+								if (Camp.AllowAdditionalInfo.Value)
+									Session["AllowAdditionalInfo"] = "T";
+						}
 					}
 				}
 				//					iCampID = CampaignChoices.lsUserCampaigns [0].CampaignID;
@@ -362,6 +376,7 @@ namespace LarpPortal
 			liCharacterBuildPoints.Style.Add("display", "none");
 			liEventSetup.Style.Add("display", "none");
 			//liCampaignMenu.Style.Add("display", "none");
+			liSkillQualifiers.Style.Add("display", "none");
 
 			if (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28))
 			{
@@ -449,6 +464,17 @@ namespace LarpPortal
 				//				liCampaignMenu.Style.Add("display", "block");
 			}
 
+			if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_SKILL_UPDATES_5)))
+			{
+				if (Session["AllowAdditionalInfo"] != null)
+					if (Session["AllowAdditionalInfo"].ToString().ToUpper().StartsWith("T"))
+					{
+						liCampaignSetupMenu.Style.Add("display", "block");
+						liSkillQualifiers.Style.Add("display", "block");
+					}
+			}
+
 			if ((sRoleString.Contains(Classes.cConstants.LOGISTICS_CP_ASSIGNMENT_15)) ||
 				(sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
 			{
@@ -526,6 +552,9 @@ namespace LarpPortal
 
 			if (Session["RoleString"] != null)
 				Session.Remove("RoleString");
+
+			if (Session["AllowAdditionalInfo"] != null)
+				Session.Remove("AllowAdditionalInfo");
 
 			LoadData();
 		}
