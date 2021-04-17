@@ -14,7 +14,9 @@
 <asp:Content ID="MasterSkillsEditScripts" ContentPlaceHolderID="MainScripts" runat="server">
 
     <script type="text/javascript">
-
+        function openMessage() {
+            $('#modalMessage').modal('show');
+        }
     </script>
 </asp:Content>
 <asp:Content ID="MasterSkillsEditBody" ContentPlaceHolderID="MainBody" runat="server">

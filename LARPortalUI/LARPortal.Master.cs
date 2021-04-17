@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -109,6 +111,14 @@ namespace LarpPortal
 
 		protected void Page_PreRender(object sender, EventArgs e)
 		{
+			if (Request.Url.Host.ToUpper().Contains("BETA."))
+			{
+				lblMessage.Text = "Beta Site";
+				SqlConnectionStringBuilder ConnPieces = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString);
+				if (ConnPieces != null)
+					lblMessage.Text += "  Database: " + ConnPieces.InitialCatalog;
+			}
+
 			Classes.cLogin SiteFooter = new Classes.cLogin();
 			SiteFooter.SetPageFooter();
 			lblFooter.Text = SiteFooter.SiteFooter;

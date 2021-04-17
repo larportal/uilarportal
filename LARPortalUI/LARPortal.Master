@@ -1,5 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="LARPortal.master.cs" Inherits="LarpPortal.LARPortal" %>
 
+<%@ Register
+    Assembly="AjaxControlToolkit"
+    Namespace="AjaxControlToolkit"
+    TagPrefix="ajaxToolkit"%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,9 +44,6 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/Scripts/metisMenu.min.js"></script>
     <link href="/css/metisMenu.min.css" rel="stylesheet" />
-
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <style>
         .SliderSwitch {
@@ -101,9 +102,15 @@
         });
     </script>
 
+
+
     <asp:ContentPlaceHolder ID="MainScripts" runat="server"></asp:ContentPlaceHolder>
+
+    <!-- Bootstrap Toggle to make checkboxes into sliders.  -->
+    <link href="/Content/bootstrap-toggle.min.css" rel="stylesheet" />
+    <script src="/Scripts/bootstrap-toggle.min.js"></script>
 </head>
-<body>
+<body runat="server" id="pageBody">
     <form id="form2" runat="server">
         <asp:ScriptManager ID="smManager" runat="server" />
         <div id="wrapper">
@@ -117,6 +124,9 @@
                     <a class="navbar-brand" href="/Default.aspx" style="padding-top: 10px; padding-left: 5px;">LARP Portal <span class="tagline">The Gateway To Managing Your LARPs</span></a>
                 </div>
                 <ul class="links list-inline">
+                    <li>
+                        <asp:Label ID="lblMessage" runat="server" />
+                    </li>
                     <li>
                         <%-- Role list will be transparent unless a super user.--%>
                         <asp:Label ID="lblRoles" runat="server" ForeColor="Transparent" />
@@ -387,7 +397,7 @@
     </form>
 
     <!-- Modal - Terms of Use -->
-    <div class="modal fade" id="terms" role="dialog">
+    <div class="modal fade in" id="terms" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">

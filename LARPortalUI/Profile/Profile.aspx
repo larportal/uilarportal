@@ -283,7 +283,7 @@
                         tbEnterCountry.value = Country;
                 }
 
-                var ddlEnterState = document.getElementById('<%= ddlEnterState.ClientID %>');
+                var ddlEnterAddressType = document.getElementById('<%= ddlEnterAddressType.ClientID %>');
                 if (ddlEnterAddressType) {
                     ddlEnterAddressType.options[0].selected = true
                     if (AddressType)
@@ -644,26 +644,7 @@
 
 
 
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal">&times;</a>
-                    <h3 class="modal-title text-center">Profile Demographics</h3>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <asp:Label ID="lblMessage" runat="server" />
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="btn btn-primary" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalPhoneNumber" role="dialog">
+    <div class="modal fade in" id="modalPhoneNumber" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -723,7 +704,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalPhoneNumberDelete" role="dialog">
+    <div class="modal fade in" id="modalPhoneNumberDelete" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -753,7 +734,7 @@
     </div>
 
 
-    <div class="modal fade" id="modalEMail" role="dialog">
+    <div class="modal fade in" id="modalEMail" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -805,7 +786,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalEMailDelete" role="dialog">
+    <div class="modal fade in" id="modalEMailDelete" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -836,7 +817,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalAddress" role="dialog">
+    <div class="modal fade in" id="modalAddress" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -912,7 +893,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalAddressDelete" role="dialog">
+    <div class="modal fade in" id="modalAddressDelete" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -938,6 +919,25 @@
                             <asp:Button ID="btnDeleteAddress" runat="server" Text="Delete" CssClass="btn btn-primary" OnClick="btnDeleteAddress_Click" />
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade in" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title text-center">Profile Demographics</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <asp:Label ID="lblMessage" runat="server" />
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="btn btn-primary" />
                 </div>
             </div>
         </div>

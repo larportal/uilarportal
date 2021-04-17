@@ -144,6 +144,10 @@
     </script>
 
 
+    <!-- Bootstrap Toggle to make checkboxes into sliders.  -->
+    <link href="/Content/bootstrap-toggle.min.css" rel="stylesheet" />
+    <script src="/Scripts/bootstrap-toggle.min.js"></script>
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -200,6 +204,9 @@
                             <div class="text-center">
                                 <h3><a href="/LearnMoreAboutLARPortal.aspx">What is LARP Portal ?</a></h3>
                             </div>
+                            <div class="text-center">
+                                <asp:Label Style="color: transparent" runat="server" ID="lblVersion"></asp:Label>
+                            </div>
                         </div>
                         <div class="col-lg-8 col-lg-pull-4 col-md-6">
                             <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />
@@ -218,7 +225,7 @@
             <div class="margin40">&nbsp;</div>
         </div>
 
-        <div class="modal fade" id="modalActivationCode" role="dialog">
+        <div class="modal fade in" id="modalActivationCode" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

@@ -18,6 +18,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
         protected void Page_Load(object sender, EventArgs e)
         {
             //tbStartDateTime.Attributes.Add("onChange", "CalcDates();");
+            btnCloseMessage.Attributes.Add("data-dismiss", "modal");
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -335,6 +336,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
                             iSkillID = -1;
                 }
 
+                lblmodalMessage.Text = "The skill has been saved.";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
             }
             catch (Exception ex)

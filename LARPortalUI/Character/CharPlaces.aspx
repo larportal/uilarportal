@@ -191,7 +191,7 @@
         <div id="push"></div>
     </div>
 
-    <div class="modal fade" id="modalDelete" role="dialog">
+    <div class="modal fade in" id="modalDelete" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">

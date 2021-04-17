@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Profile {
+namespace LarpPortal.Profile
+{
     
     
-    public partial class LARPResume {
+    public partial class LARPResume
+    {
         
         /// <summary>
         /// gvResumeItems control.
@@ -225,8 +227,10 @@ namespace LarpPortal.Profile {
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

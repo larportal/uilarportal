@@ -216,7 +216,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="ModalMessage" role="dialog">
+        <div class="modal fade in" id="ModalMessage" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -235,7 +235,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalPlayerSkill" role="dialog">
+        <div class="modal fade in" id="modalPlayerSkill" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -294,7 +294,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modalDeletePlayerSkill" role="dialog">
+        <div class="modal fade in" id="modalDeletePlayerSkill" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -329,7 +329,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalPlayerAffil" role="dialog">
+        <div class="modal fade in" id="modalPlayerAffil" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -381,7 +381,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalDeletePlayerAffil" role="dialog">
+        <div class="modal fade in" id="modalDeletePlayerAffil" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="CharInfo.aspx.cs" Inherits="LarpPortal.Character.CharInfo" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="CharInfoStyles" ContentPlaceHolderID="MainStyles" runat="Server">
@@ -611,7 +613,7 @@
     </div>
 
     <!-- JBradshaw  7/11/2016    Request #1286     Changed over to bootstrap popup.  -->
-    <div class="modal fade" id="modalError" role="dialog">
+    <div class="modal fade in" id="modalError" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -630,7 +632,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalDeleteDeath" role="dialog">
+    <div class="modal fade in" id="modalDeleteDeath" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -657,7 +659,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalDeleteActor" role="dialog">
+    <div class="modal fade in" id="modalDeleteActor" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -684,7 +686,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalDeleteDesc" role="dialog">
+    <div class="modal fade in" id="modalDeleteDesc" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -711,7 +713,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalMessage" role="dialog">
+    <div class="modal fade in" id="modalMessage" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -734,7 +736,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalEditUpdateDeath" role="dialog">
+    <div class="modal fade in" id="modalEditUpdateDeath" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -790,7 +792,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalEditUpdateActor" role="dialog">
+    <div class="modal fade in" id="modalEditUpdateActor" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

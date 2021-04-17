@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns.Setup.Skills {
+namespace LarpPortal.Campaigns.Setup.Skills
+{
     
     
-    public partial class MasterSkillsEdit {
+    public partial class MasterSkillsEdit
+    {
         
         /// <summary>
         /// rfvSkillName control.
@@ -121,6 +123,24 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
+        /// lblmodalMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmodalMessage;
+
+        /// <summary>
+        /// btnCloseMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseMessage;
+
+        /// <summary>
         /// hidCampaignSkillsID control.
         /// </summary>
         /// <remarks>
@@ -144,8 +164,10 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

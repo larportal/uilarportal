@@ -106,7 +106,7 @@
                             </div>
                         </div>
 
-                        <div class="modal fade" id="modalMessage" role="dialog">
+                        <div class="modal fade in" id="modalMessage" role="dialog">
                             <div class="modal-dialog modal-lg">
                                 <!-- Modal content-->
                                 <div class="modal-content">

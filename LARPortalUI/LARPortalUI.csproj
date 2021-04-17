@@ -101,8 +101,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\AjaxControlToolkit.dll" />
-    <Content Include="bin\CKEditor.NET.dll" />
+    <Content Include="bin\AjaxControlToolkit.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\CKEditor.NET.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Calendar\MonthCalendar.aspx" />
     <Content Include="Calendar\CalGraphic.aspx" />
     <Content Include="Calendar\CalReport.aspx" />
@@ -452,14 +456,20 @@
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-toggle.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap2-toggle.css" />
+    <Content Include="Content\bootstrap2-toggle.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.min.css" />
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.print.min.css" />
     <Content Include="Controls\CharacterSelect.ascx" />
+    <Content Include="css\bootstrap-toggle.min.css" />
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\SideBarMenu.css" />
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
@@ -670,8 +680,11 @@
     <Content Include="Content\bootstrap\button-groups.less" />
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap2-toggle.js" />
+    <Content Include="Scripts\bootstrap2-toggle.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -691,6 +704,11 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Scripts\bootstrap2-toggle.min.js.map" />
+    <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-toggle.min.js.map" />
+    <Content Include="BetavsLive.scmp" />
     <None Include="Scripts\jquery-3.5.1-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1652,6 +1670,7 @@
     <Compile Include="Classes\cCharacterItems.cs" />
     <Compile Include="Classes\cCharacterPlace.cs" />
     <Compile Include="Classes\cCharacterRelationship.cs" />
+    <Compile Include="Classes\cCharacterSkillCost.cs" />
     <Compile Include="Classes\cCharacterSkill.cs" />
     <Compile Include="Classes\cCharacterSkillSets.cs" />
     <Compile Include="Classes\cCharacterStatus.cs" />

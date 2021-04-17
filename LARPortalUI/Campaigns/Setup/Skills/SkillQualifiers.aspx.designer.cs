@@ -7,10 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns.Setup.Skills {
+namespace LarpPortal.Campaigns.Setup.Skills
+{
     
     
-    public partial class SkillQualifiers {
+    public partial class SkillQualifiers
+    {
         
         /// <summary>
         /// upSkill control.
@@ -207,8 +209,10 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

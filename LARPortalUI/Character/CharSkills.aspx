@@ -229,7 +229,7 @@
         <div id="push"></div>
     </div>
 
-    <div class="modal fade" id="modalMessage" role="dialog">
+    <div class="modal fade in" id="modalMessage" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
@@ -258,7 +258,7 @@
     <asp:HiddenField ID="hidCampaignSkillNodeID" runat="server" />
 
     <!--  Change the text additional value -->
-    <div class="modal fade" id="modalChangeTextValue" role="dialog">
+    <div class="modal fade in" id="modalChangeTextValue" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
@@ -312,7 +312,7 @@
 
 
     <!--  Change the text additional value -->
-    <div class="modal fade" id="modalChangeDropDownValue" role="dialog">
+    <div class="modal fade in" id="modalChangeDropDownValue" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">

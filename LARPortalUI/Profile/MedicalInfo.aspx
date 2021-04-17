@@ -353,7 +353,7 @@
         </div>
         <div id="push"></div>
 
-        <div class="modal fade" id="ModalMessage" role="dialog">
+        <div class="modal fade in" id="ModalMessage" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -372,7 +372,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalMedical" role="dialog">
+        <div class="modal fade in" id="modalMedical" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -444,7 +444,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalMedicalDelete" role="dialog">
+        <div class="modal fade in" id="modalMedicalDelete" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -477,7 +477,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalLimitation" role="dialog">
+        <div class="modal fade in" id="modalLimitation" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -546,7 +546,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalLimitationsDelete" role="dialog">
+        <div class="modal fade in" id="modalLimitationsDelete" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

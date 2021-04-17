@@ -271,7 +271,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalItem" role="dialog">
+        <div class="modal fade in" id="modalItem" role="dialog">
             <div class="modal-dialog wide-modal">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -381,7 +381,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalItemDelete" role="dialog">
+        <div class="modal fade in" id="modalItemDelete" role="dialog">
             <div class="modal-dialog wide-modal">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -417,7 +417,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade in" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

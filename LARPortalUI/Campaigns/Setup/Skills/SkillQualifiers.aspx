@@ -171,11 +171,7 @@
                                             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save The Skill" OnClick="btnSave_Click" />
                                         </p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal fade" id="modalMessage" role="dialog">
+                                    <div class="modal fade in" id="modalMessage" role="dialog">
                             <div class="modal-dialog modal-lg">
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -197,6 +193,10 @@
                                     </div>
                                 </div>
                             </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%--                        </div>--%>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

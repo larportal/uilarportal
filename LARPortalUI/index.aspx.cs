@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,6 +16,8 @@ namespace LarpPortal
 			tbUserName.Attributes.Add("PlaceHolder", "Username");
 			tbPassword.Attributes.Add("PlaceHolder", "Password");
 			btnClose.Attributes.Add("data-dismiss", "modal");
+			lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  " +
+				File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString();
 			tbUserName.Focus();
 
 			// Added to redirect http to https
@@ -39,6 +42,7 @@ namespace LarpPortal
 				OpsMode.SetSiteOperationalMode();
 				SiteOpsMode = OpsMode.SiteOperationalMode;
 				Session["OperationalMode"] = SiteOpsMode;
+				int x = 10;
 			}
 		}
 

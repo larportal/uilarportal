@@ -113,25 +113,25 @@ namespace LarpPortal.Classes
 
 			//			MailMessage.Subject = subject;
 			MailMessage.Subject = subject ?? throw new ArgumentException("The subject is empty");
-			MailMessage.From.Add(new MailboxAddress(strFrom));
+			MailMessage.From.Add(new MailboxAddress(strFrom, strFrom));
 
             string[] recipients = Tos.Split(",;".ToArray());
             foreach (string rec in recipients)
                 if (rec.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-					MailMessage.To.Add(new MailboxAddress(rec.Trim()));
+					MailMessage.To.Add(new MailboxAddress(rec.Trim(), rec.Trim()));
             if (!string.IsNullOrEmpty(ccs))
             {
                 string[] ccEmails = ccs.Split(",;".ToArray());
                 foreach (string cc in ccEmails)
                     if (cc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-						MailMessage.Cc.Add(new MailboxAddress(cc.Trim()));
+						MailMessage.Cc.Add(new MailboxAddress(cc.Trim(), cc.Trim()));
             }
             if (!string.IsNullOrEmpty(bccs))
             {
                 string[] bccEmails = bccs.Split(",;".ToArray());
                 foreach (string bcc in bccEmails)
                     if (bcc.Trim().Length > 0)     // JLB 6/5/2016 - Don't add if address is blank. Will cause errors.
-						MailMessage.Bcc.Add(new MailboxAddress(bcc.Trim()));
+						MailMessage.Bcc.Add(new MailboxAddress(bcc.Trim(), bcc.Trim()));
             }
 			MailBody.HtmlBody = body;
 			MailMessage.Body = MailBody.ToMessageBody();

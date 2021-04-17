@@ -28,7 +28,7 @@
             }
 
             .box p {
-                font-size: 1.125;
+                font-size: 1.125em;
             }
 
         @media (max-width: 414px) {

@@ -180,7 +180,7 @@
                 <asp:Button ID="btnSaveComments" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSaveComments_Click" />
             </div>
         </div>
-        <div class="modal fade" id="ModalMessage" role="dialog">
+        <div class="modal fade in" id="ModalMessage" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

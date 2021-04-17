@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Profile {
-    
-    
-    public partial class Profile {
-        
+namespace LarpPortal.Profile
+{
+
+
+    public partial class Profile
+    {
+
         /// <summary>
         /// tbFirstName control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbFirstName;
-        
+
         /// <summary>
         /// tbMiddleName control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMiddleName;
-        
+
         /// <summary>
         /// tbLastName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLastName;
-        
+
         /// <summary>
         /// ddlGender control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlGender;
-        
+
         /// <summary>
         /// tbGenderOther control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbGenderOther;
-        
+
         /// <summary>
         /// tbBDMM control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText tbBDMM;
-        
+
         /// <summary>
         /// tbBDDD control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText tbBDDD;
-        
+
         /// <summary>
         /// tbBDYYYY control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText tbBDYYYY;
-        
+
         /// <summary>
         /// tbForumName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbForumName;
-        
+
         /// <summary>
         /// tbUserName control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbUserName;
-        
+
         /// <summary>
         /// tbNickName control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbNickName;
-        
+
         /// <summary>
         /// tbPenName control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPenName;
-        
+
         /// <summary>
         /// imgPlayerImage control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPlayerImage;
-        
+
         /// <summary>
         /// ulFile control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload ulFile;
-        
+
         /// <summary>
         /// btnUpload control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
-        
+
         /// <summary>
         /// btnClearPicture control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClearPicture;
-        
+
         /// <summary>
         /// tbEmergencyName control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEmergencyName;
-        
+
         /// <summary>
         /// tbEmergencyPhone control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEmergencyPhone;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// gvAddresses control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAddresses;
-        
+
         /// <summary>
         /// btnAddAddress control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddAddress;
-        
+
         /// <summary>
         /// gvPhoneNumbers control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPhoneNumbers;
-        
+
         /// <summary>
         /// btnAddPhoneNumber control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddPhoneNumber;
-        
+
         /// <summary>
         /// gvEmails control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvEmails;
-        
+
         /// <summary>
         /// btnAddEmail control.
         /// </summary>
@@ -236,25 +238,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddEmail;
-        
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-        
-        /// <summary>
-        /// btnClose control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClose;
-        
+
         /// <summary>
         /// tbEnterAreaCode control.
         /// </summary>
@@ -263,7 +247,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterAreaCode;
-        
+
         /// <summary>
         /// tbEnterPhoneNumber control.
         /// </summary>
@@ -272,7 +256,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterPhoneNumber;
-        
+
         /// <summary>
         /// tbEnterExtension control.
         /// </summary>
@@ -281,7 +265,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterExtension;
-        
+
         /// <summary>
         /// cbxEnterPrimary control.
         /// </summary>
@@ -290,7 +274,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxEnterPrimary;
-        
+
         /// <summary>
         /// ddlEnterPhoneType control.
         /// </summary>
@@ -299,7 +283,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnterPhoneType;
-        
+
         /// <summary>
         /// ddlEnterProvider control.
         /// </summary>
@@ -308,7 +292,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnterProvider;
-        
+
         /// <summary>
         /// btnClosePhoneNumber control.
         /// </summary>
@@ -317,7 +301,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClosePhoneNumber;
-        
+
         /// <summary>
         /// hidEnterPhoneID control.
         /// </summary>
@@ -326,7 +310,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEnterPhoneID;
-        
+
         /// <summary>
         /// btnSavePhone control.
         /// </summary>
@@ -335,7 +319,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSavePhone;
-        
+
         /// <summary>
         /// btnCancelDeletePhoneNumber control.
         /// </summary>
@@ -344,7 +328,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelDeletePhoneNumber;
-        
+
         /// <summary>
         /// hidDeletePhoneID control.
         /// </summary>
@@ -353,7 +337,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDeletePhoneID;
-        
+
         /// <summary>
         /// btnDeletePhone control.
         /// </summary>
@@ -362,7 +346,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeletePhone;
-        
+
         /// <summary>
         /// tbEnterEMailAddress control.
         /// </summary>
@@ -371,7 +355,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterEMailAddress;
-        
+
         /// <summary>
         /// ddlEnterEMailType control.
         /// </summary>
@@ -380,7 +364,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnterEMailType;
-        
+
         /// <summary>
         /// cbxEnterEMailPrimary control.
         /// </summary>
@@ -389,7 +373,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxEnterEMailPrimary;
-        
+
         /// <summary>
         /// btnCloseEnterEMail control.
         /// </summary>
@@ -398,7 +382,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseEnterEMail;
-        
+
         /// <summary>
         /// hidEnterEMailID control.
         /// </summary>
@@ -407,7 +391,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEnterEMailID;
-        
+
         /// <summary>
         /// btnSaveEMail control.
         /// </summary>
@@ -416,7 +400,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveEMail;
-        
+
         /// <summary>
         /// btnCancelDeleteEMail control.
         /// </summary>
@@ -425,7 +409,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelDeleteEMail;
-        
+
         /// <summary>
         /// hidDeleteEMailID control.
         /// </summary>
@@ -434,7 +418,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDeleteEMailID;
-        
+
         /// <summary>
         /// btnDeleteEMail control.
         /// </summary>
@@ -443,7 +427,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeleteEMail;
-        
+
         /// <summary>
         /// tbEnterAddress1 control.
         /// </summary>
@@ -452,7 +436,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterAddress1;
-        
+
         /// <summary>
         /// tbEnterAddress2 control.
         /// </summary>
@@ -461,7 +445,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterAddress2;
-        
+
         /// <summary>
         /// tbEnterCity control.
         /// </summary>
@@ -470,7 +454,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterCity;
-        
+
         /// <summary>
         /// ddlEnterState control.
         /// </summary>
@@ -479,7 +463,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnterState;
-        
+
         /// <summary>
         /// tbEnterZipCode control.
         /// </summary>
@@ -488,7 +472,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterZipCode;
-        
+
         /// <summary>
         /// tbEnterCountry control.
         /// </summary>
@@ -497,7 +481,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEnterCountry;
-        
+
         /// <summary>
         /// ddlEnterAddressType control.
         /// </summary>
@@ -506,7 +490,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEnterAddressType;
-        
+
         /// <summary>
         /// cbxEnterAddressPrimary control.
         /// </summary>
@@ -515,7 +499,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxEnterAddressPrimary;
-        
+
         /// <summary>
         /// btnCloseEnterAddress control.
         /// </summary>
@@ -524,7 +508,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseEnterAddress;
-        
+
         /// <summary>
         /// hidAddressID control.
         /// </summary>
@@ -533,7 +517,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAddressID;
-        
+
         /// <summary>
         /// btnSaveAddress control.
         /// </summary>
@@ -542,7 +526,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveAddress;
-        
+
         /// <summary>
         /// btnCancelDeleteAddress control.
         /// </summary>
@@ -551,7 +535,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelDeleteAddress;
-        
+
         /// <summary>
         /// hidDeleteAddressID control.
         /// </summary>
@@ -560,7 +544,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDeleteAddressID;
-        
+
         /// <summary>
         /// btnDeleteAddress control.
         /// </summary>
@@ -569,7 +553,25 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeleteAddress;
-        
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
+        /// btnClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose;
+
         /// <summary>
         /// hidNumOfPhones control.
         /// </summary>
@@ -578,7 +580,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidNumOfPhones;
-        
+
         /// <summary>
         /// hidNumOfEMails control.
         /// </summary>
@@ -587,7 +589,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidNumOfEMails;
-        
+
         /// <summary>
         /// hidNumOfAddresses control.
         /// </summary>
@@ -596,15 +598,17 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidNumOfAddresses;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

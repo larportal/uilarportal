@@ -3,10 +3,8 @@
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="AssignRolesStyles" ContentPlaceHolderID="MainStyles" runat="server">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="AssignRolesScripts" ContentPlaceHolderID="MainScripts" runat="server">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript">
         function openMessage() {
             $('#modalMessage').modal('show');
@@ -88,7 +86,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalMessage" role="dialog">
+    <div class="modal fade in" id="modalMessage" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
