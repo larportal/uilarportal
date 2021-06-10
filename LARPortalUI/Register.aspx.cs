@@ -145,7 +145,7 @@ namespace LarpPortal
 			Classes.cEmailMessageService NotifyStaff = new Classes.cEmailMessageService();
 			try
 			{
-				NotifyStaff.SendMail(strSubject, strBody, strTo, "", "", "ActivationKey", Username);
+				NotifyStaff.SendMail(strSubject, strBody, strTo, "", "support@larportal.com", "ActivationKey", Username);
 			}
 			catch (Exception)
 			{
