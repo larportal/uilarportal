@@ -424,8 +424,10 @@
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12">
                                         <div class="form-group">
-                                            <label for="<%= tbUserName.ClientID %>">User Name:</label>
-                                            <asp:TextBox ID="tbUserName" runat="server" CssClass="form-control" TabIndex="9" />
+                                            <%--<label for="<%= tbUserName.ClientID %>">User Name:</label>
+                                            <asp:TextBox ID="tbUserName" runat="server" CssClass="form-control" TabIndex="9" />--%>
+                                            <label for="<%= tbPenName.ClientID %>">Preferred Pronouns:</label>
+                                            <asp:TextBox ID="tbPenName" runat="server" CssClass="form-control" TabIndex="9" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -436,8 +438,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="<%= tbPenName.ClientID %>">Pen Name:</label>
-                                            <asp:TextBox ID="tbPenName" runat="server" CssClass="form-control" TabIndex="11" />
+                                            <label for="<%= tbUserName.ClientID %>">User Name:</label>
+                                            <asp:TextBox ID="tbUserName" runat="server" CssClass="form-control" TabIndex="11" />
+                                            <%--<label for="<%= tbPenName.ClientID %>">Pen Name:</label>
+                                            <asp:TextBox ID="tbPenName" runat="server" CssClass="form-control" TabIndex="11" />--%>
                                         </div>
                                     </div>
                                 </div>

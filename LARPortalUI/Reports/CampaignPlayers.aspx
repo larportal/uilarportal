@@ -38,6 +38,7 @@
                                             <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                                             <asp:BoundField DataField="Nickname" HeaderText="Nickname" />
                                             <asp:BoundField DataField="LastName" HeaderText="Last Name" />
+                                            <asp:BoundField DataField="Pronouns" HeaderText="Pronouns" />
                                             <asp:TemplateField HeaderText="Email (click to send)">
                                                 <ItemTemplate>
                                                     <asp:HyperLink ID="hplEmail" runat="server" Font-Underline="true" Text='<%# Eval("EmailAddress") %>' NavigateUrl='<%# "mailto:" + Eval("EmailAddress") %>'></asp:HyperLink>

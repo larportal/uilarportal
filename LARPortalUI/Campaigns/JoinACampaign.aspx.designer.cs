@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns {
-    
-    
-    public partial class JoinACampaign {
-        
+namespace LarpPortal.Campaigns
+{
+
+
+    public partial class JoinACampaign
+    {
+
         /// <summary>
         /// ddlOrderBy control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderBy;
-        
+
         /// <summary>
         /// chkGameSystem control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkGameSystem;
-        
+
         /// <summary>
         /// ddlGameSystem control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlGameSystem;
-        
+
         /// <summary>
         /// chkCampaign control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkCampaign;
-        
+
         /// <summary>
         /// ddlCampaign control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCampaign;
-        
+
         /// <summary>
         /// chkGenre control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkGenre;
-        
+
         /// <summary>
         /// ddlGenre control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlGenre;
-        
+
         /// <summary>
         /// chkStyle control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkStyle;
-        
+
         /// <summary>
         /// ddlStyle control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStyle;
-        
+
         /// <summary>
         /// chkTechLevel control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkTechLevel;
-        
+
         /// <summary>
         /// ddlTechLevel control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTechLevel;
-        
+
         /// <summary>
         /// chkSize control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkSize;
-        
+
         /// <summary>
         /// ddlSize control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSize;
-        
+
         /// <summary>
         /// chkZipCode control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkZipCode;
-        
+
         /// <summary>
         /// txtZipCode control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtZipCode;
-        
+
         /// <summary>
         /// ddlMileRadius control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMileRadius;
-        
+
         /// <summary>
         /// chkEndedCampaigns control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkEndedCampaigns;
-        
+
         /// <summary>
         /// lblCampaignSearchBy control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCampaignSearchBy;
-        
+
         /// <summary>
         /// pnlTreeView control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlTreeView;
-        
+
         /// <summary>
         /// tvGameSystem control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvGameSystem;
-        
+
         /// <summary>
         /// tvCampaign control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvCampaign;
-        
+
         /// <summary>
         /// tvGenre control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvGenre;
-        
+
         /// <summary>
         /// tvStyle control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvStyle;
-        
+
         /// <summary>
         /// tvTechLevel control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvTechLevel;
-        
+
         /// <summary>
         /// tvSize control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvSize;
-        
+
         /// <summary>
         /// gvCampaigns control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvCampaigns;
-        
+
         /// <summary>
         /// pnlImageURL control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlImageURL;
-        
+
         /// <summary>
         /// imgCampaignImage control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgCampaignImage;
-        
+
         /// <summary>
         /// hplLinkToSite control.
         /// </summary>
@@ -272,34 +274,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hplLinkToSite;
-        
-        /// <summary>
-        /// pnlOverview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlOverview;
-        
-        /// <summary>
-        /// lblGorC1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGorC1;
-        
-        /// <summary>
-        /// lblCampaignOverview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCampaignOverview;
-        
+
         /// <summary>
         /// pnlSelectors control.
         /// </summary>
@@ -308,7 +283,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSelectors;
-        
+
         /// <summary>
         /// lblGorC2 control.
         /// </summary>
@@ -317,7 +292,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGorC2;
-        
+
         /// <summary>
         /// tblSelectors control.
         /// </summary>
@@ -326,7 +301,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tblSelectors;
-        
+
         /// <summary>
         /// lblGameSystem1 control.
         /// </summary>
@@ -335,7 +310,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGameSystem1;
-        
+
         /// <summary>
         /// lblGameSystem2 control.
         /// </summary>
@@ -344,7 +319,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGameSystem2;
-        
+
         /// <summary>
         /// lblGenre1 control.
         /// </summary>
@@ -353,7 +328,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGenre1;
-        
+
         /// <summary>
         /// lblGenre2 control.
         /// </summary>
@@ -362,7 +337,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGenre2;
-        
+
         /// <summary>
         /// lblStyle1 control.
         /// </summary>
@@ -371,7 +346,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblStyle1;
-        
+
         /// <summary>
         /// lblStyle2 control.
         /// </summary>
@@ -380,7 +355,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblStyle2;
-        
+
         /// <summary>
         /// lblTechLevel1 control.
         /// </summary>
@@ -389,7 +364,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTechLevel1;
-        
+
         /// <summary>
         /// lblTechLevel2 control.
         /// </summary>
@@ -398,7 +373,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTechLevel2;
-        
+
         /// <summary>
         /// lblSize1 control.
         /// </summary>
@@ -407,7 +382,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSize1;
-        
+
         /// <summary>
         /// lblSize2 control.
         /// </summary>
@@ -416,7 +391,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSize2;
-        
+
         /// <summary>
         /// lblLocation1 control.
         /// </summary>
@@ -425,7 +400,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLocation1;
-        
+
         /// <summary>
         /// lblLocation2 control.
         /// </summary>
@@ -434,7 +409,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLocation2;
-        
+
         /// <summary>
         /// lblEvent1 control.
         /// </summary>
@@ -443,7 +418,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEvent1;
-        
+
         /// <summary>
         /// lblEvent2 control.
         /// </summary>
@@ -452,7 +427,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEvent2;
-        
+
         /// <summary>
         /// lblLastUpdated1 control.
         /// </summary>
@@ -461,7 +436,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLastUpdated1;
-        
+
         /// <summary>
         /// lblLastUpdated2 control.
         /// </summary>
@@ -470,7 +445,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLastUpdated2;
-        
+
         /// <summary>
         /// pnlSignUpForCampaign control.
         /// </summary>
@@ -479,7 +454,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSignUpForCampaign;
-        
+
         /// <summary>
         /// lblSignUp control.
         /// </summary>
@@ -488,7 +463,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSignUp;
-        
+
         /// <summary>
         /// tblAddCampaigns control.
         /// </summary>
@@ -497,7 +472,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tblAddCampaigns;
-        
+
         /// <summary>
         /// chkSignUp control.
         /// </summary>
@@ -506,7 +481,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList chkSignUp;
-        
+
         /// <summary>
         /// btnSignUpForCampaign control.
         /// </summary>
@@ -515,7 +490,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSignUpForCampaign;
-        
+
         /// <summary>
         /// lblSignUpMessage control.
         /// </summary>
@@ -524,7 +499,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSignUpMessage;
-        
+
         /// <summary>
         /// lblCurrentCampaign control.
         /// </summary>
@@ -533,7 +508,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCurrentCampaign;
-        
+
         /// <summary>
         /// listCurrentRoles control.
         /// </summary>
@@ -542,7 +517,7 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater listCurrentRoles;
-        
+
         /// <summary>
         /// lblCurrentRoles control.
         /// </summary>
@@ -551,15 +526,44 @@ namespace LarpPortal.Campaigns {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCurrentRoles;
-        
+
+        /// <summary>
+        /// pnlOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlOverview;
+
+        /// <summary>
+        /// lblGorC1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGorC1;
+
+        /// <summary>
+        /// lblCampaignOverview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCampaignOverview;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
