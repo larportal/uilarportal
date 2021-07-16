@@ -452,7 +452,6 @@
     <Content Include="ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="ckeditor\styles.js" />
-    <Content Include="Donations\ClaimDonation.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -472,7 +471,6 @@
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\SideBarMenu.css" />
-    <Content Include="Donations\DonationClaim.aspx" />
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
     <Content Include="Events\EventEdit.aspx" />
@@ -491,10 +489,8 @@
     <Content Include="images\LARPing.png" />
     <Content Include="images\LARPLogo.png" />
     <Content Include="images\LP_icons_Campaigns.jpg" />
-    <Content Include="images\minus.png" />
     <Content Include="images\Monique.jpg" />
     <Content Include="images\Player.png" />
-    <Content Include="images\plus.png" />
     <Content Include="images\Points.png" />
     <Content Include="images\PortalImageFade.jpg" />
     <Content Include="images\RegisterForAnEvent.png" />
@@ -624,12 +620,10 @@
     <Content Include="InitialJoinCampaign.aspx" />
     <Content Include="NewUserDirections.aspx" />
     <Content Include="NewUserSelectCampaign.aspx" />
-    <Content Include="Donations\ParentChildTest.aspx" />
     <Content Include="Payments\EventPayment102.aspx" />
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment69.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
-    <Content Include="Points\MemberPoolPoints.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
     <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
@@ -1661,14 +1655,6 @@
     <Compile Include="Character\Teams\ManageTeams.aspx.designer.cs">
       <DependentUpon>ManageTeams.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\cDonation.cs" />
-    <Compile Include="Donations\ClaimDonation.aspx.cs">
-      <DependentUpon>ClaimDonation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Donations\ClaimDonation.aspx.designer.cs">
-      <DependentUpon>ClaimDonation.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Classes\cActor.cs" />
     <Compile Include="Classes\cAddress.cs" />
     <Compile Include="Classes\cAdminViews.cs" />
@@ -1760,13 +1746,6 @@
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Donations\DonationClaim.aspx.cs">
-      <DependentUpon>DonationClaim.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Donations\DonationClaim.aspx.designer.cs">
-      <DependentUpon>DonationClaim.aspx</DependentUpon>
     </Compile>
     <Compile Include="Events\AssignHousing.aspx.cs">
       <DependentUpon>AssignHousing.aspx</DependentUpon>
@@ -1876,13 +1855,6 @@
     <Compile Include="NewUserSelectCampaign.aspx.designer.cs">
       <DependentUpon>NewUserSelectCampaign.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Donations\ParentChildTest.aspx.cs">
-      <DependentUpon>ParentChildTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Donations\ParentChildTest.aspx.designer.cs">
-      <DependentUpon>ParentChildTest.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Payments\EventPayment102.aspx.cs">
       <DependentUpon>EventPayment102.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1910,10 +1882,6 @@
     </Compile>
     <Compile Include="Payments\EventPayment80.aspx.designer.cs">
       <DependentUpon>EventPayment80.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Points\MemberPoolPoints.aspx.cs">
-      <DependentUpon>MemberPoolPoints.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reports\HistoryDisplay.aspx.cs">
       <DependentUpon>HistoryDisplay.aspx</DependentUpon>

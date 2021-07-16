@@ -1,4 +1,4 @@
-﻿                            using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -43,7 +43,6 @@ namespace LarpPortal.Points
             DataTable dtCPAudit = new DataTable();
             dtCPAudit = CPAudit.GetCPAuditList(UserID, CampaignID, CharacterID);
             DataView dvPoints = new DataView(dtCPAudit, "", "", DataViewRowState.CurrentRows);
-            //dvPoints.Sort = ""
             gvPointsList.DataSource = dvPoints;
             gvPointsList.DataBind();
             if(dvPoints.Count == 0)

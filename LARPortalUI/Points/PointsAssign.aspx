@@ -452,17 +452,13 @@
                                                 <asp:ListItem Text="Donation, Art"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Costume"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Effects"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Food"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Hats"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Labor"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Masks"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Miscellaneous"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Money"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Packets"></asp:ListItem>
+                                                <asp:ListItem Text="Donation, Mask"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Prop"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Shields"></asp:ListItem>
+                                                <asp:ListItem Text="Donation, Shield"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Water"></asp:ListItem>
-                                                <asp:ListItem Text="Donation, Weapons"></asp:ListItem>
+                                                <asp:ListItem Text="Donation, Weapon"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>

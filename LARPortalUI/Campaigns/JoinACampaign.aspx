@@ -153,7 +153,7 @@
                                                 </p>
                                             </asp:Panel>
                                         </div>
-<%--                                        <div class="row">
+                                        <div class="row">
                                             <div class="col-xs-12">
                                                 <asp:Panel ID="pnlOverview" runat="server">
                                                     <div class="panel panel-default">
@@ -167,7 +167,7 @@
                                                     </div>
                                                 </asp:Panel>
                                             </div>
-                                        </div>--%>
+                                        </div>
                                         <div class="row">
                                             <div class="col-xs-6">
                                                 <asp:Panel ID="pnlSelectors" runat="server">
@@ -282,21 +282,6 @@
                                                                     </asp:TableCell>
                                                                 </asp:TableRow>
                                                             </asp:Table>
-                                                        </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <asp:Panel ID="pnlOverview" runat="server">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <asp:Label ID="lblGorC1" runat="server" />
-                                                            Overview
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <asp:Label ID="lblCampaignOverview" runat="server"></asp:Label>
                                                         </div>
                                                     </div>
                                                 </asp:Panel>

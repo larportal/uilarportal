@@ -33,8 +33,7 @@ namespace LarpPortal.Campaigns
             lblGameSystem.Text = CampaignBase.GameSystemName;
             lblGenres.Text = CampaignBase.GenreList;
             lblStyle.Text = CampaignBase.StyleDescription;
-            //lblTechLevel.Text = CampaignBase.TechLevelName;
-            lblTechLevel.Text = CampaignBase.TechLevelList;
+            lblTechLevel.Text = CampaignBase.TechLevelName;
             lblSize.Text = CampaignBase.CampaignSizeRange;
             lblAvgNumEvents.Text = CampaignBase.ProjectedNumberOfEvents.ToString();
             DataTable dtContacts = new DataTable();
