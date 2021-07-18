@@ -1675,6 +1675,7 @@
     <Compile Include="Classes\cCharacterSkillSets.cs" />
     <Compile Include="Classes\cCharacterStatus.cs" />
     <Compile Include="Classes\cCharacterType.cs" />
+    <Compile Include="Classes\cCompileDate.cs" />
     <Compile Include="Classes\cConstants.cs" />
     <Compile Include="Classes\cDescriptors.cs" />
     <Compile Include="Classes\cDonations.cs" />

@@ -51,13 +51,13 @@
                 <h3 class="contact-form-heading">Where we're located</h3>
                 <ul class="list-unstyled contact contact-info">
                     <li>
-                        <p><strong>Address:</strong> 27 Quarry Rd, Londonderry NH 03053</p>
+                        <p><strong>Address:</strong> 1170 Union St Manchester NH 03104</p>
                     </li>
                     <li>
                         <p><strong>Email Us:</strong> <a href="mailto:info@larportal.com">info@larportal.com</a></p>
                     </li>
                     <li>
-                        <p><strong>Phone:</strong> (603) 402-4906</p>
+                        <p><strong>Phone:</strong> TBD</p>
                     </li>
                 </ul>
                 <div class="divide10"></div>

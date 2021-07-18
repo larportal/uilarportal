@@ -13,10 +13,10 @@
 <asp:Content ID="CharSkillsScripts" ContentPlaceHolderID="MainScripts" runat="Server">
     <script type="text/javascript">
         function postBackByObject() {
-                var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
-                if (hidScrollPos != null) {
-                    hidScrollPos.value = $get('<%=pnlTreeView.ClientID%>').scrollTop;
-                }
+            var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
+            if (hidScrollPos != null) {
+                hidScrollPos.value = $get('<%=pnlTreeView.ClientID%>').scrollTop;
+            }
             var o = window.event.srcElement;
             if (o.tagName == "INPUT" && o.type == "checkbox") {
                 __doPostBack("", "");
@@ -24,14 +24,14 @@
         }
 
         function SaveValue() {
-                        var ddlAddValue = document.getElementById('<%= ddlAddValue2.ClientID %>');
+            var ddlAddValue = document.getElementById('<%= ddlAddValue2.ClientID %>');
             var strUser = ddlAddValue.options[ddlAddValue.selectedIndex].value;
             var hid = document.getElementById('<%= hidNewDropDownValue.ClientID %>');
             hid.value = strUser;
         }
 
         function ChangeValue(CampSkillNodeID, CurrentValue) {
-//                       alert(CampSkillNodeID);
+            //                       alert(CampSkillNodeID);
             $.ajax({
                 contentType: "application/json; charset=utf-8",
                 data: "{'CampaignSkillNodeID':'" + CampSkillNodeID.toString() + "'}",
@@ -124,6 +124,10 @@
 
         function openTextValueChange() {
             $("#modalChangeTextValue").show();
+        }
+
+        function openPointIssue() {
+            $("#modalPointIssue").show();
         }
     </script>
 </asp:Content>
@@ -362,6 +366,46 @@
         </div>
     </div>
     <!--  Change the drop down additional value -->
+
+
+
+
+    <div class="modal fade in" id="modalPointIssue" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 style="padding-top: 0px !important; padding-bottom: 0px !important; margin-top: 0px; margin-bottom: 0px;">Issue with points</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        You appear to have a pool with a total negative point available.<br />
+                        <br />
+                        You cannot save a character who has negative points. Your current point totals are:
+                        <asp:GridView ID="gvPoolTotals" runat="server" AutoGenerateColumns="false" GridLines="None" CssClass="table table-striped" 
+                                OnRowDataBound="gvPoolTotals_RowDataBound" Width="100%">
+                            <Columns>
+                                <asp:BoundField DataField="PoolName" HeaderText="Pool Name" ItemStyle-HorizontalAlign="Left" />
+                                <asp:BoundField DataField="TotalCP" HeaderText="Total Available Points" DataFormatString="{0:0.00}" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="CPSpent" HeaderText="Total Points Spent" DataFormatString="{0:0.00}" ItemStyle-HorizontalAlign="Center" />
+                                <asp:BoundField DataField="AvailablePoints" HeaderText="Available Points" DataFormatString="{0:0.00}" ItemStyle-HorizontalAlign="Center" />
+                            </Columns>
+                        </asp:GridView>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 NoGutters text-right">
+                            <asp:Button ID="btnCloseCantSave" runat="server" Text="Cancel" CssClass="btn btn-danger" />
+<%--                            <asp:Button ID="Button2" runat="server" Text="Save Changes" CssClass="btn btn-primary" OnClientClick="SaveValue();" OnClick="btnSaveDropDownChanges_Click" />--%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 

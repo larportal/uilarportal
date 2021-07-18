@@ -205,7 +205,7 @@
                                 <h3><a href="/LearnMoreAboutLARPortal.aspx">What is LARP Portal ?</a></h3>
                             </div>
                             <div class="text-center">
-                                <asp:Label Style="color: transparent" runat="server" ID="lblVersion"></asp:Label>
+                                <asp:Label runat="server" ID="lblVersion"></asp:Label>
                             </div>
                         </div>
                         <div class="col-lg-8 col-lg-pull-4 col-md-6">

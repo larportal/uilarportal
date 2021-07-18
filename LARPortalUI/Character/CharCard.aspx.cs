@@ -38,7 +38,10 @@ namespace LarpPortal.Character
             DataTable dtCharacterSkills = new DataTable();
             SortedList sParams = new SortedList();
             sParams.Add("@SkillSetID", cChar.SkillSetID);
-            dtCharacterSkills = Classes.cUtilities.LoadDataTable("uspGetCharCardSkills", sParams, "LARPortal", Session["UserName"].ToString(), lsRoutineName);
+            DataSet dsCharInfo = Classes.cUtilities.LoadDataSet("uspGetCharCardSkills", sParams, "LARPortal", Session["UserName"].ToString(), lsRoutineName);
+            //            dtCharacterSkills = Classes.cUtilities.LoadDataTable("uspGetCharCardSkills", sParams, "LARPortal", Session["UserName"].ToString(), lsRoutineName);
+            dtCharacterSkills = dsCharInfo.Tables[0];
+            DataTable dtSkillCosts = dsCharInfo.Tables[1];
 
             if (dtCharacterSkills.Columns["FullDescription"] == null)
                 dtCharacterSkills.Columns.Add(new DataColumn("FullDescription", typeof(string)));
@@ -46,7 +49,10 @@ namespace LarpPortal.Character
             Classes.cSkillPool skDefault = cChar.SkillPools.Find(x => x.DefaultPool == true);
             object oCPSpent;
             double dCPSpent;
-            oCPSpent = dtCharacterSkills.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + skDefault.PoolID.ToString());
+
+
+//            oCPSpent = dtCharacterSkills.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + skDefault.PoolID.ToString());
+            oCPSpent = dtSkillCosts.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + skDefault.PoolID.ToString());
             double.TryParse(oCPSpent.ToString(), out dCPSpent);
 
             TableRow dTotalRow = new TableRow();
@@ -83,7 +89,8 @@ namespace LarpPortal.Character
 
             foreach (Classes.cSkillPool PoolNotDefault in skNotDefault)
             {
-                oCPSpent = dtCharacterSkills.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + PoolNotDefault.PoolID.ToString());
+//                oCPSpent = dtCharacterSkills.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + PoolNotDefault.PoolID.ToString());
+                oCPSpent = dtSkillCosts.Compute("sum(cpcostpaid)", "CampaignSkillPoolID = " + PoolNotDefault.PoolID.ToString());
                 double.TryParse(oCPSpent.ToString(), out dCPSpent);
                 double TotalPoints = cChar.SkillPools.Find(x => x.PoolID == PoolNotDefault.PoolID).TotalPoints;
 
@@ -122,8 +129,18 @@ namespace LarpPortal.Character
             double CPCost;
             double CPSpent = 0.0;
 
+            if (dtCharacterSkills.Columns["CostString"] is null)
+                dtCharacterSkills.Columns.Add("CostString", typeof(string));
+
             foreach (DataRow dSkillRow in dtCharacterSkills.Rows)
             {
+                int iSkillID;
+                if (int.TryParse(dSkillRow["CharacterSkillID"].ToString(), out iSkillID))
+                {
+                    Classes.cCharacterSkill cCharacterSkill = cChar.CharacterSkills.Where(x => x.CharacterSkillID == iSkillID).FirstOrDefault();
+                    dSkillRow["CostString"] = cCharacterSkill.CostString();
+                }
+
                 if (double.TryParse(dSkillRow["CPCostPaid"].ToString(), out CPCost))
                     CPSpent += CPCost;
 
@@ -162,6 +179,11 @@ namespace LarpPortal.Character
                     FullDesc = FullDesc.Substring(0, FullDesc.Length - 1);
 
                 dSkillRow["FullDescription"] = FullDesc;
+            }
+
+            foreach (Classes.cCharacterSkill Cost in cChar.CharacterSkills)
+            {
+                string t = Cost.CostString();
             }
 
             Dictionary<string, string> NonCost = new Dictionary<string, string>();
