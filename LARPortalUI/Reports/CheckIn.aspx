@@ -62,6 +62,7 @@
                                             <Columns>
                                                 <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                                                 <asp:BoundField DataField="LastName" HeaderText="Last Name" />
+                                                <asp:BoundField DataField="Pronouns" HeaderText="Pronouns" />
                                                 <asp:BoundField DataField="CharacterAKA" HeaderText="Character" />
                                                 <asp:BoundField DataField="TeamName" HeaderText="Team" />
                                                 <asp:BoundField DataField="Housing" HeaderText="Housing" />
@@ -82,6 +83,7 @@
                                                 <asp:BoundField DataField="EventPaymentDate" HeaderText="Pay Date" />
                                                 <asp:BoundField DataField="EventPaymentAmount" HeaderText="Paid Amt" />
                                                 <asp:BoundField DataField="Comments" HeaderText="Comments" />
+                                                <asp:BoundField DataField="RegistrationDate" HeaderText="Registration Date" />
                                             </Columns>
                                         </asp:GridView>
                                     </div>

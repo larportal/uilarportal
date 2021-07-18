@@ -35,7 +35,7 @@ namespace LarpPortal.Profile
             tbNickName.Attributes.Add("PlaceHolder", "Nick Name");
             //tbBirthPlace.Attributes.Add("PlaceHolder", "Birth Place");
             tbUserName.Attributes.Add("Placeholder", "User Name");
-            tbPenName.Attributes.Add("Placeholder", "Pen Name");
+            tbPenName.Attributes.Add("Placeholder", "He/Him/She/Her/They/Them");
             tbForumName.Attributes.Add("Placeholder", "Forum Name");
 
             ddlEnterPhoneType.Attributes.Add("onchange", "DisplayPhoneProvider(this);");
