@@ -120,6 +120,42 @@ namespace LarpPortal.Classes
             return dtCPAuditList;
         }
 
+        public DataTable GetNonCPAuditList(int UserID, int PoolID, int CharacterID)
+        {
+            string stStoredProc = "uspGetPlayerNonCPAudit";
+            string stCallingMethod = "cTransaction.GetNonCPAuditList";
+            CPAuditCount = 0;
+            int iTemp;
+            DateTime dtTemp;
+            decimal dTemp;
+            SortedList slParameters = new SortedList();
+            slParameters.Add("@UserID", UserID);
+            slParameters.Add("@PoolID", PoolID);
+            slParameters.Add("@CharacterID", CharacterID);
+            DataTable dtCPAuditList = new DataTable();
+            DataSet dsCPAuditList = new DataSet();
+            dtCPAuditList = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", "Usename", stCallingMethod);
+            foreach (DataRow dRow in dtCPAuditList.Rows)
+            {
+                CPAuditCount++;
+                if (int.TryParse(dRow["PlayerCPAuditID"].ToString(), out iTemp))
+                    PlayerCPAuditID = iTemp;
+                if (int.TryParse(dRow["AddedBy"].ToString(), out iTemp))
+                    AddedBy = iTemp;
+                if (int.TryParse(dRow["CharacterID"].ToString(), out iTemp))
+                    CharacterID = iTemp;
+                if (decimal.TryParse(dRow["CPAmount"].ToString(), out dTemp))
+                    CPAmount = dTemp;
+                if (DateTime.TryParse(dRow["ReceiptDate"].ToString(), out dtTemp))
+                    ReceiptDate = dtTemp;
+                ApprovingStaffer = dRow["ApprovingStaffer"].ToString();
+                ReasonDescription = dRow["ReasonDescription"].ToString();
+                AdditionalNotes = dRow["AdditionalNotes"].ToString();
+                Character = dRow["Character"].ToString();
+            }
+            return dtCPAuditList;
+        }
+
         /// <summary>
         /// This will load the details of a particular player audit transaction
         /// Must pass a UserID

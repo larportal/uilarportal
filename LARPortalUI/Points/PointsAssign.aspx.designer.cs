@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Points {
-    
-    
-    public partial class PointsAssign {
-        
+namespace LarpPortal.Points
+{
+
+
+    public partial class PointsAssign
+    {
+
         /// <summary>
         /// pnlAssignHeader control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAssignHeader;
-        
+
         /// <summary>
         /// ddlAttendance control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAttendance;
-        
+
         /// <summary>
         /// ddlEarnType control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEarnType;
-        
+
         /// <summary>
         /// ddlEarnReason control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEarnReason;
-        
+
         /// <summary>
         /// ddlPlayer control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPlayer;
-        
+
         /// <summary>
         /// ddlCharacters control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCharacters;
-        
+
         /// <summary>
         /// btnAddNewOpportunity control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddNewOpportunity;
-        
+
         /// <summary>
         /// upnlAssignAll control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upnlAssignAll;
-        
+
         /// <summary>
         /// btnAssignAll control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAssignAll;
-        
+
         /// <summary>
         /// lblAssignAll control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssignAll;
-        
+
         /// <summary>
         /// pnlAddHeader control.
         /// </summary>
@@ -110,7 +112,16 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddHeader;
-        
+
+        /// <summary>
+        /// ddlPointType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPointType;
+
         /// <summary>
         /// btnAssignExisting control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAssignExisting;
-        
+
         /// <summary>
         /// pnlAssignExisting control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAssignExisting;
-        
+
         /// <summary>
         /// hidCampaignPlayerUserID control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignPlayerUserID;
-        
+
         /// <summary>
         /// gvPoints control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPoints;
-        
+
         /// <summary>
         /// pnlAddNewCP control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNewCP;
-        
+
         /// <summary>
         /// hidInsertCampaignPlayerID control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignPlayerID;
-        
+
         /// <summary>
         /// hidInsertCharacterID control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCharacterID;
-        
+
         /// <summary>
         /// hidInsertCampaignCPOpportunityDefaultID control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultID;
-        
+
         /// <summary>
         /// hidInsertCampaignCPOpportunityDefaultIDNPCEvent control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCEvent;
-        
+
         /// <summary>
         /// hidInsertCampaignCPOpportunityDefaultIDNPCSetup control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCSetup;
-        
+
         /// <summary>
         /// hidInsertCampaignCPOpportunityDefaultIDNPCPEL control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCPEL;
-        
+
         /// <summary>
         /// hidInsertEventID control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertEventID;
-        
+
         /// <summary>
         /// hidInsertCampaignID control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignID;
-        
+
         /// <summary>
         /// hidInsertDescription control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDescription;
-        
+
         /// <summary>
         /// hidInsertDescriptionNPCEvent control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCEvent;
-        
+
         /// <summary>
         /// hidInsertDescriptionNPCSetup control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCSetup;
-        
+
         /// <summary>
         /// hidInsertDescriptionNPCPEL control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCPEL;
-        
+
         /// <summary>
         /// hidInsertDestinationCampaign control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDestinationCampaign;
-        
+
         /// <summary>
         /// hidInsertDestinationCampaignLPType control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertDestinationCampaignLPType;
-        
+
         /// <summary>
         /// hidInsertOpportunityNotes control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertOpportunityNotes;
-        
+
         /// <summary>
         /// hidInsertExampleURL control.
         /// </summary>
@@ -299,7 +310,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertExampleURL;
-        
+
         /// <summary>
         /// hidInsertReasonID control.
         /// </summary>
@@ -308,7 +319,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonID;
-        
+
         /// <summary>
         /// hidInsertReasonIDNPCEvent control.
         /// </summary>
@@ -317,7 +328,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCEvent;
-        
+
         /// <summary>
         /// hidInsertReasonIDNPCSetup control.
         /// </summary>
@@ -326,7 +337,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCSetup;
-        
+
         /// <summary>
         /// hidInsertReasonIDNPCPEL control.
         /// </summary>
@@ -335,7 +346,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCPEL;
-        
+
         /// <summary>
         /// hidInsertStatusID control.
         /// </summary>
@@ -344,7 +355,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertStatusID;
-        
+
         /// <summary>
         /// hidInsertAddedByID control.
         /// </summary>
@@ -353,7 +364,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertAddedByID;
-        
+
         /// <summary>
         /// hidInsertCPValue control.
         /// </summary>
@@ -362,7 +373,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCPValue;
-        
+
         /// <summary>
         /// hidInsertApprovedByID control.
         /// </summary>
@@ -371,7 +382,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertApprovedByID;
-        
+
         /// <summary>
         /// hidInsertReceiptDate control.
         /// </summary>
@@ -380,7 +391,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReceiptDate;
-        
+
         /// <summary>
         /// hidInsertReceivedByID control.
         /// </summary>
@@ -389,7 +400,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertReceivedByID;
-        
+
         /// <summary>
         /// hidInsertCPAssignmentDate control.
         /// </summary>
@@ -398,7 +409,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertCPAssignmentDate;
-        
+
         /// <summary>
         /// hidInsertStaffComments control.
         /// </summary>
@@ -407,7 +418,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidInsertStaffComments;
-        
+
         /// <summary>
         /// hidLastAddCPStep control.
         /// </summary>
@@ -416,7 +427,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidLastAddCPStep;
-        
+
         /// <summary>
         /// ddlCampaignPlayer control.
         /// </summary>
@@ -425,7 +436,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCampaignPlayer;
-        
+
         /// <summary>
         /// btnSaveNewOpportunity control.
         /// </summary>
@@ -434,7 +445,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNewOpportunity;
-        
+
         /// <summary>
         /// pnlAddSourceCampaign control.
         /// </summary>
@@ -443,7 +454,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddSourceCampaign;
-        
+
         /// <summary>
         /// ddlAddSourceCampaign control.
         /// </summary>
@@ -452,7 +463,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAddSourceCampaign;
-        
+
         /// <summary>
         /// lblAddMessage control.
         /// </summary>
@@ -461,7 +472,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAddMessage;
-        
+
         /// <summary>
         /// pnlAddOpportunityDefault control.
         /// </summary>
@@ -470,7 +481,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddOpportunityDefault;
-        
+
         /// <summary>
         /// ddlAddOpportunityDefaultID control.
         /// </summary>
@@ -479,7 +490,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAddOpportunityDefaultID;
-        
+
         /// <summary>
         /// pnlAddOpportunityDefaultC6 control.
         /// </summary>
@@ -488,7 +499,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddOpportunityDefaultC6;
-        
+
         /// <summary>
         /// ddlAddOpportunityDefaultIDC6 control.
         /// </summary>
@@ -497,7 +508,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAddOpportunityDefaultIDC6;
-        
+
         /// <summary>
         /// pnlCPDestinationD6 control.
         /// </summary>
@@ -506,7 +517,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCPDestinationD6;
-        
+
         /// <summary>
         /// pnlNPCCheckboxes control.
         /// </summary>
@@ -515,7 +526,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlNPCCheckboxes;
-        
+
         /// <summary>
         /// ddlSourceEvent control.
         /// </summary>
@@ -524,7 +535,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSourceEvent;
-        
+
         /// <summary>
         /// chkNPCEvent control.
         /// </summary>
@@ -533,7 +544,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkNPCEvent;
-        
+
         /// <summary>
         /// txtNPCEvent control.
         /// </summary>
@@ -542,7 +553,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNPCEvent;
-        
+
         /// <summary>
         /// chkSetupCleanup control.
         /// </summary>
@@ -551,7 +562,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkSetupCleanup;
-        
+
         /// <summary>
         /// txtSetupCleanup control.
         /// </summary>
@@ -560,7 +571,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSetupCleanup;
-        
+
         /// <summary>
         /// chkPEL control.
         /// </summary>
@@ -569,7 +580,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkPEL;
-        
+
         /// <summary>
         /// txtPEL control.
         /// </summary>
@@ -578,7 +589,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPEL;
-        
+
         /// <summary>
         /// pnlCPDestinationD3 control.
         /// </summary>
@@ -587,7 +598,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCPDestinationD3;
-        
+
         /// <summary>
         /// ddlDestinationCampaign control.
         /// </summary>
@@ -596,7 +607,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDestinationCampaign;
-        
+
         /// <summary>
         /// pnlAddDonationCP control.
         /// </summary>
@@ -605,7 +616,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddDonationCP;
-        
+
         /// <summary>
         /// ddlDonationTypes control.
         /// </summary>
@@ -614,7 +625,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDonationTypes;
-        
+
         /// <summary>
         /// txtOpportunityNotes control.
         /// </summary>
@@ -623,7 +634,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOpportunityNotes;
-        
+
         /// <summary>
         /// txtReceiptDate control.
         /// </summary>
@@ -632,7 +643,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReceiptDate;
-        
+
         /// <summary>
         /// txtCPF0 control.
         /// </summary>
@@ -641,7 +652,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCPF0;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF0 control.
         /// </summary>
@@ -650,7 +661,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF0;
-        
+
         /// <summary>
         /// pnlAddNonEventCP control.
         /// </summary>
@@ -659,7 +670,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNonEventCP;
-        
+
         /// <summary>
         /// txtCPF1 control.
         /// </summary>
@@ -668,7 +679,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCPF1;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF1 control.
         /// </summary>
@@ -677,7 +688,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF1;
-        
+
         /// <summary>
         /// pnlAddPCLocalCP control.
         /// </summary>
@@ -686,7 +697,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddPCLocalCP;
-        
+
         /// <summary>
         /// ddlSourceEventPC control.
         /// </summary>
@@ -695,7 +706,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSourceEventPC;
-        
+
         /// <summary>
         /// txtCPF2 control.
         /// </summary>
@@ -704,7 +715,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCPF2;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF2 control.
         /// </summary>
@@ -713,7 +724,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF2;
-        
+
         /// <summary>
         /// pnlAddNPCLocalCPStaying control.
         /// </summary>
@@ -722,7 +733,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNPCLocalCPStaying;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF3 control.
         /// </summary>
@@ -731,7 +742,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF3;
-        
+
         /// <summary>
         /// pnlAddNPCLocalCPGoingToLARPPortalCampaign control.
         /// </summary>
@@ -740,7 +751,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNPCLocalCPGoingToLARPPortalCampaign;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF4 control.
         /// </summary>
@@ -749,7 +760,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF4;
-        
+
         /// <summary>
         /// pnlAddNPCLocalCPGoingToNonLARPPortalCampaign control.
         /// </summary>
@@ -758,7 +769,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNPCLocalCPGoingToNonLARPPortalCampaign;
-        
+
         /// <summary>
         /// pnlAddNPCIncoming control.
         /// </summary>
@@ -767,7 +778,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddNPCIncoming;
-        
+
         /// <summary>
         /// ddlSelectCharacterOrBankF6 control.
         /// </summary>
@@ -776,7 +787,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterOrBankF6;
-        
+
         /// <summary>
         /// pnlAddStaffComments control.
         /// </summary>
@@ -785,7 +796,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAddStaffComments;
-        
+
         /// <summary>
         /// txtStaffComments control.
         /// </summary>
@@ -794,7 +805,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStaffComments;
-        
+
         /// <summary>
         /// pnlCharacterPointDisplay control.
         /// </summary>
@@ -803,7 +814,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCharacterPointDisplay;
-        
+
         /// <summary>
         /// lblHeader control.
         /// </summary>
@@ -812,7 +823,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblHeader;
-        
+
         /// <summary>
         /// lblGridHeader control.
         /// </summary>
@@ -821,7 +832,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGridHeader;
-        
+
         /// <summary>
         /// gvPointsList control.
         /// </summary>
@@ -830,15 +841,404 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPointsList;
-        
+
+        /// <summary>
+        /// pnlAddNewNonCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddNewNonCP;
+
+        /// <summary>
+        /// hidInsertCampaignPlayerID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignPlayerID1;
+
+        /// <summary>
+        /// hidInsertCharacterID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCharacterID1;
+
+        /// <summary>
+        /// hidInsertCampaignCPOpportunityDefaultID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultID1;
+
+        /// <summary>
+        /// hidInsertCampaignCPOpportunityDefaultIDNPCEvent1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCEvent1;
+
+        /// <summary>
+        /// hidInsertCampaignCPOpportunityDefaultIDNPCSetup1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCSetup1;
+
+        /// <summary>
+        /// hidInsertCampaignCPOpportunityDefaultIDNPCPEL1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignCPOpportunityDefaultIDNPCPEL1;
+
+        /// <summary>
+        /// hidInsertEventID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertEventID1;
+
+        /// <summary>
+        /// hidInsertCampaignID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCampaignID1;
+
+        /// <summary>
+        /// hidInsertDescription1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDescription1;
+
+        /// <summary>
+        /// hidInsertDescriptionNPCEvent1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCEvent1;
+
+        /// <summary>
+        /// hidInsertDescriptionNPCSetup1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCSetup1;
+
+        /// <summary>
+        /// hidInsertDescriptionNPCPEL1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDescriptionNPCPEL1;
+
+        /// <summary>
+        /// hidInsertDestinationCampaign1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDestinationCampaign1;
+
+        /// <summary>
+        /// hidInsertDestinationCampaignLPType1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertDestinationCampaignLPType1;
+
+        /// <summary>
+        /// hidInsertOpportunityNotes1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertOpportunityNotes1;
+
+        /// <summary>
+        /// hidInsertExampleURL1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertExampleURL1;
+
+        /// <summary>
+        /// hidInsertReasonID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonID1;
+
+        /// <summary>
+        /// hidInsertReasonIDNPCEvent1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCEvent1;
+
+        /// <summary>
+        /// hidInsertReasonIDNPCSetup1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCSetup1;
+
+        /// <summary>
+        /// hidInsertReasonIDNPCPEL1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReasonIDNPCPEL1;
+
+        /// <summary>
+        /// hidInsertStatusID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertStatusID1;
+
+        /// <summary>
+        /// hidInsertAddedByID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertAddedByID1;
+
+        /// <summary>
+        /// hidInsertCPValue1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCPValue1;
+
+        /// <summary>
+        /// hidInsertApprovedByID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertApprovedByID1;
+
+        /// <summary>
+        /// hidInsertReceiptDate1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReceiptDate1;
+
+        /// <summary>
+        /// hidInsertReceivedByID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertReceivedByID1;
+
+        /// <summary>
+        /// hidInsertCPAssignmentDate1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertCPAssignmentDate1;
+
+        /// <summary>
+        /// hidInsertStaffComments1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidInsertStaffComments1;
+
+        /// <summary>
+        /// hidLastAddCPStep1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastAddCPStep1;
+
+        /// <summary>
+        /// ddlCampaignPlayerNonCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCampaignPlayerNonCP;
+
+        /// <summary>
+        /// btnSaveNewNonCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveNewNonCP;
+
+        /// <summary>
+        /// lblFieldRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFieldRequired;
+
+        /// <summary>
+        /// tbNonCPAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbNonCPAmount;
+
+        /// <summary>
+        /// tbNonCPReceiptDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbNonCPReceiptDate;
+
+        /// <summary>
+        /// tbNonCPVisibleReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbNonCPVisibleReason;
+
+        /// <summary>
+        /// tbNonCPHiddenReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbNonCPHiddenReason;
+
+        /// <summary>
+        /// ddlSelectCharacterNonCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectCharacterNonCP;
+
+        /// <summary>
+        /// lblModalMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModalMessage;
+
+        /// <summary>
+        /// pnlCharacterNonCPDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCharacterNonCPDisplay;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// lblTotalNonCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalNonCP;
+
+        /// <summary>
+        /// gvPointsNonCPList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPointsNonCPList;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

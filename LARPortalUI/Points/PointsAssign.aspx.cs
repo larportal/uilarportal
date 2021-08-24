@@ -14,7 +14,11 @@ namespace LarpPortal.Points
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ddlPointTypeLoad(Master.CampaignID);
+            }
+                
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -24,16 +28,35 @@ namespace LarpPortal.Points
                 Session["EditMode"] = "Assign";
                 ddlAttendanceLoad(Master.UserName, Master.CampaignID);
                 ddlCharacterLoad(Master.UserName, Master.CampaignID);
+                //ddlCharacterLoadNonCP(Master.UserName, Master.CampaignID);
                 ddlEarnReasonLoad(Master.UserName, Master.CampaignID);
                 ddlEarnTypeLoad(Master.UserName, Master.CampaignID);
                 ddlPlayerLoad(Master.UserName, Master.CampaignID);
                 FillGrid();
                 ddlCampaignPlayerLoad(Master.UserName, Master.CampaignID);
+                ddlCampaignPlayerLoadNonCP(Master.UserName, Master.CampaignID);
                 ddlAddCharacterLoad(Master.UserName, Master.CampaignID);
                 DropdownListDefaultColors();
             }
         }
+        private void ddlPointTypeLoad(int intCampaignID)
+        {
 
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            ddlPointType.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            DataTable dtPools = Classes.cUtilities.LoadDataTable("uspGetCampaignPools", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPools");
+            ddlPointType.DataTextField = "PoolDescription";
+            ddlPointType.DataValueField = "CampaignSkillPoolID";
+            ddlPointType.DataSource = dtPools;
+            ddlPointType.DataBind();
+            //ddlPointType.Items.Insert(0, new ListItem("Select Player", "0"));
+            ddlPointType.SelectedIndex = 0;
+
+        }
         private void FillGrid()
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -88,6 +111,52 @@ namespace LarpPortal.Points
             ddlCharacters.SelectedIndex = 0;
         }
 
+        private void ddlCharacterLoadNonCP(int intCampaignPlayerID, int intCampaignID)
+        {
+            {
+                //private void ddlCharacterLoadNonCP(string strUserName, int intCampaignID)
+                //Convert CampaignPlayerID using uspConvertCampaignPlayerID
+                string stStoredProc = "uspConvertCampaignPlayerID";
+                string stCallingMethod = "PointsAssign.aspx.ddlCharacterLoadNonCP";
+                int iTemp = 0;
+                int CampaignPlayerID = 0;
+                //if (int.TryParse(ddlCampaignPlayer.SelectedValue.ToString(), out iTemp))
+                //    CampaignPlayerID = iTemp;
+                DataTable dtCampaignPlayers = new DataTable();
+                SortedList sParams = new SortedList();
+                sParams.Add("@OriginalCampaignPlayerID", intCampaignPlayerID);
+                sParams.Add("@NewCampaignID", Master.CampaignID);
+                dtCampaignPlayers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
+                foreach (DataRow dRow in dtCampaignPlayers.Rows)
+                {
+                    if (int.TryParse(dRow["CampaignPlayerID"].ToString(), out iTemp))
+                        CampaignPlayerID = iTemp;
+                }
+                ddlSelectCharacterNonCP.Items.Clear();
+                stStoredProc = "uspGetCampaignCharacters";
+                DataTable dtCharacters = new DataTable();
+                SortedList sParams1 = new SortedList();
+                sParams1.Add("@CampaignID", Master.CampaignID);
+                sParams1.Add("@CampaignPlayerID", CampaignPlayerID);
+                sParams1.Add("@NonCP", 1);
+                dtCharacters = Classes.cUtilities.LoadDataTable(stStoredProc, sParams1, "LARPortal", Master.UserName, stCallingMethod);
+                ddlSelectCharacterNonCP.DataTextField = "CharacterName";
+                ddlSelectCharacterNonCP.DataValueField = "CharacterID";
+                ddlSelectCharacterNonCP.DataSource = dtCharacters;
+                ddlSelectCharacterNonCP.DataBind();
+                if (dtCharacters.Rows.Count > 0)
+                {
+                    ddlSelectCharacterNonCP.Items.Insert(0, new ListItem("Select Character", "0"));
+                    ddlSelectCharacterNonCP.SelectedIndex = 0;
+                }
+                else
+                {
+                    //ddlSelectCharacterNonCP.Items.Insert(0, new ListItem("No characters, banking", "0"));
+                    //ddlSelectCharacterNonCP.SelectedIndex = 0;
+                }
+            }
+        }
+
         private void ddlEarnReasonLoad(string strUserName, int intCampaignID)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -137,8 +206,6 @@ namespace LarpPortal.Points
             ddlPlayer.Items.Insert(0, new ListItem("Select Player", "0"));
             ddlPlayer.SelectedIndex = 0;
         }
-
-
 
         protected void gvPoints_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
@@ -289,6 +356,8 @@ namespace LarpPortal.Points
             pnlAssignExisting.Visible = false;
             pnlAddHeader.Visible = true;
             pnlAssignHeader.Visible = false;
+            pnlAddNewNonCP.Visible = false;
+            pnlCharacterNonCPDisplay.Visible = false;
 
         }
 
@@ -299,9 +368,110 @@ namespace LarpPortal.Points
             pnlAssignExisting.Visible = true;
             pnlAddHeader.Visible = false;
             pnlAssignHeader.Visible = true;
+            pnlAddNewNonCP.Visible = false;
+            pnlCharacterNonCPDisplay.Visible = false;
         }
 
+        protected void ddlSelectCharacterNonCP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlCampaignPlayerLoadNonCP(Master.UserName, Master.CampaignID);
+        }
 
+        private void BuildNonCPAuditTable(int PoolID, int UserID)
+        {
+            int CampaignID = 0;
+            int CharacterID = 0;
+            CampaignID = Master.CampaignID;
+
+            string CampaignDDL = "";
+            CampaignDDL = Master.CampaignName;
+            Classes.cTransactions CPAudit = new Classes.cTransactions();
+            DataTable dtCPAudit = new DataTable();
+            dtCPAudit = CPAudit.GetNonCPAuditList(UserID, PoolID, CharacterID);
+
+            DataView dvPoints = new DataView(dtCPAudit, "", "", DataViewRowState.CurrentRows);
+            gvPointsNonCPList.DataSource = dvPoints;
+            gvPointsNonCPList.DataBind();
+            //mvPointList.SetActiveView(vwNonCPList);
+
+        }
+
+        protected void btnSaveNewNonCP_Click(object sender, EventArgs e)
+        {
+            if(ddlSelectCharacterNonCP.SelectedValue == "0")
+            {
+                //Display choose a character option
+                lblModalMessage.Text = "You must select a character to assign the points to.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalMessage();", true);
+            }
+            else
+            {
+                if(string.IsNullOrEmpty(tbNonCPAmount.Text))
+                {
+                    lblModalMessage.Text = "You must assign a non-zero number of points.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalMessage();", true);
+                }
+                else
+                {
+                    if(string.IsNullOrEmpty(tbNonCPReceiptDate.Text))
+                    {
+                        lblModalMessage.Text = "You must assign an award date.";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModalMessage();", true);
+                    }
+                    else
+                    {
+                        Classes.cPoints PointsNonCPAdd = new Classes.cPoints();
+                        int addCharacterID = 0;
+                        int.TryParse(ddlSelectCharacterNonCP.SelectedValue.ToString(), out addCharacterID);
+                        string addOpportunityNotes;
+                        addOpportunityNotes = tbNonCPVisibleReason.Text.Trim();
+                        int AddedByID = Master.UserID;
+                        double addCPValue = 0;            
+                        double.TryParse(tbNonCPAmount.Text.Trim(), out addCPValue);
+                        int addPoolID = 0;
+                        int.TryParse(ddlPointType.SelectedValue.ToString(), out addPoolID);
+                        DateTime addReceiptDate = DateTime.Now;
+                        DateTime.TryParse(tbNonCPReceiptDate.Text.Trim(), out addReceiptDate);
+                        string addStaffComments;
+                        addStaffComments = tbNonCPHiddenReason.Text.Trim();
+                        PointsNonCPAdd.AddNonCPPoints(addCharacterID, addOpportunityNotes, AddedByID, addCPValue, addPoolID, addReceiptDate, addStaffComments);
+                        tbNonCPVisibleReason.Text = string.Empty;
+                        tbNonCPAmount.Text = string.Empty;
+                        tbNonCPReceiptDate.Text = string.Empty;
+                        tbNonCPHiddenReason.Text = string.Empty;
+                        ddlSelectCharacterNonCP.Visible = false;
+                        pnlCharacterNonCPDisplay.Visible = false;
+                    }
+                }
+            }
+        }
+
+        protected void ddlCampaignPlayerNonCP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropdownListDefaultColors();
+            ResetHiddenValues();
+            string stStoredProc = "uspGetCampaignPlayers";
+            string stCallingMethod = "PointsAssign.aspx.ddlCampaignPlayerNonCP_SelectedIndexChanged";
+            int PoolID = 0;
+            int.TryParse(ddlPointType.SelectedValue.ToString(), out PoolID);
+            int intCampaignPlayerID = 0;
+            int.TryParse(ddlCampaignPlayerNonCP.SelectedValue.ToString(), out intCampaignPlayerID);
+            int UserID = 0;
+            DataTable dtUsers = new DataTable();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            sParams.Add("@CampaignPlayerID", intCampaignPlayerID);
+            dtUsers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
+            foreach (DataRow dRow in dtUsers.Rows)
+            {
+                int.TryParse(dRow["UserID"].ToString(), out UserID);
+                hidCampaignPlayerUserID.Value = UserID.ToString();
+                BuildNonCPAuditTable(PoolID, UserID);
+            }
+            ddlCharacterLoadNonCP(intCampaignPlayerID, Master.CampaignID);
+            ddlSelectCharacterNonCP.Visible = true;
+            pnlCharacterNonCPDisplay.Visible = true;
+        }
 
         protected void btnSaveNewOpportunity_Click(object sender, EventArgs e)
         {
@@ -1847,14 +2017,9 @@ namespace LarpPortal.Points
         protected void ddlCampaignPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropdownListDefaultColors();
-            //int UserID = 0;
-            //if (Session["UserID"] != null)
-            //    int.TryParse(Session["UserID"].ToString(), out UserID);
             ResetHiddenValues();
             Session["AddCPStep"] = "A";
             hidLastAddCPStep.Value = "A";
-            //int intCampaignID = 0;
-            //int.TryParse(hidCampaignID.Value.ToString(), out intCampaignID);
             ddlAddSourceCampaignLoad(Master.UserName, Master.CampaignID, ddlCampaignPlayer.SelectedValue);
             Session["AddCPStep"] = "B";
             hidLastAddCPStep.Value = "B";
@@ -1881,7 +2046,28 @@ namespace LarpPortal.Points
                 hidCampaignPlayerUserID.Value = UserID.ToString();
                 BuildCPAuditTable(UserID);
             }
+        }
 
+        protected void FillHiddenCampaignPlayerUserIDNonCP(int CampaignID, int strCampaignPlayerID)
+        {
+            string stStoredProc = "uspGetCampaignPlayers";
+            string stCallingMethod = "PointsAssign.aspx.FillHiddenCampaignPlayerUserIDNonCP";
+            int PoolID = 0;
+            int.TryParse(ddlPointType.SelectedValue.ToString(), out PoolID);
+            int CampaignPlayerID = 0;
+            int UserID = 0;
+            int.TryParse(strCampaignPlayerID.ToString(), out CampaignPlayerID);
+            DataTable dtUsers = new DataTable();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", CampaignID);
+            sParams.Add("@CampaignPlayerID", CampaignPlayerID);
+            dtUsers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
+            foreach (DataRow dRow in dtUsers.Rows)
+            {
+                int.TryParse(dRow["UserID"].ToString(), out UserID);
+                hidCampaignPlayerUserID.Value = UserID.ToString();
+                BuildNonCPAuditTable(PoolID, UserID);
+            }
         }
 
         protected void ddlAddSourceCampaignLoad(string strUserName, int CurrentCampaignID, string strCampaignPlayerID)
@@ -2116,7 +2302,6 @@ namespace LarpPortal.Points
             FillGrid();
         }
 
-
         protected void ddlCampaignPlayerLoad(string strUserName, int intCampaignID)
         {
             ddlCampaignPlayer.Items.Clear();
@@ -2131,6 +2316,67 @@ namespace LarpPortal.Points
             ddlCampaignPlayer.DataSource = dtPlayers;
             ddlCampaignPlayer.DataBind();
             ddlCampaignPlayer.Items.Insert(0, new ListItem("Select Player", "0"));
+        }
+
+        protected void ddlCampaignPlayerLoadNonCP(string strUserName, int intCampaignID)
+        {
+            ddlCampaignPlayerNonCP.Items.Clear();
+            string stStoredProc = "uspGetCampaignPlayers";
+            string stCallingMethod = "PointsAssign.aspx.ddlCampaignPlayerLoadNonCP";
+            DataTable dtPlayers = new DataTable();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            dtPlayers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", strUserName, stCallingMethod);
+            ddlCampaignPlayerNonCP.DataTextField = "PlayerName";
+            ddlCampaignPlayerNonCP.DataValueField = "CampaignPlayerID";
+            ddlCampaignPlayerNonCP.DataSource = dtPlayers;
+            ddlCampaignPlayerNonCP.DataBind();
+            ddlCampaignPlayerNonCP.Items.Insert(0, new ListItem("Select Player", "0"));
+        }
+
+        protected void ddlPointType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool blUniversalPoint = true;
+            bool bTemp;
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            int intPoolID;
+            int.TryParse(ddlPointType.SelectedValue.ToString(), out intPoolID);
+            SortedList sParams = new SortedList();
+            sParams.Add("@PoolID", intPoolID);
+            DataTable dtPools = Classes.cUtilities.LoadDataTable("uspGetCampaignPoolByID", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPoolByID");
+            foreach (DataRow drow in dtPools.Rows)
+            {
+                if (bool.TryParse(drow["DefaultPool"].ToString(), out bTemp))
+                {
+                    blUniversalPoint = bTemp;
+                }
+            }
+            if (blUniversalPoint == true)
+            {
+                //populate vwPointList
+                pnlAddNewCP.Visible = true;
+                pnlCharacterPointDisplay.Visible = true;
+                pnlAssignExisting.Visible = false;
+                pnlAddHeader.Visible = true;
+                pnlAssignHeader.Visible = false;
+                pnlAddNewNonCP.Visible = false;
+                pnlCharacterNonCPDisplay.Visible = false;
+            }
+            else
+            {
+                //populate vwNonCPList
+                pnlAddNewCP.Visible = false;
+                pnlCharacterPointDisplay.Visible = false;
+                pnlAssignExisting.Visible = false;
+                pnlAddHeader.Visible = true;
+                pnlAssignHeader.Visible = false;
+                pnlAddNewNonCP.Visible = true;
+                pnlCharacterNonCPDisplay.Visible = true;
+                lblTotalNonCP.Text = "Total Points - " + ddlPointType.SelectedItem.Text;
+                ddlCampaignPlayerLoadNonCP(Master.UserName, Master.CampaignID);
+            }
+
         }
     }
 }

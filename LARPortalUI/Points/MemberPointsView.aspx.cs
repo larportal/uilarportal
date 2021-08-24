@@ -1,51 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using LarpPortal.Classes;
+﻿using LarpPortal.Classes;
+using System;
+using System.Collections;
 using System.Data;
 using System.Reflection;
-using System.Collections;
-using System.Configuration;
-using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
 
 namespace LarpPortal.Points
 {
     public partial class MemberPointsView : System.Web.UI.Page
     {
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ddlPointTypeLoad(Master.CampaignID);
+                BuildCPAuditTable(Master.UserID);
+            }
+            
+        }
+
         protected void Page_PreRender(object sender, EventArgs e)
         {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             Session["ActiveLeftNav"] = "PointsView";
-            string uName = "";
-            int uID = 0;
-            if (Session["Username"] != null)
-                uName = Session["Username"].ToString();
-            if (Session["UserID"] != null)
-                uID = (Session["UserID"].ToString().ToInt32());
-            BuildCPAuditTable(uID);
+        }
+
+        private void ddlPointTypeLoad(int intCampaignID)
+        {
+
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            ddlPointType.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            DataTable dtPools = Classes.cUtilities.LoadDataTable("uspGetCampaignPools", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPools");
+            ddlPointType.DataTextField = "PoolDescription";
+            ddlPointType.DataValueField = "CampaignSkillPoolID";
+            ddlPointType.DataSource = dtPools;
+            ddlPointType.DataBind();
+            //ddlPointType.Items.Insert(0, new ListItem("Select Player", "0"));
+            ddlPointType.SelectedIndex = 0;
+
         }
 
         private void BuildCPAuditTable(int UserID)
         {
             int CampaignID = 0;
             int CharacterID = 0;
-            if (Session["CampaignID"] != null)
-            {
-                CampaignID = (Session["CampaignID"].ToString().ToInt32());
-            }
+            CampaignID = Master.CampaignID;
 
             string CampaignDDL = "";
-            if (Session["CampaignName"] != null)
-                CampaignDDL = Session["CampaignName"].ToString();
+            CampaignDDL = Master.CampaignName;
             Classes.cTransactions CPAudit = new Classes.cTransactions();
             DataTable dtCPAudit = new DataTable();
             dtCPAudit = CPAudit.GetCPAuditList(UserID, CampaignID, CharacterID);
             DataView dvPoints = new DataView(dtCPAudit, "", "", DataViewRowState.CurrentRows);
             gvPointsList.DataSource = dvPoints;
             gvPointsList.DataBind();
-            if(dvPoints.Count == 0)
+            if (dvPoints.Count == 0)
             {
                 mvPointList.SetActiveView(vwPointlessList);
             }
@@ -204,13 +221,6 @@ namespace LarpPortal.Points
                                 true);
                         // Refresh page
                         BuildCPAuditTable(UserID);
-
-                        //Leave banked and display over cap message
-                        //string jsString = "alert('This entry would put this character over the maximum allowed points.');";
-                        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
-                        //        "MyApplication",
-                        //        jsString,
-                        //        true);
                     }
                     else
                     {
@@ -231,5 +241,70 @@ namespace LarpPortal.Points
 
         }
 
+        protected void ddlPointType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool blUniversalPoint = true;
+            bool bTemp;
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            int intPoolID;
+            int.TryParse(ddlPointType.SelectedValue.ToString(), out intPoolID);
+            SortedList sParams = new SortedList();
+            sParams.Add("@PoolID", intPoolID);
+            DataTable dtPools = Classes.cUtilities.LoadDataTable("uspGetCampaignPoolByID", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPoolByID");
+            foreach (DataRow drow in dtPools.Rows)
+            {
+                if (bool.TryParse(drow["DefaultPool"].ToString(), out bTemp))
+                {
+                    blUniversalPoint = bTemp;
+                }
+            }
+            if (blUniversalPoint == true)
+            {
+                //populate vwPointList
+                BuildCPAuditTable(Master.UserID);
+            }
+            else
+            {
+                //populate vwNonCPList
+                BuildNonCPAuditTable(intPoolID);
+            }
+
+        }
+
+        private void BuildNonCPAuditTable(int PoolID)
+        {
+            int CampaignID = 0;
+            int CharacterID = 0;
+            CampaignID = Master.CampaignID;
+
+            string CampaignDDL = "";
+            CampaignDDL = Master.CampaignName;
+            Classes.cTransactions CPAudit = new Classes.cTransactions();
+            DataTable dtCPAudit = new DataTable();
+            dtCPAudit = CPAudit.GetNonCPAuditList(Master.UserID, PoolID, CharacterID);
+            DataView dvPoints = new DataView(dtCPAudit, "", "", DataViewRowState.CurrentRows);
+            gvNonCPList.DataSource = dvPoints;
+            gvNonCPList.DataBind();
+            if (dvPoints.Count == 0)
+            {
+                mvPointList.SetActiveView(vwPointlessList);
+            }
+            else
+            {
+                mvPointList.SetActiveView(vwNonCPList);
+            }
+        }
+
+
+        protected void gvNonCPList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gvNonCPList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
     }
 }

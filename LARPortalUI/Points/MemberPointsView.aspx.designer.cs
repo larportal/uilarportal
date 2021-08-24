@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Points {
-    
-    
-    public partial class MemberPointsView {
-        
+namespace LarpPortal.Points
+{
+
+
+    public partial class MemberPointsView
+    {
+
+        /// <summary>
+        /// ddlPointType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPointType;
+
         /// <summary>
         /// mvPointList control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvPointList;
-        
+
         /// <summary>
         /// vwPointList control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwPointList;
-        
+
         /// <summary>
         /// gvPointsList control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPointsList;
-        
+
         /// <summary>
         /// vwPointlessList control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwPointlessList;
-        
+
         /// <summary>
         /// lblCharacterName control.
         /// </summary>
@@ -56,7 +67,25 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCharacterName;
-        
+
+        /// <summary>
+        /// vwNonCPList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwNonCPList;
+
+        /// <summary>
+        /// gvNonCPList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvNonCPList;
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -65,7 +94,7 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnCloseMessage control.
         /// </summary>
@@ -74,5 +103,19 @@ namespace LarpPortal.Points {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
+                return ((LarpPortal.LARPortal)(base.Master));
+            }
+        }
     }
 }

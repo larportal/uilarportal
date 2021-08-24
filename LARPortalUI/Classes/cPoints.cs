@@ -527,6 +527,15 @@ namespace LarpPortal.Classes
             CreatePlayerCPLog(UserID, _CampaignCPOpportunityID, ReceiptDate, CPValue, ReasonID, CampaignPlayerID, CharacterID);
         }
 
+        public void AddNonCPPoints(int CharacterID, string VisibleComment, int AddedByID, double CPValue, int PoolID, DateTime ReceiptDate, string StaffComments)
+        {
+            // Call the routine to add the points.
+            uspInsUpdCHCharacterSkillPoints(AddedByID, CharacterID, PoolID, CPValue);
+            // Call the routine to add the audit record.
+            uspInsUpdCHCharacterSkillPointsAudit(-1, CharacterID, PoolID, CPValue, AddedByID, VisibleComment, StaffComments, ReceiptDate);
+            
+        }
+
         /// <summary>
         /// This will post points for a history
         /// Requires UserID, CampaignPlayer, Character and Campaign
@@ -729,6 +738,55 @@ namespace LarpPortal.Classes
                 }
 
 
+            }
+        }
+
+        /// <summary>
+        /// This will 
+        /// </summary>
+        public void uspInsUpdCHCharacterSkillPoints(int UserID, int CharacterID, int PoolID, double PointsAdded)
+        {
+            string stStoredProc = "uspInsUpdCHCharacterSkillPoints";
+            string stCallingMethod = "cPoints.InsUpdNonCP";
+            SortedList slParameters = new SortedList();
+            slParameters.Add("@UserID", UserID);
+            slParameters.Add("@CharacterID", CharacterID);
+            slParameters.Add("@PoolID", PoolID);
+            slParameters.Add("@TotalPoints", PointsAdded);
+            cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
+        }
+
+        /// <summary>
+        /// This will add a non-CP / non-universal point assignment audit
+        /// </summary>
+        public void uspInsUpdCHCharacterSkillPointsAudit(int AuditID, int CharacterID, int PoolID, double PointsAdded, int AddedBy,
+            string VisibleComments, string StaffOnlyComments, DateTime ReceiptDate)
+        {
+            string stStoredProc = "uspInsUpdCHCharacterSkillPointsAudit";
+            string stCallingMethod = "cPoints.InsUpdNonCPAudit";
+            SortedList slParameters = new SortedList();
+            slParameters.Add("@CharacterSkillPointsAuditID", AuditID);
+            slParameters.Add("@CharacterID", CharacterID);
+            slParameters.Add("@PoolID", PoolID);
+            slParameters.Add("@PointsAdded", PointsAdded);
+            slParameters.Add("@AddedBy", AddedBy);
+            slParameters.Add("@VisibleComments", VisibleComments);
+            slParameters.Add("@StaffOnlyComments", StaffOnlyComments);
+            slParameters.Add("@DateAdded", ReceiptDate);
+            if (AuditID == -1)
+            {
+                DataTable dtPoints = new DataTable();
+                dtPoints = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
+                //int iTemp = 0;
+                //foreach (DataRow drow in dtPoints.Rows)
+                //{
+                //    if (int.TryParse(drow["CampaignCPOpportunityID"].ToString(), out iTemp))
+                //        _CampaignCPOpportunityID = iTemp;
+                //}
+            }
+            else
+            {
+                cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
             }
         }
 

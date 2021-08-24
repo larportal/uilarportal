@@ -424,7 +424,7 @@
                                 <div class="row">
                                     <div class="col-md-4 col-xs-12">
                                         <div class="form-group">
-                                            <label for="<%= tbPenName.ClientID %>">Preferred Pronouns:</label>
+                                            <label for="<%= tbPenName.ClientID %>">Pronouns:</label>
                                             <asp:TextBox ID="tbPenName" runat="server" CssClass="form-control" TabIndex="9" />
                                         </div>
                                     </div>

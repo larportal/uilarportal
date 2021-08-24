@@ -142,7 +142,15 @@
     </style>
 </asp:Content>
 <asp:Content ID="PointsAssignScripts" ContentPlaceHolderID="MainScripts" runat="server">
+
+    <script type="text/javascript">
+        function openModalMessage() {
+            $('#ModalMessage').modal('show');
+        }
+    </script>
+
 </asp:Content>
+
 <asp:Content ID="PointsAssignBody" ContentPlaceHolderID="MainBody" runat="server">
 
     <div id="page-wrapper">
@@ -200,7 +208,11 @@
 
         <asp:Panel ID="pnlAddHeader" runat="server" Visible="false">
             <div class="row">
-                <div class="col-sm-12 text-right margin10">
+                <div class="col-sm-6 text-left margin10">
+                    <label for="<%= ddlPointType.ClientID %>">Point/Reward Type: </label>
+                    <asp:DropDownList ID="ddlPointType" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" OnSelectedIndexChanged="ddlPointType_SelectedIndexChanged" />
+                    </div>
+                <div class="col-sm-6 text-right margin10">
                     <asp:Button ID="btnAssignExisting" runat="server" CssClass="btn btn-primary" Text="Assign View" ToolTip="Switch to assign view to assign existing point opportunities"
                         OnClick="btnAssignExisting_Click" />
                 </div>
@@ -644,10 +656,154 @@
                 </div>
             </div>
         </asp:Panel>
+
+        <asp:Panel ID="pnlAddNewNonCP" runat="server" Visible="false">
+            <div class="panel panel-default">
+                <div class="panel-heading">Add New Points</div>
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <asp:HiddenField ID="hidInsertCampaignPlayerID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCharacterID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCampaignCPOpportunityDefaultID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCampaignCPOpportunityDefaultIDNPCEvent1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCampaignCPOpportunityDefaultIDNPCSetup1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCampaignCPOpportunityDefaultIDNPCPEL1" runat="server" />
+                            <asp:HiddenField ID="hidInsertEventID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCampaignID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDescription1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDescriptionNPCEvent1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDescriptionNPCSetup1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDescriptionNPCPEL1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDestinationCampaign1" runat="server" />
+                            <asp:HiddenField ID="hidInsertDestinationCampaignLPType1" runat="server" />
+                            <asp:HiddenField ID="hidInsertOpportunityNotes1" runat="server" />
+                            <asp:HiddenField ID="hidInsertExampleURL1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReasonID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReasonIDNPCEvent1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReasonIDNPCSetup1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReasonIDNPCPEL1" runat="server" />
+                            <asp:HiddenField ID="hidInsertStatusID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertAddedByID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCPValue1" runat="server" />
+                            <asp:HiddenField ID="hidInsertApprovedByID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReceiptDate1" runat="server" />
+                            <asp:HiddenField ID="hidInsertReceivedByID1" runat="server" />
+                            <asp:HiddenField ID="hidInsertCPAssignmentDate1" runat="server" />
+                            <asp:HiddenField ID="hidInsertStaffComments1" runat="server" />
+                            <asp:HiddenField ID="hidLastAddCPStep1" runat="server" />
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2 col-xs-5 control-label" for="<%= ddlCampaignPlayerNonCP.ClientID %>">Player:<%--A--%></label>
+                                    <div class="col-xs-9">
+                                        <asp:DropDownList ID="ddlCampaignPlayerNonCP" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                            OnSelectedIndexChanged="ddlCampaignPlayerNonCP_SelectedIndexChanged" />
+                                    </div>
+                                    <div class="col-lg-1 col-xs-2 text-right">
+                                        <asp:Button ID="btnSaveNewNonCP" runat="server" CssClass="btn btn-primary" Text="Save"
+                                            OnClick="btnSaveNewNonCP_Click" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-lg-12 col-xs-2 text-right">
+                                        <asp:Label ID="lblFieldRequired" runat="server" Visible="false"></asp:Label>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-lg-2 control-label text-right" for="<%= tbNonCPAmount.ClientID %>">*Number of Points:<%--F1--%></label>
+                                <div class="col-lg-10">
+                                    <asp:TextBox ID="tbNonCPAmount" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-lg-2 control-label text-right" for="<%= tbNonCPReceiptDate.ClientID %>">*Date Earned:<%--F1--%></label>
+                                <div class="col-lg-10">
+                                    <asp:TextBox ID="tbNonCPReceiptDate" runat="server"></asp:TextBox>
+                                </div>
+                                <ajaxToolkit:CalendarExtender runat="server" TargetControlID="tbNonCPReceiptDate" Format="MM/dd/yyyy" />
+                            </div>
+                            <div class="row">
+                                <label class="col-lg-2 control-label text-right" for="<%= tbNonCPVisibleReason.ClientID %>">Reason:<%--F1--%></label>
+                                <div class="col-lg-10">
+                                    <asp:TextBox ID="tbNonCPVisibleReason" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-lg-2 control-label text-right" for="<%= tbNonCPHiddenReason.ClientID %>">Staff Only Comments:<%--F1--%></label>
+                                <div class="col-lg-10">
+                                    <asp:TextBox ID="tbNonCPHiddenReason" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="<%= ddlSelectCharacterNonCP.ClientID %>">*Character:<%--F1--%></label>
+                                    <div class="col-lg-10">
+                                        <asp:DropDownList ID="ddlSelectCharacterNonCP" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" Visible="false"
+                                            OnSelectedIndexChanged="ddlSelectCharacterNonCP_SelectedIndexChanged" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-lg-2 text-right">* - Required fields</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade in" id="ModalMessage" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title text-center">Player Resume Item</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                <asp:Label ID="lblModalMessage" runat="server" />
+                            </p>
+                        </div>
+                        <div class="modal-footer text-right">
+                            <button type="button" data-dismiss="modal" class="btn btn-primary">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </asp:Panel>
+
+        <asp:Panel ID="pnlCharacterNonCPDisplay" runat="server" Visible="false">
+            <asp:Label ID="Label1" runat="server" Font-Size="24px" Style="font-weight: 500" Text="" />
+            <div class="panel panel-default">
+                <div class="panel-heading"><asp:Label ID="lblTotalNonCP" runat="server" Text="Total Points"></asp:Label></div>
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div style="max-height: 500px; overflow-y: auto;">
+                                <asp:GridView ID="gvPointsNonCPList" runat="server" AutoGenerateColumns="false" GridLines="None"
+                                    CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid" BorderWidth="1">
+                                    <RowStyle BackColor="White" />
+                                    <Columns>
+                                        <asp:BoundField DataField="Character" HeaderText="Spent On" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="CPAmount" HeaderText="Points" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="ReceiptDate" HeaderText="Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="ReasonDescription" HeaderText="Reason" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="AdditionalNotes" HeaderText="Staff Only Comments" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="ApprovingStaffer" HeaderText="Added By" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />  
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </asp:Panel>
+
     </div>
-
-
-
-
 
 </asp:Content>
