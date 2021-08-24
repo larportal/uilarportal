@@ -150,8 +150,10 @@ namespace LarpPortal.Webservices
                 {
                     int iGroupID;
                     int iNumItems;
+                    double iNumPoints;
                     int.TryParse(dGroupRow["PrerequisiteGroupID"].ToString(), out iGroupID);
                     int.TryParse(dGroupRow["NumGroupSkillsRequired"].ToString(), out iNumItems);
+                    double.TryParse(dGroupRow["NumPointsRequired"].ToString(), out iNumPoints);
 
                     DataView dvGroupSkills = new DataView(dsResults.Tables[2], "PrerequisiteGroupID = " + iGroupID.ToString(), "DisplayOrder", DataViewRowState.CurrentRows);
                     if (dvGroupSkills.Count > 0)
@@ -160,7 +162,13 @@ namespace LarpPortal.Webservices
                         for (int i = 0; i < dvGroupSkills.Count; i++)
                         {
                             if (i == 0)
-                                sCampaignInfo += "You have to have " + iNumItems.ToString() + " of the following skills to purchase this: " + dvGroupSkills[i]["SkillName"].ToString();
+                            {
+                                if (iNumItems > 0)
+                                    sCampaignInfo += "You have to have " + iNumItems.ToString() + " of the following skills to purchase this: ";
+                                else
+                                    sCampaignInfo += "You have to spend " + iNumPoints.ToString() + " points on the following skills to purchase this: ";
+                                sCampaignInfo += dvGroupSkills[i]["SkillName"].ToString();
+                            }
                             else
                                 sCampaignInfo += ", " + dvGroupSkills[i]["SkillName"].ToString();
                         }

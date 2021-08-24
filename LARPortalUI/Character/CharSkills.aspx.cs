@@ -13,7 +13,9 @@ using System.Web.UI.WebControls;
 
 using LarpPortal.Classes;
 
-// JBradshaw 3/30/2019 Ability to not automatically buy parent skill added.
+// JBradshaw 3/30/2019  Ability to not automatically buy parent skill added.
+// JBradshaw 8/8/2021   Added require # of points required for pre-reqs.
+// JBradshaw 8/15/2021  Added uspInsUpdCHCharactersSkillCompleted call.
 namespace LarpPortal.Character
 {
     public partial class CharSkills : System.Web.UI.Page
@@ -209,6 +211,13 @@ namespace LarpPortal.Character
                     return;
                 }
 
+                DataTable dtSkillList = new DataTable();
+                dtSkillList.Columns.Add(new DataColumn("NodeID", typeof(int)));
+                dtSkillList.Columns.Add(new DataColumn("NodeText", typeof(string)));
+                dtSkillList.Columns.Add(new DataColumn("PoolID", typeof(int)));
+                dtSkillList.Columns.Add(new DataColumn("PoolName", typeof(string)));
+                dtSkillList.Columns.Add(new DataColumn("Cost", typeof(double)));
+
                 DataTable dtPointsSpent = new DataTable();
                 dtPointsSpent.Columns.Add(new DataColumn("PoolID", typeof(int)));
                 dtPointsSpent.Columns.Add(new DataColumn("PoolName", typeof(string)));
@@ -259,6 +268,15 @@ namespace LarpPortal.Character
                                             if (dPool.Length > 0)
                                             {
                                                 dPool[0]["CPSpent"] = (double)(dPool[0]["CPSpent"]) + SkillCost;
+                                                if (SkillCost != 0)
+                                                {
+                                                    DataRow dSkillRow = dtSkillList.NewRow();
+                                                    dSkillRow["NodeID"] = iSkillID;
+                                                    dSkillRow["NodeText"] = SkillNode.Text;
+                                                    dSkillRow["PoolID"] = iPool;
+                                                    dSkillRow["Cost"] = SkillCost;
+                                                    dtSkillList.Rows.Add(dSkillRow);
+                                                }
                                             }
                                         }
                                     }
@@ -282,6 +300,15 @@ namespace LarpPortal.Character
                                                 if (dPool.Length > 0)
                                                 {
                                                     dPool[0]["CPSpent"] = (double)(dPool[0]["CPSpent"]) + SkillCost;
+                                                    if (SkillCost != 0)
+                                                    {
+                                                        DataRow dSkillRow = dtSkillList.NewRow();
+                                                        dSkillRow["NodeID"] = iSkillID;
+                                                        dSkillRow["NodeText"] = SkillNode.Text;
+                                                        dSkillRow["PoolID"] = iPool;
+                                                        dSkillRow["Cost"] = SkillCost;
+                                                        dtSkillList.Rows.Add(dSkillRow);
+                                                    }
                                                 }
                                             }
                                         }
@@ -492,33 +519,6 @@ namespace LarpPortal.Character
                     double SkillCost = 0.0;
                     double DisplayOrder = 10;
 
-                    //              DataRow[] drPrev = dtSkillCosts.Select("SkillID = " + iSkillID.ToString());
-                    //              if (drPrev.Length == 0)
-                    //              {
-                    //string sSkillName = drPrev[0]["SkillName"].ToString();
-                    //                  DataRow[] drSkillCost = dtCharacterSkillsCost.Select("CampaignSkillNodeID = " + iSkillID.ToString(), "", DataViewRowState.CurrentRows);
-                    //                  if (drSkillCost.Length > 0)
-                    //                  {
-                    //                      double.TryParse(drSkillCost[0]["CPCostPaid"].ToString(), out SkillCost);
-                    //                      DisplayOrder = 10;
-                    //                      double.TryParse(drSkillCost[0]["DisplayOrder"].ToString(), out DisplayOrder);
-                    //                      DataRow dNewRow = dtSkillCosts.NewRow();
-                    //                      dNewRow["PoolID"] = drSkillCost[0]["CampaignSkillPoolID"];
-                    //                      dNewRow["Skill"] = sSkillName;
-                    //                      dNewRow["Cost"] = SkillCost;
-                    //                      dNewRow["SortOrder"] = DisplayOrder;
-                    //                      dNewRow["SkillID"] = iSkillID;
-                    //                      dtSkillCosts.Rows.Add(dNewRow);
-                    //                  }
-                    //                  else
-                    //                  {
-                    //                  }
-                    //                  //							DataRow[] drCampaignSkillCost = dtCampaignSkillsCost.Select("
-                    //              }
-
-                    //foreach (DataRowView drSkills in (new DataView(dtSkillCosts, "SkillID = " + iSkillID.ToString(), "", DataViewRowState.CurrentRows)))
-                    //{
-                    //    string sSkillName = drSkills["SkillName"].ToString();
 
                     DataView dv = new DataView(dtCharacterSkillsCost, "CampaignSkillNodeID = " + iSkillID.ToString(), "", DataViewRowState.CurrentRows);
                     DataView dvCosts = new DataView(dtCharacterSkillsCost, "CampaignSkillNodeID = " + iSkillID.ToString(), "", DataViewRowState.CurrentRows);
@@ -953,6 +953,13 @@ namespace LarpPortal.Character
                 string t = ex.Message;
             }
 
+            //  JBradshaw  8/15/2021  Added call for when all skills have been saved.
+            SortedList sSkillsComplete = new SortedList();
+            sSkillsComplete.Add("@CharacterID", oCharSelect.CharacterID);
+            sSkillsComplete.Add("@CampaignID", oCharSelect.CharacterInfo.CampaignID);
+            sSkillsComplete.Add("@CharacterSkillSetID", oCharSelect.CharacterInfo.SkillSetID);
+            cUtilities.PerformNonQuery("uspInsUpdCHCharactersSkillCompleted", sSkillsComplete, "LARPortal", Master.UserName);
+
             oLog.AddLogMessage("Skills - Save Button", Master.UserName, lsRoutineName, "", Session.SessionID);
             lblmodalMessage.Text = "Character " + oCharSelect.CharacterInfo.AKA + " has been saved.";
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
@@ -1041,27 +1048,125 @@ namespace LarpPortal.Character
                 }
             }
 
-            dvRequiredRows = new DataView(dsRequire.Tables[0], "PrerequisiteGroupID is not null", "", DataViewRowState.CurrentRows);
+            // Go build the tables of pools and what they have already spent.
+            DataTable dtPointsSpent = new DataTable();
+            dtPointsSpent.Columns.Add(new DataColumn("PoolID", typeof(int)));
+            dtPointsSpent.Columns.Add(new DataColumn("PoolName", typeof(string)));
+            dtPointsSpent.Columns.Add(new DataColumn("CPSpent", typeof(double)));
 
-            foreach (DataRowView dRow in dvRequiredRows)
+            // Go through all of the pools so we have the list on the screen.
+            foreach (cSkillPool cSkill in oCharSelect.CharacterInfo.SkillPools)
             {
-                // Since there is at least one group process it.
-                int iPreReqGroup;
-                int iNumReq;
-                if ((int.TryParse(dRow["PrerequisiteGroupID"].ToString(), out iPreReqGroup)) &&
-                    (int.TryParse(dRow["NumGroupSkillsRequired"].ToString(), out iNumReq)))
+                DataRow dNewRow = dtPointsSpent.NewRow();
+                dNewRow["PoolID"] = cSkill.PoolID;
+                dNewRow["PoolName"] = cSkill.PoolDescription;
+                dNewRow["CPSpent"] = 0.0;
+                dtPointsSpent.Rows.Add(dNewRow);
+            }
+
+            DataTable dtCharacterSkillCost = Session["CharacterSkillCost"] as DataTable;
+
+            foreach (DataRow dSkillRec in dtCharacterSkillCost.Rows)
+            {
+                int CampaignSkillPoolID;
+                double CPCostPaid;
+
+                if ((int.TryParse(dSkillRec["CampaignSkillPoolID"].ToString(), out CampaignSkillPoolID)) &&
+                    (double.TryParse(dSkillRec["CPCostPaid"].ToString(), out CPCostPaid)))
                 {
-                    // Get the items for the specific group.
-                    DataView dReqGroup = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
-                    if (dReqGroup.Count > 0)
+                    DataRow[] dPool = dtPointsSpent.Select("PoolID = " + CampaignSkillPoolID.ToString());
+                    if (dPool.Length > 0)
                     {
-                        // There were records. Convert the dataview of reuired nodes convert to a list of string - easier to process.
-                        List<string> ReqSkillNodes = dReqGroup.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
-                        // If we find the value we are looking for - remove it.
-                        ReqSkillNodes.Remove(sValueToCheckFor);
-                        List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
-                        if (FoundNode.Count < iNumReq)
-                            bMeetAllRequirements = false;
+                        dPool[0]["CPSpent"] = (double)(dPool[0]["CPSpent"]) + CPCostPaid;
+                    }
+                }
+            }
+
+            foreach (DataRow dGroupID in dsRequire.Tables[2].Rows)
+            {
+                int iPreReqGroup;
+                int iNumReqSkills;
+                double iNumReqPoints;
+                int iReqPool;
+                bool bDoneChecking = false;
+                if (int.TryParse(dGroupID["PrerequisiteGroupID"].ToString(), out iPreReqGroup))
+                {
+                    string sRowFilter = "isnull(PrerequisiteGroupID, -1) = " + iPreReqGroup.ToString();
+                    DataView dvGroupRows = new DataView(dsRequire.Tables[0], sRowFilter, "", DataViewRowState.CurrentRows);
+
+                    if (dvGroupRows.Count > 0)
+                    {
+                        if (int.TryParse(dvGroupRows[0]["NumGroupSkillsRequired"].ToString(), out iNumReqSkills))
+                        {
+                            if (iNumReqSkills > 0)
+                            {
+                                DataView dSkills = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
+                                if (dSkills.Count > 0)
+                                {
+                                    // There were records. Convert the dataview of reuired nodes convert to a list of string - easier to process.
+                                    List<string> ReqSkillNodes = dSkills.ToTable().AsEnumerable().Select(x => x[1].ToString()).ToList();
+                                    // If we find the value we are looking for - remove it.
+                                    ReqSkillNodes.Remove(sValueToCheckFor);
+                                    List<TreeNode> FoundNode = FindNodesByValueList(ReqSkillNodes);
+                                    if (FoundNode.Count < iNumReqSkills)
+                                        bMeetAllRequirements = false;
+                                }
+                                bDoneChecking = true;
+                            }
+                        }
+                        if (!bDoneChecking)     // Means we have already check number of skills required.
+                        {
+                            if ((double.TryParse(dvGroupRows[0]["NumPointsRequired"].ToString(), out iNumReqPoints)) &&
+                                (int.TryParse(dvGroupRows[0]["PoolPoints"].ToString(), out iReqPool)))
+                            {
+                                foreach (DataRow PolRec in dtPointsSpent.Rows)
+                                {
+                                    PolRec["CPSpent"] = 0.0;
+                                }
+
+                                DataView dSkills = new DataView(dsRequire.Tables[1], "PrerequisiteGroupID = " + iPreReqGroup.ToString(), "", DataViewRowState.CurrentRows);
+                                if (dSkills.Count > 0)
+                                {
+                                    foreach (DataRowView dRecRow in dSkills)
+                                    {
+                                        int iNodeID;
+                                        if (int.TryParse(dRecRow["SkillNodeID"].ToString(), out iNodeID))
+                                        {
+                                            DataView dvSkillCost = new DataView(dtCharacterSkillCost, "CampaignSkillNodeID = " + iNodeID, "", DataViewRowState.CurrentRows);
+                                            foreach (DataRowView drSkillCost in dvSkillCost)
+                                            {
+                                                int iCampaignSkillPoolID;
+                                                double dCost;
+
+                                                if ((int.TryParse(drSkillCost["CampaignSkillPoolID"].ToString(), out iCampaignSkillPoolID)) &&
+                                                    (double.TryParse(drSkillCost["CPCostPaid"].ToString(), out dCost)))
+                                                {
+                                                    DataView PointsSpent = new DataView(dtPointsSpent, "PoolID = " + iReqPool, "", DataViewRowState.CurrentRows);
+                                                    if (PointsSpent.Count > 0)
+                                                    {
+                                                        //double dPointsSpent;
+                                                        //if (double.TryParse(PointsSpent[0]["CPSpent"].ToString(), out dPointsSpent))
+                                                        //{
+                                                        PointsSpent[0]["CPSpent"] = (double)PointsSpent[0]["CPSpent"] + dCost;
+                                                        //}
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                DataView dvFinalTotal = new DataView(dtPointsSpent, "PoolID = " + iReqPool, "", DataViewRowState.CurrentRows);
+                                if (dvFinalTotal.Count > 0)
+                                {
+                                    double dPointsPaid;
+                                    if (double.TryParse(dvFinalTotal[0]["CPSpent"].ToString(), out dPointsPaid))
+                                    {
+                                        if (iNumReqPoints > dPointsPaid)
+                                            bMeetAllRequirements = false;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

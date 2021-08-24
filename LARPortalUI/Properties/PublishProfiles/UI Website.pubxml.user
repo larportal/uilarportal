@@ -6,9 +6,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA9Ew+2G41WkWXpQF+XVx/xAAAAAACAAAAAAAQZgAAAAEAACAAAABQLQyk7+shILV1vWk1/iIwcwsB1oHvUqQFkdtXChbZ8QAAAAAOgAAAAAIAACAAAAC8ieZoCjEuWAM8DNRZIm1GV4/Wi7BXmUMn2e2u1gl1piAAAAAra+Ex8CUSFolJgchcfAMobqiHZ2PIKb5ze75oqeQF+EAAAACvYKCq5LszAu3JvSbtb3jjwAUhNAH1n1Q1u7bV/W1jN04s8lHTceeyKZqdjEQmKaT8yr7XaZqnMHoNFdOXm2cm</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYxHQw4rLbUmPGhLrTa/rhwAAAAACAAAAAAAQZgAAAAEAACAAAAB0EHqbEqMAt/m2JMlTgi/z7w/P0A2w/qqoYRRGQ9eBlAAAAAAOgAAAAAIAACAAAADCEo0IMc+RVVvHYVUb7sHT5t4LobeSgxVMNXXr4X0XIiAAAAADyds9Rb5REVWzOk24vIZCDX8kGaKoGLQIgpfcsbTkZUAAAAAV5teqYMAPoAbclX4aZn21H6JpnoFrKfsnoRIuvtzvsJu4yLQ4DGmZ8HjbALzKY1rcJjg8PN61PkvCATzd/RZs</EncryptedPassword>
     <_PublishTargetUrl>ftp://larportal.com</_PublishTargetUrl>
-    <History>True|2021-07-18T16:08:15.9536390Z;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
+    <History>True|2021-08-15T15:55:57.8634474Z;False|2021-08-15T11:49:08.9811197-04:00;True|2021-07-18T19:30:53.0954696-04:00;True|2021-07-18T12:08:15.9536390-04:00;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="bin/LARPortal.dll">
-      <publishTime>07/16/2021 18:05:10</publishTime>
+      <publishTime>08/15/2021 11:54:18</publishTime>
     </File>
     <File Include="bin/LARPortal.pdb">
-      <publishTime>07/16/2021 18:05:10</publishTime>
+      <publishTime>08/15/2021 11:54:18</publishTime>
     </File>
     <File Include="bin/MailKit.dll">
       <publishTime>07/16/2021 13:08:24</publishTime>
@@ -3810,7 +3810,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/18/2021 12:06:12</publishTime>
+      <publishTime>08/15/2021 11:54:21</publishTime>
     </File>
     <File Include="Webservices/CampaignInfo.asmx">
       <publishTime>03/21/2021 09:33:59</publishTime>

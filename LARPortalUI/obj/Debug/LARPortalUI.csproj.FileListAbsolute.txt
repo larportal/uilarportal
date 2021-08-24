@@ -35,3 +35,4 @@ C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortalUI.csproj.CoreCompileInputs
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortalUI.csproj.CopyComplete
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortal.dll
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortal.pdb
+C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortalUI.csprojAssemblyReference.cache
