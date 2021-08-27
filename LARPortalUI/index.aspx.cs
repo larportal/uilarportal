@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,8 +17,27 @@ namespace LarpPortal
 			tbUserName.Attributes.Add("PlaceHolder", "Username");
 			tbPassword.Attributes.Add("PlaceHolder", "Password");
 			btnClose.Attributes.Add("data-dismiss", "modal");
-			lblVersion.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  " +
-				File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString();
+
+			if (Session["CompileDate"] is null)
+			{
+				DateTime dtCompileTime = Classes.cCompileDate.GetLinkerDateTime(Assembly.GetExecutingAssembly());
+				string sCompileTime = "Compiled: " + dtCompileTime.ToString("g", CultureInfo.CreateSpecificCulture("en-US"));
+				Session["CompileDate"] = sCompileTime;
+			}
+
+
+			lblVersion.Text = Session["CompileDate"].ToString();
+
+			if ((Request.Url.Host.ToUpper().Contains("BETA.")) ||
+				(Request.Url.Host.ToUpper().Contains("LOCALHOST")))
+			{
+				lblVersion.ForeColor = System.Drawing.Color.Black;
+			}
+			else
+				lblVersion.ForeColor = System.Drawing.Color.Transparent;
+
+			//lblVersion.Text =  Assembly.GetExecutingAssembly().GetName().Version.ToString() + "  " +
+			//	File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location).ToString();
 			tbUserName.Focus();
 
 			// Added to redirect http to https
@@ -42,7 +62,7 @@ namespace LarpPortal
 				OpsMode.SetSiteOperationalMode();
 				SiteOpsMode = OpsMode.SiteOperationalMode;
 				Session["OperationalMode"] = SiteOpsMode;
-				int x = 10;
+//				int x = 10;
 			}
 		}
 

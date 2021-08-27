@@ -36,6 +36,7 @@ namespace LarpPortal.Classes
             CardDisplayIncant = true;
 			AddInfoValue = "";
 			AddAvailableValues = new List<cCharacterSkillAddValues>();
+            SkillCost = new List<cCharacterSkillCost>();
 			AddInfoType = enumAddInfoType.None;
         }
 
@@ -44,6 +45,26 @@ namespace LarpPortal.Classes
             return "ID: " + CharacterSkillID.ToString() + "   UserID: " + SkillName.ToString();
         }
 
+        public string CostString()
+        {
+            string Cost = "";
+            cCharacterSkillCost[] cDefaultArray = SkillCost.Where(x => x.isDefaultPool).ToArray();
+            foreach (cCharacterSkillCost cDefault in cDefaultArray)
+            {
+                Cost = cDefault.CPCostPaid.ToString();
+                if (SkillCost.Count > 1)
+                    Cost = cDefault.PoolDescription + ":" + Cost;
+            }
+
+            cCharacterSkillCost[] cOtherArray = SkillCost.Where(x => !x.isDefaultPool).ToArray();
+            foreach (cCharacterSkillCost cOther in cOtherArray)
+            {
+                if (Cost.Length > 0)
+                    Cost += "; ";
+                Cost += cOther.PoolDescription + ":" + cOther.CPCostPaid;
+            }
+            return Cost;
+        }
         public int CharacterSkillID { get; set; }
         public int CharacterSkillSetID { get; set; }
         public int CharacterID { get; set; }
@@ -52,7 +73,7 @@ namespace LarpPortal.Classes
         public int StatusType { get; set; }
         public string StatusName { get; set; }
         public string SkillSetTypeDescription { get; set; }
-        public double CPCostPaid { get; set; }
+ //       public double CPCostPaid { get; set; }
         public string SkillName { get; set; }
         public int CampaignSkillNodeID { get; set; }
         public int SkillTypeID { get; set; }
@@ -75,6 +96,7 @@ namespace LarpPortal.Classes
 		public enumAddInfoType AddInfoType { get; set; }
 		public string AddInfoValue { get; set; }
 		public List<cCharacterSkillAddValues> AddAvailableValues { get; set; }
+        public List<cCharacterSkillCost> SkillCost { get; set; }
         public RecordStatuses RecordStatus { get; set; }
 
         ///// <summary>
@@ -93,13 +115,16 @@ namespace LarpPortal.Classes
 
         public void Save(string sUserName, int iUserID)
         {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
             SortedList sParam = new SortedList();
 
             sParam.Add("@CharacterSkillID", CharacterSkillID);
             sParam.Add("@CharacterSkillSetID", CharacterSkillSetID);
             sParam.Add("@CampaignSkillNodeID", CampaignSkillNodeID);
             sParam.Add("@DisplayOnCard", 1);
-            sParam.Add("@CPCostPaid", CPCostPaid);
+//            sParam.Add("@CPCostPaid", CPCostPaid);
             sParam.Add("@CardDisplayDescription", CardDisplayDescription);
             sParam.Add("@CardDisplayIncant", CardDisplayIncant);
             if (PlayerDescription != null)
@@ -115,7 +140,33 @@ namespace LarpPortal.Classes
 			sParam.Add("@AddInfoValue", AddInfoValue);
             sParam.Add("@UserID", iUserID);
 
-            cUtilities.PerformNonQuery("uspInsUpdCHCharacterSkills", sParam, "LARPortal", sUserName);
+            DataTable dSkills = new DataTable();
+            dSkills = cUtilities.LoadDataTable("uspInsUpdCHCharacterSkills", sParam, "LARPortal", sUserName, lsRoutineName);
+
+            //string t = "No";
+            //if (SkillCost.Count > 1)
+            //    t = "Yes";
+
+            if (dSkills.Rows.Count > 0)
+            {
+                int itemp;
+                if (int.TryParse(dSkills.Rows[0]["CharacterSkillID"].ToString(), out itemp))
+                {
+                    CharacterSkillID = itemp;
+                    foreach (cCharacterSkillCost cCost in SkillCost)
+                    {
+                        //SortedList sParamCost = new SortedList();
+                        //sParamCost.Add(
+                        //sParamCost.Add("@CharacterSkillSetID", CharacterSkillSetID);
+                        //sParamCost.Add("@CampaignSkillNodeID", CampaignSkillNodeID);
+                        //sParamCost.Add("@CampaignSkillPoolID", cCost.CampaignSkillPoolID);
+                        //sParamCost.Add("@CPCostPaid", cCost.CPCostPaid);
+                        //sParamCost.Add("@WhenPurchased", cCost.WhenPurchased);
+                        cCost.CharacterSkillID = itemp;
+                        cCost.Save(sUserName, iUserID);
+                    }
+                }
+            }
         }
     }
 }

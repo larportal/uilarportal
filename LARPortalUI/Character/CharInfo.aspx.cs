@@ -610,6 +610,7 @@ namespace LarpPortal.Character
 
 			SortedList sParam = new SortedList();
 			sParam.Add("@CampaignID", CharInfo.CampaignID);
+			sParam.Add("@Roles", Master.RoleString);
 			DataTable dtDescriptors = Classes.cUtilities.LoadDataTable("uspGetCampaignAttributesStandard",
 				sParam, "LARPortal", Master.UserName, lsRoutineName + ".GetCampaignAttributesStandard");
 

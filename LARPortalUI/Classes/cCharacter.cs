@@ -207,6 +207,7 @@ namespace LarpPortal.Classes
             dsCharacterInfo.Tables[17].TableName = "CampaignInfo";
             dsCharacterInfo.Tables[18].TableName = "CHCharacterSkillsPoints";
             dsCharacterInfo.Tables[19].TableName = "CMTeamMemberInfo";
+            dsCharacterInfo.Tables[20].TableName = "SkillCost";
 
             iNumCharacterRecords = dsCharacterInfo.Tables["CHCharacters"].Rows.Count;
 
@@ -641,14 +642,42 @@ namespace LarpPortal.Classes
                 if (int.TryParse(dSkill["StatusType"].ToString(), out iTemp))
                     NewSkill.StatusType = iTemp;
 
+                NewSkill.CampaignSkillNodeID = cUtilities.ParseStringToInt32(dSkill["CampaignSkillNodeID"].ToString());
+
                 //if (int.TryParse(dSkill["CharacterSkillSetTypeID"].ToString(), out iTemp))
                 //    NewSkill.CharacterSkillSetTypeID = iTemp;
 
                 if (int.TryParse(dSkill["CharacterSkillID"].ToString(), out iTemp))
+                {
                     NewSkill.CharacterSkillID = iTemp;
+                    NewSkill.SkillCost = new List<cCharacterSkillCost>();
+                    DataView dvSkillCosts = new DataView(dsCharacterInfo.Tables["SkillCost"], "CharacterSkillID = " + NewSkill.CharacterSkillID.ToString(), "", DataViewRowState.CurrentRows);
+                    foreach (DataRowView dSkillCost in dvSkillCosts)
+                    {
+                        cCharacterSkillCost NewCost = new cCharacterSkillCost();
+                        NewCost.CampaignSkillPoolID = cUtilities.ParseStringToInt32(dSkillCost["CampaignSkillPoolID"].ToString());
+                        NewCost.CharacterSkillCostID = cUtilities.ParseStringToInt32(dSkillCost["CharacterSkillCostID"].ToString());
+                        NewCost.CharacterSkillID = NewSkill.CharacterSkillID;
+//                        NewCost.CharacterSkillNodeID = 
+                        //                        NewCost.CharacterSkillNodeID = NewSkill.CampaignSkillNodeID;
+                        NewCost.CharacterSkillSetID = cUtilities.ParseStringToInt32(dSkillCost["CharacterSkillSetID"].ToString());
+                        NewCost.WhenPurchased = cUtilities.ParseStringToDateTime(dSkillCost["WhenPurchased"].ToString());
+                        NewCost.PoolDescription = dSkillCost["PoolDescription"].ToString();
+                        NewCost.DisplayColor = dSkillCost["DisplayColor"].ToString();
+                        bool bisDefaultPool;
+                        if (bool.TryParse(dSkillCost["DefaultPool"].ToString(), out bisDefaultPool))
+                            NewCost.isDefaultPool = bisDefaultPool;
+                        else
+                            NewCost.isDefaultPool = false;
 
-                if (int.TryParse(dSkill["CampaignSkillNodeID"].ToString(), out iTemp))
-                    NewSkill.CampaignSkillNodeID = iTemp;
+                        double CPCostPaid;
+                        if (double.TryParse(dSkillCost["CPCostPaid"].ToString(), out CPCostPaid))
+                            NewCost.CPCostPaid = CPCostPaid;
+                        else
+                            NewCost.CPCostPaid = -1;
+                        NewSkill.SkillCost.Add(NewCost);
+                    }
+                }
 
                 //if (int.TryParse(dSkill["CampaignSkillsStandardID"].ToString(), out iTemp))
                 //    NewSkill.CampaignSkillsStandardID = iTemp;
@@ -656,11 +685,7 @@ namespace LarpPortal.Classes
                 if (int.TryParse(dSkill["SkillTypeID"].ToString(), out iTemp))
                     NewSkill.SkillTypeID = iTemp;
 
-                //                if (int.TryParse(dSkill["SkillHeaderTypeID"].ToString(), out iTemp))
-                //                    NewSkill.SkillHeaderTypeID = iTemp;
-
-                if (int.TryParse(dSkill["CharacterSkillSetID"].ToString(), out iTemp))
-                    NewSkill.CharacterSkillSetID = iTemp;
+                NewSkill.CharacterSkillSetID = cUtilities.ParseStringToInt32(dSkill["CharacterSkillSetID"].ToString());
 
                 //if (int.TryParse(dSkill["HeaderAssociation"].ToString(), out iTemp))
                 //    NewSkill.HeaderAssociation = iTemp;
@@ -674,8 +699,8 @@ namespace LarpPortal.Classes
                 if (double.TryParse(dSkill["SkillCPCost"].ToString(), out dTemp))
                     NewSkill.SkillCPCost = dTemp;
 
-                if (double.TryParse(dSkill["CPCostPaid"].ToString(), out dTemp))
-                    NewSkill.CPCostPaid = dTemp;
+                //if (double.TryParse(dSkill["CPCostPaid"].ToString(), out dTemp))
+                //    NewSkill.CPCostPaid = dTemp;
 
                 if (bool.TryParse(dSkill["CanBeUsedPassively"].ToString(), out bTemp))
                     NewSkill.CanBeUsedPassively = bTemp;

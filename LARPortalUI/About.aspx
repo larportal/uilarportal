@@ -137,7 +137,7 @@
                 <div class="row">
                     <div class="col-xs-12 margin20 staff">
                         <h4>Contributors:</h4>
-                        <p>We want to thank JJ McGill and Nicole Gouthro for their ongoing support, advice and testing and Lise Descoteaux for business management.</p>
+                        <p>We want to thank JJ McGill and Nicole Gouthro for their ongoing support, advice and testing and Lise Zanghetti for business management.</p>
                     </div>
                 </div>
 

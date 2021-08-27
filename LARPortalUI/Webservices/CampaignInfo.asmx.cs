@@ -52,17 +52,62 @@ namespace LarpPortal.Webservices
                     dRow["SkillShortDescription"].ToString() + "<br><br>" +
                     "Cost: ";
 
-                sCampaignInfo += @"<span style=""color: " + dRow["DisplayColor"].ToString() + @""">";
+                //if (dsResults.Tables.Count < 5)
+                //{
+                //sCampaignInfo += @"<span style=""color: " + dRow["DisplayColor"].ToString() + @""">";
 
-                if (dRow["SkillCPCost"] != DBNull.Value)
-                    sCampaignInfo += dRow["SkillCPCost"].ToString();
+                //if (dRow["SkillCPCost"] != DBNull.Value)
+                //    sCampaignInfo += dRow["SkillCPCost"].ToString();
 
-                bool bDefault = false;
-                if (bool.TryParse(dRow["DefaultPool"].ToString(), out bDefault))
-                    if (!bDefault)
-                        sCampaignInfo += " " + dRow["PoolDescription"].ToString();
+                //bool bDefault = false;
+                //if (bool.TryParse(dRow["DefaultPool"].ToString(), out bDefault))
+                //    if (!bDefault)
+                //        sCampaignInfo += " " + dRow["PoolDescription"].ToString();
 
-                sCampaignInfo += "</span>";
+                //sCampaignInfo += "</span>";
+                //}
+                //else
+                //{
+                    if (dsResults.Tables[4].Rows.Count == 1)
+                    {
+                        sCampaignInfo += @"<span style=""color: " + dsResults.Tables[4].Rows[0]["DisplayColor"].ToString() + @""">";
+                        if (dsResults.Tables[4].Rows[0]["SkillCPCost"] != DBNull.Value)
+                            sCampaignInfo += dsResults.Tables[4].Rows[0]["SkillCPCost"].ToString();
+
+                        bool bDefault = false;
+                        if (bool.TryParse(dsResults.Tables[4].Rows[0]["DefaultPool"].ToString(), out bDefault))
+                            if (!bDefault)
+                                sCampaignInfo += " " + dsResults.Tables[4].Rows[0]["PoolDescription"].ToString();
+
+                        sCampaignInfo += "</span>";
+                    }
+                    else
+                    {
+                        string sPaddingString = " style='padding-left: 5px; padding-right: 5px'";
+                        string sPaddingRight = " style='padding-left: 5px; padding-right: 5px; text-align: right;'";
+                        sCampaignInfo += "<table border=1><tr><th" + sPaddingString + ">Pool</th><th" + sPaddingString + ">Cost</th></tr>";
+                        foreach (DataRow dCost in dsResults.Tables[4].Rows)
+                        {
+                            sCampaignInfo += "<tr>";
+                            sCampaignInfo += "<td" + sPaddingString + ">";
+
+                            sCampaignInfo += @"<span style=""color: " + dCost["DisplayColor"].ToString() + @""">";
+
+                            //bool bDefault = false;
+                            //if (bool.TryParse(dCost["DefaultPool"].ToString(), out bDefault))
+                            //    if (!bDefault)
+                            sCampaignInfo += " " + dCost["PoolDescription"].ToString();
+                            sCampaignInfo += "</span></td><td" + sPaddingRight + " >";
+
+                            sCampaignInfo += @"<span style=""color: " + dCost["DisplayColor"].ToString() + @""">";
+                            if (dCost["SkillCPCost"] != DBNull.Value)
+                                sCampaignInfo += dCost["SkillCPCost"].ToString();
+                            sCampaignInfo += "</span></td>";
+                            sCampaignInfo += "</tr>";
+                        }
+                        sCampaignInfo += "</table>";
+                    }
+                //}
                 sCampaignInfo += "<br><br>" + dRow["SkillLongDescription"].ToString();
             }
 
@@ -105,8 +150,10 @@ namespace LarpPortal.Webservices
                 {
                     int iGroupID;
                     int iNumItems;
+                    double iNumPoints;
                     int.TryParse(dGroupRow["PrerequisiteGroupID"].ToString(), out iGroupID);
                     int.TryParse(dGroupRow["NumGroupSkillsRequired"].ToString(), out iNumItems);
+                    double.TryParse(dGroupRow["NumPointsRequired"].ToString(), out iNumPoints);
 
                     DataView dvGroupSkills = new DataView(dsResults.Tables[2], "PrerequisiteGroupID = " + iGroupID.ToString(), "DisplayOrder", DataViewRowState.CurrentRows);
                     if (dvGroupSkills.Count > 0)
@@ -115,7 +162,13 @@ namespace LarpPortal.Webservices
                         for (int i = 0; i < dvGroupSkills.Count; i++)
                         {
                             if (i == 0)
-                                sCampaignInfo += "You have to have " + iNumItems.ToString() + " of the following skills to purchase this: " + dvGroupSkills[i]["SkillName"].ToString();
+                            {
+                                if (iNumItems > 0)
+                                    sCampaignInfo += "You have to have " + iNumItems.ToString() + " of the following skills to purchase this: ";
+                                else
+                                    sCampaignInfo += "You have to spend " + iNumPoints.ToString() + " points on the following skills to purchase this: ";
+                                sCampaignInfo += dvGroupSkills[i]["SkillName"].ToString();
+                            }
                             else
                                 sCampaignInfo += ", " + dvGroupSkills[i]["SkillName"].ToString();
                         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -111,13 +112,37 @@ namespace LarpPortal
 
 		protected void Page_PreRender(object sender, EventArgs e)
 		{
-			if (Request.Url.Host.ToUpper().Contains("BETA."))
+            //if (Request.Url.Host.ToUpper().Contains("BETA."))
+            //{
+            //    lblMessage.Text = "Beta Site";
+            //    SqlConnectionStringBuilder ConnPieces = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString);
+            //    if (ConnPieces != null)
+            //        lblMessage.Text += "  Database: " + ConnPieces.InitialCatalog;
+            //}
+            //else if (Request.Url.Host.ToUpper().Contains("LOCALHOST"))
+            //{
+            //    lblMessage.Text = "Local Host";
+            //    SqlConnectionStringBuilder ConnPieces = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString);
+            //    if (ConnPieces != null)
+            //        lblMessage.Text += "  Database: " + ConnPieces.InitialCatalog;
+            //}
+
+            if (Session["CompileDate"] is null)
 			{
-				lblMessage.Text = "Beta Site";
+                DateTime dtCompileTime = Classes.cCompileDate.GetLinkerDateTime(Assembly.GetExecutingAssembly());
+                string sCompileTime = "Compiled: " + dtCompileTime.ToString("g", CultureInfo.CreateSpecificCulture("en-US"));
+                Session["CompileDate"] = sCompileTime;
+            }
 				SqlConnectionStringBuilder ConnPieces = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString);
 				if (ConnPieces != null)
-					lblMessage.Text += "  Database: " + ConnPieces.InitialCatalog;
-			}
+                lblMessage.Text = Session["CompileDate"].ToString() + "&nbsp;&nbsp;&nbsp;Database: " + ConnPieces.InitialCatalog;
+
+            lblMessage.ForeColor = System.Drawing.Color.Transparent;
+
+            if ((Session["SuperUser"] != null) ||
+                (Request.Url.Host.ToUpper().Contains("BETA.")) ||
+                (Request.Url.Host.ToUpper().Contains("LOCALHOST")))
+                lblMessage.ForeColor = System.Drawing.Color.White;
 
 			Classes.cLogin SiteFooter = new Classes.cLogin();
 			SiteFooter.SetPageFooter();

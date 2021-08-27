@@ -326,6 +326,7 @@ namespace LarpPortal.Controls
 						Session["CharSkillSetID"] = iSkillSetID;
 						Session["CharCharacterID"] = _CharacterInfo.CharacterID;
 						Session["CharCampaignID"] = _CharacterInfo.CampaignID;
+                        Session["CurrentChar"] = _CharacterInfo;
                     }
 //                oLogWriter.AddLogMessage("Done with MyCharacters", lsRoutineName, "", Session.SessionID);
             }
@@ -364,6 +365,9 @@ namespace LarpPortal.Controls
 			}
 
 //            oLogWriter.AddLogMessage("About to check for session variables.", lsRoutineName, "", Session.SessionID);
+
+            if (Session["CurrentChar"] != null)
+                _CharacterInfo = Session["CurrentChar"] as cCharacter;
 
             if ((Session["CampaignsToEdit"] == null) ||
                 (Session["MyCharacters"] == null))
