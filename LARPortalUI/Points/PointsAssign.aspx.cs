@@ -12,6 +12,19 @@ namespace LarpPortal.Points
 {
     public partial class PointsAssign : System.Web.UI.Page
     {
+        public Boolean ForceReload = false;
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+        }
+
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            ForceReload = true;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,7 +36,7 @@ namespace LarpPortal.Points
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack || ForceReload)
             {
                 Session["EditMode"] = "Assign";
                 ddlAttendanceLoad(Master.UserName, Master.CampaignID);

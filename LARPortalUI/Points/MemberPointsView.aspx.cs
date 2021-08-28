@@ -12,13 +12,22 @@ namespace LarpPortal.Points
     public partial class MemberPointsView : System.Web.UI.Page
     {
 
+        public Boolean ForceReload = false;
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+        }
+
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            ForceReload = true;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                ddlPointTypeLoad(Master.CampaignID);
-                BuildCPAuditTable(Master.UserID);
-            }
+
             
         }
 
@@ -27,6 +36,11 @@ namespace LarpPortal.Points
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             Session["ActiveLeftNav"] = "PointsView";
+            if (!IsPostBack || ForceReload)
+            {
+                ddlPointTypeLoad(Master.CampaignID);
+                BuildCPAuditTable(Master.UserID);
+            }
         }
 
         private void ddlPointTypeLoad(int intCampaignID)
