@@ -792,8 +792,8 @@
                                         <asp:BoundField DataField="Character" HeaderText="Spent On" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="CPAmount" HeaderText="Points" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="ReceiptDate" HeaderText="Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                        <asp:BoundField DataField="ReasonDescription" HeaderText="Reason" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
-                                        <asp:BoundField DataField="AdditionalNotes" HeaderText="Staff Only Comments" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="ReasonDescription" HtmlEncode="true" HeaderText="Reason" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="AdditionalNotes" HtmlEncode="true" HeaderText="Staff Only Comments" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="ApprovingStaffer" HeaderText="Added By" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />  
                                     </Columns>
                                 </asp:GridView>
