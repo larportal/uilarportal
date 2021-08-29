@@ -233,7 +233,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="controls">
-                                                        <label for="">AKA</label>
+                                                        <label for="">AKA / Pronoun</label>
                                                         <asp:TextBox ID="tbAKA" runat="server" CssClass="form-control" TabIndex="4" />
                                                     </div>
                                                 </div>

@@ -144,9 +144,20 @@ namespace LarpPortal.Character
 		{
 			oCharSelect.LoadInfo();
 
+			upDescriptors.Visible = false;
 			gvDescriptors.DataSource = null;
-			gvDescriptors.DataSource = oCharSelect.CharacterInfo.Descriptors;
 			gvDescriptors.DataBind();
+
+			if (oCharSelect.CharacterInfo.Descriptors != null)
+			{
+				if (oCharSelect.CharacterInfo.Descriptors.Count > 0)
+				{
+					upDescriptors.Visible = true;
+					gvDescriptors.DataSource = null;
+					gvDescriptors.DataSource = oCharSelect.CharacterInfo.Descriptors;
+					gvDescriptors.DataBind();
+				}
+			}
 		}
 
 		protected void btnDeleteDesc_Click(object sender, EventArgs e)
@@ -407,9 +418,9 @@ namespace LarpPortal.Character
 				//lblAllowSkillRebuild.Visible = true;
 				//lblVisibleRelationship.Visible = true;
 				//lblExpiresOn.Visible = true;
-				//tbType.Visible = false;
-				//ddlCharType.SelectedValue = CharInfo.CharType.CharacterTypeID.ToString();
-				//ddlCharType.Visible = true;
+				tbCharType.Visible = false;
+				ddlCharType.SelectedValue = CharInfo.CharType.CharacterTypeID.ToString();
+				ddlCharType.Visible = true;
 
 				divAddDeath.Attributes["class"] = "hide";
 				divAddActor.Attributes["class"] = "show text-right";
