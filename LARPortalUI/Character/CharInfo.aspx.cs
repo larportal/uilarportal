@@ -760,6 +760,7 @@ namespace LarpPortal.Character
 										sParams.Add("@CampaignSkillsStandardID", iCampaignSkillNodeID);
 										sParams.Add("@SkillSetID", oCharSelect.SkillSetID);
 										sParams.Add("@Comments", "Skill added by " + Master.UserName);
+										sParams.Add("@CharacterID", oCharSelect.CharacterID);
 										Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillAccess", sParams, "LARPortal", Master.UserName);
 
 										if (hidSkillName != null)
@@ -792,7 +793,8 @@ namespace LarpPortal.Character
 				}
 
 				// If there were any hidden skills given to the character, send them an email.
-				if (sHiddenSkillList.Length > 0)
+				if ((sHiddenSkillList.Length > 0) &&
+					(oCharSelect.CharacterInfo.CharacterEmail.ToString().Length > 0))
 				{
 					string sSubject = "LARP Portal Notification - " + Master.CampaignName + " staff has given you access to a hidden skill.";
 					string sBody = "The staff of " + Master.CampaignName + " has given your character " + oCharSelect.CharacterInfo.AKA + " access to the following skill(s):<br>" +

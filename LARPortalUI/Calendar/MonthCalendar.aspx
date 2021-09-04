@@ -117,6 +117,15 @@
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: false, // allow "more" link when too many events
+                eventRender: function (info) {
+                    $(info.el).tooltip({
+                        title: info.event.extendedProps.description,
+                        placement: "top",
+                        trigger: "hover",
+                        container: "body"
+                    });
+                },
+
                 events: [
                    <%= eventstring %>
                 ],
@@ -125,7 +134,8 @@
                     $(element).attr("data-html", "true")
                     $(element).tooltip({ container: "body" })
                 }
-            });
+                });
+
         });
 
         $(function () {

@@ -20,10 +20,6 @@
     <meta http-equiv="pragma" content="no-cache" />
     <title>LARP Portal - The Gateway to Managing Your LARPs</title>
 
-
-
-
-
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 
@@ -48,7 +44,8 @@
     <script src="/Scripts/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+<%--   <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>   --%>
+    <script src="/Scripts/popper.min.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
 
     <%--Put the style sheets here. Any styles that are specific to the page will be in the section MainStyles.--%>

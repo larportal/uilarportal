@@ -80,7 +80,7 @@ namespace LarpPortal.Calendar
                 int iEventID = 0;
                 int.TryParse(dEventInfo["EventID"].ToString(), out iEventID);
                 string sEventName = dEventInfo["EventName"].ToString();
-                string sEventDescription = dEventInfo["EventDescription"].ToString();
+                string sEventDescription = dEventInfo["EventDescription"].ToString().Replace("\"", "'");
 
                 if (DateTime.TryParse(dEventInfo["RegistrationOpenDateTime"].ToString(), out dtTemp))
                     DateList.Add(new DateWithDescription(dtTemp, sCampaignName, iEventID, sEventName, _REGISTRATION_OPEN));
