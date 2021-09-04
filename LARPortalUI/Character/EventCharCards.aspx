@@ -104,7 +104,7 @@
                             <td>
                                 <asp:Label ID="lblRace" runat="server" />
                             </td>
-                            <td class="TableLabel">World: </td>
+                            <td class="TableLabel">Birthplace: </td>
                             <td>
                                 <%# Eval("WhereFrom") %>
                             </td>

@@ -101,7 +101,7 @@
                     <asp:TableCell runat="server" CssClass="TableLabel">Race: </asp:TableCell>
                     <asp:TableCell runat="server">
                         <asp:Label ID="lblRace" runat="server" /></asp:TableCell>
-                    <asp:TableCell runat="server" CssClass="TableLabel">World: </asp:TableCell>
+                    <asp:TableCell runat="server" CssClass="TableLabel">Birthplace: </asp:TableCell>
                     <asp:TableCell runat="server">
                         <asp:Label ID="lblOrigin" runat="server" /></asp:TableCell>
                     <asp:TableCell runat="server" CssClass="TableLabel">Player Name: </asp:TableCell>
