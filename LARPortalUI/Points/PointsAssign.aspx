@@ -471,9 +471,6 @@
                                                 <asp:ListItem Text="Donation, Shield"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Water"></asp:ListItem>
                                                 <asp:ListItem Text="Donation, Weapon"></asp:ListItem>
-                                                <asp:ListItem Text="Campaign Support"></asp:ListItem>
-                                                <asp:ListItem Text="CP Adjustment"></asp:ListItem>
-                                                <asp:ListItem Text="Database Transfer"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
