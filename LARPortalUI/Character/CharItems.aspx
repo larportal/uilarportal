@@ -58,7 +58,6 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Accessories</div>
                                 <div class="panel-body">
-                                    <textarea rows="4" class="form-control" style="min-width: 100%"></textarea>
                                     <asp:TextBox ID="tbAccessories" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" />
                                     <asp:Label ID="lblAccessories" runat="server" CssClass="form-control" Visible="false" />
                                 </div>
@@ -81,7 +80,6 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Other Items</div>
                                 <div class="panel-body">
-                                    <textarea rows="4" class="form-control" style="min-width: 100%"></textarea>
                                     <asp:TextBox ID="tbOtherItems" runat="server" TextMode="MultiLine" Rows="4" CssClass="form-control" />
                                     <asp:Label ID="lblOtherItems" runat="server" CssClass="form-control" />
                                 </div>

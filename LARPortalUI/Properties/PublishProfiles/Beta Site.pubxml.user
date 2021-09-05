@@ -8,7 +8,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYxHQw4rLbUmPGhLrTa/rhwAAAAACAAAAAAAQZgAAAAEAACAAAADwJFOk0MzacZJtTg5NcEUJNpliTioD3mGjb1vYN6udAwAAAAAOgAAAAAIAACAAAAC7fZMpXeGsf/DLZRY4Ym2SQnr0bRtvRVYwGHeSLEVOoyAAAAAHGV+brXB4ShaJp/IwCW+wwzids7pYhAioKK8LO2QI6kAAAABTz370fUpM2VkxqwcSPx8VRM1noBSkndTWzPtN7p2V2ULWgbb0ZAAAAJN6Ga3vZDw6s+7r0iTexGdezgNr2oI0</EncryptedPassword>
     <_PublishTargetUrl>ftp://142.11.229.26/</_PublishTargetUrl>
-    <History>True|2021-08-13T20:19:14.6271973Z;True|2021-08-10T18:53:25.5698434-04:00;False|2021-08-10T17:40:09.0787249-04:00;False|2021-08-10T17:33:59.1183692-04:00;False|2021-08-09T11:30:09.4648934-04:00;True|2021-04-04T11:33:42.8444959-04:00;True|2021-04-04T10:49:59.7311328-04:00;True|2021-04-03T17:32:09.6913232-04:00;True|2021-04-03T17:29:11.5873334-04:00;True|2021-04-03T17:20:42.6889729-04:00;True|2021-04-03T16:46:55.5851859-04:00;True|2021-04-03T16:10:56.7429678-04:00;True|2021-04-03T16:06:10.5025524-04:00;True|2021-04-03T15:55:17.3789379-04:00;True|2021-04-03T12:25:21.6288372-04:00;True|2021-04-03T11:49:51.6722686-04:00;True|2021-04-03T11:44:02.7166386-04:00;True|2021-04-03T11:24:04.1240416-04:00;True|2021-04-03T10:44:48.3541184-04:00;True|2021-03-29T19:18:48.2348387-04:00;True|2021-03-29T18:49:52.8084936-04:00;True|2021-03-29T18:45:35.6980910-04:00;True|2021-03-28T17:06:08.6957521-04:00;False|2021-03-28T16:33:46.1429705-04:00;</History>
+    <History>True|2021-09-04T16:25:50.9635062Z;True|2021-08-13T16:19:14.6271973-04:00;True|2021-08-10T18:53:25.5698434-04:00;False|2021-08-10T17:40:09.0787249-04:00;False|2021-08-10T17:33:59.1183692-04:00;False|2021-08-09T11:30:09.4648934-04:00;True|2021-04-04T11:33:42.8444959-04:00;True|2021-04-04T10:49:59.7311328-04:00;True|2021-04-03T17:32:09.6913232-04:00;True|2021-04-03T17:29:11.5873334-04:00;True|2021-04-03T17:20:42.6889729-04:00;True|2021-04-03T16:46:55.5851859-04:00;True|2021-04-03T16:10:56.7429678-04:00;True|2021-04-03T16:06:10.5025524-04:00;True|2021-04-03T15:55:17.3789379-04:00;True|2021-04-03T12:25:21.6288372-04:00;True|2021-04-03T11:49:51.6722686-04:00;True|2021-04-03T11:44:02.7166386-04:00;True|2021-04-03T11:24:04.1240416-04:00;True|2021-04-03T10:44:48.3541184-04:00;True|2021-03-29T19:18:48.2348387-04:00;True|2021-03-29T18:49:52.8084936-04:00;True|2021-03-29T18:45:35.6980910-04:00;True|2021-03-28T17:06:08.6957521-04:00;False|2021-03-28T16:33:46.1429705-04:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="bin/LARPortal.dll">
-      <publishTime>08/13/2021 16:16:19</publishTime>
+      <publishTime>09/04/2021 12:20:54</publishTime>
     </File>
     <File Include="bin/LARPortal.pdb">
-      <publishTime>08/13/2021 16:16:19</publishTime>
+      <publishTime>09/04/2021 12:20:54</publishTime>
     </File>
     <File Include="bin/MailKit.dll">
       <publishTime>07/16/2021 13:08:24</publishTime>
@@ -60,7 +60,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Calendar/MonthCalendar.aspx">
-      <publishTime>03/21/2021 09:33:59</publishTime>
+      <publishTime>08/29/2021 15:00:32</publishTime>
     </File>
     <File Include="Campaigns/AssignRoles.aspx">
       <publishTime>04/11/2019 20:40:01</publishTime>
@@ -117,7 +117,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 14:06:52</publishTime>
     </File>
     <File Include="Character/CharCard.aspx">
-      <publishTime>07/16/2021 13:35:25</publishTime>
+      <publishTime>09/04/2021 12:21:26</publishTime>
     </File>
     <File Include="Character/CharCardCustomization.aspx">
       <publishTime>03/21/2021 14:07:06</publishTime>
@@ -129,13 +129,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 14:07:33</publishTime>
     </File>
     <File Include="Character/CharInfo.aspx">
-      <publishTime>04/03/2021 15:52:27</publishTime>
+      <publishTime>08/29/2021 10:35:36</publishTime>
     </File>
     <File Include="Character/CharItems.aspx">
       <publishTime>03/21/2021 14:08:18</publishTime>
     </File>
     <File Include="Character/CharPlaces.aspx">
-      <publishTime>03/21/2021 14:08:35</publishTime>
+      <publishTime>08/29/2021 14:32:01</publishTime>
     </File>
     <File Include="Character/CharRelationships.aspx">
       <publishTime>03/21/2021 14:08:50</publishTime>
@@ -144,7 +144,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/18/2021 09:29:39</publishTime>
     </File>
     <File Include="Character/EventCharCards.aspx">
-      <publishTime>03/21/2021 09:33:59</publishTime>
+      <publishTime>09/04/2021 12:21:26</publishTime>
     </File>
     <File Include="Character/History/AddAddendum.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -1986,7 +1986,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="LARPortal.Master">
-      <publishTime>07/16/2021 13:53:21</publishTime>
+      <publishTime>08/29/2021 15:32:14</publishTime>
     </File>
     <File Include="LARPortalUI.ruleset">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -2034,10 +2034,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 13:29:09</publishTime>
     </File>
     <File Include="Points/MemberPointsView.aspx">
-      <publishTime>03/21/2021 13:29:22</publishTime>
+      <publishTime>08/28/2021 12:12:28</publishTime>
     </File>
     <File Include="Points/PointsAssign.aspx">
-      <publishTime>03/21/2021 09:33:59</publishTime>
+      <publishTime>08/29/2021 13:54:29</publishTime>
     </File>
     <File Include="Points/PointsEMail.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -2055,7 +2055,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Profile/Profile.aspx">
-      <publishTime>07/18/2021 12:02:31</publishTime>
+      <publishTime>08/28/2021 12:12:28</publishTime>
     </File>
     <File Include="Profile/Roles.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -3594,7 +3594,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Scripts/popper.min.js">
-      <publishTime>03/21/2021 09:33:59</publishTime>
+      <publishTime>08/29/2021 15:27:49</publishTime>
     </File>
     <File Include="Scripts/popper.min.js.map">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -3825,7 +3825,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/10/2021 18:06:48</publishTime>
+      <publishTime>09/04/2021 12:24:13</publishTime>
     </File>
     <File Include="Webservices/CampaignInfo.asmx">
       <publishTime>03/21/2021 09:33:59</publishTime>
