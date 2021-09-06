@@ -441,7 +441,7 @@
                             </asp:Panel>
 
                             <asp:Panel ID="pnlCPDestinationD3" runat="server" Visible="false">
-                                <%--D3 Choose event, Choose destination for CP--%>
+                                <%--D3 Choose event, Choose destination for CP to character--%>
                                 <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="<%= ddlDestinationCampaign.ClientID %>">Send Points To:<%--D3--%></label>
