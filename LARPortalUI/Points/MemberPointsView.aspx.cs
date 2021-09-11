@@ -64,11 +64,30 @@ namespace LarpPortal.Points
 
         private void BuildCPAuditTable(int UserID)
         {
+            if (chkApplyTo.Checked)
+            {
+                //gvPointsList.Columns[12].Visible = false;
+                //gvPointsList.Columns[13].Visible = false;
+                //gvPointsList.Columns[14].Visible = true;
+                //gvPointsList.Columns[15].Visible = true;
+            }
+            else
+            {
+                //gvPointsList.Columns[12].Visible = true;
+                //gvPointsList.Columns[13].Visible = true;
+                //gvPointsList.Columns[14].Visible = false;
+                //gvPointsList.Columns[15].Visible = false;
+            }
+
             int CampaignID = 0;
             int CharacterID = 0;
             CampaignID = Master.CampaignID;
-
+            bool AllowCPDonation = false;
             string CampaignDDL = "";
+
+            Classes.cCampaignBase Campaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+            AllowCPDonation = Campaign.AllowCPDonation;
+
             CampaignDDL = Master.CampaignName;
             Classes.cTransactions CPAudit = new Classes.cTransactions();
             DataTable dtCPAudit = new DataTable();
@@ -100,43 +119,83 @@ namespace LarpPortal.Points
                 if (stat != "Banked" || spentat != currentcampaign)
                 {
                     e.Row.Cells[12].Visible = false;
-                    e.Row.Cells[13].Visible = false;
+                    e.Row.Cells[13].Visible = false; 
                 }
                 else
                 {
-                    int index = gvPointsList.EditIndex;
-                    DropDownList ddlDropDownList = (DropDownList)e.Row.FindControl("ddlCharacters");
-                    HiddenField hidCmpPlyrID = (HiddenField)e.Row.FindControl("hidSentToCampaignPlayerID");
                     int iTemp = 0;
                     int CampaignID = 0;
                     int CampaignPlayerID = 0;
                     int UserID = 0;
-                    int.TryParse(Session["CampaignID"].ToString(), out CampaignID);
-                    int.TryParse(e.Row.Cells[14].Text.ToString(), out CampaignPlayerID);
-                    if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
-                        CampaignPlayerID = iTemp;
-                    int.TryParse(Session["UserID"].ToString(), out UserID);
-                    string stStoredProc = "uspGetCampaignCharacters";
-                    string stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound";
-                    DataTable dtCharacters = new DataTable();
-                    SortedList sParams = new SortedList();
-                    sParams.Add("@CampaignID", CampaignID);
-                    sParams.Add("@CampaignPlayerID", CampaignPlayerID);
-                    dtCharacters = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", UserID.ToString(), stCallingMethod);
-                    ddlDropDownList.DataTextField = "PointAppChooser";
-                    ddlDropDownList.DataValueField = "CharacterID";
-                    ddlDropDownList.DataSource = dtCharacters;
-                    ddlDropDownList.DataBind();
-                    if (dtCharacters.Rows.Count > 0)
+                    int index = gvPointsList.EditIndex;
+                    if (chkApplyTo.Checked)
                     {
-                        //ddlDropDownList.Items.Insert(0, new ListItem("Select Character", "0"));
-                        //ddlDropDownList.Items.Insert(1, new ListItem("Bank Points", "1"));  // There is no CharacterID 1
-                        //ddlDropDownList.SelectedIndex = 0;
+                        DropDownList ddlDropDownList = (DropDownList)e.Row.FindControl("ddlCharacters");
+                        //Button btnApply = (Button)e.Row.FindControl("btnApplyBanked");
+                        HiddenField hidCmpPlyrID = (HiddenField)e.Row.FindControl("hidSentToCampaignPlayerID");
+                        //btnApply.Text = "Transfer";
+                        //ddlDropDownList.Text = "Transfer To";
+                        int.TryParse(Session["CampaignID"].ToString(), out CampaignID);
+                        int.TryParse(e.Row.Cells[14].Text.ToString(), out CampaignPlayerID);
+                        if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
+                            CampaignPlayerID = iTemp;
+                        int.TryParse(Session["UserID"].ToString(), out UserID);
+                        string stStoredProc = "uspGetCampaignPlayersBySinglePlayer";     // Returns PlayerName and CampaignPlayerID ORDER BY LastName, FirstName
+                        string stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound";
+                        DataTable dtPlayers = new DataTable();
+                        SortedList sParams = new SortedList();
+                        sParams.Add("@CampaignPlayerID", CampaignPlayerID);
+                        dtPlayers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", UserID.ToString(), stCallingMethod);
+                        ddlDropDownList.DataTextField = "PlayerName";
+                        ddlDropDownList.DataValueField = "CampaignPlayerID";
+                        ddlDropDownList.DataSource = dtPlayers;
+                        ddlDropDownList.DataBind();
+                        if (dtPlayers.Rows.Count > 0)
+                        {
+                            //ddlDropDownList.Items.Insert(0, new ListItem("Select Character", "0"));
+                            //ddlDropDownList.Items.Insert(1, new ListItem("Bank Points", "1"));  // There is no CharacterID 1
+                            //ddlDropDownList.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            ddlDropDownList.Items.Insert(0, new ListItem("No players to transfer to", "0"));
+                            ddlDropDownList.SelectedIndex = 0;
+                        }
                     }
                     else
                     {
-                        ddlDropDownList.Items.Insert(0, new ListItem("No characters to apply", "0"));
-                        ddlDropDownList.SelectedIndex = 0;
+                        DropDownList ddlDropDownList = (DropDownList)e.Row.FindControl("ddlCharacters");
+                        //Button btnApply = (Button)e.Row.FindControl("btnApplyBanked");
+                        HiddenField hidCmpPlyrID = (HiddenField)e.Row.FindControl("hidSentToCampaignPlayerID");
+                        //btnApply.Text = "Transfer";
+                        //ddlDropDownList.Text = "Apply To";
+                        int.TryParse(Session["CampaignID"].ToString(), out CampaignID);
+                        int.TryParse(e.Row.Cells[14].Text.ToString(), out CampaignPlayerID);
+                        if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
+                            CampaignPlayerID = iTemp;
+                        int.TryParse(Session["UserID"].ToString(), out UserID);
+                        string stStoredProc = "uspGetCampaignCharacters";
+                        string stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound";
+                        DataTable dtCharacters = new DataTable();
+                        SortedList sParams = new SortedList();
+                        sParams.Add("@CampaignID", CampaignID);
+                        sParams.Add("@CampaignPlayerID", CampaignPlayerID);
+                        dtCharacters = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", UserID.ToString(), stCallingMethod);
+                        ddlDropDownList.DataTextField = "PointAppChooser";
+                        ddlDropDownList.DataValueField = "CharacterID";
+                        ddlDropDownList.DataSource = dtCharacters;
+                        ddlDropDownList.DataBind();
+                        if (dtCharacters.Rows.Count > 0)
+                        {
+                            //ddlDropDownList.Items.Insert(0, new ListItem("Select Character", "0"));
+                            //ddlDropDownList.Items.Insert(1, new ListItem("Bank Points", "1"));  // There is no CharacterID 1
+                            //ddlDropDownList.SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            ddlDropDownList.Items.Insert(0, new ListItem("No characters to apply", "0"));
+                            ddlDropDownList.SelectedIndex = 0;
+                        }
                     }
                 }
             }
@@ -149,6 +208,9 @@ namespace LarpPortal.Points
                 int index = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = gvPointsList.Rows[index];
                 DropDownList ddl = (DropDownList)gvPointsList.Rows[index].FindControl("ddlCharacters");
+                string stStoredProc = "";
+                string stCallingMethod = "";
+                SortedList sParams = new SortedList();
                 int iTemp = 0;
                 double dTemp = 0;
                 int CharacterID = 0;
@@ -157,56 +219,42 @@ namespace LarpPortal.Points
                 double RemainingCP = 0;
                 double BankedCP = 0;
                 double ToBankCP = 0;
-                if (int.TryParse(ddl.SelectedValue.ToString(), out iTemp))
-                    CharacterID = iTemp;
-                HiddenField hidTotalCharacterCapForCampaign = (HiddenField)row.FindControl("hidTotalCharacterCap");
-                HiddenField hidCmpPlyrID = (HiddenField)row.FindControl("hidSentToCampaignPlayerID");
-                HiddenField hidCPAuditID = (HiddenField)row.FindControl("hidPlayerCPAuditID");
                 int CampaignID = 0;
                 int CampaignPlayerID = 0;
+                int ToCampaignPlayerID = 0;
                 int UserID = 0;
                 int RowCharacterID = 0;
                 int PlayerCPAuditID = 0;
                 double RowTotalCP = 0;
-                int.TryParse(Session["CampaignID"].ToString(), out CampaignID);
-                if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
-                    CampaignPlayerID = iTemp;
-                if (int.TryParse(hidCPAuditID.Value.ToString(), out iTemp))
-                    PlayerCPAuditID = iTemp;
+
                 int.TryParse(Session["UserID"].ToString(), out UserID);
-                string stStoredProc = "uspGetCampaignCharacters";
-                string stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound1";
-                DataTable dtCharacters = new DataTable();
-                SortedList sParams = new SortedList();
-                sParams.Add("@CampaignID", CampaignID);
-                sParams.Add("@CampaignPlayerID", CampaignPlayerID);
-                dtCharacters = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", UserID.ToString(), stCallingMethod);
-                foreach (DataRow dRow in dtCharacters.Rows)
+
+                if (chkApplyTo.Checked)
                 {
-                    if (int.TryParse(dRow["CharacterID"].ToString(), out iTemp))
-                        RowCharacterID = iTemp;
-                    if (double.TryParse(dRow["TotalCP"].ToString(), out dTemp))
-                        RowTotalCP = dTemp;
-                    if (RowCharacterID == CharacterID)
-                        TotalCP = RowTotalCP;
-                }
-                if (double.TryParse(hidTotalCharacterCapForCampaign.Value.ToString(), out dTemp))
-                    TotalCharacterCap = dTemp;
-                RemainingCP = TotalCharacterCap - TotalCP;
-                if (double.TryParse(row.Cells[3].Text, out dTemp))
-                    BankedCP = dTemp;
-                ToBankCP = BankedCP - RemainingCP;
-                if (RemainingCP - BankedCP >= 0)
-                {
+                    // Transfer CP to another player
+
                     //Apply and display applied message
-                    stStoredProc = "uspApplyBankedPoints";
-                    stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound2";
+                    stStoredProc = "uspTransferBankedPoints";
+                    stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowCommand1";
                     sParams.Clear();
+                    HiddenField hidCPAuditID = (HiddenField)row.FindControl("hidPlayerCPAuditID");
+                    if (int.TryParse(hidCPAuditID.Value.ToString(), out iTemp))
+                        PlayerCPAuditID = iTemp;
+                    HiddenField hidCmpPlyrID = (HiddenField)row.FindControl("hidSentToCampaignPlayerID");
+                    if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
+                        CampaignPlayerID = iTemp;
+                    if (int.TryParse(ddl.SelectedValue.ToString(), out iTemp))
+                        ToCampaignPlayerID = iTemp;
+                    if (double.TryParse(row.Cells[3].Text, out dTemp))
+                        BankedCP = dTemp;
                     sParams.Add("@UserID", UserID);
-                    sParams.Add("@CharacterID", CharacterID);
+                    sParams.Add("@CampaignPlayerID", CampaignPlayerID);
+                    sParams.Add("@CampaignID", Master.CampaignID);
                     sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
+                    sParams.Add("@CPToCampaignPlayerID", ToCampaignPlayerID);
+                    sParams.Add("@CPValue", BankedCP);
                     cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
-                    string jsString = "alert('Banked points have been applied.');";
+                    string jsString = "alert('Banked points have been transferred.');";
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
                             "MyApplication",
                             jsString,
@@ -216,19 +264,50 @@ namespace LarpPortal.Points
                 }
                 else
                 {
-                    if (RemainingCP > 0)
+
+                    if (int.TryParse(ddl.SelectedValue.ToString(), out iTemp))
+                        CharacterID = iTemp;
+                    HiddenField hidTotalCharacterCapForCampaign = (HiddenField)row.FindControl("hidTotalCharacterCap");
+                    HiddenField hidCmpPlyrID = (HiddenField)row.FindControl("hidSentToCampaignPlayerID");
+                    HiddenField hidCPAuditID = (HiddenField)row.FindControl("hidPlayerCPAuditID");
+                    int.TryParse(Session["CampaignID"].ToString(), out CampaignID);
+                    if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
+                        CampaignPlayerID = iTemp;
+                    if (int.TryParse(hidCPAuditID.Value.ToString(), out iTemp))
+                        PlayerCPAuditID = iTemp;
+
+                    stStoredProc = "uspGetCampaignCharacters";
+                    stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowCommand2";
+                    DataTable dtCharacters = new DataTable();
+                    sParams.Add("@CampaignID", CampaignID);
+                    sParams.Add("@CampaignPlayerID", CampaignPlayerID);
+                    dtCharacters = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", UserID.ToString(), stCallingMethod);
+                    foreach (DataRow dRow in dtCharacters.Rows)
                     {
-                        // This is where we need to split the line into balance you can apply and the leftover and then apply the line.
-                        stStoredProc = "uspApplyBankedPointsSplit";
-                        stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowDataBound3";
+                        if (int.TryParse(dRow["CharacterID"].ToString(), out iTemp))
+                            RowCharacterID = iTemp;
+                        if (double.TryParse(dRow["TotalCP"].ToString(), out dTemp))
+                            RowTotalCP = dTemp;
+                        if (RowCharacterID == CharacterID)
+                            TotalCP = RowTotalCP;
+                    }
+                    if (double.TryParse(hidTotalCharacterCapForCampaign.Value.ToString(), out dTemp))
+                        TotalCharacterCap = dTemp;
+                    RemainingCP = TotalCharacterCap - TotalCP;
+                    if (double.TryParse(row.Cells[3].Text, out dTemp))
+                        BankedCP = dTemp;
+                    ToBankCP = BankedCP - RemainingCP;
+                    if (RemainingCP - BankedCP >= 0)
+                    {
+                        //Apply and display applied message
+                        stStoredProc = "uspApplyBankedPoints";
+                        stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowCommand3";
                         sParams.Clear();
                         sParams.Add("@UserID", UserID);
                         sParams.Add("@CharacterID", CharacterID);
                         sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
-                        sParams.Add("@PointsToApply", RemainingCP);
-                        sParams.Add("@PointsToBank", ToBankCP);
                         cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
-                        string jsString = "alert('Banked points have been applied up to the cap. The balance has been banked.');";
+                        string jsString = "alert('Banked points have been applied.');";
                         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
                                 "MyApplication",
                                 jsString,
@@ -238,14 +317,37 @@ namespace LarpPortal.Points
                     }
                     else
                     {
-                        //Leave banked and display at max message
-                        string jsString = "alert('This character is already at maximum allowed points.');";
-                        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
-                                "MyApplication",
-                                jsString,
-                                true);
-                    }
+                        if (RemainingCP > 0)
+                        {
+                            // This is where we need to split the line into balance you can apply and the leftover and then apply the line.
+                            stStoredProc = "uspApplyBankedPointsSplit";
+                            stCallingMethod = "MemberPointsView.aspx.gvPointsList_RowCommand4";
+                            sParams.Clear();
+                            sParams.Add("@UserID", UserID);
+                            sParams.Add("@CharacterID", CharacterID);
+                            sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
+                            sParams.Add("@PointsToApply", RemainingCP);
+                            sParams.Add("@PointsToBank", ToBankCP);
+                            cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
+                            string jsString = "alert('Banked points have been applied up to the cap. The balance has been banked.');";
+                            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+                                    "MyApplication",
+                                    jsString,
+                                    true);
+                            // Refresh page
+                            BuildCPAuditTable(UserID);
+                        }
+                        else
+                        {
+                            //Leave banked and display at max message
+                            string jsString = "alert('This character is already at maximum allowed points.');";
+                            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+                                    "MyApplication",
+                                    jsString,
+                                    true);
+                        }
 
+                    }
                 }
             }
         }
@@ -277,11 +379,13 @@ namespace LarpPortal.Points
             {
                 //populate vwPointList
                 BuildCPAuditTable(Master.UserID);
+                chkApplyTo.Visible = true;
             }
             else
             {
                 //populate vwNonCPList
                 BuildNonCPAuditTable(intPoolID);
+                chkApplyTo.Visible = false;
             }
 
         }
@@ -319,6 +423,11 @@ namespace LarpPortal.Points
         protected void gvNonCPList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
+        }
+
+        protected void chkApplyTo_CheckedChanged(object sender, EventArgs e)
+        {
+            BuildCPAuditTable(Master.UserID);
         }
     }
 }
