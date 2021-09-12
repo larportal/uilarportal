@@ -38,8 +38,26 @@ namespace LarpPortal.Points
             Session["ActiveLeftNav"] = "PointsView";
             if (!IsPostBack || ForceReload)
             {
+                ShowCPTransfer(Master.CampaignID);
                 ddlPointTypeLoad(Master.CampaignID);
                 BuildCPAuditTable(Master.UserID);
+            }
+        }
+        private void ShowCPTransfer(int intCampaignID)
+        {
+
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            Classes.cCampaignBase campaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+            if (campaign.AllowCPDonation)
+            {
+                Session["AllowCPTransfer"] = "true";
+                chkApplyTo.Visible = true;
+            }
+            else
+            {
+                Session["AllowCPTransfer"] = "false";
+                chkApplyTo.Visible = false;
             }
         }
 
@@ -379,7 +397,15 @@ namespace LarpPortal.Points
             {
                 //populate vwPointList
                 BuildCPAuditTable(Master.UserID);
-                chkApplyTo.Visible = true;
+                if (Session["AllowCPTransfer"] == "true")
+                {
+                    chkApplyTo.Visible = true;
+                }
+                else
+                {
+                    chkApplyTo.Visible = false;
+                }
+
             }
             else
             {

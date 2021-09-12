@@ -76,6 +76,7 @@
                                                     <asp:BoundField DataField="SkillType" HeaderText="Skill Type" />
                                                     <asp:BoundField DataField="Character" HeaderText="Character" />
                                                     <asp:BoundField DataField="Player" HeaderText="Player" />
+                                                    <asp:BoundField DataField="DisplayOrder" HeaderText="DisplayOrder" />
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
@@ -127,6 +128,7 @@
                                                     <asp:BoundField DataField="ParentSkill" HeaderText="Parent Skill" />
                                                     <asp:BoundField DataField="Character" HeaderText="Character" />
                                                     <asp:BoundField DataField="Player" HeaderText="Player" />
+                                                    <asp:BoundField DataField="DisplayOrder" HeaderText="DisplayOrder" />
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
