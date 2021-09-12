@@ -30,7 +30,7 @@ namespace LarpPortal.Character.Teams
             if (oCharSelect.CharacterID.HasValue)
             {
                 SortedList slParameters = new SortedList();
-                slParameters.Add("@CharacterID", oCharSelect.CharacterID.Value);
+                slParameters.Add("@SkillSetID", oCharSelect.SkillSetID);                // oCharSelect.CharacterID.Value);
                 DataTable dtTeams = cUtilities.LoadDataTable("uspGetTeamsForCampaignAndCharacterInd", slParameters, "LARPortal", Master.UserName, lsRoutineName + ".CampaignAndCharacterInd");
 
                 BindData();
@@ -65,15 +65,16 @@ namespace LarpPortal.Character.Teams
             SortedList sParams = new SortedList();
 
             int iTeamID;
+            string sTeamName = "";
             int.TryParse(e.CommandArgument.ToString(), out iTeamID);
+            sParams = new SortedList();
+            sParams.Add("@TeamID", iTeamID);
+            DataTable dtCurrentMembers = cUtilities.LoadDataTable("uspGetTeamMemberCounts", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetTeamMemberCounts");
+            if (dtCurrentMembers.Rows.Count > 0)
+                sTeamName = dtCurrentMembers.Rows[0]["TeamName"].ToString();
 
             if (e.CommandName.ToUpper() == "LEAVETEAM")
             {
-                sParams = new SortedList();
-                sParams.Add("@TeamID", iTeamID);
-                sParams.Add("@CharacterID", oCharSelect.CharacterID.Value);
-                DataTable dtCurrentMembers = cUtilities.LoadDataTable("uspGetTeamMemberCounts", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetTeamMemberCounts");
-
                 DataView dvApprovers = new DataView(dtCurrentMembers, "Approvers = 1 and CharApprover = 1", "", DataViewRowState.CurrentRows);
                 if (dvApprovers.Count == 1)
                 {
@@ -97,10 +98,34 @@ namespace LarpPortal.Character.Teams
 
             string sStatus = "";
 
+            SortedList slParameters = new SortedList();
+            slParameters.Add("@SkillSetID", oCharSelect.SkillSetID);
+            DataTable dtTeams = cUtilities.LoadDataTable("uspGetTeamsForCampaignAndCharacterInd", slParameters, "LARPortal", Master.UserName, lsRoutineName + ".CampaignAndCharacterInd");
+            // Get status for the current team.
+            DataView dvStatus = new DataView(dtTeams, "TeamID = " + iTeamID.ToString(), "", DataViewRowState.CurrentRows);
+
             if (e.CommandName.ToUpper() == "JOINTEAM")
-                sStatus = "Team Member Requested";
+            {
+                lblmodalMessage.Text = "You requested to join " + sTeamName;
+
+                if (dvStatus.Count > 0)
+                {
+                    sStatus = "Team Member Requested";
+                    if (dvStatus[0]["Member"].ToString() == "1")
+                    {
+                        // Person is already a memeber.
+                        lblmodalMessage.Text = "This character is the already a member of " + sTeamName;
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
+                        return;
+                    }
+                }
+            }
+
             else if (e.CommandName.ToUpper() == "ACCEPTINVITE")
+            {
+                lblmodalMessage.Text = "You have accepted the invitation to " + sTeamName;
                 sStatus = "Team Member";
+            }
             else if ((e.CommandName.ToUpper() == "DECLINEINVITE") ||
                      (e.CommandName.ToUpper() == "LEAVETEAM") ||
                      (e.CommandName.ToUpper() == "CANCELREQUEST"))
@@ -113,6 +138,16 @@ namespace LarpPortal.Character.Teams
                 sParams.Add("@CharacterID", oCharSelect.CharacterID.Value);
                 sParams.Add("@UserID", Master.UserID);
                 cUtilities.PerformNonQuery("uspDelCMTeamMembers", sParams, "LARPortal", Master.UserName);
+
+                if (e.CommandName.ToUpper() == "DECLINEINVITE")
+                    lblmodalMessage.Text = "You have declined the invitation to " + sTeamName;
+                else if (e.CommandName.ToUpper() == "LEAVETEAM")
+                    lblmodalMessage.Text = "You have requested to leave the team " + sTeamName;
+                else if (e.CommandName.ToUpper() == "CANCELREQUEST")
+                    lblmodalMessage.Text = "You have cancelled your request to join " + sTeamName;
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
+                return;
             }
             else
             {
@@ -130,6 +165,8 @@ namespace LarpPortal.Character.Teams
                         sParams.Add("@RoleID", iRoleID);
                         sParams.Add("@UserID", Master.UserID);
                         cUtilities.PerformNonQuery("uspInsUpdCMTeamMembers", sParams, "LARPortal", Master.UserName);
+                        // We've already set the message so just display it.
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
                     }
                 }
             }
@@ -137,11 +174,13 @@ namespace LarpPortal.Character.Teams
 
         public void BindData()
         {
+            oCharSelect.LoadInfo();
+
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             SortedList slParameters = new SortedList();
-			slParameters.Add("@SkillSetID", oCharSelect.SkillSetID.Value);		// CharacterID.Value);
+			slParameters.Add("@SkillSetID", oCharSelect.SkillSetID.Value);       //.CharacterID.Value); //oCharSelect.
             DataTable dtTeams = cUtilities.LoadDataTable("uspGetTeamsForCampaignAndCharacterInd", slParameters, "LARPortal", Master.UserName, lsRoutineName + ".CampaignAndCharacterInd");
 
             if (dtTeams.Columns["Accept"] == null)

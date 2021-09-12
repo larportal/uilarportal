@@ -397,7 +397,7 @@ namespace LarpPortal.Points
             {
                 //populate vwPointList
                 BuildCPAuditTable(Master.UserID);
-                if (Session["AllowCPTransfer"] == "true")
+                if (Session["AllowCPTransfer"].ToString() == "true")
                 {
                     chkApplyTo.Visible = true;
                 }

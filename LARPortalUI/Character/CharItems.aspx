@@ -4,9 +4,11 @@
 
 <asp:Content ID="CharItemsStyles" ContentPlaceHolderID="MainStyles" runat="Server"></asp:Content>
 <asp:Content ID="CharItemsScripts" ContentPlaceHolderID="MainScripts" runat="Server">
-    function openMessage() {
+    <script type="text/javascript">
+        function openMessage() {
             $('#modalMessage').modal('show');
         }
+    </script>
 </asp:Content>
 
 <asp:Content ID="CharItemsBody" ContentPlaceHolderID="MainBody" runat="Server">

@@ -8,7 +8,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYxHQw4rLbUmPGhLrTa/rhwAAAAACAAAAAAAQZgAAAAEAACAAAADwJFOk0MzacZJtTg5NcEUJNpliTioD3mGjb1vYN6udAwAAAAAOgAAAAAIAACAAAAC7fZMpXeGsf/DLZRY4Ym2SQnr0bRtvRVYwGHeSLEVOoyAAAAAHGV+brXB4ShaJp/IwCW+wwzids7pYhAioKK8LO2QI6kAAAABTz370fUpM2VkxqwcSPx8VRM1noBSkndTWzPtN7p2V2ULWgbb0ZAAAAJN6Ga3vZDw6s+7r0iTexGdezgNr2oI0</EncryptedPassword>
     <_PublishTargetUrl>ftp://142.11.229.26/</_PublishTargetUrl>
-    <History>True|2021-09-05T20:54:21.5764650Z;True|2021-09-04T12:25:50.9635062-04:00;True|2021-08-13T16:19:14.6271973-04:00;True|2021-08-10T18:53:25.5698434-04:00;False|2021-08-10T17:40:09.0787249-04:00;False|2021-08-10T17:33:59.1183692-04:00;False|2021-08-09T11:30:09.4648934-04:00;True|2021-04-04T11:33:42.8444959-04:00;True|2021-04-04T10:49:59.7311328-04:00;True|2021-04-03T17:32:09.6913232-04:00;True|2021-04-03T17:29:11.5873334-04:00;True|2021-04-03T17:20:42.6889729-04:00;True|2021-04-03T16:46:55.5851859-04:00;True|2021-04-03T16:10:56.7429678-04:00;True|2021-04-03T16:06:10.5025524-04:00;True|2021-04-03T15:55:17.3789379-04:00;True|2021-04-03T12:25:21.6288372-04:00;True|2021-04-03T11:49:51.6722686-04:00;True|2021-04-03T11:44:02.7166386-04:00;True|2021-04-03T11:24:04.1240416-04:00;True|2021-04-03T10:44:48.3541184-04:00;True|2021-03-29T19:18:48.2348387-04:00;True|2021-03-29T18:49:52.8084936-04:00;True|2021-03-29T18:45:35.6980910-04:00;True|2021-03-28T17:06:08.6957521-04:00;False|2021-03-28T16:33:46.1429705-04:00;</History>
+    <History>True|2021-09-12T20:04:05.8065896Z;True|2021-09-12T15:32:54.6845050-04:00;True|2021-09-05T16:54:21.5764650-04:00;True|2021-09-04T12:25:50.9635062-04:00;True|2021-08-13T16:19:14.6271973-04:00;True|2021-08-10T18:53:25.5698434-04:00;False|2021-08-10T17:40:09.0787249-04:00;False|2021-08-10T17:33:59.1183692-04:00;False|2021-08-09T11:30:09.4648934-04:00;True|2021-04-04T11:33:42.8444959-04:00;True|2021-04-04T10:49:59.7311328-04:00;True|2021-04-03T17:32:09.6913232-04:00;True|2021-04-03T17:29:11.5873334-04:00;True|2021-04-03T17:20:42.6889729-04:00;True|2021-04-03T16:46:55.5851859-04:00;True|2021-04-03T16:10:56.7429678-04:00;True|2021-04-03T16:06:10.5025524-04:00;True|2021-04-03T15:55:17.3789379-04:00;True|2021-04-03T12:25:21.6288372-04:00;True|2021-04-03T11:49:51.6722686-04:00;True|2021-04-03T11:44:02.7166386-04:00;True|2021-04-03T11:24:04.1240416-04:00;True|2021-04-03T10:44:48.3541184-04:00;True|2021-03-29T19:18:48.2348387-04:00;True|2021-03-29T18:49:52.8084936-04:00;True|2021-03-29T18:45:35.6980910-04:00;True|2021-03-28T17:06:08.6957521-04:00;False|2021-03-28T16:33:46.1429705-04:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="bin/LARPortal.dll">
-      <publishTime>09/06/2021 15:44:38</publishTime>
+      <publishTime>09/12/2021 16:01:04</publishTime>
     </File>
     <File Include="bin/LARPortal.pdb">
-      <publishTime>09/06/2021 15:44:38</publishTime>
+      <publishTime>09/12/2021 16:01:04</publishTime>
     </File>
     <File Include="bin/MailKit.dll">
       <publishTime>07/16/2021 13:08:24</publishTime>
@@ -132,7 +132,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2021 10:35:36</publishTime>
     </File>
     <File Include="Character/CharItems.aspx">
-      <publishTime>09/05/2021 16:45:25</publishTime>
+      <publishTime>09/06/2021 16:00:17</publishTime>
     </File>
     <File Include="Character/CharPlaces.aspx">
       <publishTime>08/29/2021 14:32:01</publishTime>
@@ -2034,10 +2034,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 13:29:09</publishTime>
     </File>
     <File Include="Points/MemberPointsView.aspx">
-      <publishTime>08/28/2021 12:12:28</publishTime>
+      <publishTime>09/12/2021 15:49:52</publishTime>
     </File>
     <File Include="Points/PointsAssign.aspx">
-      <publishTime>09/06/2021 15:44:32</publishTime>
+      <publishTime>09/12/2021 15:49:52</publishTime>
     </File>
     <File Include="Points/PointsEMail.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -2085,7 +2085,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Reports/CharacterSkillStats.aspx">
-      <publishTime>03/21/2021 09:33:59</publishTime>
+      <publishTime>09/12/2021 15:49:52</publishTime>
     </File>
     <File Include="Reports/CheckIn.aspx">
       <publishTime>07/18/2021 12:02:31</publishTime>

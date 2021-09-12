@@ -637,6 +637,9 @@ namespace LarpPortal.Character
 
 			if (dtDescriptors.Rows.Count > 0)
 			{
+				upDescriptors.Visible = true;
+				gvDescriptors.Visible = true;
+				divCharDev.Visible = true;
 				ddlDescriptor.SelectedIndex = 0;
 				ddlDescriptor_SelectedIndexChanged(null, null);
 			}
