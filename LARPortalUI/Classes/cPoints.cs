@@ -559,7 +559,8 @@ namespace LarpPortal.Classes
             {
                 strDescription = drow["Description"].ToString();
                 Int32.TryParse(drow["CampaignCPOpportunityDefaultID"].ToString(), out CampaignCPOpportunityDefault);
-                double.TryParse(drow["CPValue"].ToString(), out CPVal);
+                // Rick - What in God's name was I thinking overriding the passed value with the default? Fixed on 9/10/2021
+                // double.TryParse(drow["CPValue"].ToString(), out CPVal);
             }
 
             // Go get the ID of the current actor of the character

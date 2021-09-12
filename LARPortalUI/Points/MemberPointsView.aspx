@@ -23,8 +23,13 @@
         </div>
         <div class="row">
             <div class="panel-body">
-                <label for="<%= ddlPointType.ClientID %>">Point/Reward Type: </label>
-                <asp:DropDownList ID="ddlPointType" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" OnSelectedIndexChanged="ddlPointType_SelectedIndexChanged" />
+                <div class="col-sm-9 margin20">
+                    <label for="<%= ddlPointType.ClientID %>">Point/Reward Type: </label>
+                    <asp:DropDownList ID="ddlPointType" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" OnSelectedIndexChanged="ddlPointType_SelectedIndexChanged" />
+                </div>
+                <div class="col-sm-3">
+                    <asp:CheckBox ID="chkApplyTo" runat="server" TextAlign="Left" Text="Transfer Banked Points to Other Players:&nbsp&nbsp" AutoPostBack="true" Checked="false" OnCheckedChanged="chkApplyTo_CheckedChanged" />
+                </div>
             </div>
         </div>
 
@@ -52,6 +57,7 @@
                                             <asp:BoundField DataField="Character" HeaderText="Spent On" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="ReceivingPlayer" HeaderText="Transfer To" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                             <asp:BoundField DataField="CPApprovedDate" HeaderText="Approved" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                            
                                             <asp:TemplateField HeaderText="Apply To">
                                                 <ItemTemplate>
                                                     <asp:DropDownList ID="ddlCharacters" runat="server" Visible="true" />
@@ -63,6 +69,19 @@
                                                         CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:Button>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+
+ <%--                                           <asp:TemplateField HeaderText="Transfer To">
+                                                <ItemTemplate>
+                                                    <asp:DropDownList ID="ddlPlayers" runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField ShowHeader="false">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="btnTransferBanked" runat="server" Visible="false" CommandName="TransferBanked" Text="Transfer" CssClass="btn btn-primary"
+                                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>--%>
+
                                             <asp:TemplateField ShowHeader="false">
                                                 <ItemTemplate>
                                                     <asp:HiddenField ID="hidSentToCampaignPlayerID" runat="server" Value='<%# Eval("SentToCampaignPlayerID") %>' />
