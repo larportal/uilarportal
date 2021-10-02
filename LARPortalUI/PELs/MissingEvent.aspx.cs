@@ -316,7 +316,7 @@ namespace LarpPortal.PELs
                 {
                     iRegistrationID = 0;
                     int.TryParse(dRegRecord["RegistrationID"].ToString(), out iRegistrationID);
-                    InsertCPOpportunity(iRoleAlignment, iCharacterID, iEventID, iRegistrationID);
+                    InsertCPOpportunity(iRoleAlignment, iCharacterID, iEventID, iRegistrationID, "MissingEvents");
                 }
 
                 Session["UpdatePELMessage"] = "alert('You have been registered for the event.');";
@@ -336,7 +336,7 @@ namespace LarpPortal.PELs
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
         }
 
-        protected void InsertCPOpportunity(int RoleAlignment, int iCharacterID, int iEventID, int iRegistrationID)
+        protected void InsertCPOpportunity(int RoleAlignment, int iCharacterID, int iEventID, int iRegistrationID, string PointsFrom)
         {
             int iReasonID = 0;
             switch (ddlRoles.SelectedItem.Text)
@@ -355,7 +355,7 @@ namespace LarpPortal.PELs
             }
 
             Classes.cPoints cPoints = new Classes.cPoints();
-            cPoints.CreateRegistrationCPOpportunity(Master.UserID, Master.CampaignID, RoleAlignment, iCharacterID, iReasonID, iEventID, iRegistrationID);
+            cPoints.CreateRegistrationCPOpportunity(Master.UserID, Master.CampaignID, RoleAlignment, iCharacterID, iReasonID, iEventID, iRegistrationID, PointsFrom);
         }
 
         //protected void oCampSelect_CampaignChanged(object sender, EventArgs e)

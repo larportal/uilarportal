@@ -1194,7 +1194,8 @@ namespace LarpPortal.Events
 			}
 		}
 
-		protected void InsertCPOpportunity(int RoleAlignment, int iCharacterID, int iEventID, int iRegistrationID, bool bFullEvent)
+		protected void InsertCPOpportunity(int RoleAlignment, int iCharacterID, int iEventID, int iRegistrationID, bool bFullEvent,
+				string PointsFrom = "NotSpecified")
 		{
 			int iReasonID = 0;
 			switch (ddlRoles.SelectedItem.Text)
@@ -1221,7 +1222,7 @@ namespace LarpPortal.Events
 			Classes.cPoints cPoints = new Classes.cPoints();
 			cPoints.DeleteRegistrationCPOpportunity(Master.UserID, iRegistrationID);
 
-			cPoints.CreateRegistrationCPOpportunity(Master.UserID, Master.CampaignID, RoleAlignment, iCharacterID, iReasonID, iEventID, iRegistrationID);
+			cPoints.CreateRegistrationCPOpportunity(Master.UserID, Master.CampaignID, RoleAlignment, iCharacterID, iReasonID, iEventID, iRegistrationID, PointsFrom);
 		}
 
 		protected void btnCreateACharacter_Click(object sender, EventArgs e)

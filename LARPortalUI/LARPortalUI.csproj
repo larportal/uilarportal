@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>LARPortalUI.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>IDE0017; IDE0018; IDE0019; IDE0028; CA1303; CA1806; IDE1005</NoWarn>
+    <NoWarn>IDE0017; IDE0018; IDE0019; IDE0028; CA1303; CA1806; IDE1005; IDE0059; IDE0060; IDE0054</NoWarn>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptModuleKind />
@@ -627,6 +627,7 @@
     <Content Include="Reports\HistoryDisplay.aspx" />
     <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
+    <Content Include="Reports\ProfilePics.aspx" />
     <Content Include="Scripts\bootstrap-toggle.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\bootstrap\wells.less" />
@@ -1904,6 +1905,13 @@
     </Compile>
     <Compile Include="Reports\PELDisplay.aspx.designer.cs">
       <DependentUpon>PELDisplay.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProfilePics.aspx.cs">
+      <DependentUpon>ProfilePics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ProfilePics.aspx.designer.cs">
+      <DependentUpon>ProfilePics.aspx</DependentUpon>
     </Compile>
     <Compile Include="TermsOfUse.aspx.cs">
       <DependentUpon>TermsOfUse.aspx</DependentUpon>

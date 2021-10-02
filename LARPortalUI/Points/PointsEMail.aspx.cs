@@ -254,7 +254,7 @@ namespace LarpPortal.Points
                 Classes.cPoints Point = new Classes.cPoints();
                 Point.UpdateCPOpportunity(UserID, intCPOpp, intCmpPlyrID, intCharID, intOppDefID, intEvntID,
                     strDesc, strOppNotes, strExURL, intRsnID, intAddID, CP, UserID,
-                    DateTime.Now, UserID, strComments, intRole, intNPCCampaignID, intCampaignID);
+                    DateTime.Now, UserID, strComments, intRole, intNPCCampaignID, intCampaignID, "PointsEMail.aspx.cs.gvPoints_RowUpdating");
             }
             catch (Exception ex)
             {

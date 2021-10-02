@@ -324,9 +324,10 @@ namespace LarpPortal.Points
 
                 }
                 Classes.cPoints Point = new Classes.cPoints();
+                //  JB  10/2/2021  Added points from parameter to try and help with debugging.
                 Point.UpdateCPOpportunity(Master.UserID, intCPOpp, intCmpPlyrID, intCharID, intOppDefID, intEvntID,
                     strDesc, strOppNotes, strExURL, intRsnID, intAddID, CP, Master.UserID,
-                    DateTime.Now, Master.UserID, strComments, intRole, intNPCCampaignID, Master.CampaignID);
+                    DateTime.Now, Master.UserID, strComments, intRole, intNPCCampaignID, Master.CampaignID, "PointsAssign.aspx.cs.gvPoints_RowUpdating");
             }
             catch (Exception ex)
             {
@@ -2293,9 +2294,10 @@ namespace LarpPortal.Points
 
                     }
                     Classes.cPoints Point = new Classes.cPoints();
+                    //  JB  10/2/2021  Added points from parameter to try and help with debugging.
                     Point.UpdateCPOpportunity(Master.UserID, intCPOpp, intCmpPlyrID, intCharID, intOppDefID, intEvntID,
                         strDesc, strOppNotes, strExURL, intRsnID, intAddID, CP, Master.UserID,
-                        DateTime.Now, Master.UserID, strComments, intRole, intNPCCampaignID, Master.CampaignID);
+                        DateTime.Now, Master.UserID, strComments, intRole, intNPCCampaignID, Master.CampaignID, "PointsAssign.aspx.cs.btnAssignAll_Click");
                 }
                 catch (Exception ex)
                 {

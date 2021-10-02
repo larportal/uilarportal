@@ -9,6 +9,9 @@ using System.Collections;
 using System.Configuration;
 using System.Data.SqlClient;
 
+
+//  JBradshaw   10/2/2021  Added the optional PointsFrom parameter so we can keep better track of where the points are coming from.
+
 namespace LarpPortal.Classes
 {
     public class cPoints
@@ -282,8 +285,10 @@ namespace LarpPortal.Classes
 
         /// <summary>
         /// This will create a CPOpportunity associated with a registration
+        /// JBradshaw   9/25/2021  Added PointsFrom so we know how we got here.
         /// </summary>
-        public void CreateRegistrationCPOpportunity (int UserID, int CampaignID, int RoleAlignment, int CharacterID, int ReasonID, int EventID, int RegistrationID)
+        public void CreateRegistrationCPOpportunity (int UserID, int CampaignID, int RoleAlignment, int CharacterID, int ReasonID, int EventID, int RegistrationID,
+                string PointsFrom = "NotSpecified")
         {
             string OpportunityNotes = "";
             string ExampleURL = "";
@@ -336,7 +341,7 @@ namespace LarpPortal.Classes
 
             // Call the routine to add the opportunity.  Create it already assigned (last two parameters both = 1)
             InsUpdCPOpportunity(UserID, -1, _CampaignPlayerID, CharacterID, CampaignCPOpportunityDefault, EventID, strDescription, OpportunityNotes, ExampleURL, ReasonID,
-                StatusID, UserID, CPVal, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, RegistrationID);
+                StatusID, UserID, CPVal, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, RegistrationID, PointsFrom);
         }
 
         public void GetCampaignPlayerID(int UserID, int CampaignID, int RoleAlignmentID)
@@ -362,7 +367,8 @@ namespace LarpPortal.Classes
         /// Must pass a CPOpportunityID and UserID
         /// </summary>
         public void AssignPELPoints(int UserID, int CampaignPlayer, int Character, int CampaignCPOpportunityDefault, int Event,
-            string EventDescription, int Reason, int Campaign, double CPVal, DateTime RecptDate)
+            string EventDescription, int Reason, int Campaign, double CPVal, DateTime RecptDate,
+                string PointsFrom = "NotSpecified")
         {
             int ReceivedFromCampaignID = _ReceivedFromCampaignID;
             string stStoredProc = "uspGetCampaignCPOpportunityByID";
@@ -491,7 +497,8 @@ namespace LarpPortal.Classes
                 }
                 _ReceivedFromCampaignID = Campaign;
             }
-            InsUpdCPOpportunity(UserID, -1, CampaignPlayer, Character, CampaignCPOpportunityDefault, Event, strDescription, EventDescription, "", Reason, 21, UserID, CPVal, UserID, RecptDate, UserID, DateTime.Now, "", 1, 1, Reg);
+            InsUpdCPOpportunity(UserID, -1, CampaignPlayer, Character, CampaignCPOpportunityDefault, Event, strDescription, EventDescription, "", Reason, 21, UserID, CPVal, UserID, RecptDate, UserID, 
+                DateTime.Now, "", 1, 1, Reg, PointsFrom);
 
             // Call the routine to check if CP can be assigned to character and if appropriate assign the CP
             // 11/17/2016 - Rick - Only add points if character is not 0 (NPC/Staff transfer), otherwise set variables for banking
@@ -513,11 +520,11 @@ namespace LarpPortal.Classes
 
         public void AddManualCPEntry(int UserID, int CampaignPlayerID, int CharacterID, int CampaignCPOpportunityDefaultID, int EventID, int CampaignID, string Description,
                 string OpportunityNotes, string ExampleURL, int ReasonID, int StatusID, int AddedByID, double CPValue, int ApprovedByID, DateTime ReceiptDate,
-                int ReceivedByID, DateTime CPAssignmentDate, string StaffComments)
+                int ReceivedByID, DateTime CPAssignmentDate, string StaffComments, string PointsFrom = "NotSpecified")
         {
             // Call the routine to add the opportunity.  Create it already assigned (last two parameters both = 1)
             InsUpdCPOpportunity(UserID, -1, CampaignPlayerID, CharacterID, CampaignCPOpportunityDefaultID, EventID, Description, OpportunityNotes, ExampleURL, ReasonID,
-                StatusID, AddedByID, CPValue, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, 0);
+                StatusID, AddedByID, CPValue, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, 0, PointsFrom);
             // Call the routine to check if CP can be assigned to character and if appropriate assign the CP
             AddPointsToCharacter(CharacterID, CPValue);
             // Call the routine to add the CP to the player CP audit log.  If assigned to character, create it spent otherwise
@@ -527,12 +534,25 @@ namespace LarpPortal.Classes
             CreatePlayerCPLog(UserID, _CampaignCPOpportunityID, ReceiptDate, CPValue, ReasonID, CampaignPlayerID, CharacterID);
         }
 
-        public void AddNonCPPoints(int CharacterID, string VisibleComment, int AddedByID, double CPValue, int PoolID, DateTime ReceiptDate, string StaffComments)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CharacterID"></param>
+        /// <param name="VisibleComment"></param>
+        /// <param name="AddedByID"></param>
+        /// <param name="CPValue"></param>
+        /// <param name="PoolID"></param>
+        /// <param name="ReceiptDate"></param>
+        /// <param name="StaffComments"></param>
+        /// <param name="PointsFrom">Optional - tells where the routine is called from so we can debug.</param>
+        /// JB  10/2/2021  Added the parameters PointFrom
+        public void AddNonCPPoints(int CharacterID, string VisibleComment, int AddedByID, double CPValue, int PoolID, DateTime ReceiptDate, string StaffComments,
+            string PointsFrom = "NotSpecified")
         {
             // Call the routine to add the points.
             uspInsUpdCHCharacterSkillPoints(AddedByID, CharacterID, PoolID, CPValue);
             // Call the routine to add the audit record.
-            uspInsUpdCHCharacterSkillPointsAudit(-1, CharacterID, PoolID, CPValue, AddedByID, VisibleComment, StaffComments, ReceiptDate);
+            uspInsUpdCHCharacterSkillPointsAudit(-1, CharacterID, PoolID, CPValue, AddedByID, VisibleComment, StaffComments, ReceiptDate, PointsFrom);
             
         }
 
@@ -650,11 +670,12 @@ namespace LarpPortal.Classes
 
         /// <summary>
         /// This will update an existing CP Opportunity
+        /// JB  10/2/2021  Added the PointsFrom parameter.
         /// </summary>
         public void UpdateCPOpportunity(int UserID, int CampaignCPOpportunityID, int CampaignPlayerID, int CharacterID,
             int CampaignOpportunityDefaultID, int EventID, string DescriptionText, string OppNotes, string URL, int ReasonID,
             int AddedByID, double CPVal, int ApprovedByID, DateTime RecptDate, int ReceivedByID, string StaffComments,
-            int RoleID, int NPCCampaignID, int CampaignID)
+            int RoleID, int NPCCampaignID, int CampaignID, string PointsFrom = "NotSpecified")
         {
             // If PC add points to character
             // If NPC/staff keeping points at this campaign, bank them here
@@ -677,7 +698,7 @@ namespace LarpPortal.Classes
                 // Call the routine to update the opportunity.  Create it already assigned (last two parameters both = 1)
                 InsUpdCPOpportunity(UserID, CampaignCPOpportunityID, CampaignPlayerID, CharacterID, CampaignOpportunityDefaultID, 
                                 EventID, DescriptionText, OppNotes, URL, ReasonID, OpportunityStatus, UserID, CPVal, UserID, RecptDate, UserID, 
-                                DateTime.Now, StaffComments, 1, 1, 0);
+                                DateTime.Now, StaffComments, 1, 1, 0, PointsFrom);
                 // Call the routine to check if CP can be assigned to character and if appropriate assign the CP
                 AddPointsToCharacter(CharacterID, CPVal);
                 // Call the routine to add the CP to the player CP audit log.  If assigned to character, create it spent otherwise
@@ -748,7 +769,6 @@ namespace LarpPortal.Classes
         public void uspInsUpdCHCharacterSkillPoints(int UserID, int CharacterID, int PoolID, double PointsAdded)
         {
             string stStoredProc = "uspInsUpdCHCharacterSkillPoints";
-            string stCallingMethod = "cPoints.InsUpdNonCP";
             SortedList slParameters = new SortedList();
             slParameters.Add("@UserID", UserID);
             slParameters.Add("@CharacterID", CharacterID);
@@ -759,9 +779,10 @@ namespace LarpPortal.Classes
 
         /// <summary>
         /// This will add a non-CP / non-universal point assignment audit
+        /// <paramref name="PointsFrom">Optional - used to help debugging.</paramref>
         /// </summary>
         public void uspInsUpdCHCharacterSkillPointsAudit(int AuditID, int CharacterID, int PoolID, double PointsAdded, int AddedBy,
-            string VisibleComments, string StaffOnlyComments, DateTime ReceiptDate)
+            string VisibleComments, string StaffOnlyComments, DateTime ReceiptDate, string PointsFrom = "NotSpecified")
         {
             string stStoredProc = "uspInsUpdCHCharacterSkillPointsAudit";
             string stCallingMethod = "cPoints.InsUpdNonCPAudit";
@@ -794,11 +815,12 @@ namespace LarpPortal.Classes
         /// <summary>
         /// This will add or update a CP Opportunity
         /// Must pass a CPOpportunityID
+        /// <paramref name="PointsFrom">Optional - specify where the call came from for debugging.</paramref>
         /// </summary>
         public void InsUpdCPOpportunity(int UserID, int OpportunityID, 
             int CampaignPlayer, int Character, int CampaignOppDefault, int Event, string DescriptionText, string OpportunityNotesText,
             string URL, int Reason, int Status, int AddedBy, double CPVal, int ApprovedBy, DateTime RecptDate, int ReceivedBy, 
-            DateTime CPAssignment, string StaffCommentsText, int PLAudit, int CharacterUpdate, int Registration)
+            DateTime CPAssignment, string StaffCommentsText, int PLAudit, int CharacterUpdate, int Registration, string PointsFrom = "NotSpecified")
         {
             string stStoredProc = "uspInsUpdCMCampaignCPOpportunities";
             string stCallingMethod = "cPoints.InsUpdCPOpportunity";
@@ -828,6 +850,7 @@ namespace LarpPortal.Classes
                 slParameters.Add("@PLAudit", PLAudit);
                 slParameters.Add("@CharacterUpdate", CharacterUpdate);
                 slParameters.Add("@RegistrationID", Registration);
+                slParameters.Add("@PointsFrom", PointsFrom);
                 //cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
                 dtPoints = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
                 int iTemp = 0;
@@ -855,6 +878,7 @@ namespace LarpPortal.Classes
                 slParameters.Add("@ReceiptDate", RecptDate);
                 slParameters.Add("@ReceivedByID", ReceivedBy);
                 slParameters.Add("@StaffComments", StaffCommentsText);
+                slParameters.Add("@PointsFrom", PointsFrom);
                 cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
             }  
         }
@@ -864,11 +888,11 @@ namespace LarpPortal.Classes
         /// </summary>
         public void MarkPointsForEmail(int UserID, int CampaignCPOpportunityID, int CampaignPlayerID, int CampaignOpportunityDefaultID,
              int EventID, string DescriptionText, string OppNotes, string URL, int ReasonID, double CPVal, DateTime RecptDate, string StaffComments,
-             int CampaignID, int RoleID, int NPCCampaignID, int OppStatus)
+             int CampaignID, int RoleID, int NPCCampaignID, int OppStatus, string PointsFrom = "NotSpecified")
         {
             InsUpdCPOpportunity(UserID, CampaignCPOpportunityID, CampaignPlayerID, 0, CampaignOpportunityDefaultID,
                                            EventID, DescriptionText, OppNotes, URL, ReasonID, OppStatus, UserID, CPVal, UserID, RecptDate, UserID,
-                                           DateTime.Now, StaffComments, 1, 1, 0);
+                                           DateTime.Now, StaffComments, 1, 1, 0, PointsFrom);
             CreatePlayerCPLog(UserID, CampaignCPOpportunityID, RecptDate, CPVal, ReasonID, CampaignPlayerID, CharacterID);
         }
 
@@ -879,7 +903,7 @@ namespace LarpPortal.Classes
         /// </summary>
         public void AddPointsToBank(int UserID, int CampaignCPOpportunityID, int CampaignPlayerID, int CampaignOpportunityDefaultID,
             int EventID, string DescriptionText, string OppNotes, string URL, int ReasonID, double CPVal, DateTime RecptDate, string StaffComments,
-            int CampaignID, int RoleID, int NPCCampaignID)
+            int CampaignID, int RoleID, int NPCCampaignID, string PointsFrom = "NotSpecified")
         {
 
             // Need
@@ -890,7 +914,7 @@ namespace LarpPortal.Classes
             //      ReceivedFromCampaignID, ReceivedFromPlayerCPAuditID, SentToCampaignPlayerID, CharacterID, StatusID, Comments, DateAdded, DateChanged
             InsUpdCPOpportunity(UserID, CampaignCPOpportunityID, CampaignPlayerID, 0, CampaignOpportunityDefaultID,
                                            EventID, DescriptionText, OppNotes, URL, ReasonID, 21, UserID, CPVal, UserID, RecptDate, UserID,
-                                           DateTime.Now, StaffComments, 1, 1, 0);           
+                                           DateTime.Now, StaffComments, 1, 1, 0, PointsFrom);           
             _PLAuditStatus = 60;
             CreatePlayerCPLog(UserID, CampaignCPOpportunityID, RecptDate, CPVal, ReasonID, CampaignPlayerID, CharacterID);
         }
@@ -958,19 +982,19 @@ namespace LarpPortal.Classes
             }
         }
 
-        public void UpdateTentativeOpportunity(int UserID, int OpportunityID, double Points, string StaffComments, int OppStatusID)
+        public void UpdateTentativeOpportunity(int UserID, int OpportunityID, double Points, string StaffComments, int OppStatusID, string PointsFrom = "NotSpecified")
         {
             LoadCPOpportunity(UserID, OpportunityID);
             InsUpdCPOpportunity(UserID, OpportunityID, _CampaignPlayerID, _CharacterID, _CampaignCPOpportunityDefaultID, _EventID, _Description, _OpportunityNotes,
-            "", _ReasonID, OppStatusID, _AddedByID, Points, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, StaffComments, _PLAuditStatus, 1, 0);
+            "", _ReasonID, OppStatusID, _AddedByID, Points, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, StaffComments, _PLAuditStatus, 1, 0, PointsFrom);
         }
 
-        public void CommitTentativeOpportunity(int UserID, int OpportunityID, int StatusID)
+        public void CommitTentativeOpportunity(int UserID, int OpportunityID, int StatusID, string PointsFrom = "NotSpecified")
         {
             LoadCPOpportunity(UserID, OpportunityID);
             // Call InsUpdCPOpportunity to update the opportunity
             InsUpdCPOpportunity(UserID, OpportunityID, _CampaignPlayerID, _CharacterID, _CampaignCPOpportunityDefaultID, _EventID, _Description, _OpportunityNotes,
-                "", _ReasonID, StatusID, _AddedByID, _CPValue, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, _StaffComments, _PLAuditStatus, 1, 0);
+                "", _ReasonID, StatusID, _AddedByID, _CPValue, _ApprovedByID, _ReceiptDate, _ReceivedByID, _CPAssignmentDate, _StaffComments, _PLAuditStatus, 1, 0, PointsFrom);
 
         }
     }

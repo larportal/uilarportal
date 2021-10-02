@@ -150,6 +150,7 @@ namespace LarpPortal.Classes
             }
 			catch (Exception ex)
             {
+                string t = ex.Message;
 				//             //This was the catch I used in the new member login.  It needs something way better but I was in a hurry to get the programming done. - Rick
 				//             //lblEmailFailed.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
 				//             //lblEmailFailed.Visible = true;
