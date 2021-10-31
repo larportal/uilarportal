@@ -471,6 +471,11 @@
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\SideBarMenu.css" />
+    <Content Include="Donations\ClaimDonation.aspx" />
+    <Content Include="Donations\DonationAdd.aspx" />
+    <Content Include="Donations\DonationClaim.aspx" />
+    <Content Include="Donations\images\minus.png" />
+    <Content Include="Donations\images\plus.png" />
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
     <Content Include="Events\EventEdit.aspx" />
@@ -1679,6 +1684,7 @@
     <Compile Include="Classes\cCompileDate.cs" />
     <Compile Include="Classes\cConstants.cs" />
     <Compile Include="Classes\cDescriptors.cs" />
+    <Compile Include="Classes\cDonation.cs" />
     <Compile Include="Classes\cDonations.cs" />
     <Compile Include="Classes\cEmail.cs" />
     <Compile Include="Classes\cEmailMessageService.cs" />
@@ -1748,6 +1754,27 @@
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\ClaimDonation.aspx.cs">
+      <DependentUpon>ClaimDonation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\ClaimDonation.aspx.designer.cs">
+      <DependentUpon>ClaimDonation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\DonationAdd.aspx.cs">
+      <DependentUpon>DonationAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\DonationAdd.aspx.designer.cs">
+      <DependentUpon>DonationAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\DonationClaim.aspx.cs">
+      <DependentUpon>DonationClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\DonationClaim.aspx.designer.cs">
+      <DependentUpon>DonationClaim.aspx</DependentUpon>
     </Compile>
     <Compile Include="Events\AssignHousing.aspx.cs">
       <DependentUpon>AssignHousing.aspx</DependentUpon>
