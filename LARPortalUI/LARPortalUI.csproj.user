@@ -9,8 +9,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NameOfLastUsedPublishProfile>C:\LARPortal\CodeRepo\LARPortalUI\Properties\PublishProfiles\Beta Site.pubxml</NameOfLastUsedPublishProfile>
-    <ProjectView>ProjectFiles</ProjectView>
+    <NameOfLastUsedPublishProfile>C:\LARPortal\CodeRepo\LARPortalUI\Properties\PublishProfiles\UI Website.pubxml</NameOfLastUsedPublishProfile>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
