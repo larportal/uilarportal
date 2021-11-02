@@ -23,22 +23,22 @@
                         <div class="form-inline">
                             <div class="form-group">
                                 <label for="<%= ddlEventDate.ClientID %>" style="padding-left: 10px;">Event Date: </label>
-                                <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlEventDate_SelectedIndexChanged" />
                             </div>
                             <div class="form-group">
                                 <label for="<%= ddlCharacterName.ClientID %>" style="padding-left: 10px;">Character Name: </label>
-                                <asp:DropDownList ID="ddlCharacterName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                <asp:DropDownList ID="ddlCharacterName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlCharacterName_SelectedIndexChanged" />
                             </div>
                             <div class="form-group">
                                 <label for="<%= ddlEventName.ClientID %>" style="padding-left: 10px;">Event Name: </label>
-                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlEventName_SelectedIndexChanged" />
                             </div>
                             <div class="form-group" style="padding-right: 10px;">
                                 <label for="<%= ddlStatus.ClientID %>" style="padding-left: 10px;">PEL Status: </label>
-                                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" 
+                                <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" />
                             </div>
                             <asp:Button ID="btnApproveAll" runat="server" Text="Approve All" CssClass="btn btn-primary" OnClick="btnApproveAll_Click" />
@@ -56,25 +56,44 @@
                                         <div class="col-xs-12">
                                             <div class="pre-scrollable">
                                                 <asp:GridView ID="gvPELList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvPELList_RowCommand" GridLines="None"
-                                                    CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" Width="99%">
+                                                    CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid" BorderWidth="1"
+                                                    Width="99%" AllowSorting="true" OnSorting="gvPELList_Sorting">
                                                     <EmptyDataRowStyle ForeColor="Red" Font-Bold="true" Font-Size="24pt" />
                                                     <EmptyDataTemplate>
                                                         There are no PELs that meet your criteria.
                                                     </EmptyDataTemplate>
                                                     <Columns>
-                                                        <asp:BoundField DataField="CampaignName" HeaderText="Campaign" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="EventStartDate" HeaderText="Event Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false"
-                                                            HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="PlayerName" HeaderText="Player Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="RoleAlignment" HeaderText="Role" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="EventName" HeaderText="Event" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="EventDescription" HeaderText="Event Description" HeaderStyle-Wrap="false" />
-                                                        <asp:BoundField DataField="PELStatus" HeaderText="Status" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                                                        <asp:BoundField DataField="EventStartDate" HeaderText="Event Date" ItemStyle-Wrap="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="EventStartDate" />
+                                                        <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="Event Name" />
+                                                        <asp:BoundField DataField="PlayerFirstName" HeaderText="Player First Name" ItemStyle-Wrap="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="PlayerFirstName" />
+                                                        <asp:BoundField DataField="PLayerLastName" HeaderText="Player Last Name" ItemStyle-Wrap="false"
+                                                            HeaderStyle-Wrap="false" SortExpression="PlayerLastName" />
+                                                        <asp:BoundField DataField="RoleAlignment" HeaderText="Role" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
+                                                            SortExpression="RoleAlignment" />
+                                                        <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
+                                                            SortExpression="CharacterAKA" />
+                                                        <asp:BoundField DataField="EventDescription" HeaderText="Event Description" HeaderStyle-Wrap="false" 
+                                                            SortExpression="EventDescription" />
+                                                        <asp:BoundField DataField="PELStatus" HeaderText="Status" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
+                                                            SortExpression="PELStatus" />
+                                                        <asp:TemplateField HeaderText="Appendum" SortExpression="Addendum">
+                                                            <ItemTemplate>
+                                                                <asp:Image ID="imgAddendum" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem,"AddendumImage") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Staff Comments" SortExpression="StaffComments">
+                                                            <ItemTemplate>
+                                                                <asp:Image ID="imgStaffComment" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem,"StaffCommentsImage") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
-                                                                <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("RegistrationID") %>' CommandName='<%# Eval("ButtonText") %>Item'
-                                                                    Text='View' CssClass="btn btn-primary ShortButton" />
+                                                                <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("RegistrationID") %>'
+                                                                    CommandName='<%# Eval("ButtonText") %>Item' Text='View' CssClass="btn btn-primary ShortButton" />
                                                                 <asp:HiddenField ID="hidPELId" runat="server" Value='<%# Eval("PELID") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>

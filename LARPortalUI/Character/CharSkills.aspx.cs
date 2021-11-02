@@ -963,6 +963,7 @@ namespace LarpPortal.Character
             oLog.AddLogMessage("Skills - Save Button", Master.UserName, lsRoutineName, "", Session.SessionID);
             lblmodalMessage.Text = "Character " + oCharSelect.CharacterInfo.AKA + " has been saved.";
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
+            _Reload = true;
         }
 
 

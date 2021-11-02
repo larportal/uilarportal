@@ -65,9 +65,11 @@ namespace LarpPortal.PELs
                     ddlCharacterList.Visible = false;
                     lblCharacter.Text = dsEventInfo.Tables["AllCharactersForUser"].Rows[0]["CharacterAKA"].ToString();
                     lblCharacter.Visible = true;
+                    hidSkillSetID.Value = dsEventInfo.Tables["AllCharactersForUser"].Rows[0]["CharacterSkillSetID"].ToString();
                 }
                 else
                 {
+                    hidSkillSetID.Value = "";
                     ddlCharacterList.Visible = true;
                     ddlCharacterList.ClearSelection();
                     ddlCharacterList.DataTextField = "CharacterAKA";
@@ -207,6 +209,7 @@ namespace LarpPortal.PELs
                 ddlCharacterList.SelectedIndex = 0;
                 ddlCharacterList.Visible = true;
                 lblCharacter.Visible = false;
+                hidSkillSetID.Value = "";
             }
 
             if (dsEventInfo.Tables["AllCharactersForUser"].Rows.Count == 1)
@@ -215,6 +218,7 @@ namespace LarpPortal.PELs
                 ddlCharacterList.Visible = false;
                 lblCharacter.Visible = true;
                 lblCharacter.Text = ddlCharacterList.Items[0].Text;
+                hidSkillSetID.Value = dsEventInfo.Tables["AllCharactersForUser"].Rows[0]["CharacterSkillSetID"].ToString();
             }
 
             DataView dvJustRoleNames = new DataView(dsEventInfo.Tables["RolesForEvent"], "", "", DataViewRowState.CurrentRows);
@@ -277,14 +281,22 @@ namespace LarpPortal.PELs
             int iEventID = 0;
             int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
             int.TryParse(ddlMissedEvents.SelectedValue, out iEventID);
-            int iCharacterID = 0;
-            int.TryParse(ddlCharacterList.SelectedValue, out iCharacterID);
 
             sParam.Add("@RegistrationID", iRegistrationID);
             sParam.Add("@UserID", Master.UserID);
             sParam.Add("@EventID", iEventID);
             sParam.Add("@RoleAlignmentID", ddlRoles.SelectedValue);
-            sParam.Add("@CharacterID", ddlCharacterList.SelectedValue);
+
+            //  JB  10/2/2021  Fixed for when there is one character - need to pull from hidden skill set id.
+            int iCharacterID = 0;
+            if ((ddlCharacterList.Visible) &&
+                (hidSkillSetID.Value.Length > 0))
+                int.TryParse(hidSkillSetID.Value, out iCharacterID);
+            else
+                int.TryParse(ddlCharacterList.SelectedValue, out iCharacterID);
+
+            sParam.Add("@CharacterID", iCharacterID);
+
             sParam.Add("@DateRegistered", DateTime.Now);
             if (ddlRoles.SelectedItem.Text != "PC")
                 sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);

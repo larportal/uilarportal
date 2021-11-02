@@ -57,7 +57,6 @@ namespace LarpPortal.Classes
         /// <param name="strCallingMethod">What's the name of the method calling this.</param>
         /// <param name="strCommandType">use LoadDataTableCommandType to tell the type.</param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static DataTable LoadDataTable(string strStoredProc, SortedList slParameters, string strLConn, string strUserName, string strCallingMethod, LoadDataTableCommandType strCommandType)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -143,7 +142,6 @@ namespace LarpPortal.Classes
         //    return dsUnUpdated;
         //}
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static string ReturnStringFromSQL(string strStoredProc, string strReturnValue, SortedList slParameters, string strLConn, string strUserName, string strCallingMethod)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -214,7 +212,6 @@ namespace LarpPortal.Classes
 
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static void PerformNonQuery(string strStoredProc, SortedList slParameters, string strLConn, string strUserName)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -263,7 +260,6 @@ namespace LarpPortal.Classes
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static Boolean PerformNonQueryBoolean(string strStoredProc, SortedList slParameters, string strLConn, string strUserName)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -385,7 +381,6 @@ namespace LarpPortal.Classes
             return strReturn;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static Int32 ReturnIntFromSQL(string strStoredProc, string strReturnValue, SortedList slParameters, string strLConn, string strUserName, string strCallingMethod)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -673,7 +668,6 @@ namespace LarpPortal.Classes
             return blnReturn;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static DataSet LoadDataSetWithOpenConnection(string strStoredProc, SortedList slParameters, SqlConnection Conn, string strUserName, string strCallingMethod)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -722,7 +716,6 @@ namespace LarpPortal.Classes
             return lds;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public static DataSet LoadDataSet(string strStoredProc, SortedList slParameters, string strLConn, string strUserName, string strCallingMethod)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();

@@ -71,6 +71,7 @@
                                     <div class="col-sm-9 NoLeftPadding">
                                         <asp:DropDownList ID="ddlCharacterList" runat="server" CssClass="form-control autoWidth" />
                                         <asp:Label ID="lblCharacter" runat="server" CssClass="form-control NoShadow" />
+                                        <asp:HiddenField id="hidSkillSetID" runat="server" />
                                     </div>
                                 </div>
                                 <div class="row Padding5" id="divNPC" runat="server">

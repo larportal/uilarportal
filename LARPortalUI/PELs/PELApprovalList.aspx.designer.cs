@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.PELs {
-    
-    
-    public partial class PELApprovalList {
-        
+namespace LarpPortal.PELs
+{
+
+
+    public partial class PELApprovalList
+    {
+
         /// <summary>
         /// mvPELs control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvPELs;
-        
+
         /// <summary>
         /// vwPELs control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwPELs;
-        
+
         /// <summary>
         /// ddlEventDate control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEventDate;
-        
+
         /// <summary>
         /// ddlCharacterName control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCharacterName;
-        
+
         /// <summary>
         /// ddlEventName control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEventName;
-        
+
         /// <summary>
         /// ddlStatus control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
-        
+
         /// <summary>
         /// btnApproveAll control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnApproveAll;
-        
+
         /// <summary>
         /// gvPELList control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPELList;
-        
+
         /// <summary>
         /// vwNoPELs control.
         /// </summary>
@@ -92,15 +94,17 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwNoPELs;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
