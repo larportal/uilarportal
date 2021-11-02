@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.UI;
@@ -30,14 +28,32 @@ namespace LarpPortal.Points
             if (!IsPostBack)
             {
                 ddlPointTypeLoad(Master.CampaignID);
+                if (ViewState["SortField"] == null)
+                    ViewState["SortField"] = "PlayerLN";
+                if (ViewState["SortDir"] == null)
+                    ViewState["SortDir"] = "";
             }
-                
+
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
             if (!IsPostBack || ForceReload)
             {
+
+                Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
+                OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "", "");
+                foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
+                {
+
+                    {
+                        if (Option.ObjectOption.ToUpper() == "SORTDIR")
+                            ViewState["SortDir"] = Option.OptionValue;
+                        else if (Option.ObjectOption.ToUpper() == "SORTFIELD")
+                            ViewState["SortField"] = Option.OptionValue;
+                    }
+                }
+
                 Session["EditMode"] = "Assign";
                 ddlAttendanceLoad(Master.UserName, Master.CampaignID);
                 ddlCharacterLoad(Master.UserName, Master.CampaignID);
@@ -83,7 +99,8 @@ namespace LarpPortal.Points
             sParams.Add("@UserID", ddlPlayer.SelectedValue);
             sParams.Add("@CharacterID", ddlCharacters.SelectedValue);
             DataTable dtOpportunities = Classes.cUtilities.LoadDataTable("uspGetCampaignPointOpportunities", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignPointOpportunities");
-            gvPoints.DataSource = dtOpportunities;
+            DataView dvOpportunities = new DataView(dtOpportunities, "", ViewState["SortField"].ToString() + " " + ViewState["SortDir"].ToString(), DataViewRowState.CurrentRows);
+            gvPoints.DataSource = dvOpportunities;
             gvPoints.DataBind();
         }
 
@@ -133,8 +150,7 @@ namespace LarpPortal.Points
                 string stCallingMethod = "PointsAssign.aspx.ddlCharacterLoadNonCP";
                 int iTemp = 0;
                 int CampaignPlayerID = 0;
-                //if (int.TryParse(ddlCampaignPlayer.SelectedValue.ToString(), out iTemp))
-                //    CampaignPlayerID = iTemp;
+
                 DataTable dtCampaignPlayers = new DataTable();
                 SortedList sParams = new SortedList();
                 sParams.Add("@OriginalCampaignPlayerID", intCampaignPlayerID);
@@ -2391,7 +2407,29 @@ namespace LarpPortal.Points
                 lblTotalNonCP.Text = "Total Points - " + ddlPointType.SelectedItem.Text;
                 ddlCampaignPlayerLoadNonCP(Master.UserName, Master.CampaignID);
             }
-
         }
+
+        protected void gvPoints_Sorting(object sender, GridViewSortEventArgs e)
+        {
+
+            string sField = ViewState["SortField"].ToString();
+            string sDir = ViewState["SortDir"].ToString();
+
+            if (e.SortExpression == sField)
+            {
+                if (String.IsNullOrEmpty(sDir))
+                    ViewState["SortDir"] = "DESC";
+                else
+                    ViewState["SortDir"] = "";
+            }
+            else
+            {
+                ViewState["SortField"] = e.SortExpression;
+                ViewState["SortDir"] = "";
+            }
+
+            FillGrid();
+        }
+
     }
 }

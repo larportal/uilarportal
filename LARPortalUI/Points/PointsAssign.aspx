@@ -230,13 +230,36 @@
                                 <asp:GridView ID="gvPoints" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
                                     OnRowCancelingEdit="gvPoints_RowCancelingEdit" OnRowEditing="gvPoints_RowEditing" OnRowUpdating="gvPoints_RowUpdating"
                                     OnRowUpdated="gvPoints_RowUpdated" OnRowDeleting="gvPoints_RowDeleting" OnRowDataBound="gvPoints_RowDataBound"
-                                    CssClass="table table-striped table-hover table-condensed">
+                                    CssClass="table table-striped table-hover table-condensed" 
+                                    AllowSorting="true" OnSorting="gvPoints_Sorting" >
                                     <Columns>
-                                        <asp:BoundField HeaderText="Date" DataField="EventDate" ReadOnly="true" />
-                                        <asp:BoundField HeaderText="Event" DataField="EventName" ReadOnly="true" />
-                                        <asp:BoundField HeaderText="Player Name" ItemStyle-Wrap="true" DataField="PlayerName" ReadOnly="true" />
-                                        <asp:BoundField HeaderText="Character Name" ItemStyle-HorizontalAlign="Center" ItemStyle-Wrap="false" DataField="CharacterAKA" ReadOnly="true" />
-                                        <asp:TemplateField HeaderText="Earn Desc" ItemStyle-Wrap="true">
+                                        <asp:TemplateField HeaderText="Date"  ItemStyle-Wrap="true" SortExpression="EventDate" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEventDate" runat="server" Text='<%# Eval("EventDate") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Event" ItemStyle-Wrap="true" SortExpression="EventName" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblEventName" runat="server" Text='<%# Eval("EventName") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <%--<asp:BoundField HeaderText="Player Name" ItemStyle-Wrap="true" DataField="PlayerName" ReadOnly="true" />--%>
+                                        <asp:TemplateField HeaderText="Last Name"  ItemStyle-Wrap="true" SortExpression="PlayerLN" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblPlayerLN" runat="server" Text='<%# Eval("PlayerLN") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="First Name"  ItemStyle-Wrap="true" SortExpression="PlayerFN" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblPlayerFN" runat="server" Text='<%# Eval("PlayerFN") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Character Name"  ItemStyle-Wrap="true" SortExpression="CharacterAKA" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCharacterAKA" runat="server" Text='<%# Eval("CharacterAKA") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Earn Desc" ItemStyle-Wrap="true" SortExpression="Description">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEarnDescription" runat="server" Text='<%# Eval("Description") %>' />
                                             </ItemTemplate>
