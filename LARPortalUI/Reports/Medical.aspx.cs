@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -31,6 +32,11 @@ namespace LarpPortal.Reports
 
         protected void btnRunReport_Click(object sender, EventArgs e)
         {
+            Bindgrid();
+        }
+
+        protected void Bindgrid()
+        {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
@@ -50,24 +56,61 @@ namespace LarpPortal.Reports
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            HtmlForm form = new HtmlForm();
+            Bindgrid();
             Response.Clear();
             Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=Medical.csv");
             Response.Charset = "";
-            Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "CheckIn.xls"));
-            Response.ContentType = "application/ms-excel";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            Response.ContentType = "application/text";
             gvCheckList.AllowPaging = false;
-            form.Attributes["runat"] = "server";
-            form.Controls.Add(gvCheckList);
-            this.Controls.Add(form);
-            form.RenderControl(hw);
-            string style = @"<!--mce:2-->";
-            Response.Write(style);
-            Response.Output.Write(sw.ToString());
+            gvCheckList.DataBind();
+            StringBuilder columnbind = new StringBuilder();
+            string CellText = "";
+            for (int k = 0; k < gvCheckList.Columns.Count; k++)
+            {
+                columnbind.Append(gvCheckList.Columns[k].HeaderText + ',');
+            }
+            columnbind.Append("\r\n");
+            for (int i = 0; i < gvCheckList.Rows.Count; i++)
+            {
+                for (int k = 0; k < gvCheckList.Columns.Count; k++)
+                {
+                    CellText = gvCheckList.Rows[i].Cells[k].Text;
+                    // Take out commas because they screw up the comma delimited csv string
+                    CellText = CellText.Replace(",", "");
+                    // Replace HTML characters with real counterparts; &nbsp -> space / &#39; -> apostrophe / &amp; -> & / &quot; -> " / &lt; -> < / &gt; -> >
+                    CellText = CellText.Replace("&nbsp;", "");
+                    CellText = CellText.Replace("&#39;", "'");
+                    CellText = CellText.Replace("&amp;", " and ");
+                    CellText = CellText.Replace("&quot;", "\"");
+                    CellText = CellText.Replace("&lt;", "<");
+                    CellText = CellText.Replace("&gt;", ">");
+                    CellText = CellText + ",";
+                    columnbind.Append(CellText);
+                }
+                columnbind.Append("\r\n");
+            }
+            Response.Output.Write(columnbind.ToString());
             Response.Flush();
             Response.End();
+            //HtmlForm form = new HtmlForm();
+            //Response.Clear();
+            //Response.Buffer = true;
+            //Response.Charset = "";
+            //Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "CheckIn.xls"));
+            //Response.ContentType = "application/ms-excel";
+            //StringWriter sw = new StringWriter();
+            //HtmlTextWriter hw = new HtmlTextWriter(sw);
+            //gvCheckList.AllowPaging = false;
+            //form.Attributes["runat"] = "server";
+            //form.Controls.Add(gvCheckList);
+            //this.Controls.Add(form);
+            //form.RenderControl(hw);
+            //string style = @"<!--mce:2-->";
+            //Response.Write(style);
+            //Response.Output.Write(sw.ToString());
+            //Response.Flush();
+            //Response.End();
         }
 
         public void LoadData()
