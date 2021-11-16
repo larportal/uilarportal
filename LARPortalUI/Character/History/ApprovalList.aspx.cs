@@ -38,34 +38,76 @@ namespace LarpPortal.Character.History
 
 			dtCharHistory = Classes.cUtilities.LoadDataTable("uspGetCampaignCharacterHistory", sParams, "LARPortal", Session ["UserName"].ToString(), "PELApprovalList.Page_PreRender");
 
-			string sSelectedChar = "";
+			if (!IsPostBack)
+			{
+				ddlCharacterName.DataSource = dtCharHistory;
+				ddlCharacterName.DataTextField = "CharacterAKA";
+				ddlCharacterName.DataValueField = "CharacterAKA";
+				ddlCharacterName.DataBind();
 
+				if (dtCharHistory.Rows.Count > 1)
+				{
+					ListItem liNoFilter = new ListItem();
+					liNoFilter.Text = "No Filter";
+					liNoFilter.Value = "";
+					ddlCharacterName.Items.Insert(0, liNoFilter);
+				}
+			}
+
+			string sSelectedChar = "";
+			string sStatus = "";
 			string sRowFilter = "";
 
-			if (ddlCharacterName.SelectedIndex > 0)
+			Classes.cUserOption Option = new Classes.cUserOption();
+			Option.LoadOptionValue(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "ddlCharacterName", "SelectedValue");
+			sSelectedChar = Option.OptionValue;
+
+			Option.LoadOptionValue(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "ddlStatus", "SelectedValue");
+			sStatus = Option.OptionValue;
+
+			if (!string.IsNullOrEmpty(sSelectedChar))
 			{
-				if (ddlCharacterName.SelectedValue.Length > 0)
+				ddlCharacterName.ClearSelection();
+				foreach (ListItem lItem in ddlCharacterName.Items)
 				{
-					sRowFilter += "(CharacterAKA = '" + ddlCharacterName.SelectedValue.Replace("'", "''") + "')";
-					sSelectedChar = ddlCharacterName.SelectedValue;
+					if (lItem.Value == sSelectedChar)
+					{
+						sRowFilter = "(CharacterAKA = '" + lItem.Value.Replace("'", "''") + "')";
+						ddlCharacterName.ClearSelection();
+						lItem.Selected = true;
+					}
 				}
-				ddlStatus.SelectedIndex = 0;
+				if (ddlCharacterName.SelectedIndex < 0)
+					ddlCharacterName.SelectedIndex = 0;
 			}
 			else
 			{
-				switch (ddlStatus.SelectedValue)
+				if (sStatus.Length > 0)
 				{
-					case "A":
-						sRowFilter = "(DateHistoryApproved is not null)";
-						break;
+					ddlStatus.ClearSelection();
+					foreach (ListItem lItem in ddlStatus.Items)
+					{
+						if (lItem.Value == sStatus)
+						{
 
-					case "S":
-						sRowFilter = "(DateHistoryApproved is null) and (DateHistorySubmitted is not null)";
-						break;
+							switch (sStatus)
+							{
+								case "A":
+									sRowFilter = "(DateHistoryApproved is not null)";
+									break;
 
-					default:
-						sRowFilter = "(DateHistorySubmitted is not null)";
-						break;
+								case "S":
+									sRowFilter = "(DateHistoryApproved is null) and (DateHistorySubmitted is not null)";
+									break;
+
+								default:
+									sRowFilter = "(DateHistorySubmitted is not null)";
+									break;
+							}
+						}
+					}
+					if (ddlStatus.SelectedIndex < 0)
+						ddlStatus.SelectedIndex = 0;
 				}
 			}
 
@@ -93,22 +135,6 @@ namespace LarpPortal.Character.History
 			DataView dvPELs = new DataView(dtCharHistory, sRowFilter, "CharacterAKA", DataViewRowState.CurrentRows);
 			gvHistoryList.DataSource = dvPELs;
 			gvHistoryList.DataBind();
-
-			if (!IsPostBack)
-			{
-				ddlCharacterName.DataSource = dvPELs;
-				ddlCharacterName.DataTextField = "CharacterAKA";
-				ddlCharacterName.DataValueField = "CharacterAKA";
-				ddlCharacterName.DataBind();
-
-				if (dvPELs.Count > 1)
-				{
-					ListItem liNoFilter = new ListItem();
-					liNoFilter.Text = "No Filter";
-					liNoFilter.Value = "";
-					ddlCharacterName.Items.Insert(0, liNoFilter);
-				}
-			}
 		}
 
 		protected void gvHistoryList_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -122,6 +148,42 @@ namespace LarpPortal.Character.History
 			var step1 = Regex.Replace(value, @"<[^>]+>|&nbsp;", "").Trim();
 			var step2 = Regex.Replace(step1, @"\s{2,}", " ");
 			return step2;
+		}
+
+        protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			Classes.cUserOption Option = new Classes.cUserOption();
+			if (ddlStatus.SelectedIndex == 0)
+			{
+				Option.DeleteOption(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "ddlStatus", "SelectedValue");
+			}
+			else
+			{
+				Option.LoginUsername = Session["UserName"].ToString();
+				Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+				Option.ObjectName = "ddlStatus";
+				Option.ObjectOption = "SelectedValue";
+				Option.OptionValue = ddlStatus.SelectedValue;
+				Option.SaveOptionValue();
+			}
+		}
+
+		protected void ddlCharacterName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			Classes.cUserOption Option = new Classes.cUserOption();
+			if (ddlCharacterName.SelectedIndex == 0)
+			{
+				Option.DeleteOption(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "ddlCharacterName", "SelectedValue");
+			}
+			else
+			{
+				Option.LoginUsername = Session["UserName"].ToString();
+				Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+				Option.ObjectName = "ddlCharacterName";
+				Option.ObjectOption = "SelectedValue";
+				Option.OptionValue = ddlCharacterName.SelectedValue;
+				Option.SaveOptionValue();
+			}
 		}
 	}
 }

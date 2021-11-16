@@ -20,10 +20,10 @@
                 <div class="row" style="padding-left: 15px; padding-right: 15px; padding-top: 10px;">
                     <%--                    <asp:Image ID="imgBlank1" runat="server" ImageUrl="~/img/blank.gif" Height="0" Width="25" />--%>
                     Character Name:
-                    <asp:DropDownList ID="ddlCharacterName" runat="server" AutoPostBack="true" />
+                    <asp:DropDownList ID="ddlCharacterName" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCharacterName_SelectedIndexChanged" />
                     <asp:Image ID="imgBlank2" runat="server" ImageUrl="~/img/blank.gif" Height="0" Width="25" />
                     Status:
-                    <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true">
+                    <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged">
                         <asp:ListItem Text="No Filter" Value="" />
                         <asp:ListItem Text="Approved Only" Value="A" />
                         <asp:ListItem Text="Submitted Only" Value="S" />

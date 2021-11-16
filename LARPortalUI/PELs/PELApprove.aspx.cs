@@ -109,23 +109,24 @@ namespace LarpPortal.PELs
                         cChar.LoadCharacterByCharacterID(iCharacterID);
                         sEventInfo += "&nbsp;&nbsp;<b>Character: </b> " + dsQuestions.Tables[0].Rows[0]["CharacterAKA"].ToString();
                         hidCharacterAKA.Value = dsQuestions.Tables[0].Rows[0]["CharacterAKA"].ToString();
-                        imgPicture.ImageUrl = "/img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.
+                        imgPicture.ImageUrl = "../img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.
                         if (cChar.ProfilePicture != null)
                             if (!string.IsNullOrEmpty(cChar.ProfilePicture.PictureURL))
                                 imgPicture.ImageUrl = cChar.ProfilePicture.PictureURL;
-                        imgPicture.Attributes["onerror"] = "this.src='~/img/BlankProfile.png';";
+                        imgPicture.Attributes["onerror"] = "this.src='../img/BlankProfile.png';";
                         hidCharacterID.Value = iCharacterID.ToString();
                         hidCampaignID.Value = cChar.CampaignID.ToString();
                     }
                     else
                     {
+                        string path = ResolveUrl(@"~/img/BlankProfile.png");
                         Classes.cPlayer PLDemography = null;
                         PLDemography = new Classes.cPlayer(Master.UserID, Master.UserName);
 
-                        imgPicture.ImageUrl = "/img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.
+                        imgPicture.ImageUrl = "../img/BlankProfile.png";    // Default it to this so if it is not set it will display the blank profile picture.
                         if (!string.IsNullOrEmpty(PLDemography.UserPhoto))
                             imgPicture.ImageUrl = PLDemography.UserPhoto;
-                        imgPicture.Attributes["onerror"] = "this.src='~/img/BlankProfile.png';";
+                        imgPicture.Attributes["onerror"] = "this.src='../img/BlankProfile.png';";
                     }
 
                     lblEventInfo.Text = sEventInfo;

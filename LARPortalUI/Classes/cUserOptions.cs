@@ -127,6 +127,21 @@ namespace LarpPortal.Classes
 				Comments = dRow["Comments"].ToString();
 			}
 		}
+
+
+		public void DeleteOption(string sLoginUsername, string sPageName, string sObjectName, string sObjectOption)
+		{
+			MethodBase lmth = MethodBase.GetCurrentMethod();
+			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+			SortedList sParams = new SortedList();
+			sParams.Add("@LoginUsername", sLoginUsername);
+			sParams.Add("@PageName", sPageName);
+			sParams.Add("@ObjectName", sObjectName);
+			sParams.Add("@ObjectOption", sObjectOption);
+
+			Classes.cUtilities.PerformNonQuery("uspDelMDBUserOptions", sParams, "LARPortal", sLoginUsername);
+		}
 	}
 
 
@@ -141,7 +156,12 @@ namespace LarpPortal.Classes
 			UserOptionList = new List<cUserOption>();
 		}
 
-		public void LoadUserOptions(string sLoginUsername, string sPageName, string sObjectName, string sObjectOption)
+		/// <summary>
+		/// Load all of the options for a page. You can pass in individual options but why bother ?
+		/// </summary>
+		/// <param name="sLoginUsername">User name</param>
+		/// <param name="sPageName">Full URL</param>
+		public void LoadUserOptions(string sLoginUsername, string sPageName)				//, string sObjectName = "", string sObjectOption = "")
 		{
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
@@ -149,12 +169,12 @@ namespace LarpPortal.Classes
 			SortedList sParams = new SortedList();
 			sParams.Add("@LoginUsername", sLoginUsername);
 			sParams.Add("@PageName", sPageName);
-			if (!string.IsNullOrEmpty(sObjectName))
-			{
-				sParams.Add("@ObjectName", sObjectName);
-				if (!string.IsNullOrEmpty(sObjectOption))
-					sParams.Add("@ObjectOption", sObjectOption);
-			}
+			//if (!string.IsNullOrEmpty(sObjectName))
+			//{
+			//	sParams.Add("@ObjectName", sObjectName);
+			//	if (!string.IsNullOrEmpty(sObjectOption))
+			//		sParams.Add("@ObjectOption", sObjectOption);
+			//}
 
 			DataTable dtOptions = Classes.cUtilities.LoadDataTable("uspGetMDBUserOptions", sParams, "LARPortal", sLoginUsername, lsRoutineName);
 

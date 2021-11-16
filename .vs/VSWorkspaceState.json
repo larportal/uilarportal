@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\LARPortalUI",
-    "\\LARPortalUI\\Campaigns",
-    "\\LARPortalUI\\Campaigns\\Setup",
-    "\\LARPortalUI\\Classes"
+    "\\LARPortalUI\\Character"
   ],
-  "SelectedNode": "\\LARPortalUI.sln",
+  "SelectedNode": "\\LARPortalUI\\Classes",
   "PreviewInSolutionExplorer": false
 }
