@@ -42,7 +42,7 @@ namespace LarpPortal.Points
             {
 
                 Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
-                OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "", "");
+                OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath);  //, "", "");
                 foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
                 {
 
@@ -314,14 +314,15 @@ namespace LarpPortal.Points
                     intNPCCampaignID = iTemp;
                 if (int.TryParse(hidRegistrationID.Value.ToString(), out iTemp))
                     intRegistrationID = iTemp;
+                string strNPCCampaignName = "";
                 string strComments = "";
                 string strDesc = "";
                 if (Session["EditMode"].ToString() == "Edit")
                 {
                     GridViewRow row = gvPoints.Rows[index];
-                    TextBox txtComments = row.FindControl("tbStaffComments") as TextBox;
+                    //TextBox txtComments = row.FindControl("tbNPCCampaignName") as TextBox;
                     TextBox txtDesc = row.FindControl("tbEarnDescription") as TextBox;
-                    strComments = txtComments.Text;
+                    //strComments = txtComments.Text;
                     strDesc = txtDesc.Text;
                     TextBox txtCP = row.FindControl("txtCPValue") as TextBox;
                     if (double.TryParse(txtCP.Text.ToString(), out dblTemp))
@@ -331,11 +332,11 @@ namespace LarpPortal.Points
                 else
                 {
                     Label lblCPValue = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblCPValue");
-                    Label lblStaffComents = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblStaffComments");
+                    Label lblNPCCampaignName = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblNPCCampaignName");
                     Label lblEarnDescription = (Label)gvPoints.Rows[e.RowIndex].FindControl("lblEarnDescription");
                     if (double.TryParse(lblCPValue.Text, out dblTemp))
                         CP = dblTemp;
-                    strComments = lblStaffComents.Text;
+                    strNPCCampaignName = lblNPCCampaignName.Text;
                     strDesc = lblEarnDescription.Text;
 
                 }
@@ -2148,7 +2149,9 @@ namespace LarpPortal.Points
             DataTable dtLocalNPCPoints = new DataTable();
             SortedList sParams = new SortedList();
             sParams.Add("@NPCOnly", 1);
-            sParams.Add("@CampaignID", Master.CampaignID);
+            // Rick - 11/27/2021 - Change to campaign getting the points, not necessarily the current campaign.
+            sParams.Add("@CampaignID", ddlAddSourceCampaign.SelectedValue);
+            //sParams.Add("@CampaignID", Master.CampaignID);
             dtLocalNPCPoints = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
             foreach (DataRow dRow in dtLocalNPCPoints.Rows)
             {
