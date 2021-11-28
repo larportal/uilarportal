@@ -27,10 +27,6 @@ namespace LarpPortal.Reports
             }
         }
 
-        //protected void gvCampaignPlayers_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //}
-
         protected void LoadData()
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -45,24 +41,61 @@ namespace LarpPortal.Reports
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            HtmlForm form = new HtmlForm();
+            LoadData();
             Response.Clear();
             Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=CampaignPlayers.csv");
             Response.Charset = "";
-            Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "LARPCalendar.xls"));
-            Response.ContentType = "application/ms-excel";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            Response.ContentType = "application/text";
             gvCampaignPlayers.AllowPaging = false;
-            form.Attributes["runat"] = "server";
-            form.Controls.Add(gvCampaignPlayers);
-            this.Controls.Add(form);
-            form.RenderControl(hw);
-            string style = @"<!--mce:2-->";
-            Response.Write(style);
-            Response.Output.Write(sw.ToString());
+            gvCampaignPlayers.DataBind();
+            StringBuilder columnbind = new StringBuilder();
+            string CellText = "";
+            for (int k = 0; k < gvCampaignPlayers.Columns.Count; k++)
+            {
+                columnbind.Append(gvCampaignPlayers.Columns[k].HeaderText + ',');
+            }
+            columnbind.Append("\r\n");
+            for (int i = 0; i < gvCampaignPlayers.Rows.Count; i++)
+            {
+                for (int k = 0; k < gvCampaignPlayers.Columns.Count; k++)
+                {
+                    CellText = gvCampaignPlayers.Rows[i].Cells[k].Text;
+                    // Take out commas because they screw up the comma delimited csv string
+                    CellText = CellText.Replace(",", "");
+                    // Replace HTML characters with real counterparts; &nbsp -> space / &#39; -> apostrophe / &amp; -> & / &quot; -> " / &lt; -> < / &gt; -> >
+                    CellText = CellText.Replace("&nbsp;", "");
+                    CellText = CellText.Replace("&#39;", "'");
+                    CellText = CellText.Replace("&amp;", " and ");
+                    CellText = CellText.Replace("&quot;", "\"");
+                    CellText = CellText.Replace("&lt;", "<");
+                    CellText = CellText.Replace("&gt;", ">");
+                    CellText = CellText + ",";
+                    columnbind.Append(CellText);
+                }
+                columnbind.Append("\r\n");
+            }
+            Response.Output.Write(columnbind.ToString());
             Response.Flush();
             Response.End();
+            //HtmlForm form = new HtmlForm();
+            //Response.Clear();
+            //Response.Buffer = true;
+            //Response.Charset = "";
+            //Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "LARPCalendar.xls"));
+            //Response.ContentType = "application/ms-excel";
+            //StringWriter sw = new StringWriter();
+            //HtmlTextWriter hw = new HtmlTextWriter(sw);
+            //gvCampaignPlayers.AllowPaging = false;
+            //form.Attributes["runat"] = "server";
+            //form.Controls.Add(gvCampaignPlayers);
+            //this.Controls.Add(form);
+            //form.RenderControl(hw);
+            //string style = @"<!--mce:2-->";
+            //Response.Write(style);
+            //Response.Output.Write(sw.ToString());
+            //Response.Flush();
+            //Response.End();
         }
     }
 }

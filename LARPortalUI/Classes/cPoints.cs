@@ -332,10 +332,13 @@ namespace LarpPortal.Classes
                 DataTable dtOppStatus = new DataTable();
                 slParameters.Clear();
                 slParameters.Add("@RegistrationID", RegistrationID);
+                slParameters.Add("@ReasonID", ReasonID);
                 dtOppStatus = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
                 foreach (DataRow drow2 in dtOppStatus.Rows)
                 {
                     Int32.TryParse(drow2["StatusID"].ToString(), out StatusID);
+                    // Rick - 11/27/2021 - Get the CP value for the receiving campaign.
+                    double.TryParse(drow2["CPValue"].ToString(), out CPVal);
                 }
             }
 

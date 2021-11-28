@@ -263,9 +263,9 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEarnDescription" runat="server" Text='<%# Eval("Description") %>' />
                                             </ItemTemplate>
-                                            <EditItemTemplate>
+<%--                                            <EditItemTemplate>
                                                 <asp:TextBox ID="tbEarnDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"></asp:TextBox>
-                                            </EditItemTemplate>
+                                            </EditItemTemplate>--%>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Value" ItemStyle-Wrap="true">
                                             <ItemTemplate>
@@ -275,14 +275,22 @@
                                                 <asp:TextBox ID="txtCPValue" runat="server" Text='<%# Eval("CPValue") %>' CssClass="form-control"></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Staff Comments">
+                                        <asp:TemplateField HeaderText="Send Points">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNPCCampaignName" runat="server" Text='<%# Eval("NPCCampaignName") %>' />
+                                            </ItemTemplate>
+<%--                                            <EditItemTemplate>
+                                                <asp:TextBox ID="tbNPCCampaignName" runat="server" Visible="true" Text='<%# Eval("NPCCampaignName") %>' CssClass="form-control" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" />
+                                            </EditItemTemplate>--%>
+                                        </asp:TemplateField>
+<%--                                        <asp:TemplateField HeaderText="Staff Comments">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblStaffComments" runat="server" Visible="false" Text='<%# Eval("StaffComments") %>' />
                                             </ItemTemplate>
                                             <EditItemTemplate>
                                                 <asp:TextBox ID="tbStaffComments" runat="server" Visible="true" Text='<%# Eval("StaffComments") %>' CssClass="form-control" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" />
                                             </EditItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>--%>
                                         <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="right" ItemStyle-Width="0px">
                                             <ItemTemplate>
                                                 <asp:HiddenField ID="hidReceiptDate" runat="server" Value='<%# Eval("ReceiptDate") %>' />
