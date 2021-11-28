@@ -14,19 +14,14 @@ namespace LarpPortal.PELs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    ViewState["CharacterName"] = "";
-            //    ViewState["EventDate"] = "";
-            //    ViewState["EventName"] = "";
-            //    ViewState["PELStatus"] = "";
-            //}
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            lblCampaignName.Text = Master.CampaignName;
 
             if (Session["UpdatePELMessage"] != null)
             {
@@ -69,7 +64,7 @@ namespace LarpPortal.PELs
             string sEventDateFilter = "";
             string sEventNameFilter = "";
             string sPELStatusFilter = "";
-            string sSortField = "PELStatus";
+            string sSortField = "";
             string sSortDir = "ASC";
 
             Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
@@ -94,6 +89,13 @@ namespace LarpPortal.PELs
                 else if ((Option.ObjectName.ToUpper() == "GVPELLIST") &&
                         (Option.ObjectOption.ToUpper() == "SORTDIR"))
                     sSortDir = Option.OptionValue;
+            }
+
+            if (sSortField.Length == 0)
+            {
+                sSortField = "PELStatus";
+                Classes.cUserOption Option = new Classes.cUserOption();
+                Option.SaveOptionValue(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "gvPELList", "SortField", sSortField, "");
             }
 
             foreach (DataRow dRow in dtPELs.Rows)
@@ -141,9 +143,9 @@ namespace LarpPortal.PELs
             try
             {
                 string sSortString = sSortField + " " + sSortDir;
-                if (sSortField.ToUpper().StartsWith("PELStatus"))
+                if (sSortField.ToUpper().StartsWith("PELSTATUS"))
                     sSortString += ", DateSubmitted";
-                dvPELs.Sort = sSortField;
+                dvPELs.Sort = sSortString;
             }
             catch (Exception ex)
             {
@@ -416,6 +418,18 @@ namespace LarpPortal.PELs
                     else
                         lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-down'> </span></a>";
                     gvPELList.HeaderRow.Cells[iSortedColumn].Controls.Add(lblArrowLabel);
+                }
+            }
+        }
+
+        protected void gvPELList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                int NumCells = e.Row.Cells.Count;
+                for (int i = 0; i < NumCells - 1; i++)
+                {
+                    e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Center;
                 }
             }
         }

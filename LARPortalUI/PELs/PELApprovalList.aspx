@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>PEL Approval List</h1>
+                    <h1>PEL Approval List for <asp:Label ID="lblCampaignName" runat="server" /></h1>
                 </div>
             </div>
         </div>
@@ -57,34 +57,35 @@
                                             <div class="pre-scrollable">
                                                 <asp:GridView ID="gvPELList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvPELList_RowCommand" GridLines="None"
                                                     CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid" BorderWidth="1"
-                                                    Width="99%" AllowSorting="true" OnSorting="gvPELList_Sorting">
+                                                    Width="99%" AllowSorting="true" OnSorting="gvPELList_Sorting" OnRowDataBound="gvPELList_RowDataBound">
                                                     <EmptyDataRowStyle ForeColor="Red" Font-Bold="true" Font-Size="24pt" />
                                                     <EmptyDataTemplate>
                                                         There are no PELs that meet your criteria.
                                                     </EmptyDataTemplate>
                                                     <Columns>
-                                                        <asp:BoundField DataField="EventStartDate" HeaderText="Event Date" ItemStyle-Wrap="false"
+                                                        <asp:BoundField DataField="EventStartDate" HeaderText="Event Date" ItemStyle-Wrap="false" DataFormatString="{0:MM/dd/yyyy}"
                                                             HeaderStyle-Wrap="false" SortExpression="EventStartDate" />
                                                         <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false"
-                                                            HeaderStyle-Wrap="false" SortExpression="Event Name" />
+                                                            HeaderStyle-Wrap="false" SortExpression="EventName" />
                                                         <asp:BoundField DataField="PlayerFirstName" HeaderText="Player First Name" ItemStyle-Wrap="false"
                                                             HeaderStyle-Wrap="false" SortExpression="PlayerFirstName" />
                                                         <asp:BoundField DataField="PLayerLastName" HeaderText="Player Last Name" ItemStyle-Wrap="false"
                                                             HeaderStyle-Wrap="false" SortExpression="PlayerLastName" />
                                                         <asp:BoundField DataField="RoleAlignment" HeaderText="Role" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
                                                             SortExpression="RoleAlignment" />
-                                                        <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
+                                                        <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" 
                                                             SortExpression="CharacterAKA" />
-                                                        <asp:BoundField DataField="EventDescription" HeaderText="Event Description" HeaderStyle-Wrap="false" 
-                                                            SortExpression="EventDescription" />
+                                                        <asp:BoundField DataField="DateSubmitted" HeaderText="Date Submitted" HeaderStyle-Wrap="false" 
+                                                            SortExpression="DateSubmitted" />
                                                         <asp:BoundField DataField="PELStatus" HeaderText="Status" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" 
                                                             SortExpression="PELStatus" />
-                                                        <asp:TemplateField HeaderText="Appendum" SortExpression="Addendum">
+                                                        <asp:TemplateField HeaderText="Addendum" SortExpression="Addendum" ItemStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:Image ID="imgAddendum" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem,"AddendumImage") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Staff Comments" SortExpression="StaffComments">
+                                                        <asp:TemplateField HeaderText="Staff<br>Comments" SortExpression="StaffComments" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="100"
+                                                                HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Center">
                                                             <ItemTemplate>
                                                                 <asp:Image ID="imgStaffComment" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem,"StaffCommentsImage") %>' />
                                                             </ItemTemplate>

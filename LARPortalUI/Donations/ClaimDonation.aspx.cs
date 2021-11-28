@@ -69,7 +69,7 @@ namespace LarpPortal.Donations
                 {
                     ddlReceivingPlayer.SelectedValue = PlayerID.ToString();
                 }
-                if (Session["AllowPlayerToPlayerPoints"] == "True")
+                if (Session["AllowPlayerToPlayerPoints"].ToString() == "True")
                     ddlReceivingPlayer.Enabled = true;
 
                 ddlReceivingPlayer_SelectedIndexChanged(null, null);

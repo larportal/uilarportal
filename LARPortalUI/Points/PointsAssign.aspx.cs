@@ -42,7 +42,7 @@ namespace LarpPortal.Points
             {
 
                 Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
-                OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath, "", "");
+                OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath);
                 foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
                 {
 

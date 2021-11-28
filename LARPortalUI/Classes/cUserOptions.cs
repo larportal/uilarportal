@@ -93,7 +93,7 @@ namespace LarpPortal.Classes
 				LoginUsername = dRow["LoginUsername"].ToString();
 				PageName = dRow["PageName"].ToString();
 				ObjectName = dRow["ObjectName"].ToString();
-				ObjectOption = dRow["ObjectOtion"].ToString();
+				ObjectOption = dRow["ObjectOption"].ToString();
 				OptionValue = dRow["OptionValue"].ToString();
 				Comments = dRow["Comments"].ToString();
 			}
