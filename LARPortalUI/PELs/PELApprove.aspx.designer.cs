@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.PELs {
-    
-    
-    public partial class PELApprove {
-        
+namespace LarpPortal.PELs
+{
+
+
+    public partial class PELApprove
+    {
+
         /// <summary>
         /// lblEditMessage control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEditMessage;
-        
+
         /// <summary>
         /// lblEventInfo control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventInfo;
-        
+
         /// <summary>
         /// imgPicture control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPicture;
-        
+
         /// <summary>
         /// hidRegistrationID control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRegistrationID;
-        
+
         /// <summary>
         /// hidPELID control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPELID;
-        
+
         /// <summary>
         /// divQuestions control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQuestions;
-        
+
         /// <summary>
         /// rptAddendum control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptAddendum;
-        
+
         /// <summary>
         /// rptQuestions control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptQuestions;
-        
+
         /// <summary>
         /// pnlStaffComments control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlStaffComments;
-        
+
         /// <summary>
         /// mvCPAwarded control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvCPAwarded;
-        
+
         /// <summary>
         /// vwCPAwardedEntry control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwCPAwardedEntry;
-        
+
         /// <summary>
         /// tbCPAwarded control.
         /// </summary>
@@ -119,7 +121,16 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCPAwarded;
-        
+
+        /// <summary>
+        /// lblCampaignTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCampaignTo;
+
         /// <summary>
         /// vwCPAwardedDisplay control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwCPAwardedDisplay;
-        
+
         /// <summary>
         /// lblCPAwarded control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCPAwarded;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// hidCampaignCPOpportunityDefaultID control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignCPOpportunityDefaultID;
-        
+
         /// <summary>
         /// hidReasonID control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidReasonID;
-        
+
         /// <summary>
         /// hidCampaignPlayerID control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignPlayerID;
-        
+
         /// <summary>
         /// hidCharacterID control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCharacterID;
-        
+
         /// <summary>
         /// hidCampaignID control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
-        
+
         /// <summary>
         /// hidCharacterAKA control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCharacterAKA;
-        
+
         /// <summary>
         /// hidEventID control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEventID;
-        
+
         /// <summary>
         /// hidEventDesc control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEventDesc;
-        
+
         /// <summary>
         /// hidPELNotificationEMail control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPELNotificationEMail;
-        
+
         /// <summary>
         /// hidEventDate control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEventDate;
-        
+
         /// <summary>
         /// hidPlayerName control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPlayerName;
-        
+
         /// <summary>
         /// hidSubmitDate control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidSubmitDate;
-        
+
         /// <summary>
         /// hidAuthorName control.
         /// </summary>
@@ -272,15 +283,17 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAuthorName;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

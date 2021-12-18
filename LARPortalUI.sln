@@ -1,16 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LARPortalUI", "LARPortalUI\LARPortalUI.csproj", "{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Beta|Any CPU = Beta|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ECFB5B1-ECB4-4BAB-AFD3-C9588765582E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -20,7 +23,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AEB448D0-862B-485F-BFE4-006177E79D7A}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {AEB448D0-862B-485F-BFE4-006177E79D7A}
 	EndGlobalSection
 EndGlobal

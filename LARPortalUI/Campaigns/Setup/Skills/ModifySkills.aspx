@@ -77,14 +77,15 @@
                                                 AutoGenerateColumns="false" BorderColor="Black" BorderStyle="Solid" BorderWidth="1">
                                                 <Columns>
                                                     <asp:BoundField DataField="DisplayValue" HeaderText="Skill Path In Tree" ItemStyle-HorizontalAlign="Left" />
-                                                    <asp:BoundField DataField="Pool" HeaderText="Pool" ItemStyle-HorizontalAlign="Left" />
-                                                    <asp:BoundField DataField="Cost" HeaderText="Cost" DataFormatString="{0:##0.0}" ItemStyle-HorizontalAlign="Right" />
+<%--                                                    <asp:BoundField DataField="Pool" HeaderText="Pool" ItemStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="Cost" HeaderText="Cost" DataFormatString="{0:##0.0}" ItemStyle-HorizontalAlign="Right" />--%>
+                                                    <asp:BoundField DataField="AllCosts" HeaderText="Cost" ItemStyle-HorizontalAlign="Left" />
                                                 </Columns>
                                             </asp:GridView>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" style="visibility: hidden;">
                                     <div class="col-xs-4">
                                         <label for="<%= ddlPoolName.ClientID %>">Node Point Pool Name</label>
                                         <asp:DropDownList ID="ddlPoolName" runat="server" CssClass="form-control" />

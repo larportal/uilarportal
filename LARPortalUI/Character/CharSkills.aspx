@@ -89,7 +89,7 @@
             $.ajax({
                 contentType: "application/json; charset=utf-8",
                 data: "{'SkillNodeID':'" + d.toString() + "'}",
-                url: "/Webservices/CampaignInfo.asmx/GetSkillNodeInfo",
+                url: "/Webservices/CampaignInfo.asmx/GetFormattedSkillNodeInfo",
                 type: "POST",
                 dataType: 'json',
                 success: function (result) {

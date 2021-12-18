@@ -191,7 +191,7 @@
                                                 <td>For completing this PEL, the person should be awarded </td>
                                                 <td style="padding-left: 10px; padding-right: 10px;">
                                                     <asp:TextBox ID="tbCPAwarded" runat="server" Columns="6" BorderColor="black" BorderStyle="Solid" BorderWidth="1" Text="0.0" CssClass="form-control" /></td>
-                                                <td>CP.</td>
+                                                <td>CP<asp:Label id="lblCampaignTo" runat="server" Text="" />.</td>
                                             </tr>
                                         </table>
                                     </asp:View>

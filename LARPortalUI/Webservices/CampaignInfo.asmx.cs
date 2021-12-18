@@ -223,9 +223,112 @@ namespace LarpPortal.Webservices
 			string strJSON = js.Serialize(RetVal);
 			return strJSON;
 		}
-	}
 
-	public class Values
+
+
+        /// <summary>
+        /// Give a skill ID, this will return the string to display about the skill.
+        /// </summary>
+        /// <param name="SkillNodeID">The campaign ID to get the information about.</param>
+        /// <returns>HTML formatted string about the skill that can be put in a div to display to the user.</returns>
+        [WebMethod(Description = "Get the corresponding description for a skill by ID.")]
+        public string GetFormattedSkillNodeInfo(int SkillNodeID)
+        {
+            string sCampaignInfo = "";
+            DataSet dsResults = new DataSet();
+
+            using (SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString))
+            {
+                using (SqlCommand Cmd = new SqlCommand("uspGetCampaignSkillByNodeIDFormatted", Conn))
+                {
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Parameters.AddWithValue("@SkillNodeID", SkillNodeID);
+                    SqlDataAdapter SDAGetData = new SqlDataAdapter(Cmd);
+
+                    Conn.Open();
+                    SDAGetData.Fill(dsResults);
+                }
+            }
+            foreach (DataRow dRow in dsResults.Tables[0].Rows)
+            {
+                sCampaignInfo = dRow[0].ToString();
+                //// If you want to display different information about the skill, this is where you would change it.
+                //sCampaignInfo = "<b>" + dRow["SkillName"].ToString() + "</b><br>" +
+                //    dRow["SkillShortDescription"].ToString() + "<br><br>" +
+                //    "Cost: ";
+
+                //if (dsResults.Tables.Count < 5)
+                //{
+                //sCampaignInfo += @"<span style=""color: " + dRow["DisplayColor"].ToString() + @""">";
+
+                //if (dRow["SkillCPCost"] != DBNull.Value)
+                //    sCampaignInfo += dRow["SkillCPCost"].ToString();
+
+                //bool bDefault = false;
+                //if (bool.TryParse(dRow["DefaultPool"].ToString(), out bDefault))
+                //    if (!bDefault)
+                //        sCampaignInfo += " " + dRow["PoolDescription"].ToString();
+
+                //sCampaignInfo += "</span>";
+                //}
+                //else
+                //{
+
+
+
+                //if (dsResults.Tables[4].Rows.Count == 1)
+                //{
+                //    sCampaignInfo += @"<span style=""color: " + dsResults.Tables[4].Rows[0]["DisplayColor"].ToString() + @""">";
+                //    if (dsResults.Tables[4].Rows[0]["SkillCPCost"] != DBNull.Value)
+                //        sCampaignInfo += dsResults.Tables[4].Rows[0]["SkillCPCost"].ToString();
+
+                //    bool bDefault = false;
+                //    if (bool.TryParse(dsResults.Tables[4].Rows[0]["DefaultPool"].ToString(), out bDefault))
+                //        if (!bDefault)
+                //            sCampaignInfo += " " + dsResults.Tables[4].Rows[0]["PoolDescription"].ToString();
+
+                //    sCampaignInfo += "</span>";
+                //}
+                //else
+                //{
+                //    string sPaddingString = " style='padding-left: 5px; padding-right: 5px'";
+                //    string sPaddingRight = " style='padding-left: 5px; padding-right: 5px; text-align: right;'";
+                //    sCampaignInfo += "<table border=1><tr><th" + sPaddingString + ">Pool</th><th" + sPaddingString + ">Cost</th></tr>";
+                //    foreach (DataRow dCost in dsResults.Tables[4].Rows)
+                //    {
+                //        sCampaignInfo += "<tr>";
+                //        sCampaignInfo += "<td" + sPaddingString + ">";
+
+                //        sCampaignInfo += @"<span style=""color: " + dCost["DisplayColor"].ToString() + @""">";
+
+                //        //bool bDefault = false;
+                //        //if (bool.TryParse(dCost["DefaultPool"].ToString(), out bDefault))
+                //        //    if (!bDefault)
+                //        sCampaignInfo += " " + dCost["PoolDescription"].ToString();
+                //        sCampaignInfo += "</span></td><td" + sPaddingRight + " >";
+
+                //        sCampaignInfo += @"<span style=""color: " + dCost["DisplayColor"].ToString() + @""">";
+                //        if (dCost["SkillCPCost"] != DBNull.Value)
+                //            sCampaignInfo += dCost["SkillCPCost"].ToString();
+                //        sCampaignInfo += "</span></td>";
+                //        sCampaignInfo += "</tr>";
+                //    }
+                //    sCampaignInfo += "</table>";
+                //}
+                //}
+
+
+
+
+
+
+//                sCampaignInfo += "<br><br>" + dRow["SkillLongDescription"].ToString();
+            }
+            return sCampaignInfo;
+        }
+    }
+
+    public class Values
 	{
 		public int CampaignSkillNodeID;
 		public string DataType;

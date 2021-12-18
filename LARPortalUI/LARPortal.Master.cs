@@ -413,6 +413,10 @@ namespace LarpPortal
 			//liCampaignMenu.Style.Add("display", "none");
 			liSkillQualifiers.Style.Add("display", "none");
 
+			liModifySkills.Style.Add("display", "none");
+			if (Session["SuperUser"] != null)
+				liModifySkills.Style.Add("display", "block");
+
 			if (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28))
 			{
 				liSetupCustomFields.Style.Add("display", "block");

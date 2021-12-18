@@ -35,6 +35,8 @@ namespace LarpPortal.PELs
             if (!IsPostBack)
             {
                 double dCPEarned = 0.0;
+                string sCampaignGoingTo = "";
+
                 if (Request.QueryString["RegistrationID"] != null)
                     hidRegistrationID.Value = Request.QueryString["RegistrationID"];
                 else
@@ -137,6 +139,7 @@ namespace LarpPortal.PELs
                     if (dsQuestions.Tables[0].Rows[0]["PELDateApproved"] != DBNull.Value)
                     {
                         double.TryParse(dsQuestions.Tables[0].Rows[0]["CPAwarded"].ToString(), out dCPEarned);
+                        sCampaignGoingTo = dsQuestions.Tables[0].Rows[0]["CPAwarded"].ToString();
                         btnSave.Text = "Done";
                         btnSave.CommandName = "Done";
                         DateTime dtTemp;
@@ -155,6 +158,7 @@ namespace LarpPortal.PELs
                         DateTime dtTemp;
                         divQuestions.Attributes.Add("style", "max-height: 400px; overflow-y: auto; margin-right: 10px;");
                         double.TryParse(dsQuestions.Tables[0].Rows[0]["CPEarn"].ToString(), out dCPEarned);
+                        dsQuestions.Tables[0].Rows[0]["CPAwarded"].ToString();
                         int iCampaignCPOpportunityDefaultID = 0;
                         if (int.TryParse(dsQuestions.Tables[0].Rows[0]["CampaignCPOpportunityDefaultID"].ToString(), out iCampaignCPOpportunityDefaultID))
                             hidCampaignCPOpportunityDefaultID.Value = iCampaignCPOpportunityDefaultID.ToString();
@@ -185,6 +189,8 @@ namespace LarpPortal.PELs
                 }
 
                 tbCPAwarded.Text = dCPEarned.ToString("0.0");
+                if (sCampaignGoingTo.Length > 0)
+                    lblCampaignTo.Text = " to " + sCampaignGoingTo;
                 DataView dvQuestions = new DataView(dsQuestions.Tables[0], "", "SortOrder", DataViewRowState.CurrentRows);
                 rptQuestions.DataSource = dvQuestions;
                 rptQuestions.DataBind();
