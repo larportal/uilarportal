@@ -7,20 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns.Setup.Skills {
-    
-    
-    public partial class ModifySkills {
-        
-        /// <summary>
-        /// upSkill control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upSkill;
-        
+namespace LarpPortal.Campaigns.Setup.Skills
+{
+
+
+    public partial class ModifySkills
+    {
+
         /// <summary>
         /// pnlTreeView control.
         /// </summary>
@@ -29,7 +22,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlTreeView;
-        
+
         /// <summary>
         /// tvDisplaySkills control.
         /// </summary>
@@ -38,7 +31,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TreeView tvDisplaySkills;
-        
+
         /// <summary>
         /// divSkillItems control.
         /// </summary>
@@ -47,7 +40,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSkillItems;
-        
+
         /// <summary>
         /// tbSkillName control.
         /// </summary>
@@ -56,7 +49,16 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbSkillName;
-        
+
+        /// <summary>
+        /// ftbSkillName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbSkillName;
+
         /// <summary>
         /// ddlSkillType control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSkillType;
-        
+
         /// <summary>
         /// tbCardDescription control.
         /// </summary>
@@ -74,25 +76,25 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCardDescription;
-        
+
         /// <summary>
-        /// tbShortDescription control.
+        /// CKShortDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShortDescription;
-        
+        protected global::CKEditor.NET.CKEditorControl CKShortDescription;
+
         /// <summary>
-        /// tbLongDescription control.
+        /// CKLongDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbLongDescription;
-        
+        protected global::CKEditor.NET.CKEditorControl CKLongDescription;
+
         /// <summary>
         /// tbIncant control.
         /// </summary>
@@ -101,34 +103,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbIncant;
-        
-        /// <summary>
-        /// gvSkills control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSkills;
-        
-        /// <summary>
-        /// ddlPoolName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPoolName;
-        
-        /// <summary>
-        /// tbSkillCost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSkillCost;
-        
+
         /// <summary>
         /// hidCampaignSkillsID control.
         /// </summary>
@@ -137,7 +112,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignSkillsID;
-        
+
         /// <summary>
         /// hidCampaignSkillNodeID control.
         /// </summary>
@@ -146,7 +121,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignSkillNodeID;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -155,7 +130,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -164,7 +139,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnCloseMessage control.
         /// </summary>
@@ -173,7 +148,7 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
-        
+
         /// <summary>
         /// hidScrollPos control.
         /// </summary>
@@ -182,15 +157,17 @@ namespace LarpPortal.Campaigns.Setup.Skills {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidScrollPos;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

@@ -12,6 +12,13 @@ namespace LarpPortal.Events
 {
 	public partial class EventRegistration : System.Web.UI.Page
 	{
+		bool _Reload = false;
+		protected void Page_PreInit(object sender, EventArgs e)
+		{
+			// Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+			Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+		}
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			//tbSelectedMeals.Attributes.Add("Placehold", "Select Meals");
@@ -27,7 +34,7 @@ namespace LarpPortal.Events
 			MethodBase lmth = MethodBase.GetCurrentMethod();
 			string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-			if (!IsPostBack)
+			if ((!IsPostBack) || (_Reload))
             {
 				SortedList sParams = new SortedList();
 				sParams.Add("@CampaignID", Master.CampaignID);
@@ -397,8 +404,9 @@ namespace LarpPortal.Events
 			
 			DataView dvJustRoleNames = new DataView(dsEventInfo.Tables ["RolesForEvent"], "", "", DataViewRowState.CurrentRows);
 			DataTable dtJustRoleNames = dvJustRoleNames.ToTable(true, "RoleAlignmentID", "Description");
+			DataView dvSortedRoles = new DataView(dtJustRoleNames, "", "Description Desc", DataViewRowState.CurrentRows);
 
-			ddlRoles.DataSource = dtJustRoleNames;
+			ddlRoles.DataSource = dvSortedRoles;
 			ddlRoles.DataTextField = "Description";
 			ddlRoles.DataValueField = "RoleAlignmentID";
 			ddlRoles.DataBind();
@@ -1047,7 +1055,8 @@ namespace LarpPortal.Events
 			btnChange.Visible = false;
 			btnRegister.Visible = false;
 			btnRSVP.Visible = false;
-			btnRSVPNo.Visible = false;
+			//			btnRSVPNo.Visible = false;
+			btnRSVPNo.Visible = true;
 
 			lblWhyRSVP.Visible = false;
 			lblAlreadyHappened.Visible = false;
@@ -1236,6 +1245,11 @@ namespace LarpPortal.Events
 		{
 			ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeNoPCChar();", true);
 			return;
+		}
+
+		protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+		{
+			_Reload = true;
 		}
 	}
 }

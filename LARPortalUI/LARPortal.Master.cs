@@ -414,7 +414,8 @@ namespace LarpPortal
 			liSkillQualifiers.Style.Add("display", "none");
 
 			liModifySkills.Style.Add("display", "none");
-			if (Session["SuperUser"] != null)
+			if ((Session["SuperUser"] != null) ||
+				(sRoleString.Contains(Classes.cConstants.LOGISTICS_SKILL_UPDATES_5)))
 				liModifySkills.Style.Add("display", "block");
 
 			if (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28))
