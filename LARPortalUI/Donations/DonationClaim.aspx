@@ -82,6 +82,8 @@
                     <asp:HiddenField ID="hidMaxPointsPerEvent" runat="server" />
                     <asp:HiddenField ID="hidMaxItemsPerEvent" runat="server" />
                     <asp:HiddenField ID="hidCountTransfersAgainstMax" runat="server" />
+                    <asp:HiddenField ID="hidCPOpportunityID" runat="server" />
+                    <asp:HiddenField ID="hidCampaignCPOpportunityDefaultID" runat="server" />
                 </div>
 
                 <div class="margin10"></div>
@@ -132,6 +134,21 @@
                                                         <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="0px">
                                                             <ItemTemplate>
                                                                 <asp:HiddenField ID="hidDonationID" runat="server" Value='<%# Eval("DonationID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="0px">
+                                                            <ItemTemplate>
+                                                                <asp:HiddenField ID="hidWorth" runat="server" Value='<%# Eval("Worth") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="0px">
+                                                            <ItemTemplate>
+                                                                <asp:HiddenField ID="hidCampaignSkillPoolID" runat="server" Value='<%# Eval("CampaignSkillPoolID") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="0px">
+                                                            <ItemTemplate>
+                                                                <asp:HiddenField ID="hidDefaultPool" runat="server" Value='<%# Eval("DefaultPool") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField ShowHeader="false">

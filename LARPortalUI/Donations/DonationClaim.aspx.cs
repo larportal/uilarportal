@@ -16,13 +16,14 @@ namespace LarpPortal.Donations
         {
             if (!IsPostBack)
             {
+                SetCampaignPlayerID();
                 CampaignDonationSettings();
-                gvDonationList.DataSource = GetData("uspGetDonations", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString);
+                gvDonationList.DataSource = GetData("uspGetDonations", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString, Master.UserID);
                 gvDonationList.DataBind();
             }
         }
 
-        private static DataTable GetData(string query, Int32 CampaignID, string ddlStatus, string ddlEvent, string DonationID, string UserName, string RoleString)
+        private static DataTable GetData(string query, Int32 CampaignID, string ddlStatus, string ddlEvent, string DonationID, string UserName, string RoleString, int uID)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
@@ -44,6 +45,7 @@ namespace LarpPortal.Donations
                     break;
                 case "uspGetDonationClaims":
                     sParams.Add("@Roles", RoleString);
+                    sParams.Add("@UserID", uID);
                     break;
                 default:
                     break;
@@ -74,6 +76,7 @@ namespace LarpPortal.Donations
             sParams.Add("@EventID", ddlEvent.SelectedValue);
             sParams.Add("@StatusID", ddlDonationStatus.SelectedValue);
             sParams.Add("@Roles", Master.RoleString);
+            sParams.Add("@UserID", Master.UserID);
 
             DataTable dtDonations = Classes.cUtilities.LoadDataTable("uspGetDonations", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetDonations");
 
@@ -126,7 +129,7 @@ namespace LarpPortal.Donations
                 string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
                 string currentDonationID = gvDonationList.DataKeys[e.Row.RowIndex].Value.ToString();
                 GridView gvDetails = e.Row.FindControl("gvDetails") as GridView;
-                gvDetails.DataSource = GetData("uspGetDonationClaims", 0, "", "", currentDonationID, Master.UserName, Master.RoleString);
+                gvDetails.DataSource = GetData("uspGetDonationClaims", 0, "", "", currentDonationID, Master.UserName, Master.RoleString, Master.UserID);
                 gvDetails.DataBind();
             }
         }
@@ -167,20 +170,20 @@ namespace LarpPortal.Donations
             bool Role34 = Master.RoleString.Contains("/34/");
             bool Role40 = Master.RoleString.Contains("/40/");
 
-                MethodBase lmth = MethodBase.GetCurrentMethod();
-                string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-                ddlPlayer.Items.Clear();
-                SortedList sParams = new SortedList();
-                sParams.Add("@CampaignID", intCampaignID);
-                sParams.Add("@UserID", Master.UserID);  
-                DataTable dtPlayers = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayersByRole", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPlayersByRole");
-                ddlPlayer.DataTextField = "PlayerName";
-                ddlPlayer.DataValueField = "UserID";
-                ddlPlayer.DataSource = dtPlayers;
-                ddlPlayer.DataBind();
-                ddlPlayer.Items.Insert(0, new ListItem("Select Player", "0"));
-                ddlPlayer.SelectedIndex = 0;
+            ddlPlayer.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            sParams.Add("@UserID", Master.UserID);
+            DataTable dtPlayers = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayersByRole", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPlayersByRole");
+            ddlPlayer.DataTextField = "PlayerName";
+            ddlPlayer.DataValueField = "UserID";
+            ddlPlayer.DataSource = dtPlayers;
+            ddlPlayer.DataBind();
+            ddlPlayer.Items.Insert(0, new ListItem("Select Player", "0"));
+            ddlPlayer.SelectedIndex = 0;
             if (Role4 || Role16 || Role14 || Role28 || Role34 || Role40)
             {
                 pnlPlayerDropdown.Visible = true;
@@ -198,7 +201,13 @@ namespace LarpPortal.Donations
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow clickedRow = gvDonationList.Rows[index];
             HiddenField hdfield = (HiddenField)clickedRow.Cells[2].FindControl("hidDonationID");
+            HiddenField hdworth = (HiddenField)clickedRow.Cells[2].FindControl("hidWorth");
+            HiddenField hdcampaignskillpool = (HiddenField)clickedRow.Cells[2].FindControl("hidCampaignSkillPoolID");
+            HiddenField hddefaultpool = (HiddenField)clickedRow.Cells[2].FindControl("hidDefaultPool");
             string sDonationID = hdfield.Value;
+            string sWorth = hdworth.Value;
+            string sCampaignSkillPool = hdcampaignskillpool.Value;
+            string sDefaultPool = hddefaultpool.Value;
 
             if (e.CommandName.CompareTo("DonateItem") == 0)
             {
@@ -206,6 +215,11 @@ namespace LarpPortal.Donations
                 // Don't allow it to back out. Include a cancellation request button to send a cancellation request.
                 Session["DonationID"] = sDonationID;
                 Session["AllowPlayerToPlayerPoints"] = hidAllowPlayerToPlayerPoints.Value;
+                Session["AwardWhen"] = hidDefaultAwardWhen.Value;
+                Session["CPOpportunityID"] = hidCPOpportunityID.Value;
+                Session["Worth"] = sWorth;
+                Session["CampaignSkillPoolID"] = sCampaignSkillPool;
+                Session["DefaultPool"] = sDefaultPool;
                 Response.Redirect("ClaimDonation.aspx", true);
 
             }
@@ -213,6 +227,15 @@ namespace LarpPortal.Donations
             {
 
             }
+        }
+
+        protected void SetCampaignPlayerID()
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            Classes.cUserCampaign cuID = new Classes.cUserCampaign();
+            cuID.Load(Master.UserID, Master.CampaignID);
+            Session["CampaignPlayerID"] = cuID.CampaignPlayerID;
         }
 
         protected void CampaignDonationSettings()
@@ -227,6 +250,9 @@ namespace LarpPortal.Donations
             hidDefaultAwardWhen.Value = DonationSettings.DefaultAwardWhen.ToString();
             hidMaxItemsPerEvent.Value = DonationSettings.MaxItemsPerEvent.ToString();
             hidMaxPointsPerEvent.Value = DonationSettings.MaxPointsPerEvent.ToString();
+            hidCPOpportunityID.Value = DonationSettings.CampaignCPOpportunityID.ToString();
+            hidCampaignCPOpportunityDefaultID.Value = DonationSettings.CampaignCPOpportunityDefaultID.ToString();
+            Session["CampaignCPOpportunityDefaultID"] = DonationSettings.CampaignCPOpportunityDefaultID.ToString();
         }
 
     }

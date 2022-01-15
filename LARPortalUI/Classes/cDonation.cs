@@ -69,6 +69,13 @@ namespace LarpPortal.Classes
             set { _CampaignCPOpportunityID = value; }
         }
 
+        private int _CampaignCPOpportunityDefaultID;
+        public int CampaignCPOpportunityDefaultID
+        {
+            get { return _CampaignCPOpportunityDefaultID; }
+            set { _CampaignCPOpportunityDefaultID = value; }
+        }
+
         private int _CampaignID;
         public int CampaignID
         {
@@ -496,50 +503,41 @@ namespace LarpPortal.Classes
             set { _Worth = value; }
         }
 
-
-        // DEFINE ALL CALLS
-        //public void DeleteRegistrationCPOpportunity(int UserID, int RegistrationID)
-        //{
-        //    string stStoredProc = "uspDelCMCampaignCPOpportunitiesByRegistrationID";
-        //    //string stCallingMethod = "cPoints.DeleteRegistrationCPOpportunity";
-
-        //    SortedList slParameters = new SortedList();
-        //    slParameters.Add("@RecordID", RegistrationID);
-        //    slParameters.Add("@UserID", UserID);
-        //    try
-        //    {
-        //        cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-        public Boolean SaveDonationClaims()
+        public Boolean SaveDonationClaims(int UserID, int DonationClaimID, int DonationID, int CampaignPlayerID, int Qty, int RegID, int CPOppID,
+            string PlayerComments, string StaffComments, string DeliveryMethod, int AwardedTo, DateTime dtAccepted, int AcceptedBy, string Comments)
         {
+
             MethodBase lmth = MethodBase.GetCurrentMethod();   // this is where we use refelection to store the name of the method and class to use it to report errors
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             Boolean blnReturn = false;
+            DataTable dtDonationClaim = new DataTable();
+
             try
             {
                 SortedList slParams = new SortedList();
                 // slParams.Add("@Parmeter1", strParameter1)
-                slParams.Add("@UserID", _UserID);
-                slParams.Add("@DonationClaimID", _DonationClaimID);
-                slParams.Add("@DonationID", _DonationID);
-                slParams.Add("@CampaignPlayerID", _CampaignPlayerID);
-                slParams.Add("@Quantity", _Quantity);
-                slParams.Add("@RegistrationID", _RegistrationID);
-                slParams.Add("@CampaignCPOpportunityID", _CampaignCPOpportunityID);
-                slParams.Add("@PlayerComments", _PlayerComments);
-                slParams.Add("@StaffComments", _StaffComments);
-                slParams.Add("@DeliveryMethod", _DeliveryMethod);
-                slParams.Add("@AwardedTo", _AwardedTo);
-                slParams.Add("@DateAccepted", _DateAccepted);
-                slParams.Add("@AcceptedBy", _AcceptedBy);
-                slParams.Add("@Comments", _Comments);
-                cUtilities.PerformNonQuery("uspInsUpdCMCampaigns", slParams, "LARPortal", _UserName);
+                slParams.Add("@UserID", UserID);
+                slParams.Add("@DonationClaimID", DonationClaimID);
+                slParams.Add("@DonationID", DonationID);
+                slParams.Add("@CampaignPlayerID", CampaignPlayerID);
+                slParams.Add("@Quantity", Qty);
+                slParams.Add("@RegistrationID", RegID);
+                slParams.Add("@CampaignCPOpportunityID", CPOppID);
+                slParams.Add("@PlayerComments", PlayerComments);
+                slParams.Add("@StaffComments", StaffComments);
+                slParams.Add("@DeliveryMethod", DeliveryMethod);
+                slParams.Add("@AwardedTo", AwardedTo);
+                //slParams.Add("@DateAccepted", dtAccepted);
+                slParams.Add("@AcceptedBy", AcceptedBy);
+                slParams.Add("@Comments", Comments);
+                dtDonationClaim = cUtilities.LoadDataTable("uspInsUpdCMDonationClaims", slParams, "LARPortal", UserID.ToString(), lsRoutineName);
+                int iTemp = 0;
+                foreach (DataRow drow in dtDonationClaim.Rows)
+                {
+                    if (int.TryParse(drow["DonationClaimID"].ToString(), out iTemp))
+                        DonationClaimID = iTemp;
+                }
+                UpdateOpportunityWithClaim(CPOppID, DonationClaimID, UserID);
                 blnReturn = true;
             }
             catch (Exception ex)
@@ -551,7 +549,21 @@ namespace LarpPortal.Classes
             return blnReturn;
         }
 
-        public DataTable GetDonationClaims(int UserID, int DonationID,  int?  PlayerID = null)
+        public void UpdateOpportunityWithClaim(int OpportunityID, int ClaimID, int UserID)
+        {
+
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            string stCallingMethod = "cDonation.cs.UpdateOpportunityWithClaim";
+            string stStoredProc = "uspUpdateOpportunityWithDonationClaim";
+            SortedList sParams = new SortedList();
+            sParams.Add("@CPOpportunityID", OpportunityID);
+            sParams.Add("@DonationClaimID", ClaimID);
+            cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
+
+        }
+
+        public DataTable GetDonationClaims(int UserID, int DonationID, int? PlayerID = null)
         {
             string stStoredProc = "uspGetDonationClaims";
             string stCallingMethod = "cDonation.GetDonationClaims";
@@ -560,9 +572,9 @@ namespace LarpPortal.Classes
             int iTemp;
             SortedList slParameters = new SortedList();
             slParameters.Add("@DonationID", DonationID);
-            if(PlayerID != null)
+            if (PlayerID != null)
                 slParameters.Add("@PlayerID", PlayerID);
-            
+
             DataTable dtDonationList = new DataTable();
             DataSet dsDonationList = new DataSet();
             dtDonationList = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
@@ -595,13 +607,13 @@ namespace LarpPortal.Classes
             foreach (DataRow dRow in dtDonationList.Rows)
             {
                 DonationCount++;
-                          if (int.TryParse(dRow["AlreadyClaimedByThisPlayer"].ToString(), out iTemp))
-                              AlreadyClaimedByThisPlayer = iTemp;
-                          if (int.TryParse(dRow["AvailableToClaim"].ToString(), out iTemp))
-                              AvailableToClaim = iTemp;
-                          EventName = dRow["EventName"].ToString();
-                          DisplayWorth = dRow["DisplayWorth"].ToString();
-                          Item = dRow["Item"].ToString();
+                if (int.TryParse(dRow["AlreadyClaimedByThisPlayer"].ToString(), out iTemp))
+                    AlreadyClaimedByThisPlayer = iTemp;
+                if (int.TryParse(dRow["AvailableToClaim"].ToString(), out iTemp))
+                    AvailableToClaim = iTemp;
+                EventName = dRow["EventName"].ToString();
+                DisplayWorth = dRow["DisplayWorth"].ToString();
+                Item = dRow["Item"].ToString();
             }
             return dtDonationList;
         }
@@ -631,6 +643,10 @@ namespace LarpPortal.Classes
                 {
                     DefaultAwardWhen = iTemp;
                 }
+                if (int.TryParse(drow["CampaignCPOpportunityDefaultID"].ToString(), out iTemp))
+                {
+                    CampaignCPOpportunityDefaultID = iTemp;
+                }
                 if (double.TryParse(drow["DefaultHourToPointValue"].ToString(), out dTemp))
                 {
                     DefaultHourToPointValue = dTemp;
@@ -645,7 +661,7 @@ namespace LarpPortal.Classes
                 }
                 if (bool.TryParse(drow["AllowPlayerToPlayerPoints"].ToString(), out bTemp))
                 {
-                        AllowPlayerToPlayerPoints = bTemp;
+                    AllowPlayerToPlayerPoints = bTemp;
                 }
 
             }

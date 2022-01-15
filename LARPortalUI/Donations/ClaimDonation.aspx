@@ -37,6 +37,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Donation List</div>
                     <div class="panel-body">
+
                         <div class="container-fluid">
                             <div style="margin-right: 10px;" runat="server" id="divEventList">
                                 <div class="row">
@@ -71,6 +72,7 @@
                                         <asp:DropDownList ID="ddlReceivingPlayer" runat="server" AutoPostBack="true" Enabled="false" Style="padding-right: 10px;" CssClass="form-control selectWidth" OnSelectedIndexChanged="ddlReceivingPlayer_SelectedIndexChanged" />
                                     </div>
                                     <div class="col-sm-6 NoLeftPadding">
+                                        <asp:Label ID="lblCampaignCPDonationPolicy" runat="server"></asp:Label>
                                         <asp:HiddenField ID="hid1" runat="server" />
                                     </div>
                                 </div>
@@ -79,10 +81,21 @@
                                         <span class="form-control NoShadow">Quantity:</span>
                                     </div>
                                     <div class="col-sm-2 NoLeftPadding">
-                                        <asp:DropDownList ID="ddlQtyClaim" runat="server" AutoPostBack="true"  Style="padding-right: 10px;" CssClass="form-control selectWidth" OnSelectedIndexChanged="ddlQtyClaim_SelectedIndexChanged" />
+                                        <asp:DropDownList ID="ddlQtyClaim" runat="server" AutoPostBack="true" Style="padding-right: 10px;" CssClass="form-control selectWidth" OnSelectedIndexChanged="ddlQtyClaim_SelectedIndexChanged" />
                                     </div>
                                     <div class="col-sm-8 NoLeftPadding">
                                         <asp:HiddenField ID="hidS" runat="server" />
+                                    </div>
+                                </div>
+                                <div class="row Padding5" id="divDelivery" runat="server">
+                                    <div class="col-sm-2 TableLabel">
+                                        <span class="form-control NoShadow">Delivery:</span>
+                                    </div>
+                                    <div class="col-sm-2 NoLeftPadding">
+                                        <asp:DropDownList ID="ddlDelivery" runat="server" AutoPostBack="true" Style="padding-right: 10px;" CssClass="form-control selectWidth" OnSelectedIndexChanged="ddlDelivery_SelectedIndexChanged" />
+                                    </div>
+                                    <div class="col-sm-8 NoLeftPadding">
+                                        <asp:HiddenField ID="HiddenField1" runat="server" />
                                     </div>
                                 </div>
                                 <div class="row Padding5" style="padding-right: 0px;" id="divSendOther" runat="server">
@@ -102,6 +115,13 @@
                             <div class="col-xs-6 text-right">
                                 <asp:Button ID="btnRegisterForDonation" runat="server" Text="Donate" CssClass="btn btn-primary" OnClick="btnRegisterForDonation_Click" />
                             </div>
+                        </div>
+                        <div class="row" style="padding-top: 20px;">
+                            <div class="col-xs-2"></div>
+                            <div class="col-xs-8">
+                                <asp:Label ID="lblAnonymityWarning" runat="server" CssClass="form-control NoShadow">IF YOU WANT DONATIONS TO SHOW AS ANONYMOUS TO OTHER PLAYERS SET YOUR PLAYER PROFILE SETTINGS ACCORDINGLY.</asp:Label>
+                            </div>
+                            <div class="col-xs-2"></div>
                         </div>
                     </div>
                 </div>
