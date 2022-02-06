@@ -113,16 +113,16 @@
                                 <asp:Button ID="btnReturn" runat="server" Text="Cancel and Return To Donations" CssClass="btn btn-primary" PostBackUrl="~/Donations/DonationClaim.aspx" />
                             </div>
                             <div class="col-xs-6 text-right">
-                                <asp:Button ID="btnRegisterForDonation" runat="server" Text="Donate" CssClass="btn btn-primary" OnClick="btnRegisterForDonation_Click" />
+                                <asp:Button ID="btnRegisterForDonation" runat="server" Text="Donate" CssClass="btn btn-primary" Visible="false" OnClick="btnRegisterForDonation_Click" />
                             </div>
                         </div>
-                        <div class="row" style="padding-top: 20px;">
+<%--                        <div class="row" style="padding-top: 20px;">
                             <div class="col-xs-2"></div>
                             <div class="col-xs-8">
                                 <asp:Label ID="lblAnonymityWarning" runat="server" CssClass="form-control NoShadow">IF YOU WANT DONATIONS TO SHOW AS ANONYMOUS TO OTHER PLAYERS SET YOUR PLAYER PROFILE SETTINGS ACCORDINGLY.</asp:Label>
                             </div>
                             <div class="col-xs-2"></div>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>

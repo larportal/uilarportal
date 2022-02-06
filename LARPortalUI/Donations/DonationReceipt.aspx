@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="DonationClaim.aspx.cs" Inherits="LarpPortal.Donations.DonationClaim" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="DonationReceipt.aspx.cs" Inherits="LarpPortal.Donations.DonationReceipt" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
@@ -38,14 +38,7 @@
 
 </asp:Content>
 
-
-
 <asp:Content ID="DonationClaimBody" ContentPlaceHolderID="MainBody" runat="Server">
-    <style type="text/css">
-        .hiddencol {
-            display: none;
-        }
-    </style>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
@@ -125,6 +118,12 @@
                                                                             <asp:BoundField DataField="PlayerDonationText" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
                                                                             <asp:BoundField DataField="PlayerComments" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
                                                                             <asp:BoundField DataField="Accepted" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
+<%--                                                                            <asp:TemplateField ShowHeader="false">
+                                                                                <ItemTemplate>
+                                                                                    <asp:Button ID="btnAccept" runat="server" Visible="true" CommandName="AcceptItem" Text="Accept" CssClass="vtn btn-primary" 
+                                                                                        CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:Button>
+                                                                                </ItemTemplate>
+                                                                            </asp:TemplateField>--%>
                                                                         </Columns>
                                                                     </asp:GridView>
                                                                 </asp:Panel>
@@ -133,11 +132,9 @@
                                                         <asp:BoundField DataField="EventDate" HeaderText="Event Date" ItemStyle-Wrap="true" DataFormatString="{0: MM/dd/yyyy}" />
                                                         <asp:BoundField DataField="Description" HeaderText="Item(*=Recurring)" ItemStyle-Wrap="true" />
                                                         <asp:BoundField DataField="DisplayWorth" HeaderText="Value" ItemStyle-Wrap="true" />
-
                                                         <asp:BoundField DataField="DisplayNeeded" HeaderText="Needed" ItemStyle-Wrap="true" />
                                                         <asp:BoundField DataField="DisplayReceived" HeaderText="Received" ItemStyle-Wrap="true" />
                                                         <asp:BoundField DataField="DonationComments" HeaderText="Comments" ItemStyle-Wrap="true" />
-
                                                         <asp:BoundField DataField="URLLink" HeaderText="Web Link" HtmlEncode="false" DataFormatString="<a target='_blank' href='{0}'>Go to site</a>" />
                                                         <asp:BoundField DataField="ShipToAddress" HeaderText="Ship To" ItemStyle-Wrap="true" />
                                                         <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="0px">
@@ -160,11 +157,9 @@
                                                                 <asp:HiddenField ID="hidDefaultPool" runat="server" Value='<%# Eval("DefaultPool") %>' />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:BoundField DataField="BalanceNeeded" HeaderText="Balance" ItemStyle-CssClass="hiddencol" />
                                                         <asp:TemplateField ShowHeader="false">
                                                             <ItemTemplate>
-                                                                <asp:Button ID="btnDonateItem" runat="server" Visible="true" CommandName="DonateItem" Text="Donate" CssClass="vtn btn-primary"
-                                                                    CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:Button>
+                                                                <asp:Button ID="btnDonateItem" runat="server" Visible="true" CommandName="DonateItem" Text="Donate" CssClass="vtn btn-primary" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>"></asp:Button>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>

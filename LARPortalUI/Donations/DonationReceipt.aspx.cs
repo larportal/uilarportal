@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace LarpPortal.Donations
 {
-    public partial class DonationClaim : System.Web.UI.Page
+    public partial class DonationReceipt : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -121,19 +121,6 @@ namespace LarpPortal.Donations
             }
         }
 
-        int GetColumnIndexByName(GridViewRow row, string columnName)
-        {
-            int columnIndex = 0;
-            foreach (DataControlFieldCell cell in row.Cells)
-            {
-                if (cell.ContainingField is BoundField)
-                    if (((BoundField)cell.ContainingField).DataField.Equals(columnName))
-                        break;
-                columnIndex++; // keep adding 1 while we don't have the correct name
-            }
-            return columnIndex;
-        }
-
         protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -144,28 +131,6 @@ namespace LarpPortal.Donations
                 GridView gvDetails = e.Row.FindControl("gvDetails") as GridView;
                 gvDetails.DataSource = GetData("uspGetDonationClaims", 0, "", "", currentDonationID, Master.UserName, Master.RoleString, Master.UserID);
                 gvDetails.DataBind();
-
-                // Find column indexes for Balance and Donate button by name. If balance is 0, make the donate button invisible.
-                int BalanceIndex = GetColumnIndexByName(e.Row, "BalanceNeeded");
-                string BalanceValue = e.Row.Cells[BalanceIndex].Text;
-                // Balance index seems to be working. Button index should be one more, assuming we don't screw up the order, so I'm making it so.
-                int ButtonIndex = BalanceIndex + 1; // GetColumnIndexByName(e.Row, "Donate");
-                double Balance;
-                double BalanceCheck;
-
-                if (double.TryParse(BalanceValue, out BalanceCheck))
-                {
-                    Balance = BalanceCheck;
-                }
-                else
-                {
-                    Balance = 0;
-                }
-                if (Balance == 0)
-                {
-                    e.Row.Cells[ButtonIndex].Visible = false;
-                }
-
             }
         }
 
@@ -198,18 +163,6 @@ namespace LarpPortal.Donations
         private void ddlPlayerLoad(int intUserID, int intCampaignID)
         {
             bool IsPC = Master.RoleString.Contains("/8/");
-            bool IsNPCEvent = Master.RoleString.Contains("/7/");
-            bool IsPermNPC = Master.RoleString.Contains("/6/");
-            bool IsPlayerNPC = Master.RoleString.Contains("/10/");
-            bool IsNPC;
-            if (IsNPCEvent || IsPermNPC || IsPlayerNPC)
-            {
-                IsNPC = true;
-            }
-            else
-            {
-                IsNPC = false;
-            }
             bool Role4 = Master.RoleString.Contains("/4/");
             bool Role14 = Master.RoleString.Contains("/14/");
             bool Role16 = Master.RoleString.Contains("/16/");
@@ -233,7 +186,7 @@ namespace LarpPortal.Donations
             ddlPlayer.SelectedIndex = 0;
             if (Role4 || Role16 || Role14 || Role28 || Role34 || Role40)
             {
-                //pnlPlayerDropdown.Visible = true; //Until we get the ddl selected logic in place there's no point in allowing the ddl.
+                pnlPlayerDropdown.Visible = true;
             }
 
         }

@@ -15,6 +15,7 @@ namespace LarpPortal.Donations
             if (!IsPostBack)
             {
                 ddlDeliveryLoad();
+                ShowDonateButton();
             }
         }
 
@@ -43,6 +44,7 @@ namespace LarpPortal.Donations
             dtPlayerClaims = PlayerDonation.GetDonationClaimsForPlayer(Master.UserID, Master.CampaignID, intDonationID);
             int PlayerID = 0;
             int ddlEnable = 0;
+            bool PCsOnly = false;  // By default return all roles
             decimal ATC = 0;
             foreach (DataRow dRow in dtPlayerClaims.Rows)
             {
@@ -78,6 +80,10 @@ namespace LarpPortal.Donations
                 sParams = new SortedList();
                 sParams.Add("@CampaignID", Master.CampaignID);
                 sParams.Add("@UserID", Master.UserID);
+                // If campaign doesn't allow staff and NPCs to donate
+                // PCsOnly = true; // We have no logic for this currently, but if we need it, this is where it would go.
+                // Optional parameter; the stored proc defaults to false.
+                sParams.Add("@PCOnly", PCsOnly);
                 DataTable dtPlayers = cUtilities.LoadDataTable("uspGetCampaignPCsForDonations", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignPCsForDonations");
 
                 if (dtPlayers.Columns["DisplayValue"] == null)
@@ -249,6 +255,28 @@ namespace LarpPortal.Donations
 
         }
 
+        protected void ShowDonateButton()
+        {
+
+            int Qty;
+            int iCheck;
+            if (Int32.TryParse(ddlQtyClaim.SelectedValue, out iCheck))
+            {
+                Qty = iCheck;
+            }
+            else
+            {
+                Qty = 0;
+            }
+
+            int Delivery = ddlDelivery.SelectedIndex;
+
+            if (Qty > 0 && Delivery > 0)
+            {
+                btnRegisterForDonation.Visible = true;
+            }
+        }
+
         protected void btnCloseMessage_Click(object sender, EventArgs e)
         {
 
@@ -256,17 +284,17 @@ namespace LarpPortal.Donations
 
         protected void ddlReceivingPlayer_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ShowDonateButton();
         }
 
         protected void ddlQtyClaim_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ShowDonateButton();
         }
 
         protected void ddlDelivery_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            ShowDonateButton();
         }
     }
 }
