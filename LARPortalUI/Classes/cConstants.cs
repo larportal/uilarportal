@@ -45,5 +45,6 @@ namespace LarpPortal.Classes
         public const string LOGISTICS_EVENT_REGISTRATION_APPROVAL_37 = "/37/";
         public const string TEAM_MEMBER_REQUESTED_38 = "/38/";
         public const string TEAM_MEMBER_INVITED_39 = "/39/";
+        public const string LOGISITICS_DONATION_SET_UP_40 = "/40/";                         //  JB/RP  1/16/2022  Added as part of donations.
     }
 }

@@ -128,6 +128,7 @@
     <Content Include="Character\CharAdd.aspx" />
     <Content Include="Character\CharCard.aspx" />
     <Content Include="Character\CharCardCustomization.aspx" />
+    <Content Include="Character\ISkills\Requests.aspx" />
     <Content Include="Character\SkillSets.aspx" />
     <Content Include="Character\CharCardOrder.aspx" />
     <Content Include="Character\CharGoalsPreferences.aspx" />
@@ -487,6 +488,15 @@
     <Content Include="ForgotUserName.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="images\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="images\apple-touch-icon-120x120-precomposed.png" />
+    <Content Include="images\apple-touch-icon-144x144-precomposed.png" />
+    <Content Include="images\apple-touch-icon-152x152-precomposed.png" />
+    <Content Include="images\apple-touch-icon-180x180-precomposed.png" />
+    <Content Include="images\apple-touch-icon-192x192-precomposed.png" />
+    <Content Include="images\apple-touch-icon-72x72-precomposed.png" />
+    <Content Include="images\apple-touch-icon-76x76-precomposed.png" />
+    <Content Include="images\apple-touch-icon-precomposed.png" />
     <Content Include="images\Calendar.png" />
     <Content Include="images\Campaign.png" />
     <Content Include="images\Campaigns.png" />
@@ -508,6 +518,7 @@
     <Content Include="img\blank.gif" />
     <Content Include="img\BlankProfile.png" />
     <Content Include="img\checkbox.png" />
+    <Content Include="img\Delete.png" />
     <Content Include="img\LogoCropped.jpg" />
     <Content Include="img\logo\CM-1-Madrigal.jpg" />
     <Content Include="img\logo\CM-15-SevenVirtues.png" />
@@ -1542,6 +1553,13 @@
     </Compile>
     <Compile Include="Character\CharCardCustomization.aspx.designer.cs">
       <DependentUpon>CharCardCustomization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\ISkills\Requests.aspx.cs">
+      <DependentUpon>Requests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\ISkills\Requests.aspx.designer.cs">
+      <DependentUpon>Requests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Character\SkillSets.aspx.cs">
       <DependentUpon>SkillSets.aspx</DependentUpon>

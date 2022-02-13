@@ -172,6 +172,8 @@ namespace LarpPortal
 			Session["UserFullName"] = Login.FirstName + " " + Login.LastName;
 			Session["LoginPassword"] = Login.Password;
 			Session["UserID"] = Login.MemberID;
+			Session["UserEMail"] = Login.Email;
+
 			Session.Remove("SuperUser");
 			if (Login.SuperUser)
 				Session["SuperUser"] = 1;

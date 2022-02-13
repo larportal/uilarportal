@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Events {
-    
-    
-    public partial class EventRegistration {
-        
+namespace LarpPortal.Events
+{
+
+
+    public partial class EventRegistration
+    {
+
         /// <summary>
         /// mvEventInfo control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvEventInfo;
-        
+
         /// <summary>
         /// vwEventInfo control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwEventInfo;
-        
+
         /// <summary>
         /// ddlEventDate control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEventDate;
-        
+
         /// <summary>
         /// lblRegistrationStatus control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRegistrationStatus;
-        
+
         /// <summary>
         /// lblPaymentStatus control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentStatus;
-        
+
         /// <summary>
         /// ddlRoles control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRoles;
-        
+
         /// <summary>
         /// lblRole control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRole;
-        
+
         /// <summary>
         /// lblPlayerName control.
         /// </summary>
@@ -83,7 +85,16 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPlayerName;
-        
+
+        /// <summary>
+        /// ddlPlayerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPlayerName;
+
         /// <summary>
         /// lblEMail control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEMail;
-        
+
         /// <summary>
         /// divCharacters control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCharacters;
-        
+
         /// <summary>
         /// lblSkillSet control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSkillSet;
-        
+
         /// <summary>
         /// ddlSkillSetID control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSkillSetID;
-        
+
         /// <summary>
         /// divSendCPTo control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSendCPTo;
-        
+
         /// <summary>
         /// ddlSendToCampaign control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSendToCampaign;
-        
+
         /// <summary>
         /// tbSendToCPOther control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbSendToCPOther;
-        
+
         /// <summary>
         /// ddlFullEvent control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFullEvent;
-        
+
         /// <summary>
         /// divFullEventNo control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFullEventNo;
-        
+
         /// <summary>
         /// tbArriveDate control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbArriveDate;
-        
+
         /// <summary>
         /// tbArriveTime control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbArriveTime;
-        
+
         /// <summary>
         /// tbDepartDate control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbDepartDate;
-        
+
         /// <summary>
         /// tbDepartTime control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbDepartTime;
-        
+
         /// <summary>
         /// divTeams control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTeams;
-        
+
         /// <summary>
         /// ddlTeams control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTeams;
-        
+
         /// <summary>
         /// lblNoTeams control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoTeams;
-        
+
         /// <summary>
         /// divHousePref control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHousePref;
-        
+
         /// <summary>
         /// tbReqstdHousing control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbReqstdHousing;
-        
+
         /// <summary>
         /// lblReqstdHousing control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblReqstdHousing;
-        
+
         /// <summary>
         /// divHouseAssign control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHouseAssign;
-        
+
         /// <summary>
         /// lblAssignHousing control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssignHousing;
-        
+
         /// <summary>
         /// cbxlMeals control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList cbxlMeals;
-        
+
         /// <summary>
         /// lblNoFoodLabel control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoFoodLabel;
-        
+
         /// <summary>
         /// divPaymentInstructions control.
         /// </summary>
@@ -299,7 +310,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPaymentInstructions;
-        
+
         /// <summary>
         /// lblPaymentInstructions control.
         /// </summary>
@@ -308,7 +319,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentInstructions;
-        
+
         /// <summary>
         /// ddlPaymentChoice control.
         /// </summary>
@@ -317,7 +328,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentChoice;
-        
+
         /// <summary>
         /// lblPaymentChoice control.
         /// </summary>
@@ -326,7 +337,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentChoice;
-        
+
         /// <summary>
         /// btnPayNow control.
         /// </summary>
@@ -335,7 +346,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPayNow;
-        
+
         /// <summary>
         /// tbComments control.
         /// </summary>
@@ -344,7 +355,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbComments;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>
@@ -353,7 +364,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
+
         /// <summary>
         /// btnChange control.
         /// </summary>
@@ -362,7 +373,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnChange;
-        
+
         /// <summary>
         /// btnRegister control.
         /// </summary>
@@ -371,7 +382,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegister;
-        
+
         /// <summary>
         /// btnRSVPNo control.
         /// </summary>
@@ -380,7 +391,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRSVPNo;
-        
+
         /// <summary>
         /// btnRSVP control.
         /// </summary>
@@ -389,7 +400,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRSVP;
-        
+
         /// <summary>
         /// lblWhyRSVP control.
         /// </summary>
@@ -398,7 +409,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblWhyRSVP;
-        
+
         /// <summary>
         /// lblAlreadyHappened control.
         /// </summary>
@@ -407,7 +418,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAlreadyHappened;
-        
+
         /// <summary>
         /// lblClosedToPC control.
         /// </summary>
@@ -416,7 +427,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClosedToPC;
-        
+
         /// <summary>
         /// lblPastEvent control.
         /// </summary>
@@ -425,7 +436,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPastEvent;
-        
+
         /// <summary>
         /// lblEventStatus control.
         /// </summary>
@@ -434,7 +445,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventStatus;
-        
+
         /// <summary>
         /// lblEventName control.
         /// </summary>
@@ -443,7 +454,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventName;
-        
+
         /// <summary>
         /// lblEventDescription control.
         /// </summary>
@@ -452,7 +463,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventDescription;
-        
+
         /// <summary>
         /// lblInGameLocation control.
         /// </summary>
@@ -461,7 +472,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInGameLocation;
-        
+
         /// <summary>
         /// lblEventStartDate control.
         /// </summary>
@@ -470,7 +481,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventStartDate;
-        
+
         /// <summary>
         /// lblEventEndDate control.
         /// </summary>
@@ -479,7 +490,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventEndDate;
-        
+
         /// <summary>
         /// lblSiteLocation control.
         /// </summary>
@@ -488,7 +499,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSiteLocation;
-        
+
         /// <summary>
         /// lblEventOpenDate control.
         /// </summary>
@@ -497,7 +508,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventOpenDate;
-        
+
         /// <summary>
         /// lblEventCloseDate control.
         /// </summary>
@@ -506,7 +517,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEventCloseDate;
-        
+
         /// <summary>
         /// lblPreRegPrice control.
         /// </summary>
@@ -515,7 +526,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPreRegPrice;
-        
+
         /// <summary>
         /// lblPreRegDate control.
         /// </summary>
@@ -524,7 +535,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPreRegDate;
-        
+
         /// <summary>
         /// lblRegPrice control.
         /// </summary>
@@ -533,7 +544,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRegPrice;
-        
+
         /// <summary>
         /// lblPaymentDue control.
         /// </summary>
@@ -542,7 +553,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPaymentDue;
-        
+
         /// <summary>
         /// lblDoorPrice control.
         /// </summary>
@@ -551,7 +562,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDoorPrice;
-        
+
         /// <summary>
         /// lblInfoSkillDueDate control.
         /// </summary>
@@ -560,7 +571,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInfoSkillDueDate;
-        
+
         /// <summary>
         /// lblPELDueDate control.
         /// </summary>
@@ -569,7 +580,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPELDueDate;
-        
+
         /// <summary>
         /// imgPCFoodService control.
         /// </summary>
@@ -578,7 +589,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPCFoodService;
-        
+
         /// <summary>
         /// imgNPCFoodService control.
         /// </summary>
@@ -587,7 +598,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgNPCFoodService;
-        
+
         /// <summary>
         /// imgCookingAllowed control.
         /// </summary>
@@ -596,7 +607,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgCookingAllowed;
-        
+
         /// <summary>
         /// imgRefrigerator control.
         /// </summary>
@@ -605,7 +616,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgRefrigerator;
-        
+
         /// <summary>
         /// imgMenu control.
         /// </summary>
@@ -614,7 +625,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgMenu;
-        
+
         /// <summary>
         /// vwNoEvents control.
         /// </summary>
@@ -623,7 +634,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwNoEvents;
-        
+
         /// <summary>
         /// hidRegistrationID control.
         /// </summary>
@@ -632,7 +643,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRegistrationID;
-        
+
         /// <summary>
         /// hidCharacterID control.
         /// </summary>
@@ -641,7 +652,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCharacterID;
-        
+
         /// <summary>
         /// hidTeamMember control.
         /// </summary>
@@ -650,7 +661,25 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidTeamMember;
-        
+
+        /// <summary>
+        /// hidRegisterOthers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidRegisterOthers;
+
+        /// <summary>
+        /// hidLastPlayerRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastPlayerRegister;
+
         /// <summary>
         /// divNoEvents control.
         /// </summary>
@@ -659,7 +688,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoEvents;
-        
+
         /// <summary>
         /// divNoPriv control.
         /// </summary>
@@ -668,7 +697,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoPriv;
-        
+
         /// <summary>
         /// lblRegistrationMessage control.
         /// </summary>
@@ -677,7 +706,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRegistrationMessage;
-        
+
         /// <summary>
         /// btnClose control.
         /// </summary>
@@ -686,7 +715,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClose;
-        
+
         /// <summary>
         /// btnStayAsNPC control.
         /// </summary>
@@ -695,7 +724,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnStayAsNPC;
-        
+
         /// <summary>
         /// btnCreateACharacter control.
         /// </summary>
@@ -704,7 +733,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateACharacter;
-        
+
         /// <summary>
         /// hidCampaignName control.
         /// </summary>
@@ -713,7 +742,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignName;
-        
+
         /// <summary>
         /// hidCampaignEMail control.
         /// </summary>
@@ -722,7 +751,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignEMail;
-        
+
         /// <summary>
         /// hidCharAKA control.
         /// </summary>
@@ -731,7 +760,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCharAKA;
-        
+
         /// <summary>
         /// hidPlayerEMail control.
         /// </summary>
@@ -740,7 +769,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPlayerEMail;
-        
+
         /// <summary>
         /// hidRegistrationStatusID control.
         /// </summary>
@@ -749,7 +778,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRegistrationStatusID;
-        
+
         /// <summary>
         /// hidPayPalTypeID control.
         /// </summary>
@@ -758,7 +787,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPayPalTypeID;
-        
+
         /// <summary>
         /// hidHasPCChar control.
         /// </summary>
@@ -767,7 +796,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidHasPCChar;
-        
+
         /// <summary>
         /// hidRegOpen control.
         /// </summary>
@@ -776,7 +805,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRegOpen;
-        
+
         /// <summary>
         /// hidRegClose control.
         /// </summary>
@@ -785,7 +814,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRegClose;
-        
+
         /// <summary>
         /// hidEventClose control.
         /// </summary>
@@ -794,7 +823,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEventClose;
-        
+
         /// <summary>
         /// hidPELClose control.
         /// </summary>
@@ -803,7 +832,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPELClose;
-        
+
         /// <summary>
         /// hidCurrentRegStatus control.
         /// </summary>
@@ -812,15 +841,26 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCurrentRegStatus;
-        
+
+        /// <summary>
+        /// hidPlayerRegistering control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidPlayerRegistering;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

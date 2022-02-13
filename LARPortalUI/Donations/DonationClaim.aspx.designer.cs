@@ -123,6 +123,24 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.HiddenField hidCountTransfersAgainstMax;
 
         /// <summary>
+        /// hidCPOpportunityID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidCPOpportunityID;
+
+        /// <summary>
+        /// hidCampaignCPOpportunityDefaultID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidCampaignCPOpportunityDefaultID;
+
+        /// <summary>
         /// gvDonationList control.
         /// </summary>
         /// <remarks>

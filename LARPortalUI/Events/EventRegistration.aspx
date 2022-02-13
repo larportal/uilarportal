@@ -150,6 +150,7 @@
                                                 <div class="form-group">
                                                     <label for="lblPlayerName">Player</label>
                                                     <asp:Label ID="lblPlayerName" runat="server" CssClass="form-control" />
+                                                    <asp:DropDownList ID="ddlPlayerName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" OnSelectedIndexChanged="ddlPlayerName_SelectedIndexChanged" />
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -481,6 +482,8 @@
         <asp:HiddenField ID="hidRegistrationID" runat="server" />
         <asp:HiddenField ID="hidCharacterID" runat="server" />
         <asp:HiddenField ID="hidTeamMember" runat="server" Value="0" />
+        <asp:HiddenField ID="hidRegisterOthers" runat="server" Value="" />
+        <asp:HiddenField ID="hidLastPlayerRegister" runat="server" Value="" />
         <div class="row" style="padding-bottom: 25px;">&nbsp;</div>
     </div>
 
@@ -547,6 +550,7 @@
     <asp:HiddenField ID="hidEventClose" runat="server" />
     <asp:HiddenField ID="hidPELClose" runat="server" />
     <asp:HiddenField ID="hidCurrentRegStatus" runat="server" />
+    <asp:HiddenField ID="hidPlayerRegistering" runat="server" />
 
     <script type="text/javascript">
         $(function () {

@@ -207,6 +207,10 @@
                             <div class="text-center">
                                 <asp:Label runat="server" ID="lblVersion"></asp:Label>
                             </div>
+                            <div class="text-center" style="padding-top:30px;">
+                                <iframe width="420" height="236" src="https://www.youtube.com/embed/HmtWwRdJwWA" title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                         <div class="col-lg-8 col-lg-pull-4 col-md-6">
                             <img src="images/PortalImageFade.jpg" alt="LARPortal Welcome Image" class="img-responsive" />

@@ -276,6 +276,42 @@ namespace LarpPortal
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEventAssignHousing;
 
         /// <summary>
+        /// liDonations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor liDonations;
+
+        /// <summary>
+        /// liClaimDonations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimDonations;
+
+        /// <summary>
+        /// liAddDonationRequests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAddDonationRequests;
+
+        /// <summary>
+        /// liReceiveDonations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liReceiveDonations;
+
+        /// <summary>
         /// liCharacterApproveHistory control.
         /// </summary>
         /// <remarks>

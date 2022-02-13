@@ -8,7 +8,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYxHQw4rLbUmPGhLrTa/rhwAAAAACAAAAAAAQZgAAAAEAACAAAAB0EHqbEqMAt/m2JMlTgi/z7w/P0A2w/qqoYRRGQ9eBlAAAAAAOgAAAAAIAACAAAADCEo0IMc+RVVvHYVUb7sHT5t4LobeSgxVMNXXr4X0XIiAAAAADyds9Rb5REVWzOk24vIZCDX8kGaKoGLQIgpfcsbTkZUAAAAAV5teqYMAPoAbclX4aZn21H6JpnoFrKfsnoRIuvtzvsJu4yLQ4DGmZ8HjbALzKY1rcJjg8PN61PkvCATzd/RZs</EncryptedPassword>
     <_PublishTargetUrl>ftp://larportal.com</_PublishTargetUrl>
-    <History>True|2021-12-20T13:13:28.7250281Z;True|2021-12-18T16:59:02.1390590-05:00;True|2021-11-02T18:59:40.0548023-04:00;True|2021-11-02T18:56:58.5680285-04:00;True|2021-09-12T17:53:04.0583398-04:00;True|2021-09-06T15:52:09.9928743-04:00;True|2021-08-15T11:55:57.8634474-04:00;False|2021-08-15T11:49:08.9811197-04:00;True|2021-07-18T19:30:53.0954696-04:00;True|2021-07-18T12:08:15.9536390-04:00;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
+    <History>True|2022-02-06T19:42:16.1759674Z;True|2021-12-20T08:13:28.7250281-05:00;True|2021-12-18T16:59:02.1390590-05:00;True|2021-11-02T18:59:40.0548023-04:00;True|2021-11-02T18:56:58.5680285-04:00;True|2021-09-12T17:53:04.0583398-04:00;True|2021-09-06T15:52:09.9928743-04:00;True|2021-08-15T11:55:57.8634474-04:00;False|2021-08-15T11:49:08.9811197-04:00;True|2021-07-18T19:30:53.0954696-04:00;True|2021-07-18T12:08:15.9536390-04:00;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="bin/LARPortal.dll">
-      <publishTime>12/18/2021 17:23:09</publishTime>
+      <publishTime>02/06/2022 14:24:01</publishTime>
     </File>
     <File Include="bin/LARPortal.pdb">
-      <publishTime>12/18/2021 17:23:09</publishTime>
+      <publishTime>02/06/2022 14:24:01</publishTime>
     </File>
     <File Include="bin/MailKit.dll">
       <publishTime>07/16/2021 13:08:24</publishTime>
@@ -99,7 +99,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 13:58:54</publishTime>
     </File>
     <File Include="Campaigns/Setup/Skills/ModifySkills.aspx">
-      <publishTime>12/18/2021 17:14:06</publishTime>
+      <publishTime>12/27/2021 16:15:49</publishTime>
     </File>
     <File Include="Campaigns/Setup/Skills/SkillQualifiers.aspx">
       <publishTime>03/21/2021 14:00:25</publishTime>
@@ -1410,13 +1410,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/05/2021 11:32:44</publishTime>
     </File>
     <File Include="Donations/ClaimDonation.aspx">
-      <publishTime>11/02/2021 17:42:59</publishTime>
+      <publishTime>02/06/2022 10:25:02</publishTime>
     </File>
     <File Include="Donations/DonationAdd.aspx">
       <publishTime>11/02/2021 17:42:59</publishTime>
     </File>
     <File Include="Donations/DonationClaim.aspx">
-      <publishTime>11/02/2021 17:42:59</publishTime>
+      <publishTime>02/06/2022 10:25:02</publishTime>
     </File>
     <File Include="Donations/images/minus.png">
       <publishTime>08/28/2021 12:12:28</publishTime>
@@ -1437,7 +1437,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Events/EventRegistration.aspx">
-      <publishTime>03/21/2021 13:28:08</publishTime>
+      <publishTime>02/06/2022 09:55:37</publishTime>
     </File>
     <File Include="Events/RegistrationApproval.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -1580,6 +1580,33 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="HtmlPage1.html">
       <publishTime>12/12/2021 16:33:05</publishTime>
     </File>
+    <File Include="images/apple-touch-icon-114x114-precomposed.png">
+      <publishTime>07/13/2017 16:24:20</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-120x120-precomposed.png">
+      <publishTime>07/13/2017 16:24:22</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-144x144-precomposed.png">
+      <publishTime>07/13/2017 16:24:21</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-152x152-precomposed.png">
+      <publishTime>07/13/2017 16:24:25</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-180x180-precomposed.png">
+      <publishTime>07/13/2017 16:24:23</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-192x192-precomposed.png">
+      <publishTime>07/13/2017 16:24:23</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-72x72-precomposed.png">
+      <publishTime>07/13/2017 16:24:24</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-76x76-precomposed.png">
+      <publishTime>07/13/2017 16:24:24</publishTime>
+    </File>
+    <File Include="images/apple-touch-icon-precomposed.png">
+      <publishTime>07/13/2017 16:24:25</publishTime>
+    </File>
     <File Include="images/Calendar.png">
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
@@ -1690,6 +1717,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="img/checkbox.png">
       <publishTime>03/21/2021 09:33:59</publishTime>
+    </File>
+    <File Include="img/Delete.png">
+      <publishTime>10/03/2016 20:31:17</publishTime>
     </File>
     <File Include="img/globe.png">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -1983,13 +2013,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:34:00</publishTime>
     </File>
     <File Include="index.aspx">
-      <publishTime>07/16/2021 15:31:05</publishTime>
+      <publishTime>01/25/2022 17:51:27</publishTime>
     </File>
     <File Include="InitialJoinCampaign.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="LARPortal.Master">
-      <publishTime>12/18/2021 13:21:36</publishTime>
+      <publishTime>02/02/2022 17:49:46</publishTime>
     </File>
     <File Include="LARPortalUI.ruleset">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -3831,7 +3861,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/20/2021 08:11:32</publishTime>
+      <publishTime>02/06/2022 14:40:07</publishTime>
     </File>
     <File Include="Webservices/CampaignInfo.asmx">
       <publishTime>03/21/2021 09:33:59</publishTime>

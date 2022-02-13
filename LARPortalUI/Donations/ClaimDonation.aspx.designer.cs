@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Donations {
-    
-    
-    public partial class ClaimDonation {
-        
+namespace LarpPortal.Donations
+{
+
+
+    public partial class ClaimDonation
+    {
+
         /// <summary>
         /// divEventList control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEventList;
-        
+
         /// <summary>
         /// lblEvent control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEvent;
-        
+
         /// <summary>
         /// lbEventName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbEventName;
-        
+
         /// <summary>
         /// lblItem control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblItem;
-        
+
         /// <summary>
         /// divPCStaff control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPCStaff;
-        
+
         /// <summary>
         /// lblValue control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblValue;
-        
+
         /// <summary>
         /// divNPC control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNPC;
-        
+
         /// <summary>
         /// ddlReceivingPlayer control.
         /// </summary>
@@ -83,7 +85,16 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlReceivingPlayer;
-        
+
+        /// <summary>
+        /// lblCampaignCPDonationPolicy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCampaignCPDonationPolicy;
+
         /// <summary>
         /// hid1 control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hid1;
-        
+
         /// <summary>
         /// divQtyClaim control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divQtyClaim;
-        
+
         /// <summary>
         /// ddlQtyClaim control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlQtyClaim;
-        
+
         /// <summary>
         /// hidS control.
         /// </summary>
@@ -119,7 +130,34 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidS;
-        
+
+        /// <summary>
+        /// divDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDelivery;
+
+        /// <summary>
+        /// ddlDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDelivery;
+
+        /// <summary>
+        /// HiddenField1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+
         /// <summary>
         /// divSendOther control.
         /// </summary>
@@ -128,7 +166,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSendOther;
-        
+
         /// <summary>
         /// tbCommentsToStaff control.
         /// </summary>
@@ -137,7 +175,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCommentsToStaff;
-        
+
         /// <summary>
         /// btnReturn control.
         /// </summary>
@@ -146,7 +184,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReturn;
-        
+
         /// <summary>
         /// btnRegisterForDonation control.
         /// </summary>
@@ -155,7 +193,16 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegisterForDonation;
-        
+
+        /// <summary>
+        /// lblAnonymityWarning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAnonymityWarning;
+
         /// <summary>
         /// pnlDonationHistory control.
         /// </summary>
@@ -164,7 +211,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlDonationHistory;
-        
+
         /// <summary>
         /// lblHeader control.
         /// </summary>
@@ -173,7 +220,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblHeader;
-        
+
         /// <summary>
         /// lblGridHeader control.
         /// </summary>
@@ -182,7 +229,7 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGridHeader;
-        
+
         /// <summary>
         /// gvPreviouslyClaimed control.
         /// </summary>
@@ -191,15 +238,17 @@ namespace LarpPortal.Donations {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPreviouslyClaimed;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

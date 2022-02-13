@@ -246,6 +246,16 @@
                                                 <!-- /.nav-third-level -->
                                             </li>
 
+                                            <li><a href="#" runat="server" id="liDonations">Donations<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li runat="server" id="liClaimDonations"><a href="/Donations/DonationClaim.aspx">Claim Donations</a></li>
+                                                    <li runat="server" id="liAddDonationRequests"><a href="/Donations/DonationAdd.aspx">Add Donation Requests</a></li>
+                                                    <li runat="server" id="liReceiveDonations"><a href="/Donations/DonationClaim.aspx">Receive Donations</a></li>
+                                                </ul>
+                                                <!-- /.nav-third-level -->
+                                            </li>
+
+
                                             <%--  Missing 23 - Shopping cart / payment--%>
                                             <%--  Missing 26 - Setup scheduling--%>
 

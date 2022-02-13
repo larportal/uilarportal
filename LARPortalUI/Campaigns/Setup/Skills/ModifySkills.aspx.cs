@@ -206,7 +206,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
                 foreach (DataRow dRow in dsNodeInfo.Tables[0].Rows)
                 {
                     divSkillItems.Visible = true;
-                    double dSkillCost = 0.0;
+                    //double dSkillCost = 0.0;
                     //if (double.TryParse(dRow["SkillCPCost"].ToString(), out dSkillCost))
                     //{
                     //    tbSkillCost.Text = string.Format("{0:N1}", dSkillCost);
