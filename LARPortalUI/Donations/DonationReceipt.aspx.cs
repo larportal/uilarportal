@@ -1,26 +1,52 @@
 ﻿using System;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using System.Reflection;
 using System.Collections;
-using System.Configuration;
-using System.Data.SqlClient;
+using System.Reflection;
 
 namespace LarpPortal.Donations
 {
     public partial class DonationReceipt : System.Web.UI.Page
     {
+        public bool _Reload = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (ViewState["SortField"] == null)
+                    ViewState["SortField"] = "Player";
+                if (ViewState["SortDir"] == null)
+                    ViewState["SortDir"] = "";
                 SetCampaignPlayerID();
                 CampaignDonationSettings();
-                gvDonationList.DataSource = GetData("uspGetDonations", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString, Master.UserID);
-                gvDonationList.DataBind();
+                gvRegistrations.DataSource = GetData("uspGetDonationClaimsForReceipt", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString, Master.UserID);
+                gvRegistrations.DataBind();
+
             }
+        }
+
+        protected void BindData()
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            sParams.Add("@EventID", ddlEvent.SelectedValue);
+            sParams.Add("@StatusID", ddlDonationStatus.SelectedValue);
+            sParams.Add("@PlayerID", ddlPlayer.SelectedValue);
+            sParams.Add("@Roles", Master.RoleString);
+            sParams.Add("@UserID", Master.UserID);
+
+            DataTable dtDonations = Classes.cUtilities.LoadDataTable("uspGetDonationClaimsForReceipt", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetDonations");
+
+            //ddlDonationStatus.DataSource = dtDonations;
+            //ddlDonationStatus.DataBind();
+            gvRegistrations.DataSource = dtDonations;
+            gvRegistrations.DataBind();
+
         }
 
         private static DataTable GetData(string query, Int32 CampaignID, string ddlStatus, string ddlEvent, string DonationID, string UserName, string RoleString, int uID)
@@ -47,6 +73,11 @@ namespace LarpPortal.Donations
                     sParams.Add("@Roles", RoleString);
                     sParams.Add("@UserID", uID);
                     break;
+                case "uspGetDonationClaimsForReceipt":
+                    sParams.Add("@Roles", RoleString);
+                    sParams.Add("@UserID", uID);
+                    //sParams.Add("@PlayerID", );
+                    break;
                 default:
                     break;
             }
@@ -57,81 +88,105 @@ namespace LarpPortal.Donations
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
+
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-            BindData();
-            if (!IsPostBack)
-            {
-                ddlPlayerLoad(Master.UserID, Master.CampaignID);
-            }
+            Session["ActiveLeftNav"] = "PointsView";
+            LoadStatusddl();
+            LoadEventddl();
+            LoadPlayerddl();
+
         }
 
-        protected void BindData()
+        private void PopulateGrid()
         {
-            MethodBase lmth = MethodBase.GetCurrentMethod();
-            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            SortedList sParams = new SortedList();
-            sParams.Add("@CampaignID", Master.CampaignID);
-            sParams.Add("@EventID", ddlEvent.SelectedValue);
-            sParams.Add("@StatusID", ddlDonationStatus.SelectedValue);
-            sParams.Add("@Roles", Master.RoleString);
-            sParams.Add("@UserID", Master.UserID);
-
-            DataTable dtDonations = Classes.cUtilities.LoadDataTable("uspGetDonations", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetDonations");
-
-            // While creating the filter am also saving the selected values so we can go back and have the drop down list use them.
-            string sRowFilter = "(1 = 1)";      // This is so it's easier to build the filter string. Now can always say 'and ....'
-
-            // Default setting
-            DataView dvDonations = new DataView(dtDonations, sRowFilter, "EventID desc, StatusID", DataViewRowState.CurrentRows);
-            gvDonationList.DataSource = dvDonations;
-            gvDonationList.DataBind();
-
-            if (!IsPostBack)
-            {
-                Session["DonationList_dvDonations"] = dvDonations;
-
-                DataView view = new DataView(dtDonations);
-                DataTable dtDistinctDonationStatus = view.ToTable(true, "StatusID", "StatusName");
-
-                ddlDonationStatus.DataSource = dtDistinctDonationStatus;
-                ddlDonationStatus.DataTextField = "StatusName";
-                ddlDonationStatus.DataValueField = "StatusID";
-                ddlDonationStatus.DataBind();
-                ddlDonationStatus.Items.Insert(0, new ListItem("No Filter", ""));
-                ddlDonationStatus.SelectedIndex = -1;
-
-                if (ddlDonationStatus.SelectedIndex == -1)     // Didn't find what was selected.
-                    ddlDonationStatus.SelectedIndex = 0;
-
-                view = new DataView(dtDonations);   //, sRowFilter, "EventID", DataViewRowState.CurrentRows);
-                DataTable dtEvent = view.ToTable(true, "EventID", "EventDate");
-
-                ddlEvent.DataSource = dtEvent;
-                ddlEvent.DataTextField = "EventDate";
-                ddlEvent.DataTextFormatString = "{0:MM/dd/yyyy}";
-                ddlEvent.DataValueField = "EventID";
-                ddlEvent.DataBind();
-                ddlEvent.Items.Insert(0, new ListItem("No Filter", ""));
-                ddlEvent.SelectedIndex = -1;
-
-                if (ddlEvent.SelectedIndex == -1)     // Didn't find what was selected.
-                    ddlEvent.SelectedIndex = 0;
-            }
         }
 
-        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvRegistrations_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            gvRegistrations.EditIndex = -1;
+
+            BindData();
+        }
+
+        protected void gvRegistrations_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            gvRegistrations.EditIndex = e.NewEditIndex;
+
+            BindData();
+        }
+
+        protected void gvRegistrations_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            //try
+            //{
+            //    HiddenField hidDonationClaimID = (HiddenField)gvRegistrations.Rows[e.RowIndex].FindControl("hidDonationClaimID");
+            //    TextBox tbQuantityReceiving = (TextBox)gvRegistrations.Rows[e.RowIndex].FindControl("tbQuantityReceiving");
+            //    TextBox tbStaffComments = (TextBox)gvRegistrations.Rows[e.RowIndex].FindControl("tbStaffComments");
+
+            //    if ((hidDonationClaimID != null) &&
+            //        (tbQuantityReceiving != null) &&
+            //        (tbStaffComments != null))
+            //    {
+            //        SortedList sParam = new SortedList();
+            //        sParam.Add("@DonationClaimID", hidDonationClaimID.Value);
+            //        sParam.Add("@RegistrationStatus", ddlRegStatus.SelectedValue);
+            //        sParam.Add("@EventPaymentDate", calPaymentDate.SelectedDate);
+            //        sParam.Add("@EventPaymentTypeID", ddlPaymentType.SelectedValue);
+            //        sParam.Add("@EventPaymentAmount", tbPayment.Text);
+            //        Classes.cUtilities.PerformNonQuery("uspInsUpdCMRegistrations", sParam, "LARPortal", Master.UserName);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    string l = ex.Message;
+            //}
+
+            //gvRegistrations.EditIndex = -1;
+            ////PopulateGrid();
+            //BindData();
+        }
+
+        protected void gvRegistrations_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                MethodBase lmth = MethodBase.GetCurrentMethod();
-                string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-                string currentDonationID = gvDonationList.DataKeys[e.Row.RowIndex].Value.ToString();
-                GridView gvDetails = e.Row.FindControl("gvDetails") as GridView;
-                gvDetails.DataSource = GetData("uspGetDonationClaims", 0, "", "", currentDonationID, Master.UserName, Master.RoleString, Master.UserID);
-                gvDetails.DataBind();
+                if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+                {
+                    DataRowView dRow = e.Row.DataItem as DataRowView;
+
+                    System.Web.UI.WebControls.Calendar calPaymentDate = (System.Web.UI.WebControls.Calendar)e.Row.FindControl("calPaymentDate");
+                    if (calPaymentDate != null)
+                    {
+                        calPaymentDate.SelectedDate = DateTime.Today;
+                        HiddenField hidPaymentDate = (HiddenField)e.Row.FindControl("hidPaymentDate");
+                        if (hidPaymentDate != null)
+                        {
+                            DateTime dtPaymentDate;
+                            if (DateTime.TryParse(hidPaymentDate.Value, out dtPaymentDate))
+                            {
+                                calPaymentDate.SelectedDate = dtPaymentDate;
+                            }
+                        }
+                    }
+
+                }
             }
+
+        }
+
+        protected void ddlPlayer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Classes.cUserOption Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlPlayer";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlPlayer.SelectedValue;
+            Option.SaveOptionValue();
+            ViewState["Player"] = ddlPlayer.SelectedValue;
+            BindData();
         }
 
         protected void ddlDonationStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -160,72 +215,105 @@ namespace LarpPortal.Donations
             BindData();
         }
 
-        private void ddlPlayerLoad(int intUserID, int intCampaignID)
+        protected void gvRegistrations_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            bool IsPC = Master.RoleString.Contains("/8/");
-            bool Role4 = Master.RoleString.Contains("/4/");
-            bool Role14 = Master.RoleString.Contains("/14/");
-            bool Role16 = Master.RoleString.Contains("/16/");
-            bool Role28 = Master.RoleString.Contains("/28/");
-            bool Role34 = Master.RoleString.Contains("/34/");
-            bool Role40 = Master.RoleString.Contains("/40/");
-
-            MethodBase lmth = MethodBase.GetCurrentMethod();
-            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-
-            ddlPlayer.Items.Clear();
-            SortedList sParams = new SortedList();
-            sParams.Add("@CampaignID", intCampaignID);
-            sParams.Add("@UserID", Master.UserID);
-            DataTable dtPlayers = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayersByRole", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPlayersByRole");
-            ddlPlayer.DataTextField = "PlayerName";
-            ddlPlayer.DataValueField = "UserID";
-            ddlPlayer.DataSource = dtPlayers;
-            ddlPlayer.DataBind();
-            ddlPlayer.Items.Insert(0, new ListItem("Select Player", "0"));
-            ddlPlayer.SelectedIndex = 0;
-            if (Role4 || Role16 || Role14 || Role28 || Role34 || Role40)
+            if (e.CommandName.ToUpper() == "RECEIVE")
             {
-                pnlPlayerDropdown.Visible = true;
-            }
 
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow clickedRow = gvRegistrations.Rows[rowIndex];
+
+                HiddenField hdDonationClaimID = (HiddenField)clickedRow.FindControl("hidDonationClaimID");
+                Int32 DonationClaimID = Int32.Parse(hdDonationClaimID.Value);
+                TextBox tbStaffComments = (TextBox)clickedRow.FindControl("tbStaffComments");
+                string StaffComments = tbStaffComments.Text;
+                Label lbClaimed = (Label)clickedRow.FindControl("lblQtyClaimed");
+                double Claimed = double.Parse(lbClaimed.Text);
+
+                SortedList sParams = new SortedList();
+                sParams.Add("@DonationClaimID", DonationClaimID);
+                sParams.Add("@QuantityReceived", Claimed);
+                sParams.Add("@StaffComments", StaffComments);
+                sParams.Add("@UserID", Master.UserID);
+                Classes.cUtilities.PerformNonQuery("uspReceiveDonationClaims", sParams, "LARPortal", Master.UserName);
+                _Reload = true;
+                BindData();
+            }
         }
 
-        protected void ddlPlayer_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnApproveAll_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                SortedList sParams = new SortedList();
+                sParams.Add("@EventID", ddlEvent.SelectedValue);
+                Classes.cUtilities.PerformNonQuery("uspEventApproveAllReg", sParams, "LARPortal", Master.UserName);
+                _Reload = true;
+            }
+            catch
+            {
+            }
         }
 
-        protected void gvDonationList_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvRegistrations_Sorting(object sender, GridViewSortEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            GridViewRow clickedRow = gvDonationList.Rows[index];
-            HiddenField hdfield = (HiddenField)clickedRow.Cells[2].FindControl("hidDonationID");
-            HiddenField hdworth = (HiddenField)clickedRow.Cells[2].FindControl("hidWorth");
-            HiddenField hdcampaignskillpool = (HiddenField)clickedRow.Cells[2].FindControl("hidCampaignSkillPoolID");
-            HiddenField hddefaultpool = (HiddenField)clickedRow.Cells[2].FindControl("hidDefaultPool");
-            string sDonationID = hdfield.Value;
-            string sWorth = hdworth.Value;
-            string sCampaignSkillPool = hdcampaignskillpool.Value;
-            string sDefaultPool = hddefaultpool.Value;
+            string sField = ViewState["SortField"].ToString();
+            string sDir = ViewState["SortDir"].ToString();
 
-            if (e.CommandName.CompareTo("DonateItem") == 0)
+            if (e.SortExpression == sField)
             {
-                // The Donate button has been pressed. Open a form to donate. If you already claimed part of this item, preload it with the current quantity claimed.
-                // Don't allow it to back out. Include a cancellation request button to send a cancellation request.
-                Session["DonationID"] = sDonationID;
-                Session["AllowPlayerToPlayerPoints"] = hidAllowPlayerToPlayerPoints.Value;
-                Session["AwardWhen"] = hidDefaultAwardWhen.Value;
-                Session["CPOpportunityID"] = hidCPOpportunityID.Value;
-                Session["Worth"] = sWorth;
-                Session["CampaignSkillPoolID"] = sCampaignSkillPool;
-                Session["DefaultPool"] = sDefaultPool;
-                Response.Redirect("ClaimDonation.aspx", true);
-
+                if (String.IsNullOrEmpty(sDir))
+                    ViewState["SortDir"] = "DESC";
+                else
+                    ViewState["SortDir"] = "";
             }
-            if (e.CommandName.CompareTo("ShowDetails") == 0)
+            else
             {
+                ViewState["SortField"] = e.SortExpression;
+                ViewState["SortDir"] = "";
+            }
 
+            //PopulateGrid();
+            BindData();
+
+            Classes.cUserOption Option = new Classes.cUserOption();
+            Option.LoginUsername = Session["UserName"].ToString();
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "gvRegistrations";
+            Option.ObjectOption = "SortField";
+            Option.OptionValue = ViewState["SortField"].ToString();
+            Option.SaveOptionValue();
+
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Session["UserName"].ToString();
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "gvRegistrations";
+            Option.ObjectOption = "SortDir";
+            Option.OptionValue = ViewState["SortDir"].ToString();
+            Option.SaveOptionValue();
+        }
+
+        private void DisplaySorting()
+        {
+            if (gvRegistrations.HeaderRow != null)
+            {
+                int iSortedColumn = 0;
+                foreach (DataControlFieldHeaderCell cHeaderCell in gvRegistrations.HeaderRow.Cells)
+                {
+                    if (cHeaderCell.ContainingField.SortExpression == ViewState["SortField"].ToString())
+                    {
+                        iSortedColumn = gvRegistrations.HeaderRow.Cells.GetCellIndex(cHeaderCell);
+                    }
+                }
+                if (iSortedColumn != 0)
+                {
+                    Label lblArrowLabel = new Label();
+                    if (ViewState["SortDir"].ToString().Length == 0)
+                        lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-up'> </span></a>";
+                    else
+                        lblArrowLabel.Text = "<a><span class='glyphicon glyphicon-arrow-down'> </span></a>";
+                    gvRegistrations.HeaderRow.Cells[iSortedColumn].Controls.Add(lblArrowLabel);
+                }
             }
         }
 
@@ -244,15 +332,89 @@ namespace LarpPortal.Donations
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             Classes.cDonation DonationSettings = new Classes.cDonation();
             DonationSettings.GetDonationCampaignSettings(Master.CampaignID);
-            hidAllowPlayerToPlayerPoints.Value = DonationSettings.AllowPlayerToPlayerPoints.ToString();
-            hidShowDonationClaims.Value = DonationSettings.ShowDonationClaims.ToString();
-            hidCountTransfersAgainstMax.Value = DonationSettings.CountTransfersAgainstMax.ToString();
-            hidDefaultAwardWhen.Value = DonationSettings.DefaultAwardWhen.ToString();
-            hidMaxItemsPerEvent.Value = DonationSettings.MaxItemsPerEvent.ToString();
-            hidMaxPointsPerEvent.Value = DonationSettings.MaxPointsPerEvent.ToString();
-            hidCPOpportunityID.Value = DonationSettings.CampaignCPOpportunityID.ToString();
-            hidCampaignCPOpportunityDefaultID.Value = DonationSettings.CampaignCPOpportunityDefaultID.ToString();
+
             Session["CampaignCPOpportunityDefaultID"] = DonationSettings.CampaignCPOpportunityDefaultID.ToString();
+        }
+
+        protected void LoadStatusddl()
+        {
+            // uspGetDonationClaimsForReceiptStatusDDL
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            ddlDonationStatus.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DataTable dtStatus = Classes.cUtilities.LoadDataTable("uspGetDonationClaimsForReceiptStatusDDL", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPools");
+            ddlDonationStatus.DataTextField = "StatusDescription";
+            ddlDonationStatus.DataValueField = "CampaignDonationStatusID";
+            ddlDonationStatus.DataSource = dtStatus;
+            ddlDonationStatus.DataBind();
+            ddlDonationStatus.Items.Insert(0, new ListItem("All Statuses", "0"));
+            if (ViewState["DonationStatus"] != null)
+            {
+                ddlDonationStatus.SelectedValue = ViewState["DonationStatus"].ToString();
+            }
+            else
+            {
+                ddlDonationStatus.SelectedIndex = 0;
+            }
+        }
+
+        protected void LoadPlayerddl()
+        {
+            //uspGetDonationClaimsForReceiptPlayerDDL
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            ddlPlayer.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DataTable dtPlayer = Classes.cUtilities.LoadDataTable("uspGetDonationClaimsForReceiptPlayerDDL", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPools");
+            ddlPlayer.DataTextField = "Player";
+            ddlPlayer.DataValueField = "CampaignPlayerID";
+            ddlPlayer.DataSource = dtPlayer;
+            ddlPlayer.DataBind();
+            ddlPlayer.Items.Insert(0, new ListItem("All Players", "0"));
+            if (ViewState["Player"] != null)
+            {
+                ddlPlayer.SelectedValue = ViewState["Player"].ToString();
+            }
+            else
+            {
+                ddlPlayer.SelectedIndex = 0;
+            }
+        }
+
+        protected void LoadEventddl()
+        {
+            //uspGetDonationClaimsForReceiptEventDDL
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            ddlEvent.Items.Clear();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DataTable dtEvent = Classes.cUtilities.LoadDataTable("uspGetDonationClaimsForReceiptEventDDL", sParams, "LARPortal", Master.UserName, lsRoutineName + "uspGetCampaignPools");
+            ddlEvent.DataTextField = "StartDate";
+            ddlEvent.DataValueField = "EventID";
+            ddlEvent.DataSource = dtEvent;
+            ddlEvent.DataBind();
+            ddlEvent.Items.Insert(0, new ListItem("All Events", "0"));
+            if (ViewState["Event"] != null)
+            {
+                ddlEvent.SelectedValue = ViewState["Event"].ToString();
+            }
+            else
+            {
+                ddlEvent.SelectedIndex = 0;
+            }
+
+        }
+
+        protected Boolean AlreadyReceived(Decimal QuantityAccepted)
+        {
+            return QuantityAccepted == 0;
         }
 
     }

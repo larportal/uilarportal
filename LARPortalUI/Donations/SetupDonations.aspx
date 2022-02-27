@@ -54,7 +54,7 @@
                             <div class="panel-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="pre-scrollable">
+                                        <div class="pre-scrollable" style="max-height: 65vh">
                                             <asp:GridView ID="gvEventList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvEventList_RowCommand" GridLines="None"
                                                 CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid"
                                                 OnRowDataBound="gvEventList_RowDataBound" BorderWidth="1">

@@ -102,7 +102,7 @@
                                 <div class="panel-container">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <div class="pre-scrollable">
+                                            <div class="pre-scrollable" style="max-height: 65vh">
                                                 <asp:GridView ID="gvDonationList" runat="server" AutoGenerateColumns="false"
                                                     OnRowCommand="gvDonationList_RowCommand" DataKeyNames="DonationID" GridLines="None"
                                                     CssClass="table table-striped table-hover table-condensed" BorderColor="Black"
@@ -120,11 +120,12 @@
                                                                     <asp:GridView ID="gvDetails" runat="server" AutoGenerateColumns="false"
                                                                         GridLines="None" CssClass="table table-striped table-hover table-condensed"
                                                                         BorderColor="Black" BorderStyle="Solid" BorderWidth="1" Width="99%"
-                                                                        ShowHeader="false">
+                                                                        ShowHeader="true">
                                                                         <Columns>
-                                                                            <asp:BoundField DataField="PlayerDonationText" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
-                                                                            <asp:BoundField DataField="PlayerComments" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
-                                                                            <asp:BoundField DataField="Accepted" HeaderText="" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
+                                                                            <asp:BoundField DataField="PlayerDonationText" HeaderText="Player" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
+                                                                            <asp:BoundField DataField="PlayerComments" HeaderText="Player Comments" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
+                                                                            <asp:BoundField DataField="QuantityAccepted" HeaderText="Qty Recvd" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
+                                                                            <asp:BoundField DataField="Accepted" HeaderText="Received By" ItemStyle-Wrap="true" HeaderStyle-Wrap="true" />
                                                                         </Columns>
                                                                     </asp:GridView>
                                                                 </asp:Panel>
@@ -132,7 +133,7 @@
                                                         </asp:TemplateField>
                                                         <asp:BoundField DataField="EventDate" HeaderText="Event Date" ItemStyle-Wrap="true" DataFormatString="{0: MM/dd/yyyy}" />
                                                         <asp:BoundField DataField="Description" HeaderText="Item(*=Recurring)" ItemStyle-Wrap="true" />
-                                                        <asp:BoundField DataField="DisplayWorth" HeaderText="Value" ItemStyle-Wrap="true" />
+                                                        <asp:BoundField DataField="DisplayWorth" HeaderText="Value" ItemStyle-Wrap="false" />
 
                                                         <asp:BoundField DataField="DisplayNeeded" HeaderText="Needed" ItemStyle-Wrap="true" />
                                                         <asp:BoundField DataField="DisplayReceived" HeaderText="Received" ItemStyle-Wrap="true" />

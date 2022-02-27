@@ -15,22 +15,13 @@ namespace LarpPortal.Donations
     {
 
         /// <summary>
-        /// mvDonations control.
+        /// hidScollPosition control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.MultiView mvDonations;
-
-        /// <summary>
-        /// vwDonations control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwDonations;
+        protected global::System.Web.UI.WebControls.HiddenField hidScollPosition;
 
         /// <summary>
         /// ddlDonationStatus control.
@@ -69,85 +60,31 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.DropDownList ddlPlayer;
 
         /// <summary>
-        /// hidAllowPlayerToPlayerPoints control.
+        /// lblDonationReceipts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidAllowPlayerToPlayerPoints;
+        protected global::System.Web.UI.WebControls.Label lblDonationReceipts;
 
         /// <summary>
-        /// hidShowDonationClaims control.
+        /// gvRegistrations control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidShowDonationClaims;
+        protected global::System.Web.UI.WebControls.GridView gvRegistrations;
 
         /// <summary>
-        /// hidDefaultAwardWhen control.
+        /// hidApprovedStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidDefaultAwardWhen;
-
-        /// <summary>
-        /// hidMaxPointsPerEvent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidMaxPointsPerEvent;
-
-        /// <summary>
-        /// hidMaxItemsPerEvent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidMaxItemsPerEvent;
-
-        /// <summary>
-        /// hidCountTransfersAgainstMax control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCountTransfersAgainstMax;
-
-        /// <summary>
-        /// hidCPOpportunityID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCPOpportunityID;
-
-        /// <summary>
-        /// hidCampaignCPOpportunityDefaultID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCampaignCPOpportunityDefaultID;
-
-        /// <summary>
-        /// gvDonationList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDonationList;
+        protected global::System.Web.UI.WebControls.HiddenField hidApprovedStatus;
 
         /// <summary>
         /// Master property.
