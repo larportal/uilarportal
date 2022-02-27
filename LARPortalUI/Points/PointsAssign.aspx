@@ -225,7 +225,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
-                            <div class="pre-scrollable">
+                            <div class="pre-scrollable" style="max-height: 65vh">
                                 <asp:HiddenField ID="hidCampaignPlayerUserID" runat="server" />
                                 <asp:GridView ID="gvPoints" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
                                     OnRowCancelingEdit="gvPoints_RowCancelingEdit" OnRowEditing="gvPoints_RowEditing" OnRowUpdating="gvPoints_RowUpdating"
