@@ -56,11 +56,42 @@ namespace LarpPortal.Reports
                 columnbind.Append(gvCampaignPlayers.Columns[k].HeaderText + ',');
             }
             columnbind.Append("\r\n");
-            for (int i = 0; i < gvCampaignPlayers.Rows.Count; i++)
+            foreach (GridViewRow row in gvCampaignPlayers.Rows)
             {
-                for (int k = 0; k < gvCampaignPlayers.Columns.Count; k++)
+                foreach (TableCell cell in row.Cells)
                 {
-                    CellText = gvCampaignPlayers.Rows[i].Cells[k].Text;
+                    CellText = "";
+                    if (cell.Controls.Count > 0)
+                    {
+                        foreach (Control control in cell.Controls)
+                        {
+                            switch (control.GetType().Name)
+                            {
+                                case "HyperLink":
+                                    CellText = (control as HyperLink).Text;
+                                    break;
+                                case "TextBox":
+                                    CellText = (control as TextBox).Text;
+                                    break;
+                                case "LinkButton":
+                                    CellText = (control as LinkButton).Text;
+                                    break;
+                                case "Button":
+                                    CellText = (control as Button).Text;
+                                    break;
+                                case "CheckBox":
+                                    CellText = (control as CheckBox).Text;
+                                    break;
+                                case "RadioButton":
+                                    CellText = (control as RadioButton).Text;
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        CellText = cell.Text;
+                    }
                     // Take out commas because they screw up the comma delimited csv string
                     CellText = CellText.Replace(",", "");
                     // Replace HTML characters with real counterparts; &nbsp -> space / &#39; -> apostrophe / &amp; -> & / &quot; -> " / &lt; -> < / &gt; -> >
@@ -72,12 +103,15 @@ namespace LarpPortal.Reports
                     CellText = CellText.Replace("&gt;", ">");
                     CellText = CellText + ",";
                     columnbind.Append(CellText);
+
                 }
                 columnbind.Append("\r\n");
-            }
+            }                                         
             Response.Output.Write(columnbind.ToString());
+
             Response.Flush();
             Response.End();
+
             //HtmlForm form = new HtmlForm();
             //Response.Clear();
             //Response.Buffer = true;
@@ -97,5 +131,7 @@ namespace LarpPortal.Reports
             //Response.Flush();
             //Response.End();
         }
+
+
     }
 }
