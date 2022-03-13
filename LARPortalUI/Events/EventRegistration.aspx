@@ -168,6 +168,8 @@
                                                 <div class="form-group autoWidth" id="divSendCPTo" runat="server">
                                                     <label for="ddlSendToCampaign">Send CP to</label>
                                                     <asp:DropDownList ID="ddlSendToCampaign" runat="server" CssClass="form-control autoWidth" />
+                                                    <asp:RequiredFieldValidator ErrorMessage="* Required" ControlToValidate="ddlSendToCampaign"
+                                                            InitialValue="0" runat="server" ForeColor="Red" />
                                                     <asp:TextBox ID="tbSendToCPOther" runat="server" CssClass="form-control" MaxLength="500" Style="display: none;" TextMode="MultiLine" />
                                                 </div>
                                             </div>

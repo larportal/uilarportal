@@ -158,7 +158,7 @@ namespace LarpPortal.Events
                     if (!string.IsNullOrEmpty(sCampaignEMail))
                         sSendTo += ";" + sCampaignEMail;
 
-                    sCampaignEMail = sCampaignEMail + sUserEmail;
+//                    sCampaignEMail = sCampaignEMail + sUserEmail;
                     RegistrationEmail.SendMail(strSubject, strBody, hidPlayerEMail.Value, "", sCampaignEMail, "Registration", Master.UserName);
                 }
                 catch (Exception)
@@ -1232,6 +1232,7 @@ namespace LarpPortal.Events
                         ddlSendToCampaign.DataSource = CampaignChoices.lsUserCampaigns;
                         ddlSendToCampaign.DataBind();
                         ddlSendToCampaign.Items.Add(new ListItem("Other", "-1"));
+                        ddlSendToCampaign.Items.Insert(0, new ListItem("-- Select Campaign --", "0"));  // Force them to choose something   JB  3/13/2022
                     }
             }
         }

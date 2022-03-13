@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="author" content="" />on
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -249,10 +249,9 @@
                                             <li><a href="#" runat="server" id="liDonations">Donations<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
                                                     <li runat="server" id="liClaimDonations"><a href="/Donations/DonationClaim.aspx">Claim Donations</a></li>
-                                                    <li runat="server" id="liAddDonationRequests"><a href="/Donations/DonationAdd.aspx">Add Donation Requests</a></li>
-                                                    <li runat="server" id="liReceiveDonations"><a href="/Donations/DonationClaim.aspx">Receive Donations</a></li>
+                                                    <li runat="server" id="liAddDonationRequests"><a href="/Donations/SetupDonations.aspx">Setup Donations</a></li>
+                                                    <li runat="server" id="liReceiveDonations"><a href="/Donations/DonationReceipt.aspx">Receive Donations</a></li>
                                                 </ul>
-                                                <!-- /.nav-third-level -->
                                             </li>
 
 

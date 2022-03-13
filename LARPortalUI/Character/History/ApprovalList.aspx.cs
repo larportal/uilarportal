@@ -82,6 +82,7 @@ namespace LarpPortal.Character.History
 			}
 			else
 			{
+				sRowFilter = "(DateHistorySubmitted is not null)";
 				if (sStatus.Length > 0)
 				{
 					ddlStatus.ClearSelection();

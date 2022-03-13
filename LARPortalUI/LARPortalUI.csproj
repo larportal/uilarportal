@@ -475,8 +475,12 @@
     <Content Include="Donations\ClaimDonation.aspx" />
     <Content Include="Donations\DonationAdd.aspx" />
     <Content Include="Donations\DonationClaim.aspx" />
+    <Content Include="Donations\DonationEventList.aspx" />
+    <Content Include="Donations\DonationReceipt.aspx" />
     <Content Include="Donations\images\minus.png" />
     <Content Include="Donations\images\plus.png" />
+    <Content Include="Donations\ParentChildTest.aspx" />
+    <Content Include="Donations\SetupDonations.aspx" />
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
     <Content Include="Events\EventEdit.aspx" />
@@ -1794,6 +1798,34 @@
     </Compile>
     <Compile Include="Donations\DonationClaim.aspx.designer.cs">
       <DependentUpon>DonationClaim.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\DonationEventList.aspx.cs">
+      <DependentUpon>DonationEventList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\DonationEventList.aspx.designer.cs">
+      <DependentUpon>DonationEventList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\DonationReceipt.aspx.cs">
+      <DependentUpon>DonationReceipt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\DonationReceipt.aspx.designer.cs">
+      <DependentUpon>DonationReceipt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\ParentChildTest.aspx.cs">
+      <DependentUpon>ParentChildTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\ParentChildTest.aspx.designer.cs">
+      <DependentUpon>ParentChildTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Donations\SetupDonations.aspx.cs">
+      <DependentUpon>SetupDonations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Donations\SetupDonations.aspx.designer.cs">
+      <DependentUpon>SetupDonations.aspx</DependentUpon>
     </Compile>
     <Compile Include="Events\AssignHousing.aspx.cs">
       <DependentUpon>AssignHousing.aspx</DependentUpon>
