@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using LarpPortal.Classes;
 using System.Reflection;
 using System.Collections;
-using System.Configuration;
-using System.Data.SqlClient;
 
 namespace LarpPortal.Classes
 {
@@ -356,6 +350,13 @@ namespace LarpPortal.Classes
             set { _PlayerComments = value; }
         }
 
+        private string _PoolDescription;
+        public string PoolDescription
+        {
+            get { return _PoolDescription; }
+            set { _PoolDescription = value; }
+        }
+
         private double _QtyNeeded;
         public double QtyNeeded
         {
@@ -468,6 +469,12 @@ namespace LarpPortal.Classes
             set { _StaffComments = value; }
         }
 
+        private string _StatusDescription;
+        public string StatusDescription
+        {
+            get { return _StatusDescription; }
+            set { _StatusDescription = value; }
+        }
         private int _StatusID;
         public int StatusID
         {
@@ -639,6 +646,11 @@ namespace LarpPortal.Classes
                 DefaultShipToPostalCode = drow["DefaultShipToPostalCode"].ToString();
                 DefaultShipToPhone = drow["DefaultShipToPhone"].ToString();
                 DefaultNotificationEmail = drow["DefaultNotificationEmail"].ToString();
+                DonationRewardUnitID = int.Parse(drow["DonationRewardUnitID"].ToString());
+                PoolDescription = drow["PoolDescription"].ToString();
+                StatusID = int.Parse(drow["CampaignDonationStatusID"].ToString());
+                StatusDescription = drow["StatusDescription"].ToString();
+
                 if (int.TryParse(drow["DefaultAwardWhen"].ToString(), out iTemp))
                 {
                     DefaultAwardWhen = iTemp;
@@ -667,5 +679,65 @@ namespace LarpPortal.Classes
             }
         }
 
+        public void UpdateDonation(int UserID, int DonationID, int CampaignID, int EventID, string Description, int DonationTypeID, int QuantityNeeded,
+            double RewardQty, int RewardUnit, string DonationComments, string URL, string StaffComments, DateTime RequiredByDate, string STAdd1, string STAdd2,
+            string STCity, string STState, string STZip, string STPhone, string STEmail, int StatusID,
+            bool Recurring, bool MaterialsReimbursable, int ReimburseType, double HoursAllowed, bool HideDonators, DateTime ExpirationDate,
+            bool CarryOver, int AwardWhen, bool AllowEventFee)
+
+        {
+
+            string stStoredProc = "uspInsUpdCMDonations";
+            string stCallingMethod = "cDonation.uspInsUpdCMDonations";
+            SortedList slParameters = new SortedList();
+            slParameters.Add("@UserID", UserID);
+            slParameters.Add("@DonationID", DonationID);
+            slParameters.Add("@Description", Description);
+            slParameters.Add("@DonationTypeID", DonationTypeID);
+            slParameters.Add("@RewardQty", RewardQty);
+            slParameters.Add("@Worth", RewardQty.ToString());
+            slParameters.Add("@RewardUnit", RewardUnit);
+            slParameters.Add("@QtyNeeded", QuantityNeeded);
+            slParameters.Add("@DonationComments", DonationComments);
+            slParameters.Add("@URL", URL);
+            slParameters.Add("@StaffComments", StaffComments);
+            slParameters.Add("@RequiredByDate", RequiredByDate);
+            slParameters.Add("@ShipToAdd1", STAdd1);
+            slParameters.Add("@ShipToAdd2", STAdd2);
+            slParameters.Add("@ShipToCity", STCity);
+            slParameters.Add("@ShipToState", STState);
+            slParameters.Add("@ShipToPostalCode", STZip);
+            slParameters.Add("@ShipToPhone", STPhone);
+            slParameters.Add("@NotificationEmail", STEmail);
+            slParameters.Add("@StatusID", StatusID);
+            slParameters.Add("@Recurring", Recurring);
+            slParameters.Add("@MaterialsReimbursable", MaterialsReimbursable);
+            slParameters.Add("@ReimbuirseType", ReimburseType);
+            slParameters.Add("@HoursAllowed", HoursAllowed);
+            slParameters.Add("@HideDonators", HideDonators);
+            slParameters.Add("@ExpirationDate", ExpirationDate);
+            slParameters.Add("@CarryToNextEvent", CarryOver);
+            slParameters.Add("@AwardWhen", AwardWhen);
+            slParameters.Add("@AllowEventFee", AllowEventFee);
+
+            if (DonationID == -1)
+            {
+                slParameters.Add("@CampaignID", CampaignID);
+                slParameters.Add("@EventID", EventID);
+
+
+
+            }
+            try
+            {
+                cUtilities.PerformNonQuery(stStoredProc, slParameters, "LARPortal", UserID.ToString());
+            }
+            catch (Exception ex)
+            {
+                string l = ex.Message;
+            }
+
+
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeBehind="EventPayment102.aspx.cs" Inherits="LarpPortal.Payments.EventPayment102" %>
+﻿<%@ Page Language="C#"  AutoEventWireup="True" CodeBehind="EventPayment102.aspx.cs" Inherits="LarpPortal.Payments.EventPayment102" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

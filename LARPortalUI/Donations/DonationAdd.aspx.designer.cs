@@ -15,76 +15,40 @@ namespace LarpPortal.Donations
     {
 
         /// <summary>
-        /// ddlEventDate control.
+        /// lblEventInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEventDate;
+        protected global::System.Web.UI.WebControls.Label lblEventInfo;
 
         /// <summary>
-        /// btnAddRecurring control.
+        /// pnlDonationAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddRecurring;
+        protected global::System.Web.UI.WebControls.Panel pnlDonationAdd;
 
         /// <summary>
-        /// btnAddNew control.
+        /// tbDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddNew;
+        protected global::System.Web.UI.WebControls.TextBox tbDescription;
 
         /// <summary>
-        /// mvDonations control.
+        /// lblDonationType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.MultiView mvDonations;
-
-        /// <summary>
-        /// vwDonationSingle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwDonationSingle;
-
-        /// <summary>
-        /// rfvDonationDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDonationDescription;
-
-        /// <summary>
-        /// tbDonationDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDonationDescription;
-
-        /// <summary>
-        /// rvDefaultRegStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvDefaultRegStatus;
+        protected global::System.Web.UI.WebControls.Label lblDonationType;
 
         /// <summary>
         /// ddlDonationType control.
@@ -96,94 +60,94 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.DropDownList ddlDonationType;
 
         /// <summary>
-        /// rfvReqByDate control.
+        /// lblQuantityNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvReqByDate;
+        protected global::System.Web.UI.WebControls.Label lblQuantityNeeded;
 
         /// <summary>
-        /// tbReqByDate control.
+        /// tbQuantityNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbReqByDate;
+        protected global::System.Web.UI.WebControls.TextBox tbQuantityNeeded;
 
         /// <summary>
-        /// tbQtyNeeded control.
+        /// revQuantityNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbQtyNeeded;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revQuantityNeeded;
 
         /// <summary>
-        /// cvQtyNeeded control.
+        /// lblReward control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvQtyNeeded;
+        protected global::System.Web.UI.WebControls.Label lblReward;
 
         /// <summary>
-        /// rfvQtyNeeded control.
+        /// tbUnitReward control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvQtyNeeded;
+        protected global::System.Web.UI.WebControls.TextBox tbUnitReward;
 
         /// <summary>
-        /// tbRewardQty control.
+        /// revUnitReward control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRewardQty;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revUnitReward;
 
         /// <summary>
-        /// cvtRewardQty control.
+        /// RU control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvtRewardQty;
+        protected global::System.Web.UI.WebControls.Label RU;
 
         /// <summary>
-        /// rfvRewardQty control.
+        /// lblReqdBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRewardQty;
+        protected global::System.Web.UI.WebControls.Label lblReqdBy;
 
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// tbReqdBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.TextBox tbReqdBy;
 
         /// <summary>
-        /// ddlRewardUnit control.
+        /// lblURL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRewardUnit;
+        protected global::System.Web.UI.WebControls.Label lblURL;
 
         /// <summary>
         /// tbURL control.
@@ -195,6 +159,15 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.TextBox tbURL;
 
         /// <summary>
+        /// lblDonationComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDonationComments;
+
+        /// <summary>
         /// tbDonationComments control.
         /// </summary>
         /// <remarks>
@@ -204,130 +177,499 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.TextBox tbDonationComments;
 
         /// <summary>
-        /// tbStaffOnlyComments control.
+        /// btnFillSTDefault control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbStaffOnlyComments;
+        protected global::System.Web.UI.WebControls.Button btnFillSTDefault;
 
         /// <summary>
-        /// tbShipTo1 control.
+        /// lblSTAdd1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipTo1;
+        protected global::System.Web.UI.WebControls.Label lblSTAdd1;
 
         /// <summary>
-        /// tbShipTo2 control.
+        /// tbSTAdd1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipTo2;
+        protected global::System.Web.UI.WebControls.TextBox tbSTAdd1;
 
         /// <summary>
-        /// tbShipToCity control.
+        /// lblSTAdd2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipToCity;
+        protected global::System.Web.UI.WebControls.Label lblSTAdd2;
 
         /// <summary>
-        /// tbShipToState control.
+        /// tbSTAdd2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipToState;
+        protected global::System.Web.UI.WebControls.TextBox tbSTAdd2;
 
         /// <summary>
-        /// tbShipToZip control.
+        /// lblSTCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipToZip;
+        protected global::System.Web.UI.WebControls.Label lblSTCity;
 
         /// <summary>
-        /// tbShipToPhone control.
+        /// tbSTCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbShipToPhone;
+        protected global::System.Web.UI.WebControls.TextBox tbSTCity;
 
         /// <summary>
-        /// vwDonationsRecurring control.
+        /// tbSTState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwDonationsRecurring;
+        protected global::System.Web.UI.WebControls.TextBox tbSTState;
 
         /// <summary>
-        /// hidEventID control.
+        /// tbSTZip control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidEventID;
+        protected global::System.Web.UI.WebControls.TextBox tbSTZip;
 
         /// <summary>
-        /// hidEventDate control.
+        /// lblStaffComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidEventDate;
+        protected global::System.Web.UI.WebControls.Label lblStaffComments;
 
         /// <summary>
-        /// hidStatus control.
+        /// tbStaffComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidStatus;
+        protected global::System.Web.UI.WebControls.TextBox tbStaffComments;
 
         /// <summary>
-        /// hidRequiredByDate control.
+        /// lblSTPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidRequiredByDate;
+        protected global::System.Web.UI.WebControls.Label lblSTPhone;
 
         /// <summary>
-        /// hidShip1 control.
+        /// tbSTPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidShip1;
+        protected global::System.Web.UI.WebControls.TextBox tbSTPhone;
 
         /// <summary>
-        /// hidShip2 control.
+        /// lblSTEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidShip2;
+        protected global::System.Web.UI.WebControls.Label lblSTEmail;
+
+        /// <summary>
+        /// tbSTEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTEmail;
+
+        /// <summary>
+        /// btnSaveAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveAdd;
+
+        /// <summary>
+        /// btnCancelAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelAdd;
+
+        /// <summary>
+        /// btnReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReturn;
+
+        /// <summary>
+        /// pnlDonationEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDonationEdit;
+
+        /// <summary>
+        /// tbDescriptionEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDescriptionEdit;
+
+        /// <summary>
+        /// lblDonationTypeEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDonationTypeEdit;
+
+        /// <summary>
+        /// ddlDonationTypeEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDonationTypeEdit;
+
+        /// <summary>
+        /// lblQuantityNeededEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQuantityNeededEdit;
+
+        /// <summary>
+        /// tbQuantityNeededEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbQuantityNeededEdit;
+
+        /// <summary>
+        /// lblRewardEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRewardEdit;
+
+        /// <summary>
+        /// tbUnitRewardEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbUnitRewardEdit;
+
+        /// <summary>
+        /// RUEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RUEdit;
+
+        /// <summary>
+        /// lblReqdByEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReqdByEdit;
+
+        /// <summary>
+        /// tbReqdByEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbReqdByEdit;
+
+        /// <summary>
+        /// lblURLEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblURLEdit;
+
+        /// <summary>
+        /// tbURLEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbURLEdit;
+
+        /// <summary>
+        /// LabelDonationCommentsEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelDonationCommentsEdit;
+
+        /// <summary>
+        /// tbDonationCommentsEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDonationCommentsEdit;
+
+        /// <summary>
+        /// btnFillSTDefaultEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFillSTDefaultEdit;
+
+        /// <summary>
+        /// lblSTAdd1Edit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSTAdd1Edit;
+
+        /// <summary>
+        /// tbSTAdd1Edit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTAdd1Edit;
+
+        /// <summary>
+        /// lblSTAdd2Edit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSTAdd2Edit;
+
+        /// <summary>
+        /// tbSTAdd2Edit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTAdd2Edit;
+
+        /// <summary>
+        /// lblSTCityEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSTCityEdit;
+
+        /// <summary>
+        /// tbSTCityEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTCityEdit;
+
+        /// <summary>
+        /// tbSTStateEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTStateEdit;
+
+        /// <summary>
+        /// tbSTZipEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTZipEdit;
+
+        /// <summary>
+        /// lblStaffCommentsEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStaffCommentsEdit;
+
+        /// <summary>
+        /// tbStaffCommentsEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbStaffCommentsEdit;
+
+        /// <summary>
+        /// lblSTPhoneEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSTPhoneEdit;
+
+        /// <summary>
+        /// tbSTPhoneEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTPhoneEdit;
+
+        /// <summary>
+        /// lblSTEmailEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSTEmailEdit;
+
+        /// <summary>
+        /// tbSTEmailEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSTEmailEdit;
+
+        /// <summary>
+        /// btnSaveEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveEdit;
+
+        /// <summary>
+        /// btnCancelEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelEdit;
+
+        /// <summary>
+        /// btnReturnEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReturnEdit;
+
+        /// <summary>
+        /// pnlDonationList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDonationList;
+
+        /// <summary>
+        /// gvDonationList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDonationList;
+
+        /// <summary>
+        /// hidAdd1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAdd1;
+
+        /// <summary>
+        /// hidAdd2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAdd2;
 
         /// <summary>
         /// hidCity control.
@@ -364,6 +706,60 @@ namespace LarpPortal.Donations
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPhone;
+
+        /// <summary>
+        /// hidEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidEmail;
+
+        /// <summary>
+        /// hidDefaultRewardUnitID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidDefaultRewardUnitID;
+
+        /// <summary>
+        /// hidDefaultPoolDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidDefaultPoolDescription;
+
+        /// <summary>
+        /// hidStatusID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidStatusID;
+
+        /// <summary>
+        /// hidStatusDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidStatusDescription;
+
+        /// <summary>
+        /// hidDefaultAwardWhen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidDefaultAwardWhen;
 
         /// <summary>
         /// Master property.

@@ -13,8 +13,16 @@ namespace LarpPortal.Donations
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Session["cbOpenOnly"] != null)
+                {
+                    cbDisplayOnlyOpenEvents.Checked = (bool)Session["cbOpenOnly"];
+                }
+            }
             btnClose.Attributes.Add("data-dismiss", "modal");
             lblmodalMessage.Text = "";
+
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
@@ -25,7 +33,17 @@ namespace LarpPortal.Donations
             SortedList sParams = new SortedList();
             sParams.Add("@CampaignID", Master.CampaignID);
 
-            DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetEventsDonationListsForCampaign", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            // Need to incorporate a parameter for cbDisplayOnlyOpenEvents
+            if (cbDisplayOnlyOpenEvents.Checked)
+            {
+                sParams.Add("@OpenOnly", 1);
+            }
+            else
+            {
+                sParams.Add("@OpenOnly", 0);
+            }
+
+            DataTable dtEvents = Classes.cUtilities.LoadDataTable("uspGetEventsDonationListsForCampaignDonations", sParams, "LARPortal", Master.UserName, lsRoutineName);
 
             if (dtEvents.Rows.Count > 0)
             {
@@ -65,7 +83,7 @@ namespace LarpPortal.Donations
             switch (sCommandName)
             {
                 case "EDIT":
-                    Response.Redirect("DonationEditList.aspx.aspx?EventID=" + sEventID, true);
+                    Response.Redirect("DonationAdd.aspx?EventID=" + sEventID, true);
                     break;
 
                 case "CANCELLED":
@@ -91,7 +109,7 @@ namespace LarpPortal.Donations
                     else
                     {
                         CloneEventDonations(CopyFromEventID, CopyToEventID);
-                        Response.Redirect("DonationEditList.aspx?EventID=" + CopyToEventID.ToString(), true);
+                        Response.Redirect("DonationAdd.aspx?EventID=" + CopyToEventID.ToString(), true);
                     }
 
                     break;
@@ -160,13 +178,17 @@ namespace LarpPortal.Donations
                     ddlEventsNoDonations.Items.Insert(0, new ListItem("Select event to clone to"));
                 }
 
-
-
                 DataRowView dRow = (DataRowView)e.Row.DataItem;
                 string sEventStatus = dRow["EventStatus"].ToString().ToUpper();
 
             }
         }
 
+        protected void cbDisplayOnlyOpenEvents_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["cbOpenOnly"] = cbDisplayOnlyOpenEvents.Checked;
+            Page.Response.Redirect(Page.Request.Url.ToString(), true);
+
+        }
     }
 }

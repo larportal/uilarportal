@@ -36,7 +36,7 @@
         <div class="row">
             <div class="form-inline col-xs-12">
                 <div class="pull-left">
-                    <asp:CheckBox ID="cbDisplayOnlyOpenEvents" Text="Display Only Open Events" AutoPostBack="true" runat="server" />
+                    <asp:CheckBox ID="cbDisplayOnlyOpenEvents" Text=" Display Only Open Events" AutoPostBack="true" runat="server" OnCheckedChanged="cbDisplayOnlyOpenEvents_CheckedChanged" />
                 </div>
                 <div class="pull-right">
                     <asp:Button ID="btnCreate" runat="server" Style="" Text='Create New Donation List' CssClass="btn btn-primary" OnClick="btnCreate_Click" />
