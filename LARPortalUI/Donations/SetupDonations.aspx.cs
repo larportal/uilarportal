@@ -171,7 +171,7 @@ namespace LarpPortal.Donations
                 ddlEventsNoDonations.DataBind();
                 if (dt.Rows.Count == 0)
                 {
-                    ddlEventsNoDonations.Items.Insert(-1, new ListItem("No events available to clone to"));
+                    ddlEventsNoDonations.Items.Insert(0, new ListItem("No events available to clone to"));
                 }
                 else
                 {

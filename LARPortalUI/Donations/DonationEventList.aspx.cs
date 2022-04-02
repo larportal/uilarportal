@@ -39,6 +39,7 @@ namespace LarpPortal.Donations
                 divNoEvents.Visible = true;
                 btnDonationsForEvent.Visible = false;
             }
+            else
             {
                 divEventList.Visible = true;
                 divNoEvents.Visible = false;

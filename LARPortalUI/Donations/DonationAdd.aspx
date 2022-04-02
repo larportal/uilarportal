@@ -28,8 +28,15 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-10">
+                <h2><asp:Label ID="lblEventInfo" runat="server" ></asp:Label></h2>
+            </div>
+            <div class="col-md-2">
+                <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Return to Lists" OnClick="btnReturn_Click" />
+            </div>
+        </div>
 
-        <h2><asp:Label ID="lblEventInfo" runat="server" ></asp:Label></h2>
 
        <asp:Panel ID="pnlDonationAdd" runat="server" Visible="true">
             <%--Row to add a new donation item--%>
@@ -194,7 +201,7 @@
                                 <asp:Button ID="btnCancelAdd" runat="server" CssClass="btn btn-primary" Text="Cancel" OnClick="btnCancelAdd_Click" />
                             </div>
                             <div class="col-lg-3">
-                                <asp:Button ID="btnReturn" runat="server" CssClass="btn btn-primary" Text="Return to Lists" OnClick="btnReturn_Click" />
+                                <asp:Button ID="btnReturn" runat="server" CssClass="btn btn-primary" Text="Return to Lists" OnClick="btnReturn_Click" Visible="false" />
                             </div>
                         </div>
                         <div class="row"><br /></div>
@@ -354,7 +361,9 @@
                                                 <asp:TextBox ID="tbSTEmailEdit" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
-
+                                        <div class="row">
+                                            <asp:HiddenField ID="hidDonationIDEdit" runat="server" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +379,7 @@
                                 <asp:Button ID="btnCancelEdit" runat="server" CssClass="btn btn-primary" Text="Cancel" OnClick="btnCancelEdit_Click" />
                             </div>
                             <div class="col-lg-3">
-                                <asp:Button ID="btnReturnEdit" runat="server" CssClass="btn btn-primary" Text="Return to Lists" OnClick="btnReturn_Click" />
+                                <asp:Button ID="btnReturnEdit" runat="server" CssClass="btn btn-primary" Text="Return to Lists" OnClick="btnReturn_Click" Visible="false"/>
                             </div>
                         </div>
                         <div class="row"><br /></div>
@@ -429,7 +438,6 @@
                 <asp:HiddenField ID="hidStatusID" runat="server" />
                 <asp:HiddenField ID="hidStatusDescription" runat="server" />
                 <asp:HiddenField ID="hidDefaultAwardWhen" runat="server" />
-                
             </div>
         </asp:Panel>
 
