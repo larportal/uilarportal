@@ -233,12 +233,12 @@ namespace LarpPortal.Donations
             // If AddAudit is 1 then add Opportunity AND Audit record. If AddAudit = 0 then only add Opportunity.
             if (AddAudit == 1)  // Opp and audit
             {
-                StatusID = 21;
+                StatusID = 21;  // Complete
 
             }
             else               // Opportunity only
             {
-                StatusID = 19;
+                StatusID = 19;  // Claimed (Open)
 
             }
 

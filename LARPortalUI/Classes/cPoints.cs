@@ -414,7 +414,7 @@ namespace LarpPortal.Classes
                 // Call the routine to add the opportunity.  Create it unassigned (last two parameters both = 1).
                 // We're assuming in this scenario that the earning player is keeping the points.
                 // If the campaign allows transfer it can be done on the point screen after the donation is received and the points are assigned.
-                InsUpdCPOpportunity(UserID, -1, CampaignPlayerID, CharacterID, CampaignCPOpportunityDefaultID, EventID, Description, OpportunityNotes, ExampleURL, ReasonID,
+                InsUpdCPOpportunity(UserID, -1, EarningCampaignPlayerID, CharacterID, CampaignCPOpportunityDefaultID, EventID, Description, OpportunityNotes, ExampleURL, ReasonID,
                     StatusID, AddedByID, CPValue, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, 0, PointsFrom, DonationClaim);
             }
             System.Web.HttpContext.Current.Session["CampaignCPOpportunityID"] = _CampaignCPOpportunityID;
