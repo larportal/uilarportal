@@ -42,8 +42,6 @@ namespace LarpPortal.Donations
 
             DataTable dtDonations = Classes.cUtilities.LoadDataTable("uspGetDonationClaimsForReceipt", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetDonations");
 
-            //ddlDonationStatus.DataSource = dtDonations;
-            //ddlDonationStatus.DataBind();
             gvRegistrations.DataSource = dtDonations;
             gvRegistrations.DataBind();
 
@@ -119,33 +117,7 @@ namespace LarpPortal.Donations
 
         protected void gvRegistrations_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            //try
-            //{
-            //    HiddenField hidDonationClaimID = (HiddenField)gvRegistrations.Rows[e.RowIndex].FindControl("hidDonationClaimID");
-            //    TextBox tbQuantityReceiving = (TextBox)gvRegistrations.Rows[e.RowIndex].FindControl("tbQuantityReceiving");
-            //    TextBox tbStaffComments = (TextBox)gvRegistrations.Rows[e.RowIndex].FindControl("tbStaffComments");
 
-            //    if ((hidDonationClaimID != null) &&
-            //        (tbQuantityReceiving != null) &&
-            //        (tbStaffComments != null))
-            //    {
-            //        SortedList sParam = new SortedList();
-            //        sParam.Add("@DonationClaimID", hidDonationClaimID.Value);
-            //        sParam.Add("@RegistrationStatus", ddlRegStatus.SelectedValue);
-            //        sParam.Add("@EventPaymentDate", calPaymentDate.SelectedDate);
-            //        sParam.Add("@EventPaymentTypeID", ddlPaymentType.SelectedValue);
-            //        sParam.Add("@EventPaymentAmount", tbPayment.Text);
-            //        Classes.cUtilities.PerformNonQuery("uspInsUpdCMRegistrations", sParam, "LARPortal", Master.UserName);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    string l = ex.Message;
-            //}
-
-            //gvRegistrations.EditIndex = -1;
-            ////PopulateGrid();
-            //BindData();
         }
 
         protected void gvRegistrations_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -224,7 +196,11 @@ namespace LarpPortal.Donations
                 GridViewRow clickedRow = gvRegistrations.Rows[rowIndex];
 
                 HiddenField hdDonationClaimID = (HiddenField)clickedRow.FindControl("hidDonationClaimID");
+                HiddenField hdCampaignCPOpportunityID = (HiddenField)clickedRow.FindControl("hidCampaignCPOpportunityID");
+                HiddenField hdPlayerCPAuditID = (HiddenField)clickedRow.FindControl("hidPlayerCPAuditID");
                 Int32 DonationClaimID = Int32.Parse(hdDonationClaimID.Value);
+                Int32 CampaignCPOpportunityID = Int32.Parse(hdCampaignCPOpportunityID.Value);
+                Int32 PlayerCPAuditID = Int32.Parse(hdPlayerCPAuditID.Value);
                 TextBox tbStaffComments = (TextBox)clickedRow.FindControl("tbStaffComments");
                 string StaffComments = tbStaffComments.Text;
                 Label lbClaimed = (Label)clickedRow.FindControl("lblQtyClaimed");
@@ -235,6 +211,8 @@ namespace LarpPortal.Donations
                 sParams.Add("@QuantityReceived", Claimed);
                 sParams.Add("@StaffComments", StaffComments);
                 sParams.Add("@UserID", Master.UserID);
+                sParams.Add("@CampaignCPOpportunityID", CampaignCPOpportunityID);
+                sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
                 Classes.cUtilities.PerformNonQuery("uspReceiveDonationClaims", sParams, "LARPortal", Master.UserName);
                 _Reload = true;
                 BindData();

@@ -63,7 +63,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12 pre-scrollable style=”max-height: 65vh" id="divRegs" >
+                            <div class="pre-scrollable style=”max-height: 80vh" id="divRegs" >
+                                
                                 <asp:GridView ID="gvRegistrations" runat="server" OnRowDataBound="gvRegistrations_RowDataBound" OnRowCommand="gvRegistrations_RowCommand"
                                     OnRowEditing="gvRegistrations_RowEditing" OnRowUpdating="gvRegistrations_RowUpdating" OnRowCancelingEdit="gvRegistrations_RowCancelingEdit"
                                     AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false" CssClass="table table-striped table-hover table-condensed"
@@ -72,6 +73,18 @@
                                         <asp:TemplateField ItemStyle-Width="0px">
                                             <ItemTemplate>
                                                 <asp:HiddenField ID="hidDonationClaimID" runat="server" Value='<%# Eval("DonationClaimID") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField ItemStyle-Width="0px">
+                                            <ItemTemplate>
+                                                <asp:HiddenField ID="hidCampaignCPOpportunityID" runat="server" Value='<%# Eval("CampaignCPOpportunityID") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField ItemStyle-Width="0px">
+                                            <ItemTemplate>
+                                                <asp:HiddenField ID="hidPlayerCPAuditID" runat="server" Value='<%# Eval("PlayerCPAuditID") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

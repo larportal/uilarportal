@@ -24,6 +24,15 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.Label lblEventInfo;
 
         /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
         /// pnlDonationAdd control.
         /// </summary>
         /// <remarks>
@@ -607,6 +616,15 @@ namespace LarpPortal.Donations
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbSTEmailEdit;
+
+        /// <summary>
+        /// hidDonationIDEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidDonationIDEdit;
 
         /// <summary>
         /// btnSaveEdit control.

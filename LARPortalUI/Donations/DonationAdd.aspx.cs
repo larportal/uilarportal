@@ -225,8 +225,8 @@ namespace LarpPortal.Donations
             // Clear form
             ClearAddFields();
 
-            pnlDonationAdd.Visible = false;
-            pnlDonationEdit.Visible = true;
+            pnlDonationAdd.Visible = true;
+            pnlDonationEdit.Visible = false;
         }
 
         protected void btnSaveEdit_Click(object sender, EventArgs e)
@@ -259,7 +259,6 @@ namespace LarpPortal.Donations
             FillGrid();
             // Clear form
             ClearAddFields();
-
 
             pnlDonationAdd.Visible = true;
             pnlDonationEdit.Visible = false;

@@ -416,6 +416,11 @@ namespace LarpPortal.Classes
                 // If the campaign allows transfer it can be done on the point screen after the donation is received and the points are assigned.
                 InsUpdCPOpportunity(UserID, -1, EarningCampaignPlayerID, CharacterID, CampaignCPOpportunityDefaultID, EventID, Description, OpportunityNotes, ExampleURL, ReasonID,
                     StatusID, AddedByID, CPValue, ApprovedByID, ReceiptDate, ReceivedByID, CPAssignmentDate, StaffComments, 1, 1, 0, PointsFrom, DonationClaim);
+                // Call the routine to add the CP to the player CP audit log. Create it banked (_PLAuditStatus)
+                //_CampaignID = CampaignID;
+                //_ReceivedFromCampaignID = CampaignID;
+                //_PLAuditStatus = 60;
+                //CreatePlayerCPLog(UserID, _CampaignCPOpportunityID, ReceiptDate, CPValue, ReasonID, EarningCampaignPlayerID, 0);
             }
             System.Web.HttpContext.Current.Session["CampaignCPOpportunityID"] = _CampaignCPOpportunityID;
         }
