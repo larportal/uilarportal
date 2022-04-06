@@ -362,7 +362,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <asp:HiddenField ID="hidDonationIDEdit" runat="server" />
+                                            <asp:HiddenField ID="hidDonationIDEdit2" runat="server" />
                                         </div>
                                     </div>
                                 </div>

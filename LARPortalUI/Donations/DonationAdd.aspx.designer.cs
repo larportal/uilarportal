@@ -618,13 +618,13 @@ namespace LarpPortal.Donations
         protected global::System.Web.UI.WebControls.TextBox tbSTEmailEdit;
 
         /// <summary>
-        /// hidDonationIDEdit control.
+        /// hidDonationIDEdit2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidDonationIDEdit;
+        protected global::System.Web.UI.WebControls.HiddenField hidDonationIDEdit2;
 
         /// <summary>
         /// btnSaveEdit control.

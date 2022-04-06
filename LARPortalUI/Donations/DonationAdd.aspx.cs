@@ -249,7 +249,7 @@ namespace LarpPortal.Donations
             bool CarryOver = false;
             bool EventFee = false;
             int UID = Master.UserID;
-            int DonationID = int.Parse(hidDonationIDEdit.ToString());
+            int DonationID = int.Parse(hidDonationIDEdit2.ToString());
             EditDonation.UpdateDonation(UID, DonationID, Master.CampaignID, CurrentEvent, tbDescriptionEdit.Text, DonationType,
                 QtyNeeded, UnitReward, RewardUnit, tbDonationCommentsEdit.Text, tbURLEdit.Text, tbStaffCommentsEdit.Text, ReqdBy, tbSTAdd1Edit.Text,
                 tbSTAdd2Edit.Text, tbSTCityEdit.Text, tbSTStateEdit.Text, tbSTZipEdit.Text, tbSTPhoneEdit.Text, tbSTEmailEdit.Text, StatusID,
@@ -406,7 +406,7 @@ namespace LarpPortal.Donations
                 tbSTZipEdit.Text = dDonationInfo["ShipToPostalCode"].ToString().Trim();
                 tbSTPhoneEdit.Text = dDonationInfo["ShipToPhone"].ToString().Trim();
                 tbSTEmailEdit.Text = dDonationInfo["NotificationEmail"].ToString().Trim();
-                hidDonationIDEdit.Value = DonationID.ToString();
+                hidDonationIDEdit2.Value = DonationID.ToString();
             }
         }
 
