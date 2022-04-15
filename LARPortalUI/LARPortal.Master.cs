@@ -44,7 +44,7 @@ namespace LarpPortal
                         return iUserID;
 
                 // If we got this far - there was problem with the ID.
-                int i = 0;
+//                int i = 0;
 //                int j = 12 / i;
                 Response.Redirect("/index.aspx", true);
                 return -1;      // It won't get here - but the compiler complains if there is no return.
