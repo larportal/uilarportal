@@ -127,7 +127,68 @@ namespace LarpPortal
 
 		protected void btnUserQuestions_Click(object sender, EventArgs e)
 		{
-			mvInfoRequest.SetActiveView(vwSetPassword);
+			// Make sure all the questions are answered correctly, else tell them they're wrong, clear the answers, put the focus on the first answer box.
+			int numRequiredAnswers = 0;
+			int numSuppliedAnswers = 0;
+			string Answer1 = "";
+			string Answer2 = "";
+			string Answer3 = "";
+
+			if (hidUserAnswer1.Value != null)
+            {
+				numRequiredAnswers = numRequiredAnswers + 1;
+				Answer1 = hidUserAnswer1.Value;
+            }
+			if (hidUserAnswer2.Value != null)
+			{
+				numRequiredAnswers = numRequiredAnswers + 1;
+				Answer2 = hidUserAnswer2.Value;
+			}
+			if (hidUserAnswer3.Value != null)
+			{
+				numRequiredAnswers = numRequiredAnswers + 1;
+				Answer3 = hidUserAnswer3.Value;
+			}
+			if (hidUserAnswer1.Value != null) 
+            {
+				if (Answer1.ToUpper() == tbUserAnswer1.Text.ToUpper())
+                {
+					numSuppliedAnswers = numSuppliedAnswers + 1;
+                }
+            }
+			if (hidUserAnswer2.Value != null)
+            {
+				if (Answer2.ToUpper() == tbUserAnswer2.Text.ToUpper())
+                {
+					numSuppliedAnswers = numSuppliedAnswers + 1;
+				}
+            }
+			if (hidUserAnswer3.Value != null)
+			{
+				if (Answer3.ToUpper() == tbUserAnswer3.Text.ToUpper())
+				{
+					numSuppliedAnswers = numSuppliedAnswers + 1;
+				}
+			}
+			if (numRequiredAnswers == numSuppliedAnswers)
+            {
+				mvInfoRequest.SetActiveView(vwSetPassword);
+            }
+            else
+            {
+				tbAnswer1.Text = "";
+				tbAnswer2.Text = "";
+				tbAnswer3.Text = "";
+				// Not all answers were correct. Please try again.
+				string jsString = "alert('Not all answers were correct. Please try again.');";
+				ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
+						"MyApplication",
+						jsString,
+						true);
+				tbAnswer1.Focus();
+            }
+
+
 		}
 
 		protected void btnSaveNewPassword_Click(object sender, EventArgs e)
