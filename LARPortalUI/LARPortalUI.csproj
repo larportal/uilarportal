@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>LARPortalUI.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>IDE0017; IDE0018; IDE0019; IDE0028; CA1303; CA1806; IDE1005; IDE0059; IDE0060; IDE0054</NoWarn>
+    <NoWarn>IDE0017; IDE0018; IDE0019; IDE0028; CA1303; CA1806; IDE1005; IDE0059; IDE0060; IDE0054; IDE1006</NoWarn>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptModuleKind />

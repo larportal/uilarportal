@@ -508,8 +508,8 @@ namespace LarpPortal
             {
                 liCharacterApproveHistory.Style.Add("display", "block");
                 liPELApprovalList.Style.Add("display", "block");
+                liPELsMain.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
-                //				liCampaignMenu.Style.Add("display", "block");
             }
 
 
