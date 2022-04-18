@@ -30,14 +30,6 @@
             </div>
         </div>
 
-        <%--        <div class="row">
-            <div class="col-xs-12">
-                <div class="form-inline">
-                  //  <CampSelector:Select ID="oCampSelect" runat="server" />
-                </div>
-            </div>
-        </div>--%>
-
         <div class="margin10"></div>
 
         <div class="row">

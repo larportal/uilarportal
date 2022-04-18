@@ -25,27 +25,29 @@ namespace LarpPortal.Donations
             if (Session["CampaignID"] == null)
                 return;
 
-            sParams = new SortedList();
-            sParams.Add("@CampaignID", Master.CampaignID);
-            DataTable dtEventInfo = Classes.cUtilities.LoadDataTable("uspGetEventsWODonationListsForCampaign", sParams, "LARPortal", Master.UserName, "DonationEventList.GetEventList");
-            ddlMissedEvents.DataSource = dtEventInfo;
-            ddlMissedEvents.DataTextField = "EventDate";
-            ddlMissedEvents.DataValueField = "EventID";
-            ddlMissedEvents.DataBind();
-
-            if (dtEventInfo.Rows.Count == 0)
+            if (!IsPostBack)
             {
-                divEventList.Visible = false;
-                divNoEvents.Visible = true;
-                btnDonationsForEvent.Visible = false;
-            }
-            else
-            {
-                divEventList.Visible = true;
-                divNoEvents.Visible = false;
-                btnDonationsForEvent.Visible = true;
-            }
+                sParams = new SortedList();
+                sParams.Add("@CampaignID", Master.CampaignID);
+                DataTable dtEventInfo = Classes.cUtilities.LoadDataTable("uspGetEventsWODonationListsForCampaign", sParams, "LARPortal", Master.UserName, "DonationEventList.GetEventList");
+                ddlMissedEvents.DataSource = dtEventInfo;
+                ddlMissedEvents.DataTextField = "EventDate";
+                ddlMissedEvents.DataValueField = "EventID";
+                ddlMissedEvents.DataBind();
 
+                if (dtEventInfo.Rows.Count == 0)
+                {
+                    divEventList.Visible = false;
+                    divNoEvents.Visible = true;
+                    btnDonationsForEvent.Visible = false;
+                }
+                else
+                {
+                    divEventList.Visible = true;
+                    divNoEvents.Visible = false;
+                    btnDonationsForEvent.Visible = true;
+                }
+            }
 
         }
 
