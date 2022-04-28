@@ -2274,7 +2274,7 @@ namespace LarpPortal.Points
                     string strDesc = lblEarnDesc.Text;
                     if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
                         intCmpPlyrID = iTemp;
-                    if (int.TryParse(hidCharID.Value.ToString(), out iTemp))
+                    //if (int.TryParse(hidCharID.Value.ToString(), out iTemp))
                         intCharID = iTemp;
                     if (int.TryParse(hidEvntID.Value.ToString(), out iTemp))
                         intEvntID = iTemp;
@@ -2309,7 +2309,15 @@ namespace LarpPortal.Points
                         Label lblStaffComents = (Label)gvPoints.Rows[gvrow.RowIndex].FindControl("lblStaffComments");
                         if (double.TryParse(lblCPValue.Text, out dblTemp))
                             CP = dblTemp;
-                        strComments = lblStaffComents.Text;
+                        if(lblStaffComents == null)
+                        {
+                            strComments = "";
+                        }
+                        else
+                        {
+                            strComments = lblStaffComents.Text;
+                        }
+                        
 
                     }
                     Classes.cPoints Point = new Classes.cPoints();
