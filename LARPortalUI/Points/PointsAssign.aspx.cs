@@ -2274,7 +2274,7 @@ namespace LarpPortal.Points
                     string strDesc = lblEarnDesc.Text;
                     if (int.TryParse(hidCmpPlyrID.Value.ToString(), out iTemp))
                         intCmpPlyrID = iTemp;
-                    //if (int.TryParse(hidCharID.Value.ToString(), out iTemp))
+                    if (int.TryParse(hidCharID.Value.ToString(), out iTemp))
                         intCharID = iTemp;
                     if (int.TryParse(hidEvntID.Value.ToString(), out iTemp))
                         intEvntID = iTemp;
