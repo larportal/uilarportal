@@ -18,10 +18,10 @@ using LarpPortal.Classes;
 // JBradshaw 8/15/2021  Added uspInsUpdCHCharactersSkillCompleted call.
 namespace LarpPortal.Character.ISkills
 {
-    public partial class Requests : System.Web.UI.Page
+    public partial class RequestEdit : System.Web.UI.Page
     {
         protected DataTable _dtCampaignSkills = new DataTable();
-        private bool _Reload = false;
+//        private bool _Reload = false;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -31,11 +31,11 @@ namespace LarpPortal.Character.ISkills
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
-            //if (!IsPostBack)
-            //{
+//            oCharSelect.CharacterChanged += oCharSelect_CharacterChanged;
+            if (!IsPostBack)
+            {
             //    tvDisplaySkills.Attributes.Add("onclick", "postBackByObject()");
-            //}
+            }
             //btnCloseMessage.Attributes.Add("data-dismiss", "modal");
             //btnCloseCantSave.Attributes.Add("data_dismiss", "modal");
         }
@@ -45,147 +45,43 @@ namespace LarpPortal.Character.ISkills
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            oCharSelect.LoadInfo();
+//            oCharSelect.LoadInfo();
+
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["RegID"] == null)
+                    Response.Redirect("Requests.aspx", true);
+
+            }
+            int iRegID = 0;
+            int iNodeID = 0;
+            if ((!int.TryParse(Request.QueryString["RegID"], out iRegID)) ||
+                (!int.TryParse(Request.QueryString["NodeID"], out iNodeID)))
+                Response.Redirect("Requests.aspx", true);
+
+            hidRegID.Value = iRegID.ToString();
+            hidNodeID.Value = iNodeID.ToString();
 
             SortedList sParams = new SortedList();
-            sParams.Add("@SkillSetID", 4049);           // oCharSelect.SkillSetID);
-            DataSet dsEvent = Classes.cUtilities.LoadDataSet("uspGetIBGSSkillForSkillSet", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            sParams.Add("@CampaignSkillNodeID", iNodeID);
+            sParams.Add("@RegistrationID", iRegID);
 
-            dsEvent.Tables[0].TableName = "Skills";
-            //dsEvent.Tables[1].TableName = "Registrations";
-            //dsEvent.Tables[2].TableName = "InfoRequest";
+            DataSet dsEvent = Classes.cUtilities.LoadDataSet("uspGetIBGSRequest", sParams, "LARPortal", Master.UserName, lsRoutineName);
 
-            DataTable dtEvents = dsEvent.Tables[0];
-            //gvAvailableSkills.DataSource = dsEvent.Tables["Skills"];
-            //gvAvailableSkills.DataBind();
-
-            if (dtEvents.Columns["StatusVisible"] == null)
-                dtEvents.Columns.Add("StatusVisible", typeof(string));
-
-            if (dtEvents.Columns["ButtonText"] == null)
-                dtEvents.Columns.Add("ButtonText", typeof(string));
-
-            if (dtEvents.Columns["KeyValue"] == null)
-                dtEvents.Columns.Add("KeyValue", typeof(string));
-
-            foreach (DataRow dr in dtEvents.Rows)
+            foreach (DataRow dr in dsEvent.Tables[0].Rows)
             {
-                dr["KeyValue"] = "RegID=" + dr["RegistrationID"].ToString() + "&NodeID=" + dr["CampaignSkillNodeID"].ToString();
-
-                if (DBNull.Value.Equals(dr["ISkillRequestID"]))
-                {
-                    dr["ButtonText"] = "New Request";
-                    dr["StatusVisible"] = "0";
-                }
-                else
-                {
-                    dr["ButtonText"] = "Edit Request";
-                    dr["StatusVisible"] = "1";
-                }
+                lblEventName.Text = dr["EventName"].ToString();
+                lblEventDate.Text = dr["StartDate"].ToString();
             }
 
-            gvRegisteredEvents.DataSource = dtEvents;
-            gvRegisteredEvents.DataBind();
+            foreach (DataRow dr in dsEvent.Tables[1].Rows)
+            {
+                lblSkillName.Text = dr["BreadcrumbsText"].ToString();
+                CKERequestText.Text = dr["RequestText"].ToString();
+            }
 
 
-            //if ((!IsPostBack) || (_Reload))
-            //{
-            //    if (oCharSelect.SkillSetID.HasValue)
-            //    {
-            //        string sAddInfo = "";
-            //        sAddInfo = String.Format("Character Selected: {0}/{1}, SkillSetID: {4}" + ", Campaign Selected {2}/{3}",
-            //            oCharSelect.CharacterID, oCharSelect.CharacterInfo.CampaignName, Master.CampaignID, Master.CampaignName, oCharSelect.SkillSetID);
-
-            //        LogWriter oLog = new LogWriter();
-            //        oLog.AddLogMessage("Loading/reloading a character.", Master.UserName, lsRoutineName, sAddInfo, Session.SessionID);
-
-            //        double TotalCP = 0.0;
-            //        lblMessage.Text = "";
-            //        TotalCP = oCharSelect.CharacterInfo.TotalCP;
-            //        Session["TotalCP"] = TotalCP;
-
-            //        Session["CharSkills"] = oCharSelect.CharacterInfo.CharacterSkills;
-
-            //        DataSet dsSkillSets = new DataSet();
-            //        SortedList sParam = new SortedList();
-
-            //        // Request # 1293 Single Character Rebuild   J.Bradshaw 7/10/2016
-            //        Classes.cCampaignBase cCampaign = new Classes.cCampaignBase(oCharSelect.CampaignID.Value, Master.UserName, Master.UserID);
-
-            //        if ((cCampaign.AllowCharacterRebuild) ||
-            //            (oCharSelect.CharacterInfo.AllowCharacterRebuild))
-            //        {
-            //            hidAllowCharacterRebuild.Value = "1";
-            //            lblSkillsLocked.Visible = false;
-            //            if (oCharSelect.CharacterInfo.AllowCharacterRebuild)
-            //            {
-            //                if (lblMessage.Text.Length > 0)
-            //                    lblMessage.Text += ", ";
-            //                lblMessage.Text += "You can rebuild this character until " + oCharSelect.CharacterInfo.AllowCharacterRebuildToDate.Value.ToShortDateString();
-            //            }
-            //        }
-            //        else
-            //        {
-            //            hidAllowCharacterRebuild.Value = "0";
-            //            lblSkillsLocked.Visible = true;
-            //        }
-
-            //        // Save whether to auto buy skills or not.
-            //        hidAutoBuyParentSkills.Value = "Y";
-            //        if (cCampaign.AutoBuyParentSkills.HasValue)
-            //            if (!cCampaign.AutoBuyParentSkills.Value)
-            //                hidAutoBuyParentSkills.Value = "N";
-
-            //        sParam.Add("@CampaignID", oCharSelect.CampaignID.Value);
-            //        sParam.Add("@SkillSetID", oCharSelect.SkillSetID.Value);
-            //        dsSkillSets = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillsWithNodes", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignSkillsWithNodes");
-
-            //        _dtCampaignSkills = dsSkillSets.Tables[0];
-
-            //        Session["SkillNodes"] = _dtCampaignSkills;
-            //        Session["NodePrerequisites"] = dsSkillSets.Tables[1];
-            //        Session["SkillTypes"] = dsSkillSets.Tables[2];
-            //        Session["NodeExclusions"] = dsSkillSets.Tables[3];
-            //        Session["SkillPools"] = dsSkillSets.Tables[4];
-            //        Session["CampaignSkillNodeCost"] = dsSkillSets.Tables[5];
-            //        Session["CharacterSkillCost"] = dsSkillSets.Tables[6];
-
-            //        DataView dv = new DataView(_dtCampaignSkills, "CharacterHasSkill = 1", "", DataViewRowState.CurrentRows);
-
-            //        tvDisplaySkills.Nodes.Clear();
-
-            //        DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
-            //        foreach (DataRowView dvRow in dvTopNodes)
-            //        {
-            //            TreeNode NewNode = new TreeNode();
-            //            NewNode.ShowCheckBox = true;
-
-            //            NewNode.Text = FormatDescString(dvRow);
-            //            NewNode.SelectAction = TreeNodeSelectAction.None;
-
-            //            int iNodeID;
-            //            if (int.TryParse(dvRow["CampaignSkillNodeID"].ToString(), out iNodeID))
-            //            {
-            //                NewNode.Expanded = false;
-            //                NewNode.Value = iNodeID.ToString();
-            //                if (dvRow["CharacterHasSkill"].ToString() == "1")
-            //                {
-            //                    NewNode.Checked = true;
-            //                }
-            //                NewNode.SelectAction = TreeNodeSelectAction.None;
-            //                PopulateTreeView(iNodeID, NewNode);
-            //                tvDisplaySkills.Nodes.Add(NewNode);
-            //            }
-            //        }
-            //        CheckExclusions();
-            //    }
-            //    ListSkills();
-            //    if (!cbxShowExclusions.Checked)
-            //        RemoveExclusions();
-            //}
-            //// Have to register the javascript every time to scroll to where the tree view was last time.
-            //ScriptManager.RegisterStartupScript(this, this.GetType(), "temp", "<script language='javascript'>scrollTree();</script>", false);
-        }
+            }
 
         protected void rbPayerOrChar_CheckedChanged(object sender, EventArgs e)
         {
@@ -1670,85 +1566,6 @@ namespace LarpPortal.Character.ISkills
         //}
         #endregion
 
-        protected void oCharSelect_CharacterChanged(object sender, EventArgs e)
-        {
-            MethodBase lmth = MethodBase.GetCurrentMethod();
-            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-
-            LogWriter oLog = new LogWriter();
-
-            oCharSelect.LoadInfo();
-
-            if (oCharSelect.SkillSetID.HasValue)
-            {
-                Session["CharSkillCharacterID"] = oCharSelect.SkillSetID.Value;
-                Session["ReloadCharacter"] = "Y";
-                lblCharacterName.Text = oCharSelect.CharacterInfo.FirstName;
-                var InfoSkills = oCharSelect.CharacterInfo.CharacterSkills.Where(x => x.SkillTypeID == 121).ToList();
-
-                DataTable dtSkills = new DataTable();
-                dtSkills.Columns.Add("SkillName", typeof(string));
-                dtSkills.Columns.Add("SkillID", typeof(int));
-
-                foreach (cCharacterSkill characterSkill in InfoSkills)
-                {
-                    DataRow dRow = dtSkills.NewRow();
-                    dRow["SkillName"] = characterSkill.SkillName;
-                    dRow["SkillID"] = characterSkill.CharacterSkillID;
-                    dtSkills.Rows.Add(dRow);
-                }
-
-                gvAvailableSkills.DataSource = dtSkills;
-                gvAvailableSkills.DataBind();
-                //if ((oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters) &&
-                //    (oCharSelect.CharacterInfo.CharacterType != 1))
-                //{
-                //    Session["CharSkillReadOnly"] = "Y";
-                //    btnSave.Enabled = false;
-                //    btnSave.CssClass = "btn-default";
-                //    btnSave.Style["background-color"] = "grey";
-                //}
-                //else
-                //{
-                //    Session["CharSkillReadOnly"] = "N";
-                //    btnSave.Enabled = true;
-                //    btnSave.Style["background-color"] = null;
-                //}
-
-                //Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "PasswordNotNeeded", Session.SessionID);
-                //UserInfo.LastLoggedInCampaign = oCharSelect.CampaignID.Value;
-                //UserInfo.LastLoggedInCharacter = oCharSelect.CharacterID.Value;
-                //UserInfo.LastLoggedInSkillSetID = oCharSelect.SkillSetID.Value;
-                //UserInfo.LastLoggedInMyCharOrCamp = (oCharSelect.WhichSelected == LarpPortal.Controls.CharacterSelect.Selected.MyCharacters ? "M" : "C");
-                //UserInfo.Save();
-                Master.ChangeSelectedCampaign();
-                //oLog.AddLogMessage("Skills - Change Selected Character", Master.UserName, lsRoutineName, "", Session.SessionID);
-            }
-            _Reload = true;
-        }
-
-        protected void gvAvailableSkills_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pnlRequestInfo.Visible = true;
-        }
-
-        protected void gvRegisteredEvents_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-            //Button lnkBtn = (Button)e.CommandSource;                    // the button
-            //GridViewRow myRow = (GridViewRow)lnkBtn.Parent.Parent;      // the row
-            ////GridView myGrid = (GridView)sender;                         // the gridview
-            ////string ID = myGrid.DataKeys[myRow.RowIndex].Value.ToString();
-            //HiddenField txtDescription = (HiddenField)myRow.FindControl("hidRegID");
-
-            string sAction = e.CommandName.ToString();
-            string aValue = e.CommandArgument.ToString();
-
-            Response.Redirect("RequestEdit.aspx?" + aValue, true);
-            //t = e.CommandName.ToString();
-            //var temp = gvRegisteredEvents.DataKeys;
-        }
-
         #region Display2
         //protected void MasterPage_CampaignChanged(object sender, EventArgs e)
         //{
@@ -1975,5 +1792,29 @@ namespace LarpPortal.Character.ISkills
         //}
 
         #endregion
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Requests.aspx", true);
+        }
+
+        protected void btnSubmit_Click1(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnSubmitSave_Command(object sender, CommandEventArgs e)
+        {
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignSkillNodeID", hidNodeID.Value);
+            sParams.Add("@RegistrationID", hidRegID.Value);
+            sParams.Add("@RequestText", CKERequestText.Text);
+            if (e.CommandName == "SUBMIT")
+                sParams.Add("@RequestStatus", "Submitted");
+            else
+                sParams.Add("@RequestStatus", "Saved");
+            cUtilities.PerformNonQuery("uspInsUpdISkillRequestTable", sParams, "LARPortal", Master.UserName);
+            Response.Redirect("Requests.aspx", true);
+        }
     }
 }

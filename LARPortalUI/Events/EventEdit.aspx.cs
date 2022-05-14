@@ -349,7 +349,9 @@ namespace LarpPortal.Events
 							SortedList sDefaultParams = new SortedList();
 							sDefaultParams.Add("@UserID", Session ["UserID"].ToString());
 							sDefaultParams.Add("@PELTemplateID", sValue);
-							sDefaultParams.Add("@EventID", hidEventID.Value);
+							//  JB  5/14/2022  Originally was using the hidden value so save the templates. Problem was the hidden value was -1
+							//                 because it was a new event. Now using event ID gotten back.
+							sDefaultParams.Add("@EventID", sEventID);
 							sDefaultParams.Add("@EventPELID", hidEventPELID.Value);
 							Classes.cUtilities.PerformNonQuery("uspInsUpdCMEventPELTemplates", sDefaultParams, "LARPortal", Session ["UserName"].ToString());
 						}

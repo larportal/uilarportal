@@ -128,6 +128,7 @@
     <Content Include="Character\CharAdd.aspx" />
     <Content Include="Character\CharCard.aspx" />
     <Content Include="Character\CharCardCustomization.aspx" />
+    <Content Include="Character\ISkills\RequestEdit.aspx" />
     <Content Include="Character\ISkills\Requests.aspx" />
     <Content Include="Character\SkillSets.aspx" />
     <Content Include="Character\CharCardOrder.aspx" />
@@ -645,6 +646,8 @@
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment69.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
+    <Content Include="Reports\CharacterRulebook.aspx" />
+    <Content Include="Reports\CharacterRulebookFinal.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
     <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
@@ -1558,6 +1561,13 @@
     <Compile Include="Character\CharCardCustomization.aspx.designer.cs">
       <DependentUpon>CharCardCustomization.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Character\ISkills\RequestEdit.aspx.cs">
+      <DependentUpon>RequestEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\ISkills\RequestEdit.aspx.designer.cs">
+      <DependentUpon>RequestEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Character\ISkills\Requests.aspx.cs">
       <DependentUpon>Requests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1962,6 +1972,20 @@
     </Compile>
     <Compile Include="Payments\EventPayment80.aspx.designer.cs">
       <DependentUpon>EventPayment80.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CharacterRulebook.aspx.cs">
+      <DependentUpon>CharacterRulebook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CharacterRulebook.aspx.designer.cs">
+      <DependentUpon>CharacterRulebook.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CharacterRulebookFinal.aspx.cs">
+      <DependentUpon>CharacterRulebookFinal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CharacterRulebookFinal.aspx.designer.cs">
+      <DependentUpon>CharacterRulebookFinal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\HistoryDisplay.aspx.cs">
       <DependentUpon>HistoryDisplay.aspx</DependentUpon>
