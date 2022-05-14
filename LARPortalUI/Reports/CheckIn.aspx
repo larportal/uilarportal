@@ -84,6 +84,7 @@
                                                 <asp:BoundField DataField="EventPaymentAmount" HeaderText="Paid Amt" />
                                                 <asp:BoundField DataField="Comments" HeaderText="Comments" />
                                                 <asp:BoundField DataField="RegistrationDate" HeaderText="Registration Date" />
+                                                <asp:BoundField DataField="CampaignPlayerID" HeaderText="CPL" />
                                             </Columns>
                                         </asp:GridView>
                                     </div>
