@@ -68,13 +68,14 @@
                                                 <asp:BoundField DataField="Housing" HeaderText="Housing" />
                                                 <asp:BoundField DataField="Role" HeaderText="Role" />
                                                 <asp:BoundField DataField="Status" HeaderText="Status" />
+
                                                 <asp:TemplateField HeaderText="Partial Event">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" Text='<%# Eval("Partial").ToString() == "True" ? "Yes" : "No" %>' />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
 
-                                                <asp:BoundField DataField="Partial" HeaderText="Partial Event" />
+                                                <%--<asp:BoundField DataField="Partial" HeaderText="Partial Event" />--%>
                                                 <asp:BoundField DataField="ArrivedAt" HeaderText="Arrival Date/Time" />
                                                 <asp:BoundField DataField="LeftAt" HeaderText="Left At" />
                                                 <asp:BoundField DataField="SetupCleanup" HeaderText="Setup/ Cleanup" />
@@ -84,6 +85,8 @@
                                                 <asp:BoundField DataField="EventPaymentAmount" HeaderText="Paid Amt" />
                                                 <asp:BoundField DataField="Comments" HeaderText="Comments" />
                                                 <asp:BoundField DataField="RegistrationDate" HeaderText="Registration Date" />
+                                                <asp:BoundField DataField="ExpectedArrival" HeaderText="Expected Arrival" />
+                                                <asp:BoundField DataField="ExpectedDeparture" HeaderText="Expected Departure" />
                                                 <asp:BoundField DataField="CampaignPlayerID" HeaderText="CPL" />
                                             </Columns>
                                         </asp:GridView>

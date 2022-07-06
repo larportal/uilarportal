@@ -57,6 +57,7 @@ namespace LarpPortal.Points
             else
             {
                 Session["AllowCPTransfer"] = "false";
+                chkApplyTo.Checked = false;
                 chkApplyTo.Visible = false;
             }
         }
@@ -403,6 +404,7 @@ namespace LarpPortal.Points
                 }
                 else
                 {
+                    chkApplyTo.Checked = false;
                     chkApplyTo.Visible = false;
                 }
 
@@ -411,6 +413,7 @@ namespace LarpPortal.Points
             {
                 //populate vwNonCPList
                 BuildNonCPAuditTable(intPoolID);
+                chkApplyTo.Checked = false;
                 chkApplyTo.Visible = false;
             }
 
