@@ -75,7 +75,7 @@ namespace LarpPortal.PELs
                     int.TryParse(dsQuestions.Tables[0].Rows[0]["UserID"].ToString(), out iUserID);
 
                     sEventInfo += "<br><b>Player: </b> ";
-                    if (String.IsNullOrEmpty(dsQuestions.Tables[0].Rows[0]["NickName"].ToString()))
+                    if (!String.IsNullOrEmpty(dsQuestions.Tables[0].Rows[0]["NickName"].ToString()))
                     {
                         sEventInfo += dsQuestions.Tables[0].Rows[0]["NickName"].ToString() + " " + dsQuestions.Tables[0].Rows[0]["LastName"].ToString();
                         hidPlayerName.Value = dsQuestions.Tables[0].Rows[0]["NickName"].ToString();

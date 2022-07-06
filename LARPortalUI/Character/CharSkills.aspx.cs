@@ -206,6 +206,10 @@ namespace LarpPortal.Character
                     e.Node.Checked = false;
                     CopyTreeNodes(OrigTree, tvDisplaySkills);
                     TreeNode ToBeUnchecked = tvDisplaySkills.FindNode(sNodeValue);
+                    //  JB  5/14/2022  The unchecking wasn't here so even though we told the user they couldn't buy it, it would buy it
+                    //                 because the node was still checked.
+                    if (ToBeUnchecked != null)
+                        ToBeUnchecked.Checked = false;
                     DisplayErrorMessage("You do not have all the requirements to purchase that item.");
                     oLog.AddLogMessage("Skills Checked Clicked - MarkParentNodes", Master.UserName, lsRoutineName + ".MarkParentNodes", "Don't have the requirements.", Session.SessionID);
                     return;

@@ -15,15 +15,6 @@ namespace LarpPortal.Character.ISkills
     {
 
         /// <summary>
-        /// rbPlayer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbPlayer;
-
-        /// <summary>
         /// rbCharacter control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlRequestInfo;
+
+        /// <summary>
+        /// gvRegisteredEvents control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRegisteredEvents;
 
         /// <summary>
         /// tbRequest control.

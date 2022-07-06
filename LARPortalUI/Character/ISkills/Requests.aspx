@@ -76,28 +76,47 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="input-group">
-                <asp:RadioButton ID="rbPlayer" runat="server" GroupName="PlayerOrChar" CssClass="form-check-input"
+                <%--                <asp:RadioButton ID="rbPlayer" runat="server" GroupName="PlayerOrChar" CssClass="form-check-input"
                     AutoPostBack="true" OnCheckedChanged="rbPayerOrChar_CheckedChanged" />
-                <label class="form-check-label" for='<%# rbPlayer.ClientID %>'>Player</label>
+                <label class="form-check-label" for='<%# rbPlayer.ClientID %>'>Player</label>--%>
                 <asp:RadioButton ID="rbCharacter" runat="server" GroupName="PlayerOrChar" CssClass="form-check-input"
                     AutoPostBack="true" OnCheckedChanged="rbPayerOrChar_CheckedChanged" />
                 <label class="form-check-label" for='<%# rbCharacter.ClientID %>'>Character</label>
             </div>
         </div>
         <div class="row">
-            <CharSelector:Select ID="oCharSelect" runat="server" />
+            <charselector:select id="oCharSelect" runat="server" />
         </div>
         <div class="row">
             <asp:Label ID="lblCharacterName" runat="server" />
         </div>
-        <asp:GridView  ID="gvAvailableSkills" runat="server" AutoGenerateSelectButton="true" OnSelectedIndexChanged="gvAvailableSkills_SelectedIndexChanged"  />
+        <asp:GridView ID="gvAvailableSkills" runat="server" AutoGenerateSelectButton="true" OnSelectedIndexChanged="gvAvailableSkills_SelectedIndexChanged" />
         <asp:Panel ID="pnlRequestInfo" runat="server" CssClass="col-lg-12">
             Request before next event.
-<%--            <div class="row">--%>
-                <div class="col-lg-12">
-            <asp:TextBox ID="tbRequest" runat="server" Rows="10" class="col-lg-12" />
-<%--            </div>--%>
-                </div>
+            <%--            <div class="row">--%>
+            <asp:GridView ID="gvRegisteredEvents" runat="server" OnRowCommand="gvRegisteredEvents_RowCommand" AutoGenerateColumns="false" DataKeyNames="RegistrationID">
+                <Columns>
+                    <asp:BoundField DataField="EventName" HeaderText="Event Name" />
+                    <asp:BoundField DataField="StartDateTime" HeaderText="Event Start Date" DataFormatString="{0:d}" />
+                    <asp:BoundField DataField="Breadcrumbs" HeaderText="Skill" />
+                    <asp:BoundField DataField="RequestStatus" HeaderText="Request Status" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button Text="View Status" Visible='<%# Eval("StatusVisible").ToString() == "1" %>' runat="server" CommandName="View" CommandArgument='<%#Eval("ISkillRequestID") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button Text='<%#Eval("ButtonText") %>' runat="server" CommandName='<%#Eval("ButtonText") %>' CommandArgument='<%#Eval("KeyValue") %>' />
+<%--                            <asp:HiddenField id="hidRegID" runat="server" Value='<%#Eval("RegistrationID") %>' />--%>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+            <div class="col-lg-12">
+                <asp:TextBox ID="tbRequest" runat="server" Rows="10" class="col-lg-12" />
+                <%--            </div>--%>
+            </div>
         </asp:Panel>
         <%--        <div class="row">
             <div class="col-md-12">
@@ -281,7 +300,7 @@
 
 
     <!--  Change the text additional value -->
-<%--    <div class="modal fade in" id="modalChangeDropDownValue" role="dialog">
+    <%--    <div class="modal fade in" id="modalChangeDropDownValue" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
@@ -335,7 +354,7 @@
 
 
 
-<%--    <div class="modal fade in" id="modalPointIssue" role="dialog">
+    <%--    <div class="modal fade in" id="modalPointIssue" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
