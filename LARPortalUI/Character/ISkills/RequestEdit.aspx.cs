@@ -1810,10 +1810,24 @@ namespace LarpPortal.Character.ISkills
             sParams.Add("@RegistrationID", hidRegID.Value);
             sParams.Add("@RequestText", CKERequestText.Text);
             if (e.CommandName == "SUBMIT")
+            {
+                lblmodalMessage.Text = "Your request has been submitted to the staff.";
                 sParams.Add("@RequestStatus", "Submitted");
+            }
             else
+            {
+                lblmodalMessage.Text = "Your request has been saved but <u>not</u> submitted to the staff.<br>" +
+                    "<br>Make sure to submit the request to have the staff process it.";
                 sParams.Add("@RequestStatus", "Saved");
+            }
             cUtilities.PerformNonQuery("uspInsUpdISkillRequestTable", sParams, "LARPortal", Master.UserName);
+
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openRequestSaved();", true);
+
+        }
+
+        protected void btnCloseMessage_Click(object sender, EventArgs e)
+        {
             Response.Redirect("Requests.aspx", true);
         }
     }

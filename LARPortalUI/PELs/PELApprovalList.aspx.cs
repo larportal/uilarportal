@@ -134,7 +134,7 @@ namespace LarpPortal.PELs
             {
                 dvPELs.RowFilter = sRowFilter;
             }
-            catch (Exception ex)
+            catch
             {
                 // Means there was something wrong - probably somebody mucked with the filter to we are going to clear the row filter.
                 sRowFilter = "";
@@ -147,7 +147,7 @@ namespace LarpPortal.PELs
                     sSortString += ", DateSubmitted";
                 dvPELs.Sort = sSortString;
             }
-            catch (Exception ex)
+            catch
             {
                 // Means there was something wrong - probably somebody mucked with the sort order to we are going to clear the row filter.
                 sSortField = "";
@@ -158,6 +158,8 @@ namespace LarpPortal.PELs
 
             gvPELList.DataSource = dvPELs;
             gvPELList.DataBind();
+
+            Session["PELApprovalList_dvPELs"] = dvPELs;
 
             // Now get the list of event names so the person can filter on it.
             DataView view = new DataView(dtPELs, sRowFilter, "EventName", DataViewRowState.CurrentRows);

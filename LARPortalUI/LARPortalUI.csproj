@@ -128,6 +128,8 @@
     <Content Include="Character\CharAdd.aspx" />
     <Content Include="Character\CharCard.aspx" />
     <Content Include="Character\CharCardCustomization.aspx" />
+    <Content Include="Character\ISkills\StaffAnswerComment.aspx" />
+    <Content Include="Character\ISkills\StaffList.aspx" />
     <Content Include="Character\ISkills\RequestEdit.aspx" />
     <Content Include="Character\ISkills\Requests.aspx" />
     <Content Include="Character\SkillSets.aspx" />
@@ -1560,6 +1562,20 @@
     </Compile>
     <Compile Include="Character\CharCardCustomization.aspx.designer.cs">
       <DependentUpon>CharCardCustomization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\ISkills\StaffAnswerComment.aspx.cs">
+      <DependentUpon>StaffAnswerComment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\ISkills\StaffAnswerComment.aspx.designer.cs">
+      <DependentUpon>StaffAnswerComment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Character\ISkills\StaffList.aspx.cs">
+      <DependentUpon>StaffList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Character\ISkills\StaffList.aspx.designer.cs">
+      <DependentUpon>StaffList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Character\ISkills\RequestEdit.aspx.cs">
       <DependentUpon>RequestEdit.aspx</DependentUpon>

@@ -11,89 +11,53 @@ namespace LarpPortal.Character.ISkills
 {
 
 
-    public partial class RequestEdit
+    public partial class StaffList
     {
 
         /// <summary>
-        /// lblEventName control.
+        /// mvISkillList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEventName;
+        protected global::System.Web.UI.WebControls.MultiView mvISkillList;
 
         /// <summary>
-        /// lblEventDate control.
+        /// vwISKillList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEventDate;
+        protected global::System.Web.UI.WebControls.View vwISKillList;
 
         /// <summary>
-        /// lblSkillName control.
+        /// gvISkillList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSkillName;
+        protected global::System.Web.UI.WebControls.GridView gvISkillList;
 
         /// <summary>
-        /// CKERequestText control.
+        /// vwNoISkills control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CKEditor.NET.CKEditorControl CKERequestText;
+        protected global::System.Web.UI.WebControls.View vwNoISkills;
 
         /// <summary>
-        /// btnCancel control.
+        /// lblCampaignName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
-
-        /// <summary>
-        /// hidRegID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidRegID;
-
-        /// <summary>
-        /// hidNodeID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidNodeID;
+        protected global::System.Web.UI.WebControls.Label lblCampaignName;
 
         /// <summary>
         /// lblmodalMessage control.

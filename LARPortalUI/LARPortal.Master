@@ -8,11 +8,22 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5MQHDGS');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
-    <meta name="author" content="" />on
+    <meta name="author" content="" />
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -20,14 +31,7 @@
     <meta http-equiv="pragma" content="no-cache" />
     <title>LARP Portal - The Gateway to Managing Your LARPs</title>
 
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-
-
-
-
-
-
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
     <!-- MetisMenu CSS -->
     <link href="/css/metisMenu.min.css" rel="stylesheet" />
@@ -44,7 +48,6 @@
     <script src="/Scripts/jquery-3.3.1.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-<%--   <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>   --%>
     <script src="/Scripts/popper.min.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
 
@@ -122,6 +125,11 @@
     <script src="/Scripts/bootstrap-toggle.min.js"></script>
 </head>
 <body runat="server" id="pageBody">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MQHDGS"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <form id="form2" runat="server">
         <asp:ScriptManager ID="smManager" runat="server" />
         <div id="wrapper">
@@ -320,6 +328,8 @@
                                                 <!-- /.nav-third-level -->
                                             </li>
                                             <li><a href="/Character/CharSkills.aspx">Skills</a></li>
+                                            <li runat="server" id="liIBSkills"><a href="Character/ISkills/Requests.aspx">In-between Skills</a></li>
+
                                             <li><a href="/Character/History/Edit.aspx">History</a></li>
                                             <li><a href="/Character/CharRelationships.aspx">Relationships</a></li>
                                             <li><a href="/Character/CharPlaces.aspx">Places</a></li>

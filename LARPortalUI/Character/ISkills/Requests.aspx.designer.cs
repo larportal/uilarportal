@@ -15,15 +15,6 @@ namespace LarpPortal.Character.ISkills
     {
 
         /// <summary>
-        /// rbCharacter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbCharacter;
-
-        /// <summary>
         /// oCharSelect control.
         /// </summary>
         /// <remarks>
@@ -31,24 +22,6 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::LarpPortal.Controls.CharacterSelect oCharSelect;
-
-        /// <summary>
-        /// lblCharacterName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCharacterName;
-
-        /// <summary>
-        /// gvAvailableSkills control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAvailableSkills;
 
         /// <summary>
         /// pnlRequestInfo control.
@@ -67,15 +40,6 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvRegisteredEvents;
-
-        /// <summary>
-        /// tbRequest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRequest;
 
         /// <summary>
         /// Master property.

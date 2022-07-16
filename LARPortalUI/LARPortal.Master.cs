@@ -44,8 +44,8 @@ namespace LarpPortal
                         return iUserID;
 
                 // If we got this far - there was problem with the ID.
-//                int i = 0;
-//                int j = 12 / i;
+                //                int i = 0;
+                //                int j = 12 / i;
                 Response.Redirect("/index.aspx", true);
                 return -1;      // It won't get here - but the compiler complains if there is no return.
             }
@@ -430,6 +430,7 @@ namespace LarpPortal
             liDonations.Style.Add("display", "none");
 
             liModifySkills.Style.Add("display", "none");
+            liIBSkills.Style.Add("display", "none");
 
             bool bSuperUser = false;
             if (Session["SuperUser"] != null)
@@ -594,6 +595,11 @@ namespace LarpPortal
                     (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
                     (sRoleString.Contains(Classes.cConstants.LOGISITICS_DONATION_SET_UP_40)))
                     liReceiveDonations.Style.Add("display", "block");
+            }
+
+            if (bSuperUser)
+            {
+                liIBSkills.Style.Add("display", "block");
             }
 
             SortedList sParams = new SortedList();
