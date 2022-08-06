@@ -44,6 +44,7 @@ namespace LarpPortal.Reports
             ddlEventDate.DataSource = dtEvent;
             ddlEventDate.DataBind();
             ddlEventDate.Items.Insert(0, new ListItem("Select Event - Date", "0"));
+            ddlEventDate.Items.Insert(1, new ListItem("All primary character skill sets", "1"));
             ddlEventDate.SelectedIndex = 0;
             ddlReportType.SelectedIndex = 0;
             ddlReportType.Visible = false;
@@ -59,6 +60,13 @@ namespace LarpPortal.Reports
             mvReport.SetActiveView(vwNoReport);
             btnExportExcel.Visible = false;
             ddlReportType.SelectedIndex = 0;
+            if(Session["ddReportTypeReset"] as string == "true")
+            {
+                ddlReportType.Items.Add("SkillDetail");
+                ddlReportType.Items.Add("SkillTypeCount");
+                ddlReportType.Items.Add("SkillTypeDetail");
+            }
+            Session["ddReportTypeReset"] = "false";
 
             if (ddlEventDate.SelectedIndex == 0)
             {
@@ -67,9 +75,17 @@ namespace LarpPortal.Reports
             }
             else
             {
+                if (ddlEventDate.SelectedIndex == 1)
+                {
+                    ddlReportType.Items.Remove(ddlReportType.Items.FindByValue("SkillDetail"));
+                    ddlReportType.Items.Remove(ddlReportType.Items.FindByValue("SkillTypeCount"));
+                    ddlReportType.Items.Remove(ddlReportType.Items.FindByValue("SkillTypeDetail"));
+                    Session["ddReportTypeReset"] = "true";
+                }
                 lblReportType.Visible = true;
                 ddlReportType.Visible = true;
             }
+
         }
 
         protected void ddlReportType_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,15 +103,26 @@ namespace LarpPortal.Reports
 
             int EventID = 0;
             int.TryParse(ddlEventDate.SelectedValue.ToString(), out EventID);
+            string SkillCountProc;
 
-            sParams.Add("@EventID", EventID);
+            switch (ddlEventDate.SelectedValue)
+            {
+                case "1":
+                    SkillCountProc = "uspRptCharacterCampaignSkillCount";
+                    break;
+
+                default:
+                    SkillCountProc = "uspRptCharacterEventSkillCount";
+                    sParams.Add("@EventID", EventID);
+                    break;
+            }
             sParams.Add("@CampaignID", Master.CampaignID);
 
             switch (ddlReportType.SelectedValue.ToUpper())
             {
                 case "SKILLCOUNT":
                     mvReport.SetActiveView(vwSkillCount);
-                    dtSkillStats = Classes.cUtilities.LoadDataTable("uspRptCharacterEventSkillCount", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspRptCharacterEventSkillCount");
+                    dtSkillStats = Classes.cUtilities.LoadDataTable(SkillCountProc, sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspRptCharacterEventSkillCount");
                     gvSkillCount.DataSource = dtSkillStats;
                     gvSkillCount.DataBind();
                     btnExportExcel.Visible = true;
