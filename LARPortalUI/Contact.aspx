@@ -51,7 +51,7 @@
                 <h3 class="contact-form-heading">Where we're located</h3>
                 <ul class="list-unstyled contact contact-info">
                     <li>
-                        <p><strong>Address:</strong> 1170 Union St Manchester NH 03104</p>
+                        <p><strong>Address:</strong> Londonderry NH 03053</p>
                     </li>
                     <li>
                         <p><strong>Email Us:</strong> <a href="mailto:info@larportal.com">info@larportal.com</a></p>
