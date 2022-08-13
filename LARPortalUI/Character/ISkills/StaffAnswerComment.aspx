@@ -23,64 +23,92 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1>ISkill Header</h1>
+                <div class="">
+                    <h1>ISkill Header</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="<%= lblEventInfo.ClientID %>">Event Info</label>
+                            <asp:Label ID="lblEventInfo" runat="server" CssClass="form-control col-xs-12" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-col-12 col-lg-6">
+                <div class="">
+                    <span class="alert-danger">This skill was purchased after the event. Dependng on the games rules you may or may not want to allow this request.</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-lg-6">
+                <div class="">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="<%= lblCharName.ClientID %>">Character Name</label>
+                            <asp:Label ID="lblCharName" runat="server" CssClass="form-control col-xs-12" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-lg-6">
+                <div class="">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="<%= lblPlayerName.ClientID %>">Player Name</label>
+                            <asp:Label ID="lblPlayerName" runat="server" CssClass="form-control col-xs-12" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-10">
-                        <asp:Label ID="lblEventInfo" runat="server" />
-                        <div class="col-xs-2">
-                            <div class="row" style="margin-top: 20px;">
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <div class="controls">
-                                            <label for="<%= lblRequest.ClientID %>">Request</label>
-                                            <asp:Label ID="lblRequest" runat="server" BorderWidth="1" BorderColor="Black" BorderStyle="Solid" CssClass="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <asp:Image ID="imgPicture" runat="server" Width="100px" Height="100px" />
+                <div class="form-group">
+                    <div class="controls">
+                        <label for="<%= lblRequest.ClientID %>">Request</label>
+                        <asp:Label ID="lblRequest" runat="server" CssClass="form-control col-xs-12" />
                     </div>
                 </div>
             </div>
-            <div class="row" style="padding-left: 15px; padding-bottom: 10px;">
-                <%--            <div class="row">
-                Staff Options
-            </div>--%>
-                <div class="row">
-                    <div class="col-lg-2 col-xs-12">
-                        <div class="form-group">
-                            <label for="<%= ddlResponse.ClientID %>">Status:</label>
-                            <asp:DropDownList ID="ddlResponse" runat="server" AutoPostBack="true" CssClass="form-control">
-                                <asp:ListItem>No Response</asp:ListItem>
-                                <asp:ListItem>Respond Immediately</asp:ListItem>
-                                <asp:ListItem>Respond at event (staff will need to print response.)</asp:ListItem>
-                                <asp:ListItem>Do Nothing</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
+        </div>
+        <div class="row" style="padding-left: 15px; padding-bottom: 10px;">
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-lg-2 col-md-4 col-xs-12">
+                <div class="form-group">
+                    <label for="<%= ddlRequestStatus.ClientID %>">Request Status: </label>
+                    <asp:DropDownList ID="ddlRequestStatus" runat="server" CssClass="form-control" />
                 </div>
+                Marking the request as <b>Complete</b> or <b>Delivered</b> means the user will be able to see the response.
+            </div>
+            <div class="col-lg-10 col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="<%= CKResponse.ClientID %>">Staff Official Response: <i class="fa-solid fa-circle-question" title="The person will not see this until it has been marked completed."></i></label>
+                    <CKEditor:CKEditorControl ID="CKResponse" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>
+                </div>
+                <asp:FileUpload ID="ulFile" runat="server" CssClass="form-control col-lg-6" />
+                <asp:Label ID="lblFileName" runat="server" Visible="false" />
+                <asp:Button ID="btnSaveRequest" runat="server" CssClass="btn btn-primary pull-right" OnClick="btnSaveRequest_Click" Text="Save Request" />
             </div>
         </div>
         <asp:HiddenField ID="hidRegistrationID" runat="server" />
         <asp:HiddenField ID="hidPELID" runat="server" />
 
+        <hr />
         <asp:Repeater ID="rptQuestions" runat="server">
             <ItemTemplate>
                 <div class="row">
-                    <h4>Comment from <%# Eval("FirstName") %> <%# Eval("LastName") %></h4>
-                    <%--                    <div class="panel-body">
-                        <div class="panel-container search-criteria" style="padding-bottom: 10px;">--%>
-                    <asp:Label ID="lblAnswer" runat="server" Text='<%# Eval("StaffComments") %>' CssClass="form-control" />
-                    <%--                        </div>
-                    </div>--%>
+                    <%# Eval("CommentHeader") %>
+                    <asp:Label ID="lblAnswer" runat="server" Text='<%# Eval("StaffComments") %>' CssClass="form-control"
+                        Visible='<%# (Eval("ShowComment").ToString() == "Y") %>' />
                 </div>
             </ItemTemplate>
         </asp:Repeater>
