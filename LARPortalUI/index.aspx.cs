@@ -14,6 +14,7 @@ namespace LarpPortal
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
+
 			tbUserName.Attributes.Add("PlaceHolder", "Username");
 			tbPassword.Attributes.Add("PlaceHolder", "Password");
 			btnClose.Attributes.Add("data-dismiss", "modal");
@@ -64,6 +65,23 @@ namespace LarpPortal
 				Session["OperationalMode"] = SiteOpsMode;
 //				int x = 10;
 			}
+
+			// Check for login parameters. If they exist, automatically fill them in and log in.
+			if (Request.QueryString["Username"] != null)
+			{
+				if (Request.QueryString["Password"] != null)
+				{
+					tbUserName.Text = Request.QueryString["Username"];
+					tbPassword.Text = Request.QueryString["Password"];
+					Login();
+				}
+			}
+			if (Request.QueryString["ActivationKey"] != null)
+            {
+				tbActivationCode.Visible = true;
+				tbActivationCode.Text = Request.QueryString["ActivationKey"];
+			}
+
 		}
 
 		protected void btnRegister_Click(object sender, EventArgs e)
@@ -94,6 +112,11 @@ namespace LarpPortal
 
 		protected void btnLogin_Click(object sender, EventArgs e)
 		{
+			Login();
+		}
+
+		protected void Login()
+        {
 			Classes.cLogin Login = new Classes.cLogin();
 			Login.Load(tbUserName.Text, tbPassword.Text);
 			if (Login.MemberID == 0) // Invalid user, fall straight to fail logic
@@ -130,7 +153,7 @@ namespace LarpPortal
 					MemberLogin(Login);
 				}
 			}
-		}
+        }
 
 		/// <summary>
 		/// If this is called it means the activation code was entered and is correct.

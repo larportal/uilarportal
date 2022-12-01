@@ -207,8 +207,8 @@
                                     </fieldset>
                                     <hr />
                                     <ul class="list-inline text-center">
-                                        <li>
-                                            <asp:Button ID="btnGuest" runat="server" Text="Enter as a Guest" CssClass="btn btn-primary btn-sm" OnClick="btnGuest_Click" /></li>
+                                        <%--<li>
+                                            <asp:Button ID="btnGuest" runat="server" Text="Enter as a Guest" CssClass="btn btn-primary btn-sm" OnClick="btnGuest_Click" /></li>--%>
                                         <li>
                                             <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary btn-sm" OnClick="btnRegister_Click" /></li>
                                         <li>
