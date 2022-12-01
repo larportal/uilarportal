@@ -24,6 +24,24 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblEventInfo;
 
         /// <summary>
+        /// lblCharName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCharName;
+
+        /// <summary>
+        /// lblPlayerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerName;
+
+        /// <summary>
         /// lblRequest control.
         /// </summary>
         /// <remarks>
@@ -33,22 +51,49 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblRequest;
 
         /// <summary>
-        /// imgPicture control.
+        /// ddlRequestStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPicture;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestStatus;
 
         /// <summary>
-        /// ddlResponse control.
+        /// CKResponse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlResponse;
+        protected global::CKEditor.NET.CKEditorControl CKResponse;
+
+        /// <summary>
+        /// ulFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload ulFile;
+
+        /// <summary>
+        /// lblFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileName;
+
+        /// <summary>
+        /// btnSaveRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveRequest;
 
         /// <summary>
         /// hidRegistrationID control.

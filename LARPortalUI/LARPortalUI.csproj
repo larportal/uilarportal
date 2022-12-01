@@ -648,6 +648,7 @@
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment69.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
+    <Content Include="Reports\CharacterList.aspx" />
     <Content Include="Reports\CharacterRulebook.aspx" />
     <Content Include="Reports\CharacterRulebookFinal.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
@@ -1988,6 +1989,13 @@
     </Compile>
     <Compile Include="Payments\EventPayment80.aspx.designer.cs">
       <DependentUpon>EventPayment80.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CharacterList.aspx.cs">
+      <DependentUpon>CharacterList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\CharacterList.aspx.designer.cs">
+      <DependentUpon>CharacterList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\CharacterRulebook.aspx.cs">
       <DependentUpon>CharacterRulebook.aspx</DependentUpon>

@@ -41,7 +41,8 @@ namespace LarpPortal.Classes
             Logo,
             Profile,
             Player,
-            Item
+            Item,
+            IBSkill
         };
 
 

@@ -22,16 +22,6 @@
             </div>
         </div>
 
-        <%--        <div class="row">
-            <div class="col-sm-8 margin20">
-                <div class="form-inline">
-                </div>
-            </div>
-            <div class="col-xs-4 text-right">
-                <asp:Button ID="btnMissedEvent" runat="server" CssClass="btn btn-primary" Text="Missing Event?" OnClick="btnMissedEvent_Click" />
-            </div>
-        </div>--%>
-
         <div class="row">
             <div class="col-xs-12">
                 <asp:MultiView ID="mvISkillList" runat="server" ActiveViewIndex="0">
@@ -43,20 +33,16 @@
                                     <asp:GridView ID="gvISkillList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvISkillList_RowCommand" GridLines="None"
                                         CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Outset" BorderWidth="1">
                                         <Columns>
-                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="BreadcrumbsText" HeaderText="Skill" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:TemplateField HeaderText="Request">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("ShortRequest") %>' ToolTip='<%# Bind("RequestText") %>'></asp:Label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-
-                                            <asp:BoundField DataField="StatusName" HeaderText="Status" HeaderStyle-Wrap="false" />
-                                            <asp:TemplateField ItemStyle-CssClass="text-right">
+                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
+                                            <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
+                                            <asp:BoundField DataField="BreadcrumbsText" HeaderText="Skill" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
+                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
+                                            <asp:BoundField DataField="StatusName" HeaderText="User Status" HeaderStyle-Wrap="false" />
+                                            <asp:BoundField DataField="StaffStatus" HeaderText="Staff Status" />
+                                            <asp:TemplateField ItemStyle-CssClass="text-right" ItemStyle-VerticalAlign="Middle">
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("ISkillRequestID") %>' CommandName='<%# Eval("ButtonText") %>Item'
-                                                        Text='<%# Eval("ButtonText") %>' CssClass="btn btn-primary btn-sm" />
+                                                        Text='<%# Eval("ButtonText") %>' CssClass="btn btn-primary btn-xs LeftRightPadding10" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -67,7 +53,7 @@
                     </asp:View>
                     <asp:View ID="vwNoISkills" runat="server">
                         <p>
-                            <strong>You do not have any open PELs for the campaign
+                            <strong>You do not have any open requests for the campaign
                             <asp:Label ID="lblCampaignName" runat="server" />.
                             </strong>
                         </p>
