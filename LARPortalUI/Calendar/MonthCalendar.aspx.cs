@@ -79,7 +79,7 @@ namespace LarpPortal.Calendar
 
                 int iEventID = 0;
                 int.TryParse(dEventInfo["EventID"].ToString(), out iEventID);
-                string sEventName = dEventInfo["EventName"].ToString();
+                string sEventName = dEventInfo["EventName"].ToString().Replace("'", "`");
                 string sEventDescription = dEventInfo["EventDescription"].ToString().Replace("\"", "'");
 
                 if (DateTime.TryParse(dEventInfo["RegistrationOpenDateTime"].ToString(), out dtTemp))
@@ -155,8 +155,11 @@ namespace LarpPortal.Calendar
 
                 eventstring = "";
 
+                int counter = 0;
                 foreach (DateWithDescription DateItem in DateList)
                 {
+                    if (++counter >= 160)
+                        break;
                     string sTooltip = "";
                     if (ListTooltip.TryGetValue(DateItem.EventID, out sTooltip))
                     {

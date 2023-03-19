@@ -36,6 +36,7 @@ namespace LarpPortal.Classes
         private int _StatusID = 0;
         private string _Comments = "";
 		private bool? _AllowAdditionalInfo = false;
+        private bool _HasInbetweenSkills = false;
 
         public Int32 CampaignPlayerID
         {
@@ -162,6 +163,11 @@ namespace LarpPortal.Classes
 			get { return _AllowAdditionalInfo; }
 			set { _AllowAdditionalInfo = value; }
 		}
+        public bool HasInbetweenSkills
+        {
+            get { return _HasInbetweenSkills; }
+            set { _HasInbetweenSkills = value; }
+        }
 
         /// <summary>
         /// This will load the details of a particular user campaign
@@ -201,6 +207,10 @@ namespace LarpPortal.Classes
 				{
 					AllowAdditionalInfo = AllowAdd;
 				}
+                if (dRow["NumInfoSkills"].ToString() == "0")
+                    _HasInbetweenSkills = false;
+                else
+                    _HasInbetweenSkills = true;
             }
         }
 

@@ -366,6 +366,24 @@ namespace LarpPortal
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liPELApprovalList;
 
         /// <summary>
+        /// liIBGSMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor liIBGSMain;
+
+        /// <summary>
+        /// liIBGSApprovalList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liIBGSApprovalList;
+
+        /// <summary>
         /// liHasCharacters control.
         /// </summary>
         /// <remarks>

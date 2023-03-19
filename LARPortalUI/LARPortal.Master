@@ -116,7 +116,16 @@
         });
     </script>
 
+    <script>
+        var app = {
+            loginname: '',
+            characterid: '',
+            campaignid: '',
+            access: ''
+        };
 
+
+    </script>
 
     <asp:ContentPlaceHolder ID="MainScripts" runat="server"></asp:ContentPlaceHolder>
 
@@ -307,6 +316,11 @@
                                                 </ul>
                                                 <!-- /.nav-third-level -->
                                             </li>
+                                            <li><a href="#" runat="server" id="liIBGSMain">Inbetween Games Skills<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li runat="server" id="liIBGSApprovalList"><a href="/Character/ISkills/StaffList.aspx">Information Skills</a></li>
+                                                </ul>
+                                            </li>
 
                                             <%--  case 58:--%>
                                             <%--  LineText = "Inventory/Props";--%>
@@ -328,8 +342,11 @@
                                                 <!-- /.nav-third-level -->
                                             </li>
                                             <li><a href="/Character/CharSkills.aspx">Skills</a></li>
-                                            <li runat="server" id="liIBSkills"><a href="Character/ISkills/Requests.aspx">In-between Skills</a></li>
-
+                                            <li runat="server" id="liIBSkills"><a href="#">In-between Skills<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li><a href="/Character/ISkills/Requests.aspx">Information Skills</a></li>
+                                                </ul>
+                                            </li>
                                             <li><a href="/Character/History/Edit.aspx">History</a></li>
                                             <li><a href="/Character/CharRelationships.aspx">Relationships</a></li>
                                             <li><a href="/Character/CharPlaces.aspx">Places</a></li>

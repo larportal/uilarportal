@@ -42,6 +42,24 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblSkillName;
 
         /// <summary>
+        /// lblShortSkillDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblShortSkillDesc;
+
+        /// <summary>
+        /// lblLongSkillDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLongSkillDesc;
+
+        /// <summary>
         /// CKERequestText control.
         /// </summary>
         /// <remarks>
@@ -78,24 +96,6 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
-        /// hidRegID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidRegID;
-
-        /// <summary>
-        /// hidNodeID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidNodeID;
-
-        /// <summary>
         /// lblmodalMessage control.
         /// </summary>
         /// <remarks>
@@ -112,6 +112,60 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
+
+        /// <summary>
+        /// hidSkillRequestID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidSkillRequestID;
+
+        /// <summary>
+        /// hidRegistrationID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidRegistrationID;
+
+        /// <summary>
+        /// hidSkillNodeID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidSkillNodeID;
+
+        /// <summary>
+        /// hidViewOnly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidViewOnly;
+
+        /// <summary>
+        /// hidSkillSetID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidSkillSetID;
+
+        /// <summary>
+        /// hidWhichDisplayed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidWhichDisplayed;
 
         /// <summary>
         /// Master property.

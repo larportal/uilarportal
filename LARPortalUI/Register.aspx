@@ -193,7 +193,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="row">
-                            <div class="col-xs-12 NoGutters text-right">
+                            <div class="col-xs-12 no-no-gutters text-right">
                                 <asp:Button ID="btnCloseMessage" runat="server" Text="Close" CssClass="btn btn-primary" CausesValidation="false" />
                             </div>
                         </div>

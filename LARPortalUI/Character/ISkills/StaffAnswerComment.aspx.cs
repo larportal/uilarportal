@@ -23,6 +23,8 @@ namespace LarpPortal.Character.ISkills
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            btnCancel.Attributes.Add("data-dismiss", "modal");
+            btnNoDelete.Attributes.Add("data-dismiss", "modal");
 
             if (!IsPostBack)
             {
@@ -30,6 +32,8 @@ namespace LarpPortal.Character.ISkills
                 sParams.Add("@StatusType", "IBSkillStaffComments");
                 DataTable dtStatus = Classes.cUtilities.LoadDataTable("uspGetStatus", sParams, "LARPortal", Master.UserName, lsRoutineName);
                 DataView dvStatus = new DataView(dtStatus, "", "Comments", DataViewRowState.CurrentRows);
+
+//                ddlRequestStatus.Attributes.Add("onchange", "ChangeButton();");
             }
         }
 
@@ -42,16 +46,10 @@ namespace LarpPortal.Character.ISkills
                 (_Reload))
             {
                 CKResponse.Attributes.Add("placeholder", "Add comment.");
-                if (Request.QueryString["SkillID"] != null)
-                    hidRegistrationID.Value = Request.QueryString["SkillID"];
+                if (Request.QueryString["RequestSkillID"] != null)
+                    hidRequestSkillID.Value = Request.QueryString["RequestSkillID"];
                 else
                     Response.Redirect("StaffList.aspx", true);
-
-                Classes.cUser UserInfo = new Classes.cUser(Master.UserName, "NOPASSWORD", Session.SessionID);
-                if (UserInfo.NickName.Length > 0)
-                    hidAuthorName.Value = UserInfo.NickName + " " + UserInfo.LastName;
-                else
-                    hidAuthorName.Value = UserInfo.FirstName + " " + UserInfo.LastName;
 
                 if (!IsPostBack)
                 {
@@ -59,46 +57,86 @@ namespace LarpPortal.Character.ISkills
                     //  The stored procedure is smart enough that it will look at the last comment for the request and if it's the
                     //  same commenterID and the staffComments is blank, it won't add a duplicate record.
                     SortedList sViewParams = new SortedList();
-                    sViewParams.Add("@RequestID", hidRegistrationID.Value);
+                    sViewParams.Add("@RequestID", hidRequestSkillID.Value);
                     sViewParams.Add("@CommenterID", Master.UserID);
                     sViewParams.Add("@StaffComments", "");
 
-                    Classes.cUtilities.PerformNonQuery("uspInsUpdISkillStaffComments", sViewParams, "LARPortal", Master.UserName);
+                    Classes.cUtilities.PerformNonQuery("uspInsUpdIBSkillStaffComments", sViewParams, "LARPortal", Master.UserName);
                 }
 
                 SortedList sParams = new SortedList();
-                sParams.Add("@ISkillID", hidRegistrationID.Value);
+                sParams.Add("@IBSkillID", hidRequestSkillID.Value);
 
-                DataTable dtSkillInfo = Classes.cUtilities.LoadDataTable("uspGetSubmittedISkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
+                DataTable dtSkillInfo = Classes.cUtilities.LoadDataTable("uspGetSubmittedIBSkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
                 DataTable dtComments = new DataTable();
+
+                ulFile.Visible = true;
+                lblFileName.Visible = false;
+                hlFileName.Visible = false;
+                btnDeleteAttach.Visible = false;
+                hidFileName.Value = "";
+                lblFileToDelete.Text = "";
 
                 if (dtSkillInfo.Rows.Count > 0)
                 {
-                    lblRequest.Text = dtSkillInfo.Rows[0]["RequestText"].ToString();
-                    lblEventInfo.Text = dtSkillInfo.Rows[0]["EventName"].ToString();
-                    lblCharName.Text = dtSkillInfo.Rows[0]["CharName"].ToString();
-                    lblPlayerName.Text = dtSkillInfo.Rows[0]["PlayerName"].ToString();
-                    CKResponse.Text = dtSkillInfo.Rows[0]["StaffResponse"].ToString();
-                    if (dtSkillInfo.Rows[0]["AttachmentOrigFileName"].ToString().Length > 0)
+                    DataRow drSkillInfo = dtSkillInfo.Rows[0];
+                    lblSkillName.Text = drSkillInfo["SkillName"].ToString();
+                    lblShortSkillDesc.Text = drSkillInfo["SkillShortDescription"].ToString();
+                    lblLongSkillDesc.Text = drSkillInfo["SkillLongDescription"].ToString();
+                    lblLongSkillDesc.Attributes.Add("style", "display: none;");
+                    hidWhichDisplayed.Value = "S";
+                    lblRequest.Text = drSkillInfo["RequestText"].ToString();
+                    DateTime dtDate = new DateTime();
+                    lblEventDate.Text = "";
+                    DateTime dtSkillPurchaseDate = new DateTime();
+                    DateTime dtPrevEventDate = new DateTime();
+
+                    if (DateTime.TryParse(drSkillInfo["EventDate"].ToString(), out dtDate))
+                        lblEventDate.Text = String.Format("{0:MM/dd/yyyy}", dtDate);
+                    if (DateTime.TryParse(drSkillInfo["DateSkillPurchased"].ToString(), out dtSkillPurchaseDate))
+                        lblSkillPurchaseDate.Text = String.Format("{0:MM/dd/yyyy}", dtSkillPurchaseDate);
+                    if (DateTime.TryParse(drSkillInfo["PrevRegEventDate"].ToString(), out dtPrevEventDate))
+                        lblLastEventDate.Text = String.Format("{0:MM/dd/yyyy}", dtPrevEventDate);
+                    if (dtPrevEventDate < dtSkillPurchaseDate)
+                        divAlertMess.Visible = true;
+                    lblCharName.Text = drSkillInfo["CharName"].ToString();
+                    lblPlayerName.Text = drSkillInfo["PlayerName"].ToString();
+                    CKResponse.Text = drSkillInfo["StaffResponse"].ToString();
+                    hidCampaignID.Value = drSkillInfo["CampaignID"].ToString();
+                    bool bChecked = false;
+                    if (bool.TryParse(drSkillInfo["DisplayStaffStatusToPlayer"].ToString(), out bChecked))
+                        cbDisplayStatusToUser.Checked = bChecked;
+                    if (bool.TryParse(drSkillInfo["DisplayResponseToPlayer"].ToString(), out bChecked))
+                        cbDisplayResponseToUser.Checked = bChecked;
+
+                    int iFileID = 0;
+                    if (!string.IsNullOrEmpty(drSkillInfo["FileID"].ToString()))
                     {
-                        ulFile.Visible = false;
-                        lblFileName.Visible = true;
-                        lblFileName.Text = dtSkillInfo.Rows[0]["AttachmentOrigFileName"].ToString();
+                        if (int.TryParse(drSkillInfo["FileID"].ToString(), out iFileID))
+                        {
+                            ulFile.Visible = false;
+                            lblFileName.Visible = false;
+                            btnDeleteAttach.Visible = true;
+                            hlFileName.Visible = true;
+                            hlFileName.Text = drSkillInfo["AttachmentOrigFileName"].ToString();
+                            hidFileName.Value = hlFileName.Text;
+                            lblFileToDelete.Text = hlFileName.Text;
+                            cPicture FileToLoad = new cPicture();
+                            FileToLoad.Load(iFileID, Master.UserName);
+                            hlFileName.NavigateUrl = FileToLoad.PictureURL;
+                        }
                     }
-                    else
-                    {
-                        ulFile.Visible = true;
-                        lblFileName.Visible = false;
-                    }
+
 
                     int iStaffStatusID = -1;
-                    int.TryParse(dtSkillInfo.Rows[0]["StaffStatusID"].ToString(), out iStaffStatusID);
-                    string sCurrentStatus = dtSkillInfo.Rows[0]["StaffStatus"].ToString();
+                    int.TryParse(drSkillInfo["StaffStatusID"].ToString(), out iStaffStatusID);
+                    string sCurrentStatus = drSkillInfo["StaffStatus"].ToString();
 
                     sParams = new SortedList();
-                    sParams.Add("@ISkillID", hidRegistrationID.Value);
-                    dtComments = Classes.cUtilities.LoadDataTable("uspGetISkillStaffComments", sParams, "LARPortal", Master.UserName, lsRoutineName + ".GetISkillComments");
+                    sParams.Add("@IBSkillID", hidRequestSkillID.Value);
+                    dtComments = Classes.cUtilities.LoadDataTable("uspGetIBSkillStaffComments", sParams, "LARPortal", Master.UserName, lsRoutineName + ".GetISkillComments");
 
+                    
                     if (dtComments.Columns["CommentHeader"] == null)
                         dtComments.Columns.Add("CommentHeader", typeof(string));
                     if (dtComments.Columns["ShowComment"] == null)
@@ -128,7 +166,8 @@ namespace LarpPortal.Character.ISkills
                     {
                         SortedList sStatus = new SortedList();
                         sStatus.Add("@StatusType", "IBSkillStaffComments");
-                        DataTable dtRequestStatus = cUtilities.LoadDataTable("uspGetStatus", sStatus, "LARPortal", Master.UserName, lsRoutineName + ".GetStatuses");
+                        sStatus.Add("@CampaignID", hidCampaignID.Value);
+                        DataTable dtRequestStatus = cUtilities.LoadDataTable("uspGetStatusForCampaign", sStatus, "LARPortal", Master.UserName, lsRoutineName + ".GetStatuses");
                         DataView dvRequestStatus = new DataView(dtRequestStatus, "", "Comments", DataViewRowState.CurrentRows);
                         ddlRequestStatus.DataSource = dvRequestStatus;
                         ddlRequestStatus.DataTextField = "StatusName";
@@ -168,7 +207,7 @@ namespace LarpPortal.Character.ISkills
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("StaffList.aspx", true);
         }
 
         //protected void rptQuestions_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -178,7 +217,7 @@ namespace LarpPortal.Character.ISkills
         protected void btnSave_Click(object sender, EventArgs e)
         {
             SortedList sAddComment = new SortedList();
-            sAddComment.Add("@RequestID", hidRegistrationID.Value);
+            sAddComment.Add("@RequestID", hidRequestSkillID.Value);
             sAddComment.Add("@CommenterID", Master.UserID);
             sAddComment.Add("@StaffComments", CKEditorComment.Text);
 
@@ -192,9 +231,9 @@ namespace LarpPortal.Character.ISkills
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
             SortedList sParams = new SortedList();
-            sParams.Add("@ISkillID", hidRegistrationID.Value);
+            sParams.Add("@IBSkillID", hidRequestSkillID.Value);
 
-            DataTable dtSkillInfo = Classes.cUtilities.LoadDataTable("uspGetSubmittedISkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            DataTable dtSkillInfo = Classes.cUtilities.LoadDataTable("uspGetSubmittedIBSkills", sParams, "LARPortal", Master.UserName, lsRoutineName);
             if (dtSkillInfo.Rows.Count > 0)
             {
                 DataRow dRow = dtSkillInfo.Rows[0];
@@ -222,91 +261,49 @@ namespace LarpPortal.Character.ISkills
 
                         sUpdate.Add("@AttachmentOrigFileName", ulFile.FileName);
                         sUpdate.Add("@AttachmentLocalFileName", LocalName);
-                }
+                        sUpdate.Add("@FileID", NewPicture.PictureID);
+                    }
                     catch //(Exception ex)
                     {
                         //                    lblMessage.Text = ex.Message + "<br>" + ex.StackTrace;
                     }
                 }
 
-                sUpdate.Add("@ISkillRequestID", hidRegistrationID.Value);
+                sUpdate.Add("@IBSkillRequestID", hidRequestSkillID.Value);
                 if (dRow["StaffStatusID"].ToString() != ddlRequestStatus.SelectedValue)
                     sUpdate.Add("@StaffStatusID", ddlRequestStatus.SelectedValue);
                 if (dRow["RequestText"].ToString() != CKResponse.Text)
                     sUpdate.Add("@StaffResponse", CKResponse.Text);
+                sUpdate.Add("@DisplayStaffStatusToPlayer", cbDisplayStatusToUser.Checked);
+                sUpdate.Add("@DisplayResponseToPlayer", cbDisplayResponseToUser.Checked);
 
-                cUtilities.PerformNonQuery("uspInsUpdISkillRequestTable", sUpdate, "LARPortal", Master.UserName);
+                cUtilities.PerformNonQuery("uspInsUpdIBSkillRequest", sUpdate, "LARPortal", Master.UserName);
                 _Reload = true;
             }
         }
+
+        protected void btnDeleteAttach_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnYesDelete_Click(object sender, EventArgs e)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@IBSkillRequestID", hidRequestSkillID.Value);
+            sParams.Add("@DeleteAttachment", "Y");
+
+            Classes.cUtilities.PerformNonQuery("uspInsUpdIBSkillRequestTable", sParams, "LARPortal", Master.UserName);
+            _Reload = true;
+        }
+
+        protected void btnCancelModal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //< div class= "row" >
- 
-        //     < div class= "col-xs-12" >
-  
-        //          < div class= "row" >
-   
-        //               < div class= "col-xs-10" >
-    
-        //                    < div class= "row" >
-     
-        //                         < div class= "xol-xs-10" >
-      
-        //                              < asp:Label ID = "lblEventInfo" runat="server" />
-        //                    </div>
-        //                    <div class= "col-xs-2" >
-        //                        < div class= "row" style = "margin-top: 20px;" >
-  
-        //                              < div class= "col-xs-12" >
-   
-        //                                   < div class= "row" >
-    
-        //                                        < div class= "form-group" >
-     
-        //                                             < div class= "controls" >
-      
-        //                                                  < label for= "<%= lblRequest.ClientID %>" > Request </ label >
-       
-        //                                                   < asp:Label ID = "lblRequest" runat = "server" BorderWidth = "1" BorderColor = "Black" BorderStyle = "Solid" CssClass = "form-control col-xs-12" />
-       
-        //                                               </ div >
-       
-        //                                           </ div >
-       
-        //                                       </ div >
-       
-        //                                   </ div >
-       
-        //                               </ div >
-       
-        //                           </ div >
-       
-        //                       </ div >
-       
-        //                   </ div >
-       
-        //                   <% --                    < div class= "col-xs-2" >
-         
-        //                         < asp:Image ID = "imgPicture" runat="server" Width="100px" Height="100px" />
-        //            </div>--%>
-        //        </div>
-        //    </div>
-
-
-
-
 

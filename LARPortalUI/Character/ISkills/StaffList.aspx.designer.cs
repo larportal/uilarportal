@@ -33,13 +33,22 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.View vwISKillList;
 
         /// <summary>
-        /// gvISkillList control.
+        /// ddlEventName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvISkillList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEventName;
+
+        /// <summary>
+        /// gvIBSkillList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvIBSkillList;
 
         /// <summary>
         /// vwNoISkills control.

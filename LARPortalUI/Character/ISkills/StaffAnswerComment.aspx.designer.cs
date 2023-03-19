@@ -15,13 +15,58 @@ namespace LarpPortal.Character.ISkills
     {
 
         /// <summary>
-        /// lblEventInfo control.
+        /// lblEventDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEventInfo;
+        protected global::System.Web.UI.WebControls.Label lblEventDate;
+
+        /// <summary>
+        /// lblLastEventDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLastEventDate;
+
+        /// <summary>
+        /// lblSkillName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSkillName;
+
+        /// <summary>
+        /// lblSkillPurchaseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSkillPurchaseDate;
+
+        /// <summary>
+        /// lblShortSkillDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblShortSkillDesc;
+
+        /// <summary>
+        /// lblLongSkillDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLongSkillDesc;
 
         /// <summary>
         /// lblCharName control.
@@ -42,15 +87,6 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblPlayerName;
 
         /// <summary>
-        /// lblRequest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRequest;
-
-        /// <summary>
         /// ddlRequestStatus control.
         /// </summary>
         /// <remarks>
@@ -58,6 +94,42 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRequestStatus;
+
+        /// <summary>
+        /// cbDisplayStatusToUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbDisplayStatusToUser;
+
+        /// <summary>
+        /// cbDisplayResponseToUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbDisplayResponseToUser;
+
+        /// <summary>
+        /// divAlertMess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertMess;
+
+        /// <summary>
+        /// lblRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRequest;
 
         /// <summary>
         /// CKResponse control.
@@ -78,6 +150,15 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.FileUpload ulFile;
 
         /// <summary>
+        /// hlFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlFileName;
+
+        /// <summary>
         /// lblFileName control.
         /// </summary>
         /// <remarks>
@@ -85,6 +166,24 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFileName;
+
+        /// <summary>
+        /// btnDeleteAttach control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteAttach;
+
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
         /// btnSaveRequest control.
@@ -96,13 +195,13 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Button btnSaveRequest;
 
         /// <summary>
-        /// hidRegistrationID control.
+        /// hidRequestSkillID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidRegistrationID;
+        protected global::System.Web.UI.WebControls.HiddenField hidRequestSkillID;
 
         /// <summary>
         /// hidPELID control.
@@ -141,13 +240,13 @@ namespace LarpPortal.Character.ISkills
         protected global::CKEditor.NET.CKEditorControl CKEditorComment;
 
         /// <summary>
-        /// btnCancel control.
+        /// btnCancelModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Button btnCancelModal;
 
         /// <summary>
         /// btnSave control.
@@ -159,40 +258,22 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
-        /// hidCampaignCPOpportunityDefaultID control.
+        /// hidFileName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCampaignCPOpportunityDefaultID;
+        protected global::System.Web.UI.WebControls.HiddenField hidFileName;
 
         /// <summary>
-        /// hidReasonID control.
+        /// hidChangesMade control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidReasonID;
-
-        /// <summary>
-        /// hidCampaignPlayerID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCampaignPlayerID;
-
-        /// <summary>
-        /// hidCharacterID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCharacterID;
+        protected global::System.Web.UI.WebControls.HiddenField hidChangesMade;
 
         /// <summary>
         /// hidCampaignID control.
@@ -204,76 +285,40 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
 
         /// <summary>
-        /// hidCharacterAKA control.
+        /// lblFileToDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidCharacterAKA;
+        protected global::System.Web.UI.WebControls.Label lblFileToDelete;
 
         /// <summary>
-        /// hidEventID control.
+        /// btnYesDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidEventID;
+        protected global::System.Web.UI.WebControls.Button btnYesDelete;
 
         /// <summary>
-        /// hidEventDesc control.
+        /// btnNoDelete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidEventDesc;
+        protected global::System.Web.UI.WebControls.Button btnNoDelete;
 
         /// <summary>
-        /// hidPELNotificationEMail control.
+        /// hidWhichDisplayed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidPELNotificationEMail;
-
-        /// <summary>
-        /// hidEventDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidEventDate;
-
-        /// <summary>
-        /// hidPlayerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidPlayerName;
-
-        /// <summary>
-        /// hidSubmitDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidSubmitDate;
-
-        /// <summary>
-        /// hidAuthorName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidAuthorName;
+        protected global::System.Web.UI.WebControls.HiddenField hidWhichDisplayed;
 
         /// <summary>
         /// Master property.

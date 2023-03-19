@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="StaffList.aspx.cs" Inherits="LarpPortal.Character.ISkills.StaffList" %>
+﻿<%@ Page Title="In-between Skills Staff List" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="StaffList.aspx.cs" Inherits="LarpPortal.Character.ISkills.StaffList" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>In-between Game Skills</h1>
+                    <h1>Information Skills</h1>
                 </div>
             </div>
         </div>
@@ -29,19 +29,44 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">In-Between Skills</div>
                             <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-inline">
+<%--                                            <div class="form-group">
+                                                <label for="<%= ddlEventDate.ClientID %>" style="padding-left: 10px;">Event Date: </label>
+                                                <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlEventDate_SelectedIndexChanged" />
+                                            </div>--%>
+                                            <div class="form-group">
+                                                <label for="<%= ddlEventName.ClientID %>" style="padding-left: 10px;">Event Name: </label>
+                                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlEventName_SelectedIndexChanged" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div style="max-height: 500px; overflow-y: auto;">
-                                    <asp:GridView ID="gvISkillList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvISkillList_RowCommand" GridLines="None"
+                                    <asp:GridView ID="gvIBSkillList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvIBSkillList_RowCommand" GridLines="None"
+                                        OnSorting="gvIBSkillList_Sorting" AllowSorting="true"
                                         CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Outset" BorderWidth="1">
                                         <Columns>
-                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
-                                            <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
-                                            <asp:BoundField DataField="BreadcrumbsText" HeaderText="Skill" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
-                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle" />
-                                            <asp:BoundField DataField="StatusName" HeaderText="User Status" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="StaffStatus" HeaderText="Staff Status" />
+                                            <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="CharName" />
+                                            <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="EventName" />
+                                            <asp:BoundField DataField="EventDate" HeaderText="Event Date" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="EventDate" DataFormatString="{0: MM/dd/yyyy}" />
+                                            <asp:BoundField DataField="BreadcrumbsText" HeaderText="Skill" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="BreadcrumbsText" />
+                                            <asp:BoundField DataField="PlayerName" HeaderText="Player Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="PlayerName" />
+                                            <asp:BoundField DataField="DateSubmitted" HeaderText="Date Submitted" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
+                                                SortExpression="DateSubmitted" DataFormatString="{0: MM/dd/yyyy}" />
+                                            <asp:BoundField DataField="StatusName" HeaderText="User Status" HeaderStyle-Wrap="false" SortExpression="StatusName" />
+                                            <asp:BoundField DataField="StaffStatus" HeaderText="Staff Status" SortExpression="StaffStatus" />
                                             <asp:TemplateField ItemStyle-CssClass="text-right" ItemStyle-VerticalAlign="Middle">
                                                 <ItemTemplate>
-                                                    <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("ISkillRequestID") %>' CommandName='<%# Eval("ButtonText") %>Item'
+                                                    <asp:Button ID="btnCommand" runat="server" CommandArgument='<%# Eval("IBSkillRequestID") %>' CommandName='<%# Eval("ButtonText") %>Item'
                                                         Text='<%# Eval("ButtonText") %>' CssClass="btn btn-primary btn-xs LeftRightPadding10" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>

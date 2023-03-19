@@ -124,6 +124,9 @@ namespace LarpPortal
 				Session["SecurityRole"] = 0;
 				lblInvalidLogin.Visible = true;
 				Login.LoginFail(tbUserName.Text, tbPassword.Text);
+
+				if (Request.QueryString["Username"] != null)
+					Response.Redirect("index.aspx", true);
 			}
 			else
 			{

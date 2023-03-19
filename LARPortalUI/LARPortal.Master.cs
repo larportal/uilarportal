@@ -430,7 +430,7 @@ namespace LarpPortal
             liDonations.Style.Add("display", "none");
 
             liModifySkills.Style.Add("display", "none");
-            liIBSkills.Style.Add("display", "none");
+//            liIBSkills.Style.Add("display", "none");
 
             bool bSuperUser = false;
             if (Session["SuperUser"] != null)
@@ -599,8 +599,37 @@ namespace LarpPortal
 
             if (bSuperUser)
             {
-                liIBSkills.Style.Add("display", "block");
+//                liIBSkills.Style.Add("display", "block");
             }
+
+            Session.Remove("HasInbetweenSkills");
+
+            int CampaignID;
+
+            liIBSkills.Visible = false;
+            liIBGSMain.Visible = false;
+
+            if (int.TryParse(ddlCampaigns.SelectedValue, out CampaignID))
+            {
+                DataView dvCampInfo = new DataView(dtCampaignList, "CampaignID = " + ddlCampaigns.SelectedValue, "", DataViewRowState.CurrentRows);
+                if (dvCampInfo != null)
+                    if (dvCampInfo[0]["HasInbetweenSkills"].ToString() != "0")
+                    {
+                        Session["HasInbetweenSkills"] = "Y";
+                        liIBSkills.Visible = true;
+                        if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
+                            (bSuperUser))
+                            liIBGSMain.Visible = true;
+                    }
+            }
+
+
+
+
+
+
+
+
 
             SortedList sParams = new SortedList();
             sParams.Add("@intUserID", UserID);
@@ -631,11 +660,13 @@ namespace LarpPortal
             DataTable dtCampList = new DataTable();
             dtCampList.Columns.Add("CampaignID", typeof(int));
             dtCampList.Columns.Add("CampaignName", typeof(string));
+            dtCampList.Columns.Add("HasInbetweenSkills", typeof(int));
             foreach (Classes.cUserCampaign Camp in ListOfCamp)
             {
                 DataRow NewRow = dtCampList.NewRow();
                 NewRow["CampaignID"] = Camp.CampaignID;
                 NewRow["CampaignName"] = Camp.CampaignName;
+                NewRow["HasInbetweenSkills"] = Camp.HasInbetweenSkills;
                 dtCampList.Rows.Add(NewRow);
             }
 

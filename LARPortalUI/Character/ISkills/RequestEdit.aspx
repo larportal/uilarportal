@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="RequestEdit.aspx.cs" Inherits="LarpPortal.Character.ISkills.RequestEdit" %>
+﻿<%@ Page Title="In-between Skills Request" Language="C#" MasterPageFile="~/LARPortal.master" EnableEventValidation="false"
+    AutoEventWireup="true" CodeBehind="RequestEdit.aspx.cs" Inherits="LarpPortal.Character.ISkills.RequestEdit" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
@@ -18,6 +19,23 @@
             $('#modalRequestSaved').modal('show');
         }
 
+        function toggleSkillDesc() {
+            var Long = document.getElementById("<%= lblLongSkillDesc.ClientID %>");
+            var WhichDisplayed = document.getElementById("<%= hidWhichDisplayed.ClientID %>");
+            var DisplayButton = document.getElementById("toggleButton");
+            if (WhichDisplayed.value == "S") {
+                Long.style.display = "block";
+                WhichDisplayed.value = "L";
+                DisplayButton.innerText = "Hide Long Description";
+            }
+            else {
+                Long.style.display = "none";
+                WhichDisplayed.value = "S";
+                DisplayButton.innerText = "Display Long Description";
+            }
+            return false;
+        }
+
     </script>
 </asp:Content>
 
@@ -27,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-background-image">
-                        <h1>In-Between Event Skills</h1>
+                        <h1>In-Between Event Skills - Info</h1>
                     </div>
                 </div>
             </div>
@@ -42,8 +60,20 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <b>Skill name:</b>
+                    <b>Skill Name:</b>
                     <asp:Label ID="lblSkillName" runat="server" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <b>Skill Description:</b>
+                    <asp:Label ID="lblShortSkillDesc" runat="server" />
+                    <button type="button" id="toggleButton" name="toggleButton" onclick="toggleSkillDesc();" class="btn btn-xs btn-info">Display Full Description</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <asp:Label ID="lblLongSkillDesc" runat="server" />
                 </div>
             </div>
             <div class="row" style="margin-top: 20px;">
@@ -65,8 +95,6 @@
                     <asp:Button ID="btnSave" Text="Save" runat="server" CssClass="btn btn-success" OnCommand="btnSubmitSave_Command" CommandName="SAVE" />
                 </div>
             </div>
-            <asp:HiddenField ID="hidRegID" runat="server" />
-            <asp:HiddenField ID="hidNodeID" runat="server" />
         </div>
 
         <div class="modal fade in" id="modalRequestSaved" role="dialog">
@@ -92,5 +120,11 @@
                 </div>
             </div>
         </div>
+        <asp:HiddenField ID="hidSkillRequestID" runat="server" />
+        <asp:HiddenField ID="hidRegistrationID" runat="server" />
+        <asp:HiddenField ID="hidSkillNodeID" runat="server" />
+        <asp:HiddenField ID="hidViewOnly" runat="server" />
+        <asp:HiddenField ID="hidSkillSetID" runat="server" />
+        <asp:HiddenField ID="hidWhichDisplayed" runat="server" />
     </div>
 </asp:Content>
