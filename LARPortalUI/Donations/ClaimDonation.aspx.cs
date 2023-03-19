@@ -252,6 +252,7 @@ namespace LarpPortal.Donations
             Classes.cDonation Claim = new Classes.cDonation();
             Claim.SaveDonationClaims(Master.UserID, DonationClaimID, DonationID, PlayerEarningCP, Qty, RegistrationID, CPOppID, PlayerComments,
                StaffComments, DeliveryMethod, PlayerEarningCP, ReceiptDate, AcceptedBy, Comments);
+            Claim.UpdateDonationStatus(DonationID, Master.CampaignID, "Partially Claimed/Received");
 
         }
 

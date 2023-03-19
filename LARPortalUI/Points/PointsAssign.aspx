@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="PointsAssign.aspx.cs" Inherits="LarpPortal.Points.PointsAssign" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Title="Assign Points" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="PointsAssign.aspx.cs" Inherits="LarpPortal.Points.PointsAssign" MaintainScrollPositionOnPostback="true" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
@@ -59,19 +59,6 @@
                     background: #D1D3D4;
                     border-radius: 3px 0 0 3px;
                 }
-
-        /*.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-        .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-            color: #888;
-        }
-
-            .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-            .funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-                font-family: FontAwesome;
-                content: '\2714';
-                text-indent: .9em;
-                color: #C2C2C2;
-            }*/
 
         .funkyradio input[type="radio"]:checked ~ label,
         .funkyradio input[type="checkbox"]:checked ~ label {
@@ -147,6 +134,7 @@
         function openModalMessage() {
             $('#ModalMessage').modal('show');
         }
+
     </script>
 
 </asp:Content>
@@ -196,7 +184,9 @@
                         <div class="row">
                             <asp:UpdatePanel ID="upnlAssignAll" runat="server">
                                 <ContentTemplate>
-                                    <asp:Button ID="btnAssignAll" runat="server" Visible="true" CssClass="btn btn-primary" Text="Assign All" OnClick="btnAssignAll_Click" />
+                                    <asp:Button ID="btnAssignAll" runat="server" Visible="true" CssClass="btn btn-primary" Text="Assign All"
+                                        OnClick="btnAssignAll_Click"
+                                        OnClientClick="if ( !confirm('Are you sure you want to apply all opportunities currently displayed? This action can NOT be undone. ')) return false;" />
                                     <asp:Label ID="lblAssignAll" runat="server" Visible="false" CssClass="margin10" Text="Please wait" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -211,7 +201,7 @@
                 <div class="col-sm-6 text-left margin10">
                     <label for="<%= ddlPointType.ClientID %>">Point/Reward Type: </label>
                     <asp:DropDownList ID="ddlPointType" runat="server" CssClass="form-control autoWidth" AutoPostBack="true" OnSelectedIndexChanged="ddlPointType_SelectedIndexChanged" />
-                    </div>
+                </div>
                 <div class="col-sm-6 text-right margin10">
                     <asp:Button ID="btnAssignExisting" runat="server" CssClass="btn btn-primary" Text="Assign View" ToolTip="Switch to assign view to assign existing point opportunities"
                         OnClick="btnAssignExisting_Click" />
@@ -230,31 +220,30 @@
                                 <asp:GridView ID="gvPoints" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
                                     OnRowCancelingEdit="gvPoints_RowCancelingEdit" OnRowEditing="gvPoints_RowEditing" OnRowUpdating="gvPoints_RowUpdating"
                                     OnRowUpdated="gvPoints_RowUpdated" OnRowDeleting="gvPoints_RowDeleting" OnRowDataBound="gvPoints_RowDataBound"
-                                    CssClass="table table-striped table-hover table-condensed" 
-                                    AllowSorting="true" OnSorting="gvPoints_Sorting" >
+                                    CssClass="table table-striped table-hover table-condensed"
+                                    AllowSorting="true" OnSorting="gvPoints_Sorting">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Date"  ItemStyle-Wrap="true" SortExpression="EventDate" >
+                                        <asp:TemplateField HeaderText="Date" ItemStyle-Wrap="true" SortExpression="EventDate">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEventDate" runat="server" Text='<%# Eval("EventDate") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Event" ItemStyle-Wrap="true" SortExpression="EventName" >
+                                        <asp:TemplateField HeaderText="Event" ItemStyle-Wrap="true" SortExpression="EventName">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEventName" runat="server" Text='<%# Eval("EventName") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <%--<asp:BoundField HeaderText="Player Name" ItemStyle-Wrap="true" DataField="PlayerName" ReadOnly="true" />--%>
-                                        <asp:TemplateField HeaderText="Last Name"  ItemStyle-Wrap="true" SortExpression="PlayerLN" >
+                                        <asp:TemplateField HeaderText="Last Name" ItemStyle-Wrap="true" SortExpression="PlayerLN">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPlayerLN" runat="server" Text='<%# Eval("PlayerLN") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="First Name"  ItemStyle-Wrap="true" SortExpression="PlayerFN" >
+                                        <asp:TemplateField HeaderText="First Name" ItemStyle-Wrap="true" SortExpression="PlayerFN">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPlayerFN" runat="server" Text='<%# Eval("PlayerFN") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Character Name"  ItemStyle-Wrap="true" SortExpression="CharacterAKA" >
+                                        <asp:TemplateField HeaderText="Character Name" ItemStyle-Wrap="true" SortExpression="CharacterAKA">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCharacterAKA" runat="server" Text='<%# Eval("CharacterAKA") %>' />
                                             </ItemTemplate>
@@ -263,9 +252,7 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEarnDescription" runat="server" Text='<%# Eval("Description") %>' />
                                             </ItemTemplate>
-<%--                                            <EditItemTemplate>
-                                                <asp:TextBox ID="tbEarnDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="form-control"></asp:TextBox>
-                                            </EditItemTemplate>--%>
+                                            
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Value" ItemStyle-Wrap="true">
                                             <ItemTemplate>
@@ -279,18 +266,9 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblNPCCampaignName" runat="server" Text='<%# Eval("NPCCampaignName") %>' />
                                             </ItemTemplate>
-<%--                                            <EditItemTemplate>
-                                                <asp:TextBox ID="tbNPCCampaignName" runat="server" Visible="true" Text='<%# Eval("NPCCampaignName") %>' CssClass="form-control" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" />
-                                            </EditItemTemplate>--%>
+                                            
                                         </asp:TemplateField>
-<%--                                        <asp:TemplateField HeaderText="Staff Comments">
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblStaffComments" runat="server" Visible="false" Text='<%# Eval("StaffComments") %>' />
-                                            </ItemTemplate>
-                                            <EditItemTemplate>
-                                                <asp:TextBox ID="tbStaffComments" runat="server" Visible="true" Text='<%# Eval("StaffComments") %>' CssClass="form-control" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" />
-                                            </EditItemTemplate>
-                                        </asp:TemplateField>--%>
+                                        
                                         <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="right" ItemStyle-Width="0px">
                                             <ItemTemplate>
                                                 <asp:HiddenField ID="hidReceiptDate" runat="server" Value='<%# Eval("ReceiptDate") %>' />
@@ -741,9 +719,9 @@
                             </div>
 
                             <div class="row">
-                                    <div class="col-lg-12 col-xs-2 text-right">
-                                        <asp:Label ID="lblFieldRequired" runat="server" Visible="false"></asp:Label>
-                                    </div>
+                                <div class="col-lg-12 col-xs-2 text-right">
+                                    <asp:Label ID="lblFieldRequired" runat="server" Visible="false"></asp:Label>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -814,7 +792,8 @@
         <asp:Panel ID="pnlCharacterNonCPDisplay" runat="server" Visible="false">
             <asp:Label ID="Label1" runat="server" Font-Size="24px" Style="font-weight: 500" Text="" />
             <div class="panel panel-default">
-                <div class="panel-heading"><asp:Label ID="lblTotalNonCP" runat="server" Text="Total Points"></asp:Label></div>
+                <div class="panel-heading">
+                    <asp:Label ID="lblTotalNonCP" runat="server" Text="Total Points"></asp:Label></div>
                 <div class="panel-body">
                     <div class="col-xs-12">
                         <div class="row">
@@ -828,7 +807,7 @@
                                         <asp:BoundField DataField="ReceiptDate" HeaderText="Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="ReasonDescription" HtmlEncode="true" HeaderText="Reason" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="AdditionalNotes" HtmlEncode="true" HeaderText="Staff Only Comments" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
-                                        <asp:BoundField DataField="ApprovingStaffer" HeaderText="Added By" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />  
+                                        <asp:BoundField DataField="ApprovingStaffer" HeaderText="Added By" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                     </Columns>
                                 </asp:GridView>
                             </div>

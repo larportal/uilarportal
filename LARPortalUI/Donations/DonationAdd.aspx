@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="True" CodeBehind="DonationAdd.aspx.cs" Inherits="LarpPortal.Donations.DonationAdd" %>
+﻿<%@ Page Title="Add New Donations" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="True" CodeBehind="DonationAdd.aspx.cs" Inherits="LarpPortal.Donations.DonationAdd" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 

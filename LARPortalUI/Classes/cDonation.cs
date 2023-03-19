@@ -510,6 +510,28 @@ namespace LarpPortal.Classes
             set { _Worth = value; }
         }
 
+        public void UpdateDonationStatus(int DonationID, int CampaignID, string StatusDescription)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+            string stCallingMethod = "cDonation.cs.UpdateDonationStatus";
+            string stStoredProc = "uspUpdateDonationStatus";
+            SortedList sParams = new SortedList();
+            sParams.Add("@DonationID", DonationID);
+            sParams.Add("@CampaignID", CampaignID);
+            sParams.Add("@StatusDescription", StatusDescription);
+            try
+            {
+                cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
+            }
+            catch (Exception ex)
+            {
+                ErrorAtServer lobjError = new ErrorAtServer();
+                lobjError.ProcessError(ex, lsRoutineName, _UserName + lsRoutineName);
+            }
+
+        }
+
         public Boolean SaveDonationClaims(int UserID, int DonationClaimID, int DonationID, int CampaignPlayerID, int Qty, int RegID, int CPOppID,
             string PlayerComments, string StaffComments, string DeliveryMethod, int AwardedTo, DateTime dtAccepted, int AcceptedBy, string Comments)
         {
@@ -554,6 +576,7 @@ namespace LarpPortal.Classes
                 blnReturn = false;
             }
             return blnReturn;
+
         }
 
         public void UpdateOpportunityWithClaim(int OpportunityID, int ClaimID, int UserID)
@@ -566,8 +589,15 @@ namespace LarpPortal.Classes
             SortedList sParams = new SortedList();
             sParams.Add("@CPOpportunityID", OpportunityID);
             sParams.Add("@DonationClaimID", ClaimID);
-            cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
-
+            try
+            {
+                cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", UserID.ToString());
+            }
+            catch (Exception ex)
+            {
+                ErrorAtServer lobjError = new ErrorAtServer();
+                lobjError.ProcessError(ex, lsRoutineName, _UserName + lsRoutineName);
+            }
         }
 
         public DataTable GetDonationClaims(int UserID, int DonationID, int? PlayerID = null)
