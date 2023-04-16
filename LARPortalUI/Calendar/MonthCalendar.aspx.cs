@@ -20,9 +20,7 @@ namespace LarpPortal.Calendar
         const int _INFO_SKILLS_DUE = 5;
         const int _PEL_DUE = 6;
 
-        const string _EVENT_BACKGROUND_COLOR = "blue";
-
-        string[] DateLabels = new string[] { "Event", "REG Opens", "REG Closes", "$ Due", "PRE Reg", "Info Due", "PEL Due" };
+        readonly string[] DateLabels = new string[] { "Event", "REG Opens", "REG Closes", "$ Due", "PRE Reg", "Info Due", "PEL Due" };
 
         private class DateWithDescription
         {

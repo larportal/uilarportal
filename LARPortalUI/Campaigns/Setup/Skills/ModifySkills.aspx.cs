@@ -16,7 +16,6 @@ namespace LarpPortal.Campaigns.Setup.Skills
     public partial class ModifySkills : System.Web.UI.Page
     {
         protected DataTable _dtCampaignSkills = new DataTable();
-        private bool _Reload = false;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -38,7 +37,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-            if ((!IsPostBack) || (_Reload))
+            if (!IsPostBack)
             {
                 MasterPage_CampaignChanged(null, null);
             }

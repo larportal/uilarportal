@@ -156,7 +156,6 @@ namespace LarpPortal.Donations
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DropDownList ddlEventsNoDonations = (e.Row.FindControl("ddlEventsNoDonations") as DropDownList);
-                string stCallingMethod = "SetupDonations.gvEventList_RowDataBound";
                 string stStoredProc = "uspGetEventsWODonationListsForCampaign";
 
                 MethodBase lmth = MethodBase.GetCurrentMethod();

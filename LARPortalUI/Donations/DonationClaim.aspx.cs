@@ -201,15 +201,7 @@ namespace LarpPortal.Donations
             bool IsNPCEvent = Master.RoleString.Contains("/7/");
             bool IsPermNPC = Master.RoleString.Contains("/6/");
             bool IsPlayerNPC = Master.RoleString.Contains("/10/");
-            bool IsNPC;
-            if (IsNPCEvent || IsPermNPC || IsPlayerNPC)
-            {
-                IsNPC = true;
-            }
-            else
-            {
-                IsNPC = false;
-            }
+
             bool Role4 = Master.RoleString.Contains("/4/");
             bool Role14 = Master.RoleString.Contains("/14/");
             bool Role16 = Master.RoleString.Contains("/16/");

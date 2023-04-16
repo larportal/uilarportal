@@ -514,7 +514,6 @@ namespace LarpPortal.Classes
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-            string stCallingMethod = "cDonation.cs.UpdateDonationStatus";
             string stStoredProc = "uspUpdateDonationStatus";
             SortedList sParams = new SortedList();
             sParams.Add("@DonationID", DonationID);
@@ -584,7 +583,6 @@ namespace LarpPortal.Classes
 
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-            string stCallingMethod = "cDonation.cs.UpdateOpportunityWithClaim";
             string stStoredProc = "uspUpdateOpportunityWithDonationClaim";
             SortedList sParams = new SortedList();
             sParams.Add("@CPOpportunityID", OpportunityID);
@@ -718,7 +716,6 @@ namespace LarpPortal.Classes
         {
 
             string stStoredProc = "uspInsUpdCMDonations";
-            string stCallingMethod = "cDonation.uspInsUpdCMDonations";
             SortedList slParameters = new SortedList();
             slParameters.Add("@UserID", UserID);
             slParameters.Add("@DonationID", DonationID);
