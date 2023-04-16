@@ -8,9 +8,12 @@
 <asp:Content ID="CharSkillsScripts" ContentPlaceHolderID="MainScripts" runat="Server">
     <script type="text/javascript">
         function postBackByObject() {
+            var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
+            if (hidScrollPos != null) {
+                hidScrollPos.value = $get('<%=pnlTreeView.ClientID%>').scrollTop;
+            }
             var o = window.event.srcElement;
             if (o.tagName == "INPUT" && o.type == "checkbox") {
-                alert("Stop here.");
                 __doPostBack("", "");
             }
         }
@@ -18,6 +21,17 @@
         function openMessage() {
             $('#modalMessage').modal('show');
         }
+
+        function scrollTree() {
+            var pnlTreeView = document.getElementById('<%=pnlTreeView.ClientID%>');
+            var hidScrollPos = document.getElementById('<%= hidScrollPos.ClientID%>');
+            if (hidScrollPos != null) {
+                pnlTreeView.scrollTop = hidScrollPos.value;
+            }
+        }
+
+
+
     </script>
 </asp:Content>
 
@@ -32,8 +46,6 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <%--                <asp:UpdatePanel ID="upSkill" runat="server">
-                    <ContentTemplate>--%>
                 <div class="row">
                     <div class="col-xs-5 col-lg-3">
                         <asp:Panel ID="pnlTreeView" runat="server" ScrollBars="Auto" Height="450px">
@@ -77,18 +89,6 @@
                                 <asp:TextBox ID="tbIncant" runat="server" CssClass="form-control" />
                             </div>
                         </div>
-
-                        <%--                                <div class="row" style="visibility: hidden;">
-                                    <div class="col-xs-4">
-                                        <label for="<%= ddlPoolName.ClientID %>">Node Point Pool Name</label>
-                                        <asp:DropDownList ID="ddlPoolName" runat="server" CssClass="form-control" />
-                                    </div>
-                                    <div class="col-xs-4" style="padding-left: 0px;">
-                                        <label for="<%= tbSkillCost.ClientID %>">Node Skill Cost</label>
-                                        <asp:TextBox ID="tbSkillCost" runat="server" CssClass="form-control" />
-                                    </div>
-                                </div>--%>
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <p class="text-right">
@@ -124,8 +124,6 @@
                         </div>
                     </div>
                 </div>
-                <%--                    </ContentTemplate>
-                </asp:UpdatePanel>--%>
             </div>
         </div>
         <div id="push"></div>

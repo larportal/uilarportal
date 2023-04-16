@@ -133,6 +133,18 @@ namespace LarpPortal.Character.ISkills
                     btnSave.Visible = true;
                     btnSubmit.Visible = true;
                 }
+                bool bDisplayResponseToPlayer = false;
+                pnlStaffResponse.Visible = false;
+                if (bool.TryParse(dr["DisplayResponseToPlayer"].ToString(), out bDisplayResponseToPlayer))
+                {
+                    if (bDisplayResponseToPlayer)
+                    {
+                        litStaffResponse.Text = dr["ResponseText"].ToString();
+                        pnlStaffResponse.Visible = true;
+                    }
+                }
+                else
+                    pnlStaffResponse.Visible = false;
             }
         }
 

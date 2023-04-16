@@ -640,7 +640,7 @@ namespace LarpPortal
             SortedList sPrivParams = new SortedList();
             sPrivParams.Add("@UserID", UserID);
             sPrivParams.Add("@CampaignID", ddlCampaigns.SelectedValue);
-            DataTable dtPrivs = Classes.cUtilities.LoadDataTable("prUserHasPlotPriv", sPrivParams, "LARPortal", UserName, lsRoutineName + ".LoadData.GetPlotPriv");
+            DataTable dtPrivs = Classes.cUtilities.LoadDataTable("uspUserHasPlotPriv", sPrivParams, "LARPortal", UserName, lsRoutineName + ".LoadData.GetPlotPriv");
 
             if ((dvCampChar.Count == 0) &&
                 (dtPrivs.Rows.Count == 0))

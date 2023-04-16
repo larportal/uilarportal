@@ -42,6 +42,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
             {
                 MasterPage_CampaignChanged(null, null);
             }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "temp", "<script language='javascript'>scrollTree();</script>", false);
         }
 
         private void PopulateTreeView(int parentId, TreeNode parentNode)

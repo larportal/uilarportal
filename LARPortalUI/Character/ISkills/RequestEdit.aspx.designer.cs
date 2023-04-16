@@ -96,6 +96,24 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
+        /// pnlStaffResponse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlStaffResponse;
+
+        /// <summary>
+        /// litStaffResponse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litStaffResponse;
+
+        /// <summary>
         /// lblmodalMessage control.
         /// </summary>
         /// <remarks>

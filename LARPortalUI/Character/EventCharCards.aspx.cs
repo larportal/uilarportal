@@ -21,7 +21,7 @@ namespace LarpPortal.Character
                 int iEventID = 0;
                 if (int.TryParse(Request.QueryString["EventID"], out iEventID))
                     sParams.Add("@EventID", iEventID);
-                sProcedureName = "prGetCharactersForEvent";
+                sProcedureName = "uspGetCharactersForEvent";
             }
             else if (Request.QueryString["CampaignID"] != null)
             {

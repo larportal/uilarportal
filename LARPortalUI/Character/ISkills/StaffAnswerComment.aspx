@@ -5,6 +5,7 @@
 <%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
 
 <asp:Content ID="PELApproveStyles" ContentPlaceHolderID="MainStyles" runat="Server">
+    <style>
     .glow-button {
   position:relative;
 }
@@ -33,7 +34,7 @@
     border-radius: 4px;
 }
 
-
+</style>
 </asp:Content>
 <asp:Content ID="PELApproveScripts" ContentPlaceHolderID="MainScripts" runat="Server">
 
@@ -54,11 +55,7 @@
 
         function ChangeButton() {
             var cbDisplayToUser = document.getElementById("<%= cbDisplayStatusToUser.ClientID %>");
-            alert(cbDisplayToUser);
             cbDisplayToUser.checked = false;
-            alert("Here");
-            $.jQueryFunction();
-            alert(cbDisplayToUser.checked);
         }
 
         function toggleSkillDesc() {
@@ -78,6 +75,9 @@
             return false;
         }
 
+            function openMessage() {
+                $('#modalMessage').modal('show');
+        }
 
 
     </script>
@@ -89,14 +89,14 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1>In-between Skill Request - Staff Edit</h1>
+                <h1>In-between Info Skill Request - Staff Edit</h1>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="row">
-                    <div class="col-xs-12 col-lg-8">
+                    <div class="col-xs-12 col-lg-12">
                         <div class="row">
                             <div class="col-xs-12 col-lg-6">
                                 <label for="<%= lblEventDate.ClientID %>">Event Date:</label>
@@ -107,6 +107,14 @@
                                 <asp:Label ID="lblLastEventDate" runat="server" />
                             </div>
                             <div class="col-xs-12 col-lg-6">
+                                <label for="<%= lblCharName.ClientID %>">Character Name:</label>
+                                <asp:Label ID="lblCharName" runat="server" />
+                            </div>
+                            <div class="col-xs-12 col-lg-6">
+                                <label for="<%= lblPlayerName.ClientID %>">Player Name:</label>
+                                <asp:Label ID="lblPlayerName" runat="server" />
+                            </div>
+                           <div class="col-xs-12 col-lg-6">
                                 <label for="<%= lblSkillName.ClientID %>">Skill Name:</label>
                                 <asp:Label ID="lblSkillName" runat="server" />
                             </div>
@@ -122,17 +130,11 @@
                             <div class="col-xs-12">
                                 <asp:Label ID="lblLongSkillDesc" runat="server" />
                             </div>
-                            <div class="col-xs-12 col-lg-6">
-                                <label for="<%= lblCharName.ClientID %>">Character Name:</label>
-                                <asp:Label ID="lblCharName" runat="server" />
-                            </div>
-                            <div class="col-xs-12 col-lg-6">
-                                <label for="<%= lblPlayerName.ClientID %>">Player Name:</label>
-                                <asp:Label ID="lblPlayerName" runat="server" />
-                            </div>
-
+ 
                             <div class="col-lg-12 col-xs-12" style="padding-top: 25px;">
                                 <div class="">
+                                    <label for="<%= ddlAssignedTo.ClientID %>">Assigned To: </label>
+                                    <asp:DropDownList ID="ddlAssignedTo" runat="server" />&nbsp;&nbsp;
                                     <label for="<%= ddlRequestStatus.ClientID %>">Request Status: </label>
                                     <asp:DropDownList ID="ddlRequestStatus" runat="server" CssClass="" />&nbsp;&nbsp;
                                     <asp:CheckBox ID="cbDisplayStatusToUser" runat="server" Text="Display Status To Player" />&nbsp;&nbsp;
@@ -141,25 +143,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-lg-4" id="divAlertMess" runat="server">
+<%--                    <div class="col-xs-12 col-lg-4" id="divAlertMess" runat="server">
                         <div class="row text-center">
                             <span class="alert-danger text-center">This skill was purchased after the event. Dependng on the games rules you may or may not want to allow this request.</span>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
-                <div class="row">
+                <div class="row" style="padding-top: 10px;">
                     <div class="col-xs-12">
-                        <label for="<%= lblRequest.ClientID %>">Request</label>
-                        <asp:Label ID="lblRequest" runat="server" CssClass="col-xs-12" Style="border-radius: 4px;" BorderColor="LightGray" BorderStyle="Solid" BorderWidth="1" />
+                        <b>Request:</b>
+                        <asp:Label ID="lblRequest" runat="server" CssClass=""/>
                     </div>
                 </div>
                 <div class="row" style="padding-bottom: 10px;">
                     <div class="col-lg-10 col-md-6 col-xs-12">
                         <div class="form-group">
-                            <label for="<%= CKResponse.ClientID %>">Staff Official Response: <i class="fa-solid fa-circle-question" title="The person will not see this until it has been marked completed."></i></label>
-                            <CKEditor:CKEditorControl ID="CKResponse" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>
+                            <label for="<%= tbResp.ClientID %>">Staff Official Response: <i class="fa-solid fa-circle-question" title="The person will not see this until it has been marked completed."></i></label>
+                            <asp:TextBox ID="tbResp" runat="server" TextMode="MultiLine" Rows="5" CssClass="col-xs-12" />
+<%--                            <CKEditor:CKEditorControl ID="CKResponse" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>--%>
                         </div>
-                        <div class="row">
+                        <div class="row" style="display: none;">
                             <div class="col-lg-6">
                                 <asp:FileUpload ID="ulFile" runat="server" CssClass="form-control" />
                                 <asp:HyperLink ID="hlFileName" runat="server" Visible="false" Target="_blank" />
@@ -173,7 +176,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <asp:Button ID="btnCancel" Text="Cancel" runat="server" CssClass="btn btn-danger" OnClick="btnCancel_Click" />
+                        <asp:Button ID="btnCancel" Text="Return To List" runat="server" CssClass="btn btn-danger" OnClick="btnCancel_Click" />
                     </div>
                     <div class="col-lg-6">
                         <asp:Button ID="btnSaveRequest" runat="server" CssClass="btn btn-primary pull-right" OnClick="btnSaveRequest_Click" Text="Save Request" />
@@ -206,8 +209,8 @@
                 <div class="col-12">
                     <div class="form-group">
                         <div class="controls">
-                            <label for="<%= CKEditorComment.ClientID %>">Enter the comments</label>
-                            <CKEditor:CKEditorControl ID="CKEditorComment" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>
+                            <label for="<%= tbNewComment.ClientID %>">Enter the comments</label>
+                            <asp:TextBox ID="tbNewComment" runat="server" TextMode="MultiLine" Rows="5" />
                         </div>
                     </div>
                 </div>
@@ -260,9 +263,48 @@
             </div>
         </div>
 
+        <div class="modal fade in" id="modalMessage" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title text-center">In-between Info Skill Request</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <asp:Label ID="lblmodalMessage" runat="server" />
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
         <div id="push"></div>
     </div>
     <asp:HiddenField ID="hidWhichDisplayed" runat="server" />
     <!-- /#page-wrapper -->
 </asp:Content>
 
+
+
+
+
+
+
+
+
+
+
+
+<%--Style="border-radius: 4px;" BorderColor="LightGray" BorderStyle="Solid" BorderWidth="1" --%>

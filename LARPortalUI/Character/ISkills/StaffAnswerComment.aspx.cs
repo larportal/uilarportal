@@ -28,12 +28,14 @@ namespace LarpPortal.Character.ISkills
 
             if (!IsPostBack)
             {
-                SortedList sParams = new SortedList();
-                sParams.Add("@StatusType", "IBSkillStaffComments");
-                DataTable dtStatus = Classes.cUtilities.LoadDataTable("uspGetStatus", sParams, "LARPortal", Master.UserName, lsRoutineName);
-                DataView dvStatus = new DataView(dtStatus, "", "Comments", DataViewRowState.CurrentRows);
-
-//                ddlRequestStatus.Attributes.Add("onchange", "ChangeButton();");
+                //SortedList sParams = new SortedList();
+                //sParams.Add("@StatusType", "IBSkillStaffComments");
+                //sParams.Add("@CampaignID", Master.CampaignID);
+                //DataTable dtStatus = Classes.cUtilities.LoadDataTable("uspGetStatusForCampaign", sParams, "LARPortal", Master.UserName, lsRoutineName);
+                //DataView dvStatus = new DataView(dtStatus, "", "Comments", DataViewRowState.CurrentRows);
+                //ddlRequestStatus.DataSource = dvStatus;
+                //ddlRequestStatus.Items.Insert(0, "...Select Status");
+                //ddlRequestStatus.Attributes.Add("onchange", "ChangeButton();");
             }
         }
 
@@ -45,7 +47,7 @@ namespace LarpPortal.Character.ISkills
             if ((!IsPostBack) ||
                 (_Reload))
             {
-                CKResponse.Attributes.Add("placeholder", "Add comment.");
+                tbResp.Attributes.Add("placeholder", "Add comment.");
                 if (Request.QueryString["RequestSkillID"] != null)
                     hidRequestSkillID.Value = Request.QueryString["RequestSkillID"];
                 else
@@ -97,11 +99,11 @@ namespace LarpPortal.Character.ISkills
                         lblSkillPurchaseDate.Text = String.Format("{0:MM/dd/yyyy}", dtSkillPurchaseDate);
                     if (DateTime.TryParse(drSkillInfo["PrevRegEventDate"].ToString(), out dtPrevEventDate))
                         lblLastEventDate.Text = String.Format("{0:MM/dd/yyyy}", dtPrevEventDate);
-                    if (dtPrevEventDate < dtSkillPurchaseDate)
-                        divAlertMess.Visible = true;
+                    //if (dtPrevEventDate < dtSkillPurchaseDate)
+                    //    divAlertMess.Visible = true;
                     lblCharName.Text = drSkillInfo["CharName"].ToString();
                     lblPlayerName.Text = drSkillInfo["PlayerName"].ToString();
-                    CKResponse.Text = drSkillInfo["StaffResponse"].ToString();
+                    tbResp.Text = drSkillInfo["StaffResponse"].ToString();
                     hidCampaignID.Value = drSkillInfo["CampaignID"].ToString();
                     bool bChecked = false;
                     if (bool.TryParse(drSkillInfo["DisplayStaffStatusToPlayer"].ToString(), out bChecked))
@@ -131,12 +133,13 @@ namespace LarpPortal.Character.ISkills
                     int iStaffStatusID = -1;
                     int.TryParse(drSkillInfo["StaffStatusID"].ToString(), out iStaffStatusID);
                     string sCurrentStatus = drSkillInfo["StaffStatus"].ToString();
+                    string sCurrentAssignedTo = drSkillInfo["AssignedToID"].ToString();
 
                     sParams = new SortedList();
                     sParams.Add("@IBSkillID", hidRequestSkillID.Value);
                     dtComments = Classes.cUtilities.LoadDataTable("uspGetIBSkillStaffComments", sParams, "LARPortal", Master.UserName, lsRoutineName + ".GetISkillComments");
 
-                    
+
                     if (dtComments.Columns["CommentHeader"] == null)
                         dtComments.Columns.Add("CommentHeader", typeof(string));
                     if (dtComments.Columns["ShowComment"] == null)
@@ -174,6 +177,8 @@ namespace LarpPortal.Character.ISkills
                         ddlRequestStatus.DataValueField = "StatusID";
                         ddlRequestStatus.DataBind();
 
+                        bool bItemFound = false;
+
                         ddlRequestStatus.ClearSelection();
                         if (sCurrentStatus.Length == 0)
                         {
@@ -182,19 +187,55 @@ namespace LarpPortal.Character.ISkills
                         }
                         else
                         {
+                            bItemFound = false;
+                            ddlRequestStatus.SelectedIndex = 0;
                             foreach (ListItem li in ddlRequestStatus.Items)
                             {
                                 if (li.Value == iStaffStatusID.ToString())
                                 {
                                     ddlRequestStatus.ClearSelection();
                                     li.Selected = true;
+                                    bItemFound = true;
                                 }
                             }
-                            if (ddlRequestStatus.SelectedIndex < 0)
+                            if (!bItemFound)
                             {
-                                ddlRequestStatus.Items.Insert(0, new ListItem("...Select Status...", "<nothing>"));
+                                ddlRequestStatus.Items.Insert(0, new ListItem("...Select Status...", "[nothing]"));
                                 ddlRequestStatus.SelectedIndex = 0;
                             }
+                        }
+                        ddlRequestStatus.Attributes.Add("onchange", "ChangeButton();");
+
+
+
+
+                        SortedList sAvailAssigned = new SortedList();
+                        sAvailAssigned.Add("@CampaignID", hidCampaignID.Value);
+                        sAvailAssigned.Add("@RoleID", Classes.cConstants.CAMPAIGN_PLOT_4.Replace("/", ""));
+                        DataTable dtAssignedTo = cUtilities.LoadDataTable("uspGetPlayersForRole", sAvailAssigned, "LARPortal", Master.UserName, lsRoutineName + ".GetStatuses");
+                        DataView dvAssignedTo = new DataView(dtAssignedTo, "", "PlayerNameLastFirst", DataViewRowState.CurrentRows);
+                        ddlAssignedTo.DataSource = dvAssignedTo;
+                        ddlAssignedTo.DataTextField = "PlayerName";
+                        ddlAssignedTo.DataValueField = "UserID";
+                        ddlAssignedTo.DataBind();
+
+                        ddlAssignedTo.ClearSelection();
+                        ddlAssignedTo.Items.Insert(0, new ListItem("Unassign", "-1"));
+
+                        bItemFound = false;
+                        ddlAssignedTo.SelectedIndex = 0;
+                        foreach (ListItem li in ddlAssignedTo.Items)
+                        {
+                            if (li.Value == sCurrentAssignedTo.ToString())
+                            {
+                                ddlAssignedTo.ClearSelection();
+                                li.Selected = true;
+                                bItemFound = true;
+                            }
+                        }
+                        if (!bItemFound)
+                        {
+                            ddlAssignedTo.SelectedIndex = 0;
                         }
                     }
                 }
@@ -219,9 +260,10 @@ namespace LarpPortal.Character.ISkills
             SortedList sAddComment = new SortedList();
             sAddComment.Add("@RequestID", hidRequestSkillID.Value);
             sAddComment.Add("@CommenterID", Master.UserID);
-            sAddComment.Add("@StaffComments", CKEditorComment.Text);
+            sAddComment.Add("@StaffComments", tbNewComment.Text);
 
-            Classes.cUtilities.PerformNonQuery("uspInsUpdISkillStaffComments", sAddComment, "LARPortal", Master.UserName);
+            Classes.cUtilities.PerformNonQuery("uspInsUpdIBSkillStaffComments", sAddComment, "LARPortal", Master.UserName);
+
             _Reload = true;
         }
 
@@ -270,15 +312,20 @@ namespace LarpPortal.Character.ISkills
                 }
 
                 sUpdate.Add("@IBSkillRequestID", hidRequestSkillID.Value);
-                if (dRow["StaffStatusID"].ToString() != ddlRequestStatus.SelectedValue)
+                if ((dRow["StaffStatusID"].ToString() != ddlRequestStatus.SelectedValue) &&
+                    (ddlRequestStatus.SelectedValue != "-1"))
                     sUpdate.Add("@StaffStatusID", ddlRequestStatus.SelectedValue);
-                if (dRow["RequestText"].ToString() != CKResponse.Text)
-                    sUpdate.Add("@StaffResponse", CKResponse.Text);
+                if (dRow["RequestText"].ToString() != tbResp.Text)
+                    sUpdate.Add("@StaffResponse", tbResp.Text);
                 sUpdate.Add("@DisplayStaffStatusToPlayer", cbDisplayStatusToUser.Checked);
                 sUpdate.Add("@DisplayResponseToPlayer", cbDisplayResponseToUser.Checked);
+                sUpdate.Add("@AssignedToID", ddlAssignedTo.SelectedValue);
 
                 cUtilities.PerformNonQuery("uspInsUpdIBSkillRequest", sUpdate, "LARPortal", Master.UserName);
                 _Reload = true;
+
+                lblmodalMessage.Text = "The request has been saved.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
             }
         }
 

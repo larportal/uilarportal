@@ -95,6 +95,18 @@
                     <asp:Button ID="btnSave" Text="Save" runat="server" CssClass="btn btn-success" OnCommand="btnSubmitSave_Command" CommandName="SAVE" />
                 </div>
             </div>
+            <asp:Panel ID="pnlStaffResponse" runat="server" Visible="false">
+                <div class="row" style="padding-top: 15px;">
+                    <div class="col-xs-12">
+                        <b>Staff Response:</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <asp:Literal ID="litStaffResponse" runat="server" Mode="Encode" />
+                    </div>
+                </div>
+            </asp:Panel>
         </div>
 
         <div class="modal fade in" id="modalRequestSaved" role="dialog">

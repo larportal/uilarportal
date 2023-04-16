@@ -32,20 +32,30 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <div class="form-inline">
-<%--                                            <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="<%= ddlEventDate.ClientID %>" style="padding-left: 10px;">Event Date: </label>
                                                 <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="ddlEventDate_SelectedIndexChanged" />
-                                            </div>--%>
+                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                            </div>
                                             <div class="form-group">
                                                 <label for="<%= ddlEventName.ClientID %>" style="padding-left: 10px;">Event Name: </label>
                                                 <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="ddlEventName_SelectedIndexChanged" />
+                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="<%= ddlStaffStatus.ClientID %>" style="padding-left: 10px;">Staff Status: </label>
+                                                <asp:DropDownList ID="ddlStaffStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="<%= ddlAssignedTo.ClientID %>" style="padding-left: 10px;">Assigned To: </label>
+                                                <asp:DropDownList ID="ddlAssignedTo" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="max-height: 500px; overflow-y: auto;">
+                                <div style="max-height: 500px; overflow-y: auto; padding-top: 10px;">
                                     <asp:GridView ID="gvIBSkillList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvIBSkillList_RowCommand" GridLines="None"
                                         OnSorting="gvIBSkillList_Sorting" AllowSorting="true"
                                         CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Outset" BorderWidth="1">
@@ -63,6 +73,7 @@
                                             <asp:BoundField DataField="DateSubmitted" HeaderText="Date Submitted" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
                                                 SortExpression="DateSubmitted" DataFormatString="{0: MM/dd/yyyy}" />
                                             <asp:BoundField DataField="StatusName" HeaderText="User Status" HeaderStyle-Wrap="false" SortExpression="StatusName" />
+                                            <asp:BoundField DataField="AssignedTo" HeaderText="Assigned To" HeaderStyle-Wrap="false" SortExpression="AssignedToLastFirst" />
                                             <asp:BoundField DataField="StaffStatus" HeaderText="Staff Status" SortExpression="StaffStatus" />
                                             <asp:TemplateField ItemStyle-CssClass="text-right" ItemStyle-VerticalAlign="Middle">
                                                 <ItemTemplate>

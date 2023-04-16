@@ -33,6 +33,24 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblLastEventDate;
 
         /// <summary>
+        /// lblCharName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCharName;
+
+        /// <summary>
+        /// lblPlayerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerName;
+
+        /// <summary>
         /// lblSkillName control.
         /// </summary>
         /// <remarks>
@@ -69,22 +87,13 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblLongSkillDesc;
 
         /// <summary>
-        /// lblCharName control.
+        /// ddlAssignedTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCharName;
-
-        /// <summary>
-        /// lblPlayerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlayerName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignedTo;
 
         /// <summary>
         /// ddlRequestStatus control.
@@ -114,15 +123,6 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.CheckBox cbDisplayResponseToUser;
 
         /// <summary>
-        /// divAlertMess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlertMess;
-
-        /// <summary>
         /// lblRequest control.
         /// </summary>
         /// <remarks>
@@ -132,13 +132,13 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Label lblRequest;
 
         /// <summary>
-        /// CKResponse control.
+        /// tbResp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CKEditor.NET.CKEditorControl CKResponse;
+        protected global::System.Web.UI.WebControls.TextBox tbResp;
 
         /// <summary>
         /// ulFile control.
@@ -231,13 +231,13 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.Button btnAddComment;
 
         /// <summary>
-        /// CKEditorComment control.
+        /// tbNewComment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::CKEditor.NET.CKEditorControl CKEditorComment;
+        protected global::System.Web.UI.WebControls.TextBox tbNewComment;
 
         /// <summary>
         /// btnCancelModal control.
@@ -310,6 +310,24 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNoDelete;
+
+        /// <summary>
+        /// lblmodalMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmodalMessage;
+
+        /// <summary>
+        /// btnClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose;
 
         /// <summary>
         /// hidWhichDisplayed control.

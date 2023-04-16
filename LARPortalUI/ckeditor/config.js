@@ -18,7 +18,8 @@ CKEDITOR.editorConfig = function (config) {
 		{ name: 'styles', groups: ['styles'] },
 		{ name: 'colors', groups: ['colors'] },
 		{ name: 'about', groups: ['about'] }
-    ];
+	];
+	config.removePlugins = 'elementspath';
 
     config.removeButtons = 'Subscript,Superscript,RemoveFormat,Styles,Format,About,Maximize,Image,Anchor,Source';
 };

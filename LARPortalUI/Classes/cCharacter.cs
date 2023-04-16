@@ -802,6 +802,7 @@ namespace LarpPortal.Classes
                     ProfilePicture = new cPicture();
                     ProfilePicture.PictureID = iTemp;
                     ProfilePictureID = iTemp;
+                    ProfilePicture.CharacterID = CharacterID;
                     ProfilePicture.PictureFileName = dRow["PictureFileName"].ToString();
                     ProfilePicture.PictureType = cPicture.PictureTypes.Profile;
                     ProfilePicture.RecordStatus = RecordStatuses.Active;

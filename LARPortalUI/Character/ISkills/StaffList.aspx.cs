@@ -37,30 +37,33 @@ namespace LarpPortal.Character.ISkills
             string sSortField = "";
             string sSortDir = "";
             string sEventNameFilter = "";
+            string sEventDateFilter = "";
+            string sStaffStatus = "";
+            string sAssignedToFilter = "";
 
             Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
             OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath);
             foreach (Classes.cUserOption Option in OptionsLoader.UserOptionList)
             {
-                //if ((Option.ObjectName.ToUpper() == "DDLCHARACTERNAME") &&
-                //    (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
-                //    sCharacterNameFilter = Option.OptionValue;
-                //else if ((Option.ObjectName.ToUpper() == "DDLEVENTDATE") &&
-                //        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
-                //    sEventDateFilter = Option.OptionValue;
-                //else
-                if ((Option.ObjectName.ToUpper() == "DDLEVENTNAME") &&
+                if ((Option.ObjectName.ToUpper() == "DDLEVENTDATE") &&
+                    (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
+                    sEventDateFilter = Option.OptionValue;
+                else if ((Option.ObjectName.ToUpper() == "DDLEVENTNAME") &&
                         (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
                     sEventNameFilter = Option.OptionValue;
-                //else if ((Option.ObjectName.ToUpper() == "DDLSTATUS") &&
-                //        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
-                //    sPELStatusFilter = Option.OptionValue;
+                else if ((Option.ObjectName.ToUpper() == "DDLSTAFFSTATUS") &&
+                        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
+                    sStaffStatus = Option.OptionValue;
                 else if ((Option.ObjectName.ToUpper() == "GVIBSKILLLIST") &&
                         (Option.ObjectOption.ToUpper() == "SORTFIELD"))
                     sSortField = Option.OptionValue;
                 else if ((Option.ObjectName.ToUpper() == "GVIBSKILLLIST") &&
                         (Option.ObjectOption.ToUpper() == "SORTDIR"))
                     sSortDir = Option.OptionValue;
+                else if ((Option.ObjectName.ToUpper() == "DDLASSIGNEDTO") &&
+                        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
+                    sAssignedToFilter = Option.OptionValue;
+
             }
 
             if (sSortField.Length == 0)
@@ -76,11 +79,7 @@ namespace LarpPortal.Character.ISkills
 
             sParams.Add("@CampaignID", Master.CampaignID);
 
-            dtSkillList = Classes.cUtilities.LoadDataTable("uspGetSubmittedIBSkills", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetPELsForUser");
-            if (dtSkillList.Columns["EventDisplayName"] == null)
-            {
-                dtSkillList.Columns.Add("EventDisplayName", typeof(string));
-            }
+            dtSkillList = Classes.cUtilities.LoadDataTable("uspGetSubmittedIBSkills", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetSubmittedIBSkills");
 
             string sRowFilter = "";
             if (dtSkillList.Rows.Count > 0)
@@ -102,28 +101,52 @@ namespace LarpPortal.Character.ISkills
                     }
                     else
                         dRow["ShortRequest"] = dRow["RequestText"].ToString();
-                    dRow["EventDisplayName"] = dRow["EventName"].ToString();
-                    DateTime dEventDate = new DateTime();
-                    if (DateTime.TryParse(dRow["EventDate"].ToString(), out dEventDate))
-                        dRow["EventDisplayName"] = dRow["EventName"].ToString() + " - " + dEventDate.ToShortDateString();
                 }
 
                 // Now get the list of event names so the person can filter on it.
                 DataView view = new DataView(dtSkillList, "", "EventName", DataViewRowState.CurrentRows);
-                if (sEventNameFilter.ToString().Length > 0)
+                if (sEventNameFilter.Length > 0)
                     sRowFilter = "EventName = '" + sEventNameFilter.ToString().Replace("'", "''") + "'";
-                view.RowFilter = sRowFilter;
+                if (sEventDateFilter.Length > 0)
+                {
+                    if (sRowFilter.Length > 0)
+                        sRowFilter += " and ";
+                    sRowFilter += "EventDate = '" + sRowFilter + "'";
+                }
+                if (sStaffStatus.Length > 0)
+                {
+                    if (sRowFilter.Length > 0)
+                        sRowFilter += " and ";
+                    sRowFilter += "StaffStatus = '" + sStaffStatus.Replace("'", "''") + "'";
+                }
+                if ((sAssignedToFilter.Length > 0) &&
+                    (sAssignedToFilter != "-1"))
+                {
+                    if (sRowFilter.Length > 0)
+                        sRowFilter += " and ";
+                    sRowFilter += "AssignedTo = '" + sAssignedToFilter.Replace("'", "''") + "'";
+                }
 
-                DataTable dtDistinctEvents = view.ToTable(true, "EventDisplayName", "EventName");
+                view.RowFilter = sRowFilter;
+                if (view.Count == 0)
+                {
+                    view.RowFilter = "";
+                    sRowFilter = "";
+                }
+
+                DataTable dtDistinctEvents = view.ToTable(true, "EventName");
 
                 ddlEventName.DataSource = dtDistinctEvents;
-                ddlEventName.DataTextField = "EventDisplayName";
+                ddlEventName.DataTextField = "EventName";
                 ddlEventName.DataValueField = "EventName";
                 ddlEventName.DataBind();
                 ddlEventName.Items.Insert(0, new ListItem("No Filter", ""));
+
                 ddlEventName.SelectedIndex = -1;
                 if (sEventNameFilter.Length > 0)
+                {
                     foreach (ListItem li in ddlEventName.Items)
+                    {
                         if (li.Value == sEventNameFilter)
                         {
                             ddlEventName.ClearSelection();
@@ -131,12 +154,118 @@ namespace LarpPortal.Character.ISkills
                         }
                         else
                             li.Selected = false;
+                    }
+                }
                 if (ddlEventName.SelectedIndex == -1)     // Didn't find what was selected.
                     ddlEventName.SelectedIndex = 0;
 
+                DataTable dtDistinctEventsDates = view.ToTable(true, "EventDate");
+
+                //  Since there's a possibility that the date might not be a reasonable date, I'm going to build a table with the valid dates.
+                DataTable dtEventDate = new DataTable();
+                dtEventDate.Columns.Add("DisplayDate", typeof(string));
+                dtEventDate.Columns.Add("ActualDate", typeof(DateTime));
+
+                foreach (DataRow dRow in dtDistinctEventsDates.Rows)
+                {
+                    DateTime dtTemp = new DateTime();
+                    if (DateTime.TryParse(dRow["EventDate"].ToString(), out dtTemp))
+                    {
+                        DataRow dNewRow = dtEventDate.NewRow();
+                        dNewRow["DisplayDate"] = string.Format("{0:MM/dd/yyyy}", dtTemp);
+                        dNewRow["ActualDate"] = dtTemp;
+                        dtEventDate.Rows.Add(dNewRow);
+                    }
+                }
+
+                DataView dvDates = new DataView(dtEventDate, "", "ActualDate", DataViewRowState.CurrentRows);
+                ddlEventDate.DataSource = dvDates;
+                ddlEventDate.DataTextField = "DisplayDate";
+                ddlEventDate.DataValueField = "ActualDate";
+                ddlEventDate.DataBind();
+                ddlEventDate.Items.Insert(0, new ListItem("No Filter", ""));
+
+                ddlEventDate.SelectedIndex = -1;
+                if (sEventDateFilter.Length > 0)
+                {
+                    foreach (ListItem li in ddlEventDate.Items)
+                    {
+                        if (li.Value == sEventDateFilter)
+                        {
+                            ddlEventDate.ClearSelection();
+                            li.Selected = true;
+                        }
+                        else
+                            li.Selected = false;
+                    }
+                }
+                if (ddlEventDate.SelectedIndex == -1)
+                    ddlEventDate.SelectedIndex = 0;
+
+                DataTable dtStaffStatuses = view.ToTable(true, "StaffStatus");
+                DataView dvStatuses = new DataView(dtStaffStatuses, "", "StaffStatus", DataViewRowState.CurrentRows);
+                ddlStaffStatus.DataSource = dvStatuses;
+                ddlStaffStatus.DataTextField = "StaffStatus";
+                ddlStaffStatus.DataValueField = "StaffStatus";
+                ddlStaffStatus.DataBind();
+                ddlStaffStatus.Items.Insert(0, new ListItem("No Filter", ""));
+
+                ddlStaffStatus.SelectedIndex = -1;
+                if (sStaffStatus.Length > 0)
+                {
+                    foreach (ListItem li in ddlStaffStatus.Items)
+                    {
+                        //if (li.Text == "")
+                        //    li.Text = "<No Status>";
+
+                        if (li.Value == sStaffStatus)
+                        {
+                            ddlStaffStatus.ClearSelection();
+                            li.Selected = true;
+                        }
+                        else
+                            li.Selected = false;
+                    }
+                }
+                if (ddlStaffStatus.SelectedIndex == -1)
+                    ddlStaffStatus.SelectedIndex = 0;
+
+
+                DataTable dtAssignedTo = view.ToTable(true, "AssignedTo", "AssignedToID");
+
+                foreach (DataRow dRow in dtAssignedTo.Rows)
+                {
+                    if (dRow["AssignedToID"].ToString() == "0")
+                        dRow["AssignedTo"] = "Not Assigned";
+                }
+
+                ddlAssignedTo.DataSource = dtAssignedTo;
+                ddlAssignedTo.DataTextField = "AssignedTo";
+                ddlAssignedTo.DataValueField = "AssignedToID";
+                ddlAssignedTo.DataBind();
+                ddlAssignedTo.Items.Insert(0, new ListItem("No Filter", "-1"));
+
+                ddlAssignedTo.SelectedIndex = -1;
+                if (sAssignedToFilter.Length > 0)
+                {
+                    foreach (ListItem li in ddlAssignedTo.Items)
+                    {
+                        if (li.Value == sAssignedToFilter)
+                        {
+                            ddlAssignedTo.ClearSelection();
+                            li.Selected = true;
+                        }
+                        else
+                            li.Selected = false;
+                    }
+                }
+                if (ddlAssignedTo.SelectedIndex == -1)     // Didn't find what was selected.
+                    ddlAssignedTo.SelectedIndex = 0;
+
                 string sSortExp = sSortField + " " + sSortDir;
-                DataView dvPELs = new DataView(dtSkillList, sRowFilter, sSortExp, DataViewRowState.CurrentRows);       // "ActualArrivalDate desc, ActualArrivalTime desc, RegistrationID desc", DataViewRowState.CurrentRows);
-                gvIBSkillList.DataSource = dvPELs;
+                DataView dvSkills = new DataView(dtSkillList, sRowFilter, sSortExp, DataViewRowState.CurrentRows);       // "ActualArrivalDate desc, ActualArrivalTime desc, RegistrationID desc", DataViewRowState.CurrentRows);
+
+                gvIBSkillList.DataSource = dvSkills;
                 gvIBSkillList.DataBind();
 
                 DisplaySorting(sSortField, sSortDir);
@@ -227,19 +356,40 @@ namespace LarpPortal.Character.ISkills
             }
         }
 
-        protected void ddlEventName_SelectedIndexChanged(object sender, EventArgs e)
+        protected void dllFilterChanged_SelectedIndexChanged(object sender, EventArgs e)
         {
             Classes.cUserOption Option = new Classes.cUserOption();
-            Option.LoginUsername = Session["UserName"].ToString();
+            Option.LoginUsername = Master.UserName;
             Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
             Option.ObjectName = "ddlEventName";
             Option.ObjectOption = "SelectedValue";
             Option.OptionValue = ddlEventName.SelectedValue;
             Option.SaveOptionValue();
 
-            //			ViewState["EventName"] = ddlEventName.SelectedValue;
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlEventDate";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlEventDate.SelectedValue;
+            Option.SaveOptionValue();
+
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlStaffStatus";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlStaffStatus.SelectedValue;
+            Option.SaveOptionValue();
+
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlAssignedTo";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlAssignedTo.SelectedValue;
+            Option.SaveOptionValue();
+
         }
-
-
     }
 }
