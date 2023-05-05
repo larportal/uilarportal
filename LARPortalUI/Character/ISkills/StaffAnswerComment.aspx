@@ -6,35 +6,35 @@
 
 <asp:Content ID="PELApproveStyles" ContentPlaceHolderID="MainStyles" runat="Server">
     <style>
-    .glow-button {
-  position:relative;
-}
-.glow-button::before {
-  content:"";
-  position:absolute;
-  z-index:-1;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:inherit;
-  filter:blur(15px);
-  transition:0.5s;
-}
+        .glow-button {
+            position: relative;
+        }
 
-.glow-button:focus::before {
-   filter:blur(1px);
-}
+            .glow-button::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: inherit;
+                filter: blur(15px);
+                transition: 0.5s;
+            }
 
-.btn-lg {
-  margin: 1em;
-}
+            .glow-button:focus::before {
+                filter: blur(1px);
+            }
 
-.radius {
-    border-radius: 4px;
-}
+        .btn-lg {
+            margin: 1em;
+        }
 
-</style>
+        .radius {
+            border-radius: 4px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="PELApproveScripts" ContentPlaceHolderID="MainScripts" runat="Server">
 
@@ -75,8 +75,8 @@
             return false;
         }
 
-            function openMessage() {
-                $('#modalMessage').modal('show');
+        function openMessage() {
+            $('#modalMessage').modal('show');
         }
 
 
@@ -114,7 +114,7 @@
                                 <label for="<%= lblPlayerName.ClientID %>">Player Name:</label>
                                 <asp:Label ID="lblPlayerName" runat="server" />
                             </div>
-                           <div class="col-xs-12 col-lg-6">
+                            <div class="col-xs-12 col-lg-6">
                                 <label for="<%= lblSkillName.ClientID %>">Skill Name:</label>
                                 <asp:Label ID="lblSkillName" runat="server" />
                             </div>
@@ -130,7 +130,7 @@
                             <div class="col-xs-12">
                                 <asp:Label ID="lblLongSkillDesc" runat="server" />
                             </div>
- 
+
                             <div class="col-lg-12 col-xs-12" style="padding-top: 25px;">
                                 <div class="">
                                     <label for="<%= ddlAssignedTo.ClientID %>">Assigned To: </label>
@@ -143,24 +143,46 @@
                             </div>
                         </div>
                     </div>
-<%--                    <div class="col-xs-12 col-lg-4" id="divAlertMess" runat="server">
-                        <div class="row text-center">
-                            <span class="alert-danger text-center">This skill was purchased after the event. Dependng on the games rules you may or may not want to allow this request.</span>
-                        </div>
-                    </div>--%>
                 </div>
                 <div class="row" style="padding-top: 10px;">
                     <div class="col-xs-12">
                         <b>Request:</b>
-                        <asp:Label ID="lblRequest" runat="server" CssClass=""/>
+                        <asp:Label ID="lblRequest" runat="server" CssClass="" />
                     </div>
                 </div>
-                <div class="row" style="padding-bottom: 10px;">
+                <asp:Panel ID="pnlPayment" runat="server" Visible="false">
+                    <div class="col-xs-12 col-lg-12">
+                        <div class="row">
+                            <label for="<%= lblEventDate.ClientID %>">Payment (if applicable): </label>
+                            <asp:Label ID="lblPayment" runat="server" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <asp:Panel ID="pnlCollaboratingNotes" runat="server" Visible="false">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-xs-12">
+                            <b>Collaborating Notes: </b>
+                            <asp:Label ID="lblCollaboratingNotes" runat="server" CssClass="" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <asp:Panel ID="pnlPlayerComments" runat="server" Visible="false">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-xs-12">
+                            <b>Player Comments: </b>
+                            <asp:Label ID="lblPlayerComments" runat="server" CssClass="" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="row" style="padding-bottom: 10px; padding-top: 10px;">
                     <div class="col-lg-10 col-md-6 col-xs-12">
                         <div class="form-group">
                             <label for="<%= tbResp.ClientID %>">Staff Official Response: <i class="fa-solid fa-circle-question" title="The person will not see this until it has been marked completed."></i></label>
                             <asp:TextBox ID="tbResp" runat="server" TextMode="MultiLine" Rows="5" CssClass="col-xs-12" />
-<%--                            <CKEditor:CKEditorControl ID="CKResponse" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>--%>
+                            <%--                            <CKEditor:CKEditorControl ID="CKResponse" BasePath="/ckeditor/" CssClass="form-control" runat="server" Height="100px"></CKEditor:CKEditorControl>--%>
                         </div>
                         <div class="row" style="display: none;">
                             <div class="col-lg-6">

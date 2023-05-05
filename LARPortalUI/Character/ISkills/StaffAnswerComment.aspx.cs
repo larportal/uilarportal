@@ -88,6 +88,28 @@ namespace LarpPortal.Character.ISkills
                     lblLongSkillDesc.Attributes.Add("style", "display: none;");
                     hidWhichDisplayed.Value = "S";
                     lblRequest.Text = drSkillInfo["RequestText"].ToString();
+                    if (drSkillInfo["Payment"].ToString().Length > 0)
+                    {
+                        lblPayment.Text = drSkillInfo["Payment"].ToString();
+                        pnlPayment.Visible = true;
+                    }
+                    else
+                        pnlPayment.Visible = false;
+                    if (drSkillInfo["PlayerComments"].ToString().Length > 0)
+                    {
+                        lblPlayerComments.Text = drSkillInfo["PlayerComments"].ToString();
+                        pnlPlayerComments.Visible = true;
+                    }
+                    else
+                        pnlPlayerComments.Visible = false;
+                    if (drSkillInfo["CollaboratingNotes"].ToString().Length > 0)
+                    {
+                        lblCollaboratingNotes.Text = drSkillInfo["CollaboratingNotes"].ToString();
+                        pnlCollaboratingNotes.Visible = true;
+                    }
+                    else
+                        pnlCollaboratingNotes.Visible = false;
+
                     DateTime dtDate = new DateTime();
                     lblEventDate.Text = "";
                     DateTime dtSkillPurchaseDate = new DateTime();

@@ -352,7 +352,7 @@
                                         <div class="gutter">
                                             <div class="form-group">
                                                 <p>
-                                                    <asp:Image ID="imgCharacterPicture" runat="server" ImageUrl="~/images/profile-photo.png" AlternateText="Character Picture" CssClass="img-thumbnail" />
+                                                    <asp:Image ID="imgCharacterPicture" runat="server" ImageUrl="~/images/profile-photo.png" AlternateText="Character Picture" CssClass="img-thumbnail zoom" />
                                                 </p>
                                                 <p>To add a profile picture, use the buttons below.</p>
                                                 <asp:FileUpload ID="ulFile" runat="server" CssClass="form-control" />

@@ -752,3 +752,12 @@ btn-success {
     color: red !important;
     font-weight: bold !important;
 }
+
+.zoom:hover {
+	transition: 1s;
+	-ms-transform: scale(3.5); /* IE 9 */
+	-webkit-transform: scale(3.5); /* Safari 3-8 */
+	transform: scale(3.5);
+}
+
+

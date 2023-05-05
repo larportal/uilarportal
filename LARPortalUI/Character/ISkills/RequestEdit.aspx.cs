@@ -135,6 +135,10 @@ namespace LarpPortal.Character.ISkills
                 }
                 bool bDisplayResponseToPlayer = false;
                 pnlStaffResponse.Visible = false;
+                tbPayment.Text = dr["Payment"].ToString();
+                tbPlayerComments.Text = dr["PlayerComments"].ToString();
+                tbCollaboratingNotes.Text = dr["CollaboratingNotes"].ToString();
+
                 if (bool.TryParse(dr["DisplayResponseToPlayer"].ToString(), out bDisplayResponseToPlayer))
                 {
                     if (bDisplayResponseToPlayer)
@@ -169,6 +173,10 @@ namespace LarpPortal.Character.ISkills
             sParams.Add("@IBSkillRequestID", hidSkillRequestID.Value.ToString());
             sParams.Add("@RequestText", CKERequestText.Text);
             sParams.Add("@SkillSetID", hidSkillSetID.Value);
+            sParams.Add("@Payment", tbPayment.Text);
+            sParams.Add("@PlayerComments", tbPlayerComments.Text);
+            sParams.Add("@CollaboratingNotes", tbCollaboratingNotes.Text);
+
             if (e.CommandName == "SUBMIT")
             {
                 lblmodalMessage.Text = "Your request has been submitted to the staff.";

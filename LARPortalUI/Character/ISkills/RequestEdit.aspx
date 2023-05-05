@@ -80,12 +80,48 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <div class="controls">
-                            <label for="">Request</label>
+                            <label for="">Request:</label>
                             <CKEditor:CKEditorControl ID="CKERequestText" BasePath="/ckeditor/" runat="server" Height="100px"></CKEditor:CKEditorControl>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="">Payment (if applicable): </label>
+                            <asp:TextBox ID="tbPayment" runat="server"  CssClass="form-control" MaxLength="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="">If you are collaborating, who are you collaborating with: </label>
+                            <asp:TextBox ID="tbCollaboratingNotes" runat="server"  CssClass="form-control" style="height: auto;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="">Player Comments: </label>
+                            <asp:TextBox ID="tbPlayerComments" runat="server"  CssClass="form-control" style="height: auto;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div class="row">
                 <div class="col-xs-4">
                     <asp:Button ID="btnCancel" Text="Cancel" runat="server" CssClass="btn btn-danger" OnClick="btnCancel_Click" />
@@ -108,6 +144,7 @@
                 </div>
             </asp:Panel>
         </div>
+        <br />
 
         <div class="modal fade in" id="modalRequestSaved" role="dialog">
             <div class="modal-dialog modal-lg">

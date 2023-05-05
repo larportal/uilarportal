@@ -69,6 +69,33 @@ namespace LarpPortal.Character.ISkills
         protected global::CKEditor.NET.CKEditorControl CKERequestText;
 
         /// <summary>
+        /// tbPayment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPayment;
+
+        /// <summary>
+        /// tbCollaboratingNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbCollaboratingNotes;
+
+        /// <summary>
+        /// tbPlayerComments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPlayerComments;
+
+        /// <summary>
         /// btnCancel control.
         /// </summary>
         /// <remarks>

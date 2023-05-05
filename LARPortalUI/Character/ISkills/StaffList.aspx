@@ -38,8 +38,8 @@
                                                     OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
                                             </div>
                                             <div class="form-group">
-                                                <label for="<%= ddlEventName.ClientID %>" style="padding-left: 10px;">Event Name: </label>
-                                                <asp:DropDownList ID="ddlEventName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                <label for="<%= ddlSkillName.ClientID %>" style="padding-left: 10px;">Skill Name: </label>
+                                                <asp:DropDownList ID="ddlSkillName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
                                                     OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
                                             </div>
                                             <div class="form-group">
@@ -62,8 +62,6 @@
                                         <Columns>
                                             <asp:BoundField DataField="CharName" HeaderText="Character Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
                                                 SortExpression="CharName" />
-                                            <asp:BoundField DataField="EventName" HeaderText="Event Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
-                                                SortExpression="EventName" />
                                             <asp:BoundField DataField="EventDate" HeaderText="Event Date" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
                                                 SortExpression="EventDate" DataFormatString="{0: MM/dd/yyyy}" />
                                             <asp:BoundField DataField="BreadcrumbsText" HeaderText="Skill" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"
