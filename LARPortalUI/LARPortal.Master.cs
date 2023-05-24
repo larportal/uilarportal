@@ -430,7 +430,7 @@ namespace LarpPortal
             liDonations.Style.Add("display", "none");
 
             liModifySkills.Style.Add("display", "none");
-//            liIBSkills.Style.Add("display", "none");
+            //            liIBSkills.Style.Add("display", "none");
 
             bool bSuperUser = false;
             if (Session["SuperUser"] != null)
@@ -599,7 +599,7 @@ namespace LarpPortal
 
             if (bSuperUser)
             {
-//                liIBSkills.Style.Add("display", "block");
+                //                liIBSkills.Style.Add("display", "block");
             }
 
             Session.Remove("HasInbetweenSkills");
@@ -608,6 +608,7 @@ namespace LarpPortal
 
             liIBSkills.Style.Add("display", "none");
             liIBGSMain.Style.Add("display", "none");
+            liIBGSApprovalList.Style.Add("display", "none");
 
             if (int.TryParse(ddlCampaigns.SelectedValue, out CampaignID))
             {
@@ -620,9 +621,15 @@ namespace LarpPortal
                         liIBSkills.Style.Add("display", "block");
                         if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
                             (bSuperUser))
+                        {
                             liIBGSMain.Style.Add("display", "block");
+                            liIBGSApprovalList.Style.Add("display", "block");
+                        }
                         else
+                        {
                             liIBGSMain.Style.Add("display", "none");
+                            liIBGSApprovalList.Style.Add("display", "none");
+                        }
                     }
                 }
             }

@@ -36,8 +36,6 @@ C:\Users\User\source\repos\larportal\uilarportal\LARPortalUI\bin\MimeKit.pdb
 C:\Users\User\source\repos\larportal\uilarportal\LARPortalUI\bin\MimeKit.xml
 C:\Users\User\source\repos\larportal\uilarportal\LARPortalUI\bin\System.Buffers.xml
 C:\Users\User\source\repos\larportal\uilarportal\LARPortalUI\obj\Debug\LARPortalUI.csproj.CopyComplete
-C:\LARPortal\CodeRepo\LARPortalUI\bin\bin\AjaxControlToolkit.dll
-C:\LARPortal\CodeRepo\LARPortalUI\bin\bin\CKEditor.NET.dll
 C:\LARPortal\CodeRepo\LARPortalUI\bin\LARPortal.dll.config
 C:\LARPortal\CodeRepo\LARPortalUI\bin\LARPortal.dll
 C:\LARPortal\CodeRepo\LARPortalUI\bin\LARPortal.pdb
@@ -56,3 +54,4 @@ C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortalUI.csproj.CopyComplete
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortal.dll
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortal.pdb
 C:\LARPortal\CodeRepo\LARPortalUI\obj\Debug\LARPortalUI.csproj.AssemblyReference.cache
+C:\LARPortal\CodeRepo\LARPortalUI\bin\AjaxControlToolkit.dll
