@@ -606,30 +606,26 @@ namespace LarpPortal
 
             int CampaignID;
 
-            liIBSkills.Visible = false;
-            liIBGSMain.Visible = false;
+            liIBSkills.Style.Add("display", "none");
+            liIBGSMain.Style.Add("display", "none");
 
             if (int.TryParse(ddlCampaigns.SelectedValue, out CampaignID))
             {
                 DataView dvCampInfo = new DataView(dtCampaignList, "CampaignID = " + ddlCampaigns.SelectedValue, "", DataViewRowState.CurrentRows);
                 if (dvCampInfo != null)
+                {
                     if (dvCampInfo[0]["HasInbetweenSkills"].ToString() != "0")
                     {
                         Session["HasInbetweenSkills"] = "Y";
-                        liIBSkills.Visible = true;
+                        liIBSkills.Style.Add("display", "block");
                         if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
                             (bSuperUser))
-                            liIBGSMain.Visible = true;
+                            liIBGSMain.Style.Add("display", "block");
+                        else
+                            liIBGSMain.Style.Add("display", "none");
                     }
+                }
             }
-
-
-
-
-
-
-
-
 
             SortedList sParams = new SortedList();
             sParams.Add("@intUserID", UserID);
