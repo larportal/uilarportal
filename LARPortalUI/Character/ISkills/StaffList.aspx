@@ -30,29 +30,48 @@
                             <div class="panel-heading">In-Between Skills</div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-10">
                                         <div class="form-inline">
                                             <div class="form-group">
                                                 <label for="<%= ddlEventDate.ClientID %>" style="padding-left: 10px;">Event Date: </label>
                                                 <asp:DropDownList ID="ddlEventDate" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblEventDate" runat="server" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="<%= ddlSkillName.ClientID %>" style="padding-left: 10px;">Skill Name: </label>
                                                 <asp:DropDownList ID="ddlSkillName" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblSkillName" runat="server" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="<%= ddlStaffStatus.ClientID %>" style="padding-left: 10px;">Staff Status: </label>
                                                 <asp:DropDownList ID="ddlStaffStatus" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblStaffStatus" runat="server" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="<%= ddlAssignedTo.ClientID %>" style="padding-left: 10px;">Assigned To: </label>
                                                 <asp:DropDownList ID="ddlAssignedTo" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
-                                                    OnSelectedIndexChanged="dllFilterChanged_SelectedIndexChanged" />
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblAssignedTo" runat="server" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="<%= ddlCharacterList.ClientID %>" style="padding-left: 10px;">Character: </label>
+                                                <asp:DropDownList ID="ddlCharacterList" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblCharacter" runat="server" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="<%= ddlSkillType.ClientID %>" style="padding-left: 10px;">Skill Type: </label>
+                                                <asp:DropDownList ID="ddlSkillType" runat="server" CssClass="form-control autoWidth" AutoPostBack="true"
+                                                    OnSelectedIndexChanged="ddlFilterChanged_SelectedIndexChanged" />
+                                                <asp:Label ID="lblSkillType" runat="server" />
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-xs-2 text-right">
+                                        <asp:Button ID="btnPassiveSkills" runat="server" Text="Add Passive Skills" CssClass="btn btn-primary btn-xs" OnClick="btnPassiveSkills_Click" />
                                     </div>
                                 </div>
                                 <div style="max-height: 500px; overflow-y: auto; padding-top: 10px;">
@@ -116,6 +135,7 @@
         </div>
 
         <div id="push"></div>
+        <asp:HiddenField ID="hidEventID" runat="server" />
     </div>
     <!-- /#page-wrapper -->
 </asp:Content>

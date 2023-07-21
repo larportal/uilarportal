@@ -104,6 +104,7 @@
     <Content Include="Calendar\MonthCalendar.aspx" />
     <Content Include="Calendar\CalGraphic.aspx" />
     <Content Include="Calendar\CalReport.aspx" />
+    <Content Include="Campaigns\SearchCampaigns.aspx" />
     <Content Include="Campaigns\Setup\AssignRoles.aspx" />
     <Content Include="Campaigns\CampaignInfo.aspx" />
     <Content Include="Campaigns\JoinACampaign.aspx" />
@@ -111,6 +112,7 @@
     <Content Include="Campaigns\Setup\CustomFields.aspx" />
     <Content Include="Campaigns\Setup\Demographics.aspx" />
     <Content Include="Campaigns\Setup\Description.aspx" />
+    <Content Include="Campaigns\Setup\EditCampaignInfo.aspx" />
     <Content Include="Campaigns\Setup\Policies.aspx" />
     <Content Include="Campaigns\Setup\PlayerReqs.aspx" />
     <Content Include="Campaigns\Setup\Skills\SkillQualifiers.aspx" />
@@ -1432,6 +1434,13 @@
     <Compile Include="Calendar\CalReport.aspx.designer.cs">
       <DependentUpon>CalReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Campaigns\SearchCampaigns.aspx.cs">
+      <DependentUpon>SearchCampaigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\SearchCampaigns.aspx.designer.cs">
+      <DependentUpon>SearchCampaigns.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Campaigns\Setup\AssignRoles.aspx.cs">
       <DependentUpon>AssignRoles.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1480,6 +1489,13 @@
     </Compile>
     <Compile Include="Campaigns\Setup\Description.aspx.designer.cs">
       <DependentUpon>Description.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Campaigns\Setup\EditCampaignInfo.aspx.cs">
+      <DependentUpon>EditCampaignInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Campaigns\Setup\EditCampaignInfo.aspx.designer.cs">
+      <DependentUpon>EditCampaignInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Campaigns\Setup\Policies.aspx.cs">
       <DependentUpon>Policies.aspx</DependentUpon>
@@ -2353,7 +2369,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51749</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51713/</IISUrl>
+          <IISUrl>http://localhost:5171/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

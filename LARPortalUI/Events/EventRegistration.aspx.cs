@@ -124,10 +124,12 @@ namespace LarpPortal.Events
                 if (Session["UserEMail"] != null)
                 {
                     sUserEmail = Session["UserEMail"].ToString();
-                    if ((hidPlayerEMail.Value != sUserEmail) &&
-                        (sUserEmail.Length > 0))
-                        sUserEmail = ";" + sUserEmail;
                 }
+                if ((hidPlayerEMail.Value != sUserEmail) &&
+                    (sUserEmail.Length > 0))
+                    sUserEmail = hidPlayerEMail.Value + ";" + sUserEmail;
+                else
+                    sUserEmail = hidPlayerEMail.Value;
 
                 string strBody;
                 // RP - 2/19/2018 - added event to registration email - also put it in th production version
@@ -157,14 +159,16 @@ namespace LarpPortal.Events
                     string sSendTo = "support@larportal.com";
                     if (!string.IsNullOrEmpty(sCampaignEMail))
                         sSendTo += ";" + sCampaignEMail;
+                    sSendTo = sSendTo + ";jbradshaw@pobox.com";
 
-//                    sCampaignEMail = sCampaignEMail + sUserEmail;
-                    RegistrationEmail.SendMail(strSubject, strBody, hidPlayerEMail.Value, "", sCampaignEMail, "Registration", Master.UserName);
+                    //                    sCampaignEMail = sCampaignEMail + sUserEmail;
+                    //                    RegistrationEmail.SendMail(strSubject, strBody, hidPlayerEMail.Value, "", sCampaignEMail, "Registration", Master.UserName);
+                    RegistrationEmail.SendMail(strSubject, strBody, sUserEmail, "", sCampaignEMail, "Registration", Master.UserName);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //lblUsernameISEmail.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
-                    //lblUsernameISEmail.Visible = true;
+                    Classes.ErrorAtServer lobjError = new Classes.ErrorAtServer();
+                    lobjError.ProcessError(ex, lsRoutineName + ".RegistrationEmail", "");
                 }
             }
         }

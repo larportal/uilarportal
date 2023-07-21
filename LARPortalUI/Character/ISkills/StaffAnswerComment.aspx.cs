@@ -157,6 +157,9 @@ namespace LarpPortal.Character.ISkills
                     string sCurrentStatus = drSkillInfo["StaffStatus"].ToString();
                     string sCurrentAssignedTo = drSkillInfo["AssignedToID"].ToString();
 
+                    int iiWhenToDeliverID = -1;
+                    int.TryParse(drSkillInfo["WhenToDeliverID"].ToString(), out iiWhenToDeliverID);
+
                     sParams = new SortedList();
                     sParams.Add("@IBSkillID", hidRequestSkillID.Value);
                     dtComments = Classes.cUtilities.LoadDataTable("uspGetIBSkillStaffComments", sParams, "LARPortal", Master.UserName, lsRoutineName + ".GetISkillComments");
@@ -199,6 +202,16 @@ namespace LarpPortal.Character.ISkills
                         ddlRequestStatus.DataValueField = "StatusID";
                         ddlRequestStatus.DataBind();
 
+                        SortedList sWhenDeliver = new SortedList();
+                        sWhenDeliver.Add("@StatusType", "IBSkillWhenToDeliver");
+                        DataTable dtWhenDeliver = cUtilities.LoadDataTable("uspGetStatus", sWhenDeliver, "LARPortal", Master.UserName, lsRoutineName + ".GetWhenToDeliver");
+                        DataView dvWhenDeliver = new DataView(dtWhenDeliver, "", "Comments", DataViewRowState.CurrentRows);
+
+                        ddlWhenToDeliver.DataSource = dvWhenDeliver;
+                        ddlWhenToDeliver.DataTextField = "StatusName";
+                        ddlWhenToDeliver.DataValueField = "StatusID";
+                        ddlWhenToDeliver.DataBind();
+
                         bool bItemFound = false;
 
                         ddlRequestStatus.ClearSelection();
@@ -222,14 +235,32 @@ namespace LarpPortal.Character.ISkills
                             }
                             if (!bItemFound)
                             {
-                                ddlRequestStatus.Items.Insert(0, new ListItem("...Select Status...", "[nothing]"));
+                                ddlRequestStatus.Items.Insert(0, new ListItem("...Select Status...", "-1"));
                                 ddlRequestStatus.SelectedIndex = 0;
                             }
                         }
                         ddlRequestStatus.Attributes.Add("onchange", "ChangeButton();");
 
+                        bItemFound = false;
+                        ddlWhenToDeliver.ClearSelection();
+                        if (iiWhenToDeliverID > 0)
+                        {
+                            foreach (ListItem li in ddlWhenToDeliver.Items)
+                            {
+                                if (li.Value == iiWhenToDeliverID.ToString())
+                                {
+                                    ddlWhenToDeliver.ClearSelection();
+                                    li.Selected = true;
+                                    bItemFound = true;
+                                }
+                            }
+                        }
 
-
+                        if (!bItemFound)
+                        {
+                            ddlWhenToDeliver.Items.Insert(0, new ListItem("...Select When To Deliver...", "-1"));
+                            ddlWhenToDeliver.SelectedIndex = 0;
+                        }
 
                         SortedList sAvailAssigned = new SortedList();
                         sAvailAssigned.Add("@CampaignID", hidCampaignID.Value);
@@ -242,7 +273,7 @@ namespace LarpPortal.Character.ISkills
                         ddlAssignedTo.DataBind();
 
                         ddlAssignedTo.ClearSelection();
-                        ddlAssignedTo.Items.Insert(0, new ListItem("Unassign", "-1"));
+                        ddlAssignedTo.Items.Insert(0, new ListItem("Not Assigned", "-1"));
 
                         bItemFound = false;
                         ddlAssignedTo.SelectedIndex = 0;
@@ -341,6 +372,8 @@ namespace LarpPortal.Character.ISkills
                     sUpdate.Add("@StaffResponse", tbResp.Text);
                 sUpdate.Add("@DisplayStaffStatusToPlayer", cbDisplayStatusToUser.Checked);
                 sUpdate.Add("@DisplayResponseToPlayer", cbDisplayResponseToUser.Checked);
+                if (ddlWhenToDeliver.SelectedValue != "-1")
+                    sUpdate.Add("@WhenToDeliverID", ddlWhenToDeliver.SelectedValue);
                 sUpdate.Add("@AssignedToID", ddlAssignedTo.SelectedValue);
 
                 cUtilities.PerformNonQuery("uspInsUpdIBSkillRequest", sUpdate, "LARPortal", Master.UserName);

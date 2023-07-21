@@ -123,6 +123,15 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.CheckBox cbDisplayResponseToUser;
 
         /// <summary>
+        /// ddlWhenToDeliver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlWhenToDeliver;
+
+        /// <summary>
         /// lblRequest control.
         /// </summary>
         /// <remarks>

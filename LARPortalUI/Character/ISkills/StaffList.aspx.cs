@@ -40,6 +40,8 @@ namespace LarpPortal.Character.ISkills
             string sEventDateFilter = "";
             string sStaffStatus = "";
             string sAssignedToFilter = "";
+            string sCharacterFilter = "";
+            string sSkillTypeFilter = "";
 
             Classes.cUserOptions OptionsLoader = new Classes.cUserOptions();
             OptionsLoader.LoadUserOptions(Session["UserName"].ToString(), HttpContext.Current.Request.Url.AbsolutePath);
@@ -63,7 +65,12 @@ namespace LarpPortal.Character.ISkills
                 else if ((Option.ObjectName.ToUpper() == "DDLASSIGNEDTO") &&
                         (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
                     sAssignedToFilter = Option.OptionValue;
-
+                else if ((Option.ObjectName.ToUpper() == "DDLCHARACTERLIST") &&
+                        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
+                    sCharacterFilter = Option.OptionValue;
+                else if ((Option.ObjectName.ToUpper() == "DDLSKILLTYPE") &&
+                        (Option.ObjectOption.ToUpper() == "SELECTEDVALUE"))
+                    sSkillTypeFilter = Option.OptionValue;
             }
 
             if (sSortField.Length == 0)
@@ -80,6 +87,14 @@ namespace LarpPortal.Character.ISkills
             sParams.Add("@CampaignID", Master.CampaignID);
 
             dtSkillList = Classes.cUtilities.LoadDataTable("uspGetSubmittedIBSkills", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetSubmittedIBSkills");
+            hidEventID.Value = "";
+
+            lblAssignedTo.Text = "";
+            lblCharacter.Text = "";
+            lblEventDate.Text = "";
+            lblSkillName.Text = "";
+            lblSkillType.Text = "";
+            lblStaffStatus.Text = "";
 
             string sRowFilter = "";
             if (dtSkillList.Rows.Count > 0)
@@ -103,12 +118,15 @@ namespace LarpPortal.Character.ISkills
                         dRow["ShortRequest"] = dRow["RequestText"].ToString();
                 }
 
+                btnPassiveSkills.Visible = false;
+
                 // Now get the list of skill names so the person can filter on it.
                 DataView view = new DataView(dtSkillList, "", "SkillName", DataViewRowState.CurrentRows);
                 if (sSkillNameFilter.Length > 0)
                     sRowFilter = "SkillName = '" + sSkillNameFilter.ToString().Replace("'", "''") + "'";
                 if (sEventDateFilter.Length > 0)
                 {
+                    btnPassiveSkills.Visible = true;
                     if (sRowFilter.Length > 0)
                         sRowFilter += " and ";
                     sRowFilter += "EventDate = '" + sEventDateFilter + "'";
@@ -124,7 +142,19 @@ namespace LarpPortal.Character.ISkills
                 {
                     if (sRowFilter.Length > 0)
                         sRowFilter += " and ";
-                    sRowFilter += "AssignedTo = '" + sAssignedToFilter.Replace("'", "''") + "'";
+                    sRowFilter += "AssignedToID = '" + sAssignedToFilter.Replace("'", "''") + "'";
+                }
+                if (sCharacterFilter.Length > 0)
+                {
+                    if (sRowFilter.Length > 0)
+                        sRowFilter += " and ";
+                    sRowFilter += "CharName = '" + sCharacterFilter.Replace("'", "''") + "'";
+                }
+                if (sSkillTypeFilter.Length > 0)
+                {
+                    if (sRowFilter.Length > 0)
+                        sRowFilter += " and ";
+                    sRowFilter += "SkillTypeDescription = '" + sSkillTypeFilter.Replace("'", "''") + "'";
                 }
 
                 view.RowFilter = sRowFilter;
@@ -133,6 +163,8 @@ namespace LarpPortal.Character.ISkills
                     view.RowFilter = "";
                     sRowFilter = "";
                 }
+
+                bool bItemFound = false;
 
                 DataTable dtDistinctEvents = view.ToTable(true, "SkillName");
 
@@ -151,14 +183,27 @@ namespace LarpPortal.Character.ISkills
                         {
                             ddlSkillName.ClearSelection();
                             li.Selected = true;
+                            bItemFound = true;
                         }
                         else
                             li.Selected = false;
                     }
                 }
-                if (ddlSkillName.SelectedIndex == -1)     // Didn't find what was selected.
+                if (!bItemFound)
                     ddlSkillName.SelectedIndex = 0;
 
+                //if (dtDistinctEvents.Rows.Count == 1)
+                //{
+                //    ddlSkillName.Visible = false;
+                //    lblSkillName.Text = dtDistinctEvents.Rows[0]["SkillName"].ToString();
+                //}
+                //else
+                //{
+                //    ddlSkillName.Visible = true;
+                //    lblSkillName.Text = "";
+                //}
+
+                bItemFound = false;
                 DataTable dtDistinctEventsDates = view.ToTable(true, "EventDate");
 
                 //  Since there's a possibility that the date might not be a reasonable date, I'm going to build a table with the valid dates.
@@ -178,7 +223,7 @@ namespace LarpPortal.Character.ISkills
                     }
                 }
 
-                DataView dvDates = new DataView(dtEventDate, "", "ActualDate", DataViewRowState.CurrentRows);
+                DataView dvDates = new DataView(dtEventDate, "", "ActualDate desc", DataViewRowState.CurrentRows);
                 ddlEventDate.DataSource = dvDates;
                 ddlEventDate.DataTextField = "DisplayDate";
                 ddlEventDate.DataValueField = "DisplayDate";
@@ -195,14 +240,27 @@ namespace LarpPortal.Character.ISkills
                         {
                             ddlEventDate.ClearSelection();
                             li.Selected = true;
+                            bItemFound = true;
                         }
                         else
                             li.Selected = false;
                     }
                 }
-                if (ddlEventDate.SelectedIndex == -1)
+                if (!bItemFound)
                     ddlEventDate.SelectedIndex = 0;
 
+                //if (dvDates.Count == 1)
+                //{
+                //    ddlEventDate.Visible = false;
+                //    lblEventDate.Text = dvDates[0]["DisplayDate"].ToString();
+                //}
+                //else
+                //{
+                //    ddlEventDate.Visible = true;
+                //    lblEventDate.Text = "";
+                //}
+
+                bItemFound = false;
                 DataTable dtStaffStatuses = view.ToTable(true, "StaffStatus");
                 DataView dvStatuses = new DataView(dtStaffStatuses, "", "StaffStatus", DataViewRowState.CurrentRows);
                 ddlStaffStatus.DataSource = dvStatuses;
@@ -216,22 +274,31 @@ namespace LarpPortal.Character.ISkills
                 {
                     foreach (ListItem li in ddlStaffStatus.Items)
                     {
-                        //if (li.Text == "")
-                        //    li.Text = "<No Status>";
-
                         if (li.Value == sStaffStatus)
                         {
                             ddlStaffStatus.ClearSelection();
                             li.Selected = true;
+                            bItemFound = true;
                         }
                         else
                             li.Selected = false;
                     }
                 }
-                if (ddlStaffStatus.SelectedIndex == -1)
+                if (!bItemFound)
                     ddlStaffStatus.SelectedIndex = 0;
 
+                //if (dvStatuses.Count == 1)
+                //{
+                //    ddlStaffStatus.Visible = false;
+                //    lblStaffStatus.Text = dvStatuses[0]["StaffStatus"].ToString();
+                //}
+                //else
+                //{
+                //    ddlStaffStatus.Visible = true;
+                //    lblStaffStatus.Text = "";
+                //}
 
+                bItemFound = false;
                 DataTable dtAssignedTo = view.ToTable(true, "AssignedTo", "AssignedToID");
 
                 foreach (DataRow dRow in dtAssignedTo.Rows)
@@ -255,13 +322,100 @@ namespace LarpPortal.Character.ISkills
                         {
                             ddlAssignedTo.ClearSelection();
                             li.Selected = true;
+                            bItemFound = true;
                         }
                         else
                             li.Selected = false;
                     }
                 }
-                if (ddlAssignedTo.SelectedIndex == -1)     // Didn't find what was selected.
+                if (!bItemFound)
                     ddlAssignedTo.SelectedIndex = 0;
+
+                //if (dtAssignedTo.Rows.Count == 1)
+                //{
+                //    ddlAssignedTo.Visible = false;
+                //    lblAssignedTo.Text = dtAssignedTo.Rows[0]["AssignedTo"].ToString();
+                //}
+                //else
+                //{
+                //    ddlAssignedTo.Visible = true;
+                //    lblAssignedTo.Text = "";
+                //}
+
+
+
+
+
+
+
+
+                bItemFound = false;
+                DataTable dtCharacterList = view.ToTable(true, "CharName");
+                DataView dvCharacterList = new DataView(dtCharacterList, "", "CharName", DataViewRowState.CurrentRows);
+
+                ddlCharacterList.DataSource = dvCharacterList;
+                ddlCharacterList.DataTextField = "CharName";
+                ddlCharacterList.DataValueField = "CharName";
+                ddlCharacterList.DataBind();
+                ddlCharacterList.Items.Insert(0, new ListItem("No Filter", ""));
+                
+                ddlCharacterList.SelectedIndex = -1;
+                if (sCharacterFilter.Length > 0)
+                {
+                    foreach (ListItem li in ddlCharacterList.Items)
+                    {
+                        if (li.Value == sCharacterFilter)
+                        {
+                            ddlCharacterList.ClearSelection();
+                            li.Selected = true;
+                            bItemFound = true;
+                        }
+                        else
+                            li.Selected = false;
+                    }
+                }
+                if (!bItemFound)
+                    ddlCharacterList.SelectedIndex = 0;
+
+                //if (dtCharacterList.Rows.Count == 1)
+                //{
+                //    ddlCharacterList.Visible = false;
+                //    lblCharacter.Text = dtCharacterList.Rows[0]["CharName"].ToString();
+                //}
+                //else
+                //{
+                //    ddlAssignedTo.Visible = true;
+                //    lblAssignedTo.Text = "";
+                //}
+
+                bItemFound = false;
+                DataTable dtInfoSkillType = view.ToTable(true, "SkillTypeDescription");
+                DataView dvInfoSkillType = new DataView(dtInfoSkillType, "", "SkillTypeDescription", DataViewRowState.CurrentRows);
+
+                ddlSkillType.DataSource = dvInfoSkillType;
+                ddlSkillType.DataTextField = "SkillTypeDescription";
+                ddlSkillType.DataValueField = "SkillTypeDescription";
+                ddlSkillType.DataBind();
+                ddlSkillType.Items.Insert(0, new ListItem("No Filter", ""));
+
+                bItemFound = false;
+                ddlSkillType.SelectedIndex = -1;
+                if (sSkillTypeFilter.Length > 0)
+                {
+                    foreach (ListItem li in ddlSkillType.Items)
+                    {
+                        if (li.Value == sSkillTypeFilter)
+                        {
+                            ddlAssignedTo.ClearSelection();
+                            li.Selected = true;
+                            bItemFound = true;
+                        }
+                        else
+                            li.Selected = false;
+                    }
+                }
+                if (!bItemFound)
+                    ddlSkillType.SelectedIndex = 0;
 
                 string sSortExp = sSortField + " " + sSortDir;
                 DataView dvSkills = new DataView(dtSkillList, sRowFilter, sSortExp, DataViewRowState.CurrentRows);       // "ActualArrivalDate desc, ActualArrivalTime desc, RegistrationID desc", DataViewRowState.CurrentRows);
@@ -269,6 +423,21 @@ namespace LarpPortal.Character.ISkills
                 gvIBSkillList.DataSource = dvSkills;
                 gvIBSkillList.DataBind();
 
+                //  If the person has filtered by the date, it means it's limited to one event.
+                //  The only time the event ID is important is when we do passive skills which is when someone has filtered.
+                //  So the only time the event ID is important is when there's a single event so we grab the event ID off the first record.
+                try
+                {
+                    //  We are going to make sure the event ID on the record really is an int because the sp will blow up if it's not.
+                    int iEventID = 0;
+                    if (int.TryParse(dvSkills[0]["EventID"].ToString(), out iEventID))
+                        hidEventID.Value = iEventID.ToString();
+                }
+                catch
+                {
+                    //  Something went wrong and there's nothing to do.
+                    //  The event ID will be blank.
+                }
                 DisplaySorting(sSortField, sSortDir);
             }
             else
@@ -357,7 +526,7 @@ namespace LarpPortal.Character.ISkills
             }
         }
 
-        protected void dllFilterChanged_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlFilterChanged_SelectedIndexChanged(object sender, EventArgs e)
         {
             Classes.cUserOption Option = new Classes.cUserOption();
             Option.LoginUsername = Master.UserName;
@@ -395,6 +564,28 @@ namespace LarpPortal.Character.ISkills
             Option.OptionValue = ddlAssignedTo.SelectedValue;
             Option.SaveOptionValue();
 
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlCharacterList";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlCharacterList.SelectedValue;
+            Option.SaveOptionValue();
+
+            Option = new Classes.cUserOption();
+            Option.LoginUsername = Master.UserName;
+            Option.PageName = HttpContext.Current.Request.Url.AbsolutePath;
+            Option.ObjectName = "ddlSkillType";
+            Option.ObjectOption = "SelectedValue";
+            Option.OptionValue = ddlSkillType.SelectedValue;
+            Option.SaveOptionValue();
+        }
+
+        protected void btnPassiveSkills_Click(object sender, EventArgs e)
+        {
+            SortedList sParams = new SortedList();
+            sParams.Add("@EventID", hidEventID.Value);
+            Classes.cUtilities.PerformNonQuery("uspInsertIBPassive", sParams, "LARPortal", Master.UserName);
         }
     }
 }

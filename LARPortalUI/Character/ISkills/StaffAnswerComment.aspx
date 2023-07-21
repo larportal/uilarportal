@@ -79,7 +79,6 @@
             $('#modalMessage').modal('show');
         }
 
-
     </script>
 
 
@@ -132,13 +131,15 @@
                             </div>
 
                             <div class="col-lg-12 col-xs-12" style="padding-top: 25px;">
-                                <div class="">
+                                <div class="ROW">
+                                    
                                     <label for="<%= ddlAssignedTo.ClientID %>">Assigned To: </label>
                                     <asp:DropDownList ID="ddlAssignedTo" runat="server" />&nbsp;&nbsp;
                                     <label for="<%= ddlRequestStatus.ClientID %>">Request Status: </label>
                                     <asp:DropDownList ID="ddlRequestStatus" runat="server" CssClass="" />&nbsp;&nbsp;
                                     <asp:CheckBox ID="cbDisplayStatusToUser" runat="server" Text="Display Status To Player" />&nbsp;&nbsp;
-                                    <asp:CheckBox ID="cbDisplayResponseToUser" runat="server" Text="Display Response To Player" />
+                                    <asp:CheckBox ID="cbDisplayResponseToUser" runat="server" Text="Display Response To Player" />&nbsp;&nbsp;
+                                    <asp:DropDownList ID="ddlWhenToDeliver" runat="server" CssClass="" />
                                 </div>
                             </div>
                         </div>

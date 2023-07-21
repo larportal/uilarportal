@@ -39,6 +39,9 @@ namespace LarpPortal.Classes
         /// <param name="CallingJob">The lookup value to use against table MDBSMTP.  Make sure this value is in that table or that you change it to use an appropriate value from that table</param>
         public void SendMail(string subject, string body, string Tos, string ccs, string bccs, string CallingJob, string UserName)
         {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
             if (string.IsNullOrEmpty(Tos))
                 throw new ArgumentException("There are no To email addresses");
             if (string.IsNullOrEmpty(body))
@@ -140,20 +143,33 @@ namespace LarpPortal.Classes
 
             try
             {
-				client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-				client.Connect(strSMTPClient, intPort, SecureSocketOptions.SslOnConnect);
-				client.Authenticate(strFrom, strSMTPPassword);
-				client.Send(MailMessage);
-				client.Disconnect(true);
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                client.Connect(strSMTPClient, intPort, SecureSocketOptions.SslOnConnect);
+                client.Authenticate(strFrom, strSMTPPassword);
+                client.Send(MailMessage);
+                client.Disconnect(true);
 
                 WriteEmailLog(strFrom, Tos, ccs, bccs, subject, body);
             }
-			catch (Exception ex)
+            catch (Exception ex)
             {
-                string t = ex.Message;
-				//             //This was the catch I used in the new member login.  It needs something way better but I was in a hurry to get the programming done. - Rick
-				//             //lblEmailFailed.Text = "There was an issue. Please contact us at support@larportal.com for assistance.";
-				//             //lblEmailFailed.Visible = true;
+                //  JBradshaw  07/14/2023  Added error handling here because emails not going out.
+                string sAddInfo = "";
+                
+                if (!String.IsNullOrEmpty(strFrom))
+                    sAddInfo = "strFrom=" + strFrom + "   ";
+                if (!String.IsNullOrEmpty(Tos))
+                    sAddInfo += "Tos=" + Tos + "   ";
+                if (!String.IsNullOrEmpty(ccs))
+                    sAddInfo += "ccs=" + ccs + "   ";
+                if (!String.IsNullOrEmpty(bccs))
+                    sAddInfo += "bccs=" + bccs + "   ";
+                if (!String.IsNullOrEmpty(subject))
+                    sAddInfo += "subject=" + subject + "   ";
+                if (!String.IsNullOrEmpty(body))
+                    sAddInfo += "body=" + body;
+                Classes.ErrorAtServer lobjError = new Classes.ErrorAtServer();
+                lobjError.ProcessError(ex, lsRoutineName + ".SendingEMail", sAddInfo);
             }
         }
 

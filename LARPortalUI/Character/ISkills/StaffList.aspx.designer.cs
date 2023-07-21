@@ -42,6 +42,15 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.DropDownList ddlEventDate;
 
         /// <summary>
+        /// lblEventDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEventDate;
+
+        /// <summary>
         /// ddlSkillName control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSkillName;
+
+        /// <summary>
+        /// lblSkillName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSkillName;
 
         /// <summary>
         /// ddlStaffStatus control.
@@ -60,6 +78,15 @@ namespace LarpPortal.Character.ISkills
         protected global::System.Web.UI.WebControls.DropDownList ddlStaffStatus;
 
         /// <summary>
+        /// lblStaffStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStaffStatus;
+
+        /// <summary>
         /// ddlAssignedTo control.
         /// </summary>
         /// <remarks>
@@ -67,6 +94,60 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAssignedTo;
+
+        /// <summary>
+        /// lblAssignedTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssignedTo;
+
+        /// <summary>
+        /// ddlCharacterList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCharacterList;
+
+        /// <summary>
+        /// lblCharacter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCharacter;
+
+        /// <summary>
+        /// ddlSkillType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSkillType;
+
+        /// <summary>
+        /// lblSkillType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSkillType;
+
+        /// <summary>
+        /// btnPassiveSkills control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPassiveSkills;
 
         /// <summary>
         /// gvIBSkillList control.
@@ -112,6 +193,15 @@ namespace LarpPortal.Character.ISkills
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
+
+        /// <summary>
+        /// hidEventID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidEventID;
 
         /// <summary>
         /// Master property.
