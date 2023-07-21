@@ -404,7 +404,7 @@
                                                 </asp:Panel>
                                             </div>
                                             <div class="col-xs-6">
-                                                <asp:Panel ID="pnlSignUpForCampaign" runat="server">
+                                                <asp:Panel ID="pnlSignUpForCampaign" runat="server" Visible="false">
                                                     <div class="panel panel-default">
                                                         <div class="panel-heading">
                                                             <asp:Label ID="lblSignUp" runat="server"></asp:Label>Add to Your Campaigns

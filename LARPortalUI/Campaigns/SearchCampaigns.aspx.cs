@@ -159,9 +159,9 @@ namespace LarpPortal.Campaigns
             if (SelectorsVisible == 1)
             {
                 pnlSelectors.Visible = true;
-                if (((int)Session["SecurityRole"]) == 10)
-                    MakePanelSignUpVisible(CampaignID);
-                else
+                //if (((int)Session["SecurityRole"]) == 10)
+                //    MakePanelSignUpVisible(CampaignID);
+                //else
                     pnlSignUpForCampaign.Visible = false;
             }
             else
@@ -174,357 +174,357 @@ namespace LarpPortal.Campaigns
         protected void MakePanelSignUpVisible(int CampaignID)
         {
             // Determine current roles for this campaign.
-            int iTemp = 0;
-            int RoleID = 0;
-            Boolean bTemp = false;
-            Boolean AutoApprove = false;
-            string RoleDescription = "";
-            string IsPC = "false";
-            string IsNPC = "false";
-            lblSignUpMessage.Visible = false;
-            lblCurrentCampaign.Text = CampaignID.ToString();
-            Classes.cPlayerRole Role = new Classes.cPlayerRole();
-            Role.Load(2, 0, CampaignID);
-            //Possible options:
-            int RoleID6 = 0;    //6 Permanent NPC
-            int RoleID7 = 0;    //7 Event NPC
-            int RoleID8 = 0;    //8 PC
-            int RoleID10 = 0;   //10 NPC
-            int RoleCounter = 0; //Count the number of available roles for choosing "Both or All"
-            string RoleDescription6 = "";
-            string RoleDescription7 = "";
-            string RoleDescription8 = "";
-            string RoleDescription10 = "";
-            Boolean AutoApprove6 = false;
-            Boolean AutoApprove7 = false;
-            Boolean AutoApprove8 = false;
-            Boolean AutoApprove10 = false;
-            Classes.cCampaignBase CampaignRoles = new Classes.cCampaignBase(CampaignID, publicUserName, publicUserID);
-            DataTable dtAvailRoles = new DataTable();
-            dtAvailRoles = CampaignRoles.GetCampaignRequestableRoles(CampaignID, publicUserID);
-            foreach (DataRow dRow in dtAvailRoles.Rows)
-            {
-                RoleCounter = 0;
-                if (int.TryParse(dRow["RoleID"].ToString(), out iTemp))
-                    RoleID = iTemp;
-                if (Boolean.TryParse(dRow["AutoApprove"].ToString(), out bTemp))
-                    AutoApprove = bTemp;
-                RoleDescription = dRow["RoleDescription"].ToString();
-                switch (RoleID)
-                {
-                    case 6:
-                        RoleID6 = 6;
-                        RoleDescription6 = "Permanent NPC";
-                        AutoApprove6 = AutoApprove;
-                        break;
-                    case 7:
-                        RoleID7 = 7;
-                        RoleDescription7 = "Event NPC";
-                        AutoApprove7 = AutoApprove;
-                        break;
-                    case 8:
-                        RoleID8 = 8;
-                        RoleDescription8 = RoleDescription;
-                        AutoApprove8 = AutoApprove;
-                        break;
-                    case 10:
-                        RoleID10 = 10;
-                        RoleDescription10 = RoleDescription;
-                        AutoApprove10 = AutoApprove;
-                        break;
-                    default:
-                        //TODO - Get rid of these two lines once 6 and 7 are really defined.  This will shut up the warnings
-                        RoleDescription6 = RoleDescription7;
-                        RoleDescription7 = RoleDescription6;
-                        break;
-                }
-            }
-            IsPC = Role.IsPC;
-            IsNPC = Role.IsNPC;
-            //TODO-Rick-9-Clean-up crap code - all instances of btnSignup; changed to chkSignup
-            //btnSignUp.Items.Clear();
-            chkSignUp.Items.Clear();
-            // None - Show all three choices if applicable
-            if (IsPC == "false" && IsNPC == "false")
-            {
-                if (RoleID8 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("PC", "8"));
-                    chkSignUp.Items.Add(new ListItem("PC", "8" + AutoApprove8.ToString()));
-                    RoleCounter++;
-                }
-                if (RoleID10 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("NPC", "10"));
-                    chkSignUp.Items.Add(new ListItem("NPC", "10" + AutoApprove10.ToString()));
-                    RoleCounter++;
-                }
-                if (RoleID7 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("Event NPC", "7"));
-                    chkSignUp.Items.Add(new ListItem("Event NPC", "7" + AutoApprove7.ToString()));
-                    RoleCounter++;
-                }
-                if (RoleID6 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("Permanent NPC", "6"));
-                    chkSignUp.Items.Add(new ListItem("Permanent NPC", "6" + AutoApprove6.ToString()));
-                    RoleCounter++;
-                }
-            }
-            // PC Only - Show NPC
-            if (IsPC == "true" && IsNPC == "false")
-            {
-                if (RoleID10 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("NPC", "10"));
-                    chkSignUp.Items.Add(new ListItem("NPC", "10" + AutoApprove10.ToString()));
-                    RoleCounter++;
-                }
-                if (RoleID7 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("Event NPC", "7"));
-                    chkSignUp.Items.Add(new ListItem("Event NPC", "7" + AutoApprove7.ToString()));
-                    RoleCounter++;
-                }
-                if (RoleID6 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("Permanent NPC", "6"));
-                    chkSignUp.Items.Add(new ListItem("Permanent NPC", "6" + AutoApprove6.ToString()));
-                    RoleCounter++;
-                }
-            }
-            // NPC Only - Show PC
-            if (IsPC == "false" && IsNPC == "true")
-            {
-                if (RoleID8 != 0)
-                {
-                    //btnSignUp.Items.Add(new ListItem("PC", "8"));
-                    chkSignUp.Items.Add(new ListItem("PC", "8" + AutoApprove8.ToString()));
-                    RoleCounter++;
-                }
-            }
-            // Both - Don't show panel
-            if (IsPC == "true" && IsNPC == "true")
-            {
-                pnlSignUpForCampaign.Visible = true;
-                btnSignUpForCampaign.Visible = false;
-            }
-            else
-            {
-                pnlSignUpForCampaign.Visible = true;
-                btnSignUpForCampaign.Visible = true;
-            }
-            // Now get current roles.  If there are any start the label with "Current Roles:<br>"
-            Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
-            Roles.Load(2, 0, CampaignID, DateTime.Now); // Last parameter = 1 for Yes, Current roles only
-            //Convert list to datatable
-            listCurrentRoles.DataSource = Classes.cUtilities.CreateDataTable(Roles.lsPlayerRoles);
-            listCurrentRoles.DataBind();
+            //int iTemp = 0;
+            //int RoleID = 0;
+            //Boolean bTemp = false;
+            //Boolean AutoApprove = false;
+            //string RoleDescription = "";
+            //string IsPC = "false";
+            //string IsNPC = "false";
+            //lblSignUpMessage.Visible = false;
+            //lblCurrentCampaign.Text = CampaignID.ToString();
+            //Classes.cPlayerRole Role = new Classes.cPlayerRole();
+            //Role.Load(2, 0, CampaignID);
+            ////Possible options:
+            //int RoleID6 = 0;    //6 Permanent NPC
+            //int RoleID7 = 0;    //7 Event NPC
+            //int RoleID8 = 0;    //8 PC
+            //int RoleID10 = 0;   //10 NPC
+            //int RoleCounter = 0; //Count the number of available roles for choosing "Both or All"
+            //string RoleDescription6 = "";
+            //string RoleDescription7 = "";
+            //string RoleDescription8 = "";
+            //string RoleDescription10 = "";
+            //Boolean AutoApprove6 = false;
+            //Boolean AutoApprove7 = false;
+            //Boolean AutoApprove8 = false;
+            //Boolean AutoApprove10 = false;
+            //Classes.cCampaignBase CampaignRoles = new Classes.cCampaignBase(CampaignID, publicUserName, publicUserID);
+            //DataTable dtAvailRoles = new DataTable();
+            //dtAvailRoles = CampaignRoles.GetCampaignRequestableRoles(CampaignID, publicUserID);
+            //foreach (DataRow dRow in dtAvailRoles.Rows)
+            //{
+            //    RoleCounter = 0;
+            //    if (int.TryParse(dRow["RoleID"].ToString(), out iTemp))
+            //        RoleID = iTemp;
+            //    if (Boolean.TryParse(dRow["AutoApprove"].ToString(), out bTemp))
+            //        AutoApprove = bTemp;
+            //    RoleDescription = dRow["RoleDescription"].ToString();
+            //    switch (RoleID)
+            //    {
+            //        case 6:
+            //            RoleID6 = 6;
+            //            RoleDescription6 = "Permanent NPC";
+            //            AutoApprove6 = AutoApprove;
+            //            break;
+            //        case 7:
+            //            RoleID7 = 7;
+            //            RoleDescription7 = "Event NPC";
+            //            AutoApprove7 = AutoApprove;
+            //            break;
+            //        case 8:
+            //            RoleID8 = 8;
+            //            RoleDescription8 = RoleDescription;
+            //            AutoApprove8 = AutoApprove;
+            //            break;
+            //        case 10:
+            //            RoleID10 = 10;
+            //            RoleDescription10 = RoleDescription;
+            //            AutoApprove10 = AutoApprove;
+            //            break;
+            //        default:
+            //            //TODO - Get rid of these two lines once 6 and 7 are really defined.  This will shut up the warnings
+            //            RoleDescription6 = RoleDescription7;
+            //            RoleDescription7 = RoleDescription6;
+            //            break;
+            //    }
+            //}
+            //IsPC = Role.IsPC;
+            //IsNPC = Role.IsNPC;
+            ////TODO-Rick-9-Clean-up crap code - all instances of btnSignup; changed to chkSignup
+            ////btnSignUp.Items.Clear();
+            //chkSignUp.Items.Clear();
+            //// None - Show all three choices if applicable
+            //if (IsPC == "false" && IsNPC == "false")
+            //{
+            //    if (RoleID8 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("PC", "8"));
+            //        chkSignUp.Items.Add(new ListItem("PC", "8" + AutoApprove8.ToString()));
+            //        RoleCounter++;
+            //    }
+            //    if (RoleID10 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("NPC", "10"));
+            //        chkSignUp.Items.Add(new ListItem("NPC", "10" + AutoApprove10.ToString()));
+            //        RoleCounter++;
+            //    }
+            //    if (RoleID7 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("Event NPC", "7"));
+            //        chkSignUp.Items.Add(new ListItem("Event NPC", "7" + AutoApprove7.ToString()));
+            //        RoleCounter++;
+            //    }
+            //    if (RoleID6 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("Permanent NPC", "6"));
+            //        chkSignUp.Items.Add(new ListItem("Permanent NPC", "6" + AutoApprove6.ToString()));
+            //        RoleCounter++;
+            //    }
+            //}
+            //// PC Only - Show NPC
+            //if (IsPC == "true" && IsNPC == "false")
+            //{
+            //    if (RoleID10 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("NPC", "10"));
+            //        chkSignUp.Items.Add(new ListItem("NPC", "10" + AutoApprove10.ToString()));
+            //        RoleCounter++;
+            //    }
+            //    if (RoleID7 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("Event NPC", "7"));
+            //        chkSignUp.Items.Add(new ListItem("Event NPC", "7" + AutoApprove7.ToString()));
+            //        RoleCounter++;
+            //    }
+            //    if (RoleID6 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("Permanent NPC", "6"));
+            //        chkSignUp.Items.Add(new ListItem("Permanent NPC", "6" + AutoApprove6.ToString()));
+            //        RoleCounter++;
+            //    }
+            //}
+            //// NPC Only - Show PC
+            //if (IsPC == "false" && IsNPC == "true")
+            //{
+            //    if (RoleID8 != 0)
+            //    {
+            //        //btnSignUp.Items.Add(new ListItem("PC", "8"));
+            //        chkSignUp.Items.Add(new ListItem("PC", "8" + AutoApprove8.ToString()));
+            //        RoleCounter++;
+            //    }
+            //}
+            //// Both - Don't show panel
+            //if (IsPC == "true" && IsNPC == "true")
+            //{
+            //    pnlSignUpForCampaign.Visible = true;
+            //    btnSignUpForCampaign.Visible = false;
+            //}
+            //else
+            //{
+            //    pnlSignUpForCampaign.Visible = true;
+            //    btnSignUpForCampaign.Visible = true;
+            //}
+            //// Now get current roles.  If there are any start the label with "Current Roles:<br>"
+            //Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
+            //Roles.Load(2, 0, CampaignID, DateTime.Now); // Last parameter = 1 for Yes, Current roles only
+            ////Convert list to datatable
+            //listCurrentRoles.DataSource = Classes.cUtilities.CreateDataTable(Roles.lsPlayerRoles);
+            //listCurrentRoles.DataBind();
         }
 
         protected void btnSignUpForCampaign_Click(object sender, EventArgs e)
         {
-            int intCampaignID = lblCurrentCampaign.Text.ToString().ToInt32();
-            string RequestEmail;
-            Classes.cCampaignBase Campaign = new Classes.cCampaignBase(intCampaignID, publicUserName, publicUserID);
-            if (String.IsNullOrEmpty(Campaign.JoinRequestEmail))
-                RequestEmail = Campaign.InfoRequestEmail;
-            else
-                RequestEmail = Campaign.JoinRequestEmail;
-            if (RequestEmail.Contains("@"))
-            {
-                // It has a "@".  Assume the email format is close enough, go on.
-            }
-            else
-            {
-                RequestEmail = "";
-            }
-            foreach (ListItem item in chkSignUp.Items)
-            {
-                if (item.Selected)
-                {
-                    switch (item.Value)
-                    {
-                        case "6True":
-                            // Permanent NPC needs approval
-                            if (String.IsNullOrEmpty(RequestEmail))
-                                SignUpForSelectedRole(6, publicUserID, intCampaignID, 55);
-                            else
-                            {
-                                SendApprovalEmail(intCampaignID, publicUserID, 6, RequestEmail);
-                                SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
-                            }
-                            break;
-                        case "6False":
-                            // Permanent NPC no approval
-                            SignUpForSelectedRole(6, publicUserID, intCampaignID, 55);
-                            break;
-                        case "7True":
-                            // Event NPC needs approval
-                            if (String.IsNullOrEmpty(RequestEmail))
-                                SignUpForSelectedRole(7, publicUserID, intCampaignID, 55);
-                            else
-                            {
-                                SendApprovalEmail(intCampaignID, publicUserID, 7, RequestEmail);
-                                SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
-                            }
-                            break;
-                        case "7False":
-                            // Event NPC no approval
-                            SignUpForSelectedRole(7, publicUserID, intCampaignID, 55);
-                            break;
-                        case "8True":
-                            // PC needs approval
-                            if (String.IsNullOrEmpty(RequestEmail))
-                                SignUpForSelectedRole(8, publicUserID, intCampaignID, 55);
-                            else
-                            {
-                                SendApprovalEmail(intCampaignID, publicUserID, 8, RequestEmail);
-                                SignUpForSelectedRole(8, publicUserID, intCampaignID, 56);
-                            }
-                            break;
-                        case "8False":
-                            // PC no approval
-                            SignUpForSelectedRole(8, publicUserID, intCampaignID, 55);
-                            break;
-                        case "10True":
-                            // NPC needs approval
-                            if (String.IsNullOrEmpty(RequestEmail))
-                                SignUpForSelectedRole(10, publicUserID, intCampaignID, 55);
-                            else
-                            {
-                                SendApprovalEmail(intCampaignID, publicUserID, 10, RequestEmail);
-                                SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
-                            }
-                            break;
-                        case "10False":
-                            // NPC no approval
-                            SignUpForSelectedRole(10, publicUserID, intCampaignID, 55);
-                            break;
-                        default:
-                            // Technically we shouldn't be able to get here so do nothing
-                            break;
-                    }
-                }
-            }
+            //int intCampaignID = lblCurrentCampaign.Text.ToString().ToInt32();
+            //string RequestEmail;
+            //Classes.cCampaignBase Campaign = new Classes.cCampaignBase(intCampaignID, publicUserName, publicUserID);
+            //if (String.IsNullOrEmpty(Campaign.JoinRequestEmail))
+            //    RequestEmail = Campaign.InfoRequestEmail;
+            //else
+            //    RequestEmail = Campaign.JoinRequestEmail;
+            //if (RequestEmail.Contains("@"))
+            //{
+            //    // It has a "@".  Assume the email format is close enough, go on.
+            //}
+            //else
+            //{
+            //    RequestEmail = "";
+            //}
+            //foreach (ListItem item in chkSignUp.Items)
+            //{
+            //    if (item.Selected)
+            //    {
+            //        switch (item.Value)
+            //        {
+            //            case "6True":
+            //                // Permanent NPC needs approval
+            //                if (String.IsNullOrEmpty(RequestEmail))
+            //                    SignUpForSelectedRole(6, publicUserID, intCampaignID, 55);
+            //                else
+            //                {
+            //                    SendApprovalEmail(intCampaignID, publicUserID, 6, RequestEmail);
+            //                    SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
+            //                }
+            //                break;
+            //            case "6False":
+            //                // Permanent NPC no approval
+            //                SignUpForSelectedRole(6, publicUserID, intCampaignID, 55);
+            //                break;
+            //            case "7True":
+            //                // Event NPC needs approval
+            //                if (String.IsNullOrEmpty(RequestEmail))
+            //                    SignUpForSelectedRole(7, publicUserID, intCampaignID, 55);
+            //                else
+            //                {
+            //                    SendApprovalEmail(intCampaignID, publicUserID, 7, RequestEmail);
+            //                    SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
+            //                }
+            //                break;
+            //            case "7False":
+            //                // Event NPC no approval
+            //                SignUpForSelectedRole(7, publicUserID, intCampaignID, 55);
+            //                break;
+            //            case "8True":
+            //                // PC needs approval
+            //                if (String.IsNullOrEmpty(RequestEmail))
+            //                    SignUpForSelectedRole(8, publicUserID, intCampaignID, 55);
+            //                else
+            //                {
+            //                    SendApprovalEmail(intCampaignID, publicUserID, 8, RequestEmail);
+            //                    SignUpForSelectedRole(8, publicUserID, intCampaignID, 56);
+            //                }
+            //                break;
+            //            case "8False":
+            //                // PC no approval
+            //                SignUpForSelectedRole(8, publicUserID, intCampaignID, 55);
+            //                break;
+            //            case "10True":
+            //                // NPC needs approval
+            //                if (String.IsNullOrEmpty(RequestEmail))
+            //                    SignUpForSelectedRole(10, publicUserID, intCampaignID, 55);
+            //                else
+            //                {
+            //                    SendApprovalEmail(intCampaignID, publicUserID, 10, RequestEmail);
+            //                    SignUpForSelectedRole(10, publicUserID, intCampaignID, 56);
+            //                }
+            //                break;
+            //            case "10False":
+            //                // NPC no approval
+            //                SignUpForSelectedRole(10, publicUserID, intCampaignID, 55);
+            //                break;
+            //            default:
+            //                // Technically we shouldn't be able to get here so do nothing
+            //                break;
+            //        }
+            //    }
+            //}
         }
 
         protected void SignUpForSelectedRole(int RoleToSignUp, int UserID, int CampaignID, int StatusID)
         {
-            int CampaignPlayerID = 0;
-            Classes.cUserCampaign CampaignPlayer = new Classes.cUserCampaign();
-            CampaignPlayer.Load(UserID, CampaignID);
-            CampaignPlayerID = CampaignPlayer.CampaignPlayerID; // if this comes back empty (-1) make one
-            if (CampaignPlayerID == -1)
-            {
-                CreatePlayerInCampaign(UserID, CampaignID);
-                CampaignPlayer.Load(UserID, CampaignID);
-                CampaignPlayerID = CampaignPlayer.CampaignPlayerID;
-            }
-            int RoleAlignment = 2;
-            if (RoleToSignUp == 8)
-                RoleAlignment = 1;
-            Classes.cPlayerRole PlayerRole = new Classes.cPlayerRole();
-            PlayerRole.CampaignPlayerRoleID = -1;
-            PlayerRole.CampaignPlayerID = CampaignPlayerID;
-            PlayerRole.RoleID = RoleToSignUp;
-            PlayerRole.RoleAlignmentID = RoleAlignment;
-            PlayerRole.Save(UserID);
-            Classes.cUser LastLogged = new Classes.cUser(publicUserName, "Password", Session.SessionID);
-            string LastCampaign = LastLogged.LastLoggedInCampaign.ToString();
-            if (LastCampaign == null || LastCampaign == "0")
-            {
-                LastLogged.LastLoggedInCampaign = CampaignID;
-                LastLogged.Save();
-                Session["CampaignID"] = CampaignID;
-            }
+            //int CampaignPlayerID = 0;
+            //Classes.cUserCampaign CampaignPlayer = new Classes.cUserCampaign();
+            //CampaignPlayer.Load(UserID, CampaignID);
+            //CampaignPlayerID = CampaignPlayer.CampaignPlayerID; // if this comes back empty (-1) make one
+            //if (CampaignPlayerID == -1)
+            //{
+            //    CreatePlayerInCampaign(UserID, CampaignID);
+            //    CampaignPlayer.Load(UserID, CampaignID);
+            //    CampaignPlayerID = CampaignPlayer.CampaignPlayerID;
+            //}
+            //int RoleAlignment = 2;
+            //if (RoleToSignUp == 8)
+            //    RoleAlignment = 1;
+            //Classes.cPlayerRole PlayerRole = new Classes.cPlayerRole();
+            //PlayerRole.CampaignPlayerRoleID = -1;
+            //PlayerRole.CampaignPlayerID = CampaignPlayerID;
+            //PlayerRole.RoleID = RoleToSignUp;
+            //PlayerRole.RoleAlignmentID = RoleAlignment;
+            //PlayerRole.Save(UserID);
+            //Classes.cUser LastLogged = new Classes.cUser(publicUserName, "Password", Session.SessionID);
+            //string LastCampaign = LastLogged.LastLoggedInCampaign.ToString();
+            //if (LastCampaign == null || LastCampaign == "0")
+            //{
+            //    LastLogged.LastLoggedInCampaign = CampaignID;
+            //    LastLogged.Save();
+            //    Session["CampaignID"] = CampaignID;
+            //}
 
-            btnSignUpForCampaign.Visible = false;
-            lblSignUpMessage.Text = "Request submitted. Choose more campaigns or <a id=\"" + "lnkReturnToMember " + "\"href=\"" + "CampaignInfo.aspx\"" + ">return to the member section.</a>";
-            lblSignUpMessage.Visible = true;
+            //btnSignUpForCampaign.Visible = false;
+            //lblSignUpMessage.Text = "Request submitted. Choose more campaigns or <a id=\"" + "lnkReturnToMember " + "\"href=\"" + "CampaignInfo.aspx\"" + ">return to the member section.</a>";
+            //lblSignUpMessage.Visible = true;
         }
 
         protected void CreatePlayerInCampaign(int UserID, int CampaignID)
         {
-            Classes.cUserCampaign UserCampaign = new Classes.cUserCampaign();
-            UserCampaign.CampaignPlayerID = -1;
-            UserCampaign.CampaignID = CampaignID;
-            UserCampaign.Save(UserID);
+            //Classes.cUserCampaign UserCampaign = new Classes.cUserCampaign();
+            //UserCampaign.CampaignPlayerID = -1;
+            //UserCampaign.CampaignID = CampaignID;
+            //UserCampaign.Save(UserID);
         }
 
         protected void SendApprovalEmail(int CampaignID, int UserID, int Role, string RequestEmail)
         {
-            string strFromUser = "playerservices";
-            string strFromDomain = "larportal.com";
-            string strFrom = strFromUser + "@" + strFromDomain;
-            string strTo = RequestEmail;
-            string strSMTPPassword = "Piccolo1";
-            string strSubject = "";
-            string strBody = "";
-            string CampaignName = "";
-            string PlayerFirstName = "";  // Needs defining - Look up based on UserID
-            string PlayerLastName = "";  // Needs defining
-            string PlayerEmailAddress = "";  // Needs defining
-            Classes.cCampaignBase Campaign = new Classes.cCampaignBase(CampaignID, "Username", UserID);
-            CampaignName = Campaign.CampaignName;
-            Classes.cUser UserInfo = new Classes.cUser(publicUserName, "Password", Session.SessionID);
-            PlayerFirstName = UserInfo.FirstName;
-            PlayerLastName = UserInfo.LastName;
-            PlayerEmailAddress = Session["MemberEmailAddress"].ToString();
-            switch (Role)
-            {
-                case 6:
-                    strSubject = "Request to be a Permanent NPC for " + CampaignName;
-                    strBody = "A request to be a permanent NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
-                    strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
-                    strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
-                    strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
-                    break;
-                case 7:
-                    strSubject = "Request to be an Event NPC for " + CampaignName;
-                    strBody = "A request to be an Evnet NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
-                    strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
-                    strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
-                    strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
-                    break;
-                case 8:
-                    strSubject = "Request to PC " + CampaignName;
-                    strBody = "A request to PC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
-                    strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
-                    strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
-                    strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
-                    break;
-                case 10:
-                    strSubject = "Request to NPC " + CampaignName;
-                    strBody = "A request to NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
-                    strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
-                    strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
-                    strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
-                    break;
-                default:
-                    break;
-            }
-            MailMessage mail = new MailMessage(strFrom, strTo);
-            SmtpClient client = new SmtpClient("smtpout.secureserver.net", 80);
-            client.EnableSsl = false;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(strFrom, strSMTPPassword);
-            client.Timeout = 10000;
-            mail.Subject = strSubject;
-            mail.Body = strBody;
-            mail.IsBodyHtml = true;
-            if (String.IsNullOrEmpty(strSubject))
-            {
-                try
-                {
-                    client.Send(mail);
-                }
-                catch (Exception)
-                {
+            //string strFromUser = "playerservices";
+            //string strFromDomain = "larportal.com";
+            //string strFrom = strFromUser + "@" + strFromDomain;
+            //string strTo = RequestEmail;
+            //string strSMTPPassword = "Piccolo1";
+            //string strSubject = "";
+            //string strBody = "";
+            //string CampaignName = "";
+            //string PlayerFirstName = "";  // Needs defining - Look up based on UserID
+            //string PlayerLastName = "";  // Needs defining
+            //string PlayerEmailAddress = "";  // Needs defining
+            //Classes.cCampaignBase Campaign = new Classes.cCampaignBase(CampaignID, "Username", UserID);
+            //CampaignName = Campaign.CampaignName;
+            //Classes.cUser UserInfo = new Classes.cUser(publicUserName, "Password", Session.SessionID);
+            //PlayerFirstName = UserInfo.FirstName;
+            //PlayerLastName = UserInfo.LastName;
+            //PlayerEmailAddress = Session["MemberEmailAddress"].ToString();
+            //switch (Role)
+            //{
+            //    case 6:
+            //        strSubject = "Request to be a Permanent NPC for " + CampaignName;
+            //        strBody = "A request to be a permanent NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
+            //        strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
+            //        strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
+            //        strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
+            //        break;
+            //    case 7:
+            //        strSubject = "Request to be an Event NPC for " + CampaignName;
+            //        strBody = "A request to be an Evnet NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
+            //        strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
+            //        strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
+            //        strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
+            //        break;
+            //    case 8:
+            //        strSubject = "Request to PC " + CampaignName;
+            //        strBody = "A request to PC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
+            //        strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
+            //        strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
+            //        strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
+            //        break;
+            //    case 10:
+            //        strSubject = "Request to NPC " + CampaignName;
+            //        strBody = "A request to NPC " + CampaignName + " has been received through LARP Portal.  The player information is below.<p></p><p></p>";
+            //        strBody = strBody + PlayerFirstName + " " + PlayerLastName + "<p></p>" + PlayerEmailAddress + "<p></p><p></p>";
+            //        strBody = strBody + "Please reply to the player's request within 48 hours.<p></p><p></p>";
+            //        strBody = strBody + "Thank you<p></p><p></p>LARP Portal staff";
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //MailMessage mail = new MailMessage(strFrom, strTo);
+            //SmtpClient client = new SmtpClient("smtpout.secureserver.net", 80);
+            //client.EnableSsl = false;
+            //client.UseDefaultCredentials = false;
+            //client.Credentials = new System.Net.NetworkCredential(strFrom, strSMTPPassword);
+            //client.Timeout = 10000;
+            //mail.Subject = strSubject;
+            //mail.Body = strBody;
+            //mail.IsBodyHtml = true;
+            //if (String.IsNullOrEmpty(strSubject))
+            //{
+            //    try
+            //    {
+            //        client.Send(mail);
+            //    }
+            //    catch (Exception)
+            //    {
 
-                }
-            }
+            //    }
+            //}
         }
 
         protected void SetSiteLink(string strURL, string strGameName)
@@ -846,8 +846,6 @@ namespace LarpPortal.Campaigns
             ReloadActiveTreeView(publicUserID);
         }
 
-
-
         protected void ReloadGenreTreeView()
         {
             tvGenre.Nodes.Clear();
@@ -1009,8 +1007,6 @@ namespace LarpPortal.Campaigns
             ReloadActiveTreeView(publicUserID);
         }
 
-
-
         protected void ReloadStyleTreeView()
         {
             tvStyle.Nodes.Clear();
@@ -1074,7 +1070,6 @@ namespace LarpPortal.Campaigns
             }
             RebuildDropDownList(dsCampaigns);
         }
-
         protected void tvStyle_SelectedNodeChanged(object sender, EventArgs e)
         {
             {
@@ -1149,7 +1144,6 @@ namespace LarpPortal.Campaigns
                 MakeDetailsVisible(intURLVisible, intImageVisible, intImageHeight, intImageWidth, intOverviewVisible, intSelectorsVisible, CampaignID);
             }
         }
-
         protected void chkStyle_CheckedChanged(object sender, EventArgs e)
         {
             if (chkStyle.Checked == true)
@@ -1163,7 +1157,6 @@ namespace LarpPortal.Campaigns
                 ReloadActiveTreeView(publicUserID);
             }
         }
-
         protected void ddlStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (chkStyle.Checked)
@@ -1172,7 +1165,6 @@ namespace LarpPortal.Campaigns
                 Session.Remove("StyleFilter");
             ReloadActiveTreeView(publicUserID);
         }
-
 
         protected void ReloadTechLevelTreeView()
         {
