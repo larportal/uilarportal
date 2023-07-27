@@ -1665,7 +1665,7 @@ namespace LarpPortal.Campaigns
             ddlCampaign.DataBind();
             ddlCampaign.Items.Insert(0, new ListItem("Select a Campaign", ""));
             ddlCampaign.SelectedIndex = 0;
-            if (GameSystemFilter.HasValue)
+            if (CampaignFilter.HasValue)
                 SetDropDown(ref ddlCampaign, CampaignFilter.Value.ToString());
 
 
@@ -1755,39 +1755,3 @@ namespace LarpPortal.Campaigns
         }
     }
 }
-
-
-
-
-
-
-
-//                       <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-//                        <i class="glyphicon glyphicon-align-left"></i>
-//                        <span>Toggle Sidebar</span>
-//                    </button>
-
-
-
-
-
-//    <nav id="sidebar">
-//    <div class="sidebar-header">
-//        <h3>Campaign Filters</h3>
-//    </div>
-
-//    <ul class="list-unstyled components">
-//        <li class="active">
-//            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-//            <ul class="collapse list-unstyled" id="homeSubmenu">
-//                <li>Item i</li>
-//                <li>Item 2</li>
-//            </ul>
-//        </li>
-//    </ul>
-//</nav>
-
-
-
-
-

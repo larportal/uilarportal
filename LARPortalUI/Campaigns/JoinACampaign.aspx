@@ -148,11 +148,19 @@
                                         <div class="row">
                                             <asp:Panel ID="pnlImageURL" runat="server" CssClass="col-xs-12" Height="130" Width="820">
                                                 <asp:Image ID="imgCampaignImage" runat="server" AlternateText="Game/Campaign Logo" ImageUrl="img/Logo/CM-1-Madrigal.jpg" />
-                                                <p>
-                                                    <asp:HyperLink ID="hplLinkToSite" runat="server" NavigateUrl="." Target="_blank" Font-Underline="true"></asp:HyperLink>
-                                                </p>
                                             </asp:Panel>
                                         </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlCampaignName" runat="server" CssClass="col-xs-12" Height="45" Width="820">
+                                                <asp:Label ID="lblCampaignName" runat="server" Text="Campaign Name" CssClass="panel-heading" Font-Size="XX-Large"></asp:Label>
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="row">
+                                            <asp:Panel ID="pnlCampaignURL" runat="server" CssClass="col-xs-12" Height="30" Width="820">
+                                                <asp:HyperLink ID="hplLinkToSite" runat="server" NavigateUrl="." Target="_blank" Font-Underline="true" ></asp:HyperLink>
+                                            </asp:Panel>
+                                        </div>
+
                                         <%--<div class="row">
                                             <div class="col-xs-12">
                                                 <asp:Panel ID="pnlOverview" runat="server">

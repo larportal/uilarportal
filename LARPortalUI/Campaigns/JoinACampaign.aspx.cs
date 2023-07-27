@@ -26,8 +26,13 @@ namespace LarpPortal.Campaigns
                 Session["DefaultCampaignLogoImage"] = "http://placehold.it/820x130";
                 pnlOverview.Visible = false;
                 pnlSelectors.Visible = false;
-                pnlImageURL.Visible = false;
-                hplLinkToSite.Visible = false;
+                //pnlImageURL.Visible = false;
+                pnlImageURL.Style.Add("display", "none");
+                //pnlCampaignName.Visible = false;
+                pnlCampaignName.Style.Add("display", "none");
+
+                pnlCampaignURL.Visible = false;
+                //pnlCampaignURL.Style.Add("display", "none");
                 pnlSignUpForCampaign.Visible = false;
 
                 ReloadGameSystemTreeView();
@@ -44,7 +49,13 @@ namespace LarpPortal.Campaigns
             tvTechLevel.Visible = false;
             tvSize.Visible = false;
 
-            pnlImageURL.Visible = false;
+            //pnlImageURL.Visible = false;
+            //pnlCampaignName.Visible = false;            
+            pnlImageURL.Style.Add("display", "none");
+            pnlCampaignName.Style.Add("display", "none");
+
+            pnlCampaignURL.Visible = false;
+
             pnlOverview.Visible = false;
             pnlSelectors.Visible = false;
             pnlSignUpForCampaign.Visible = false;
@@ -85,9 +96,13 @@ namespace LarpPortal.Campaigns
         protected void MakeDetailsVisible(int URLVisible, int ImageVisible, int imgHeight, int imgWidth, int OverviewVisible, int SelectorsVisible, int CampaignID)
         {
             if (URLVisible == 1)
-                hplLinkToSite.Visible = true;
+            {
+                pnlCampaignURL.Visible = true;
+            }
             else
-                hplLinkToSite.Visible = false;
+            {
+                pnlCampaignURL.Visible = false;
+            }
             if (ImageVisible == 1)
             {
                 // Max dimensions are 820 x 130
@@ -118,12 +133,22 @@ namespace LarpPortal.Campaigns
                     imgCampaignImage.Height = 130;
                     imgCampaignImage.Width = CalculatedWidth;
                 }
-                pnlImageURL.Visible = true;
+                //pnlImageURL.Visible = true;
+                pnlImageURL.Style.Remove("display");
+                //pnlCampaignName.Visible = false;
+                pnlCampaignName.Style.Add("display", "none");
                 imgCampaignImage.Visible = true;
             }
             else
+            {
                 //pnlImageURL.Visible = false;
+                pnlImageURL.Style.Add("display", "none");
+                //pnlCampaignName.Visible = true;
+                pnlCampaignName.Style.Remove("display");
+                ////pnlCampaignURL.Visible = false;
+                ////pnlCampaignName.Visible = true;
                 imgCampaignImage.Visible = false;
+            }
             if (OverviewVisible == 1)
                 pnlOverview.Visible = true;
             else
@@ -518,15 +543,15 @@ namespace LarpPortal.Campaigns
                 DefaultPath = "";
             else
                 DefaultPath = Session["DefaultCampaignLogoPath"].ToString();
-			if (String.IsNullOrEmpty(strImage))
-				imgCampaignImage.ImageUrl = DefaultImage;
-			else
-			{
-				if ((DefaultPath.Length > 0) &&
-					(!DefaultPath.StartsWith("/")))
-					DefaultPath = "/" + DefaultPath;
-				imgCampaignImage.ImageUrl = DefaultPath + strImage;
-			}
+            if (String.IsNullOrEmpty(strImage))
+                imgCampaignImage.ImageUrl = DefaultImage;
+            else
+            {
+                if ((DefaultPath.Length > 0) &&
+                    (!DefaultPath.StartsWith("/")))
+                    DefaultPath = "/" + DefaultPath;
+                imgCampaignImage.ImageUrl = DefaultPath + strImage;
+            }
         }
 
         protected void ReloadGameSystemTreeView()
@@ -645,6 +670,7 @@ namespace LarpPortal.Campaigns
                     intImageHeight = Cam.LogoHeight;
                     intImageWidth = Cam.LogoWidth;
                     strGameOrCampaignName = Cam.CampaignName;
+                    lblCampaignName.Text = strGameOrCampaignName;
                     lblCampaignOverview.Text = Cam.WebPageDescription.Replace("\n", "<br>");
                     lblGameSystem1.Text = "Game System: ";
                     lblGameSystem2.Text = " " + Cam.GameSystemName;
@@ -661,9 +687,17 @@ namespace LarpPortal.Campaigns
                     lblLastUpdated2.Text = string.Format("{0:MMM d, yyyy}", Cam.DateChanged);
                 };
             }
-            SetSiteImage(strImage);
+            if (strImage == "")
+            {
+                intImageVisible = 0;
+            }
+            {
+                SetSiteImage(strImage);
+            }
+
             if (strURL != null)
                 SetSiteLink(strURL, strGameOrCampaignName);
+
             MakeDetailsVisible(intURLVisible, intImageVisible, intImageHeight, intImageWidth, intOverviewVisible, intSelectorsVisible, CampaignID);
         }
 
@@ -1636,7 +1670,7 @@ namespace LarpPortal.Campaigns
             ddlCampaign.DataBind();
             ddlCampaign.Items.Insert(0, new ListItem("Select a Campaign", ""));
             ddlCampaign.SelectedIndex = 0;
-            if (GameSystemFilter.HasValue)
+            if (CampaignFilter.HasValue)
                 SetDropDown(ref ddlCampaign, CampaignFilter.Value.ToString());
 
 
@@ -1726,39 +1760,3 @@ namespace LarpPortal.Campaigns
         }
     }
 }
-
-
-
-
-
-
-    
-        //                       <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-        //                        <i class="glyphicon glyphicon-align-left"></i>
-        //                        <span>Toggle Sidebar</span>
-        //                    </button>
-   
-    
-    
-    
-    
-        //    <nav id="sidebar">
-        //    <div class="sidebar-header">
-        //        <h3>Campaign Filters</h3>
-        //    </div>
-
-        //    <ul class="list-unstyled components">
-        //        <li class="active">
-        //            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-        //            <ul class="collapse list-unstyled" id="homeSubmenu">
-        //                <li>Item i</li>
-        //                <li>Item 2</li>
-        //            </ul>
-        //        </li>
-        //    </ul>
-        //</nav>
-
-
-
-
-
