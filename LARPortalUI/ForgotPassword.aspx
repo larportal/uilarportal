@@ -228,6 +228,7 @@
                                                         Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Text="* Required" ControlToValidate="txtSupportBody" />
                                                     <asp:TextBox ID="txtSupportBody" runat="server" TextMode="MultiLine" Rows="5" CssClass="form-control" />
                                                 </div>
+
                                                 <div class="form-group">
                                                     <input type="checkbox" name="chkSupportCCMe2" id="chkSupportCCMe2" runat="server" />
                                                     <div class="btn-group">
@@ -242,6 +243,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 text-right">
+                                                <asp:Label ID="lblSpamFilter" runat="server" text="*Type 'Done' when ready to send, then click the 'Send Email' button." ForeColor="Red"></asp:Label>
+                                                <asp:TextBox ID="txtSpamFilter" runat="server" ></asp:TextBox>
                                                 <asp:Button ID="btnSupportSendEmail" runat="server" OnClick="btnSupportSendEmail_Click" CssClass="btn btn-primary" Text="Send Email" ValidationGroup="GetSupport" />
                                                 <asp:Label ID="lblSupportSentEmail" runat="server"></asp:Label>
                                             </div>

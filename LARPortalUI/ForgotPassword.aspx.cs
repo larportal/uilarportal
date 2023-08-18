@@ -84,6 +84,15 @@ namespace LarpPortal
 
 		protected void btnSupportSendEmail_Click(object sender, EventArgs e)
 		{
+			if(txtSpamFilter.Text.ToUpper() == "DONE")
+			{
+				// The user typed some variation of 'done' into the validator. Carry on.
+			}
+            else
+            {
+				// It's probably some stupid spam bot. Go back to the screen.
+				return;   
+            }
 			string strBody;
 			string strSubject = "Trouble with username / password";
 			strBody = "From: " + txtSupportName.Text + "<br>Email: " + txtSupportEmail.Text + "<br><br>Issue Details:<br><br>";

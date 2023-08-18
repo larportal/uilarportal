@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal {
-    
-    
-    public partial class ForgotPassword {
-        
+namespace LarpPortal
+{
+
+
+    public partial class ForgotPassword
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// mvInfoRequest control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvInfoRequest;
-        
+
         /// <summary>
         /// vwInfoRequest control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwInfoRequest;
-        
+
         /// <summary>
         /// rfvEmailAddress control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmailAddress;
-        
+
         /// <summary>
         /// txtEmailAddress control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmailAddress;
-        
+
         /// <summary>
         /// rfvUserName control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;
-        
+
         /// <summary>
         /// txtUsername control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
-        
+
         /// <summary>
         /// rfvLastName control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvLastName;
-        
+
         /// <summary>
         /// txtLastName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
+
         /// <summary>
         /// divInvalid control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divInvalid;
-        
+
         /// <summary>
         /// btnGetPassword control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetPassword;
-        
+
         /// <summary>
         /// rfvSupportName control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSupportName;
-        
+
         /// <summary>
         /// txtSupportName control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSupportName;
-        
+
         /// <summary>
         /// rfvSupportEmail control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSupportEmail;
-        
+
         /// <summary>
         /// txtSupportEmail control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSupportEmail;
-        
+
         /// <summary>
         /// lblSupportSubject control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSupportSubject;
-        
+
         /// <summary>
         /// rfvSupportBody control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSupportBody;
-        
+
         /// <summary>
         /// txtSupportBody control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSupportBody;
-        
+
         /// <summary>
         /// chkSupportCCMe2 control.
         /// </summary>
@@ -182,7 +184,25 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkSupportCCMe2;
-        
+
+        /// <summary>
+        /// lblSpamFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpamFilter;
+
+        /// <summary>
+        /// txtSpamFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpamFilter;
+
         /// <summary>
         /// btnSupportSendEmail control.
         /// </summary>
@@ -191,7 +211,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSupportSendEmail;
-        
+
         /// <summary>
         /// lblSupportSentEmail control.
         /// </summary>
@@ -200,7 +220,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSupportSentEmail;
-        
+
         /// <summary>
         /// vwSecurityQuestions control.
         /// </summary>
@@ -209,7 +229,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwSecurityQuestions;
-        
+
         /// <summary>
         /// lblSetQuestions control.
         /// </summary>
@@ -218,7 +238,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSetQuestions;
-        
+
         /// <summary>
         /// tbQuestion1 control.
         /// </summary>
@@ -227,7 +247,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbQuestion1;
-        
+
         /// <summary>
         /// tbAnswer1 control.
         /// </summary>
@@ -236,7 +256,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAnswer1;
-        
+
         /// <summary>
         /// tbQuestion2 control.
         /// </summary>
@@ -245,7 +265,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbQuestion2;
-        
+
         /// <summary>
         /// tbAnswer2 control.
         /// </summary>
@@ -254,7 +274,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAnswer2;
-        
+
         /// <summary>
         /// tbQuestion3 control.
         /// </summary>
@@ -263,7 +283,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbQuestion3;
-        
+
         /// <summary>
         /// tbAnswer3 control.
         /// </summary>
@@ -272,7 +292,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAnswer3;
-        
+
         /// <summary>
         /// btnSetQuestions control.
         /// </summary>
@@ -281,7 +301,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSetQuestions;
-        
+
         /// <summary>
         /// vwAnswerQuestions control.
         /// </summary>
@@ -290,7 +310,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwAnswerQuestions;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -299,7 +319,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// lblAnswerQuestionS control.
         /// </summary>
@@ -308,7 +328,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAnswerQuestionS;
-        
+
         /// <summary>
         /// lblUserQuestion1 control.
         /// </summary>
@@ -317,7 +337,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserQuestion1;
-        
+
         /// <summary>
         /// tbUserAnswer1 control.
         /// </summary>
@@ -326,7 +346,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbUserAnswer1;
-        
+
         /// <summary>
         /// hidUserAnswer1 control.
         /// </summary>
@@ -335,7 +355,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUserAnswer1;
-        
+
         /// <summary>
         /// divUserQuestion2 control.
         /// </summary>
@@ -344,7 +364,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUserQuestion2;
-        
+
         /// <summary>
         /// lblUserQuestion2 control.
         /// </summary>
@@ -353,7 +373,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserQuestion2;
-        
+
         /// <summary>
         /// tbUserAnswer2 control.
         /// </summary>
@@ -362,7 +382,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbUserAnswer2;
-        
+
         /// <summary>
         /// hidUserAnswer2 control.
         /// </summary>
@@ -371,7 +391,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUserAnswer2;
-        
+
         /// <summary>
         /// divUserQuestion3 control.
         /// </summary>
@@ -380,7 +400,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUserQuestion3;
-        
+
         /// <summary>
         /// lblUserQuestion3 control.
         /// </summary>
@@ -389,7 +409,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserQuestion3;
-        
+
         /// <summary>
         /// tbUserAnswer3 control.
         /// </summary>
@@ -398,7 +418,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbUserAnswer3;
-        
+
         /// <summary>
         /// hidUserAnswer3 control.
         /// </summary>
@@ -407,7 +427,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUserAnswer3;
-        
+
         /// <summary>
         /// btnUserQuestions control.
         /// </summary>
@@ -416,7 +436,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUserQuestions;
-        
+
         /// <summary>
         /// vwSetPassword control.
         /// </summary>
@@ -425,7 +445,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwSetPassword;
-        
+
         /// <summary>
         /// tbPassword control.
         /// </summary>
@@ -434,7 +454,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPassword;
-        
+
         /// <summary>
         /// cvConfirmPassword control.
         /// </summary>
@@ -443,7 +463,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvConfirmPassword;
-        
+
         /// <summary>
         /// tbPasswordConfirm control.
         /// </summary>
@@ -452,7 +472,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPasswordConfirm;
-        
+
         /// <summary>
         /// divErrorPasswords control.
         /// </summary>
@@ -461,7 +481,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorPasswords;
-        
+
         /// <summary>
         /// lblErrorPasswords control.
         /// </summary>
@@ -470,7 +490,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorPasswords;
-        
+
         /// <summary>
         /// btnSaveNewPassword control.
         /// </summary>
@@ -479,7 +499,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveNewPassword;
-        
+
         /// <summary>
         /// vwFinalStep control.
         /// </summary>
@@ -488,7 +508,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwFinalStep;
-        
+
         /// <summary>
         /// btnDone control.
         /// </summary>
@@ -497,7 +517,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDone;
-        
+
         /// <summary>
         /// hidQuestion1 control.
         /// </summary>
@@ -506,7 +526,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidQuestion1;
-        
+
         /// <summary>
         /// hidAnswer1 control.
         /// </summary>
@@ -515,7 +535,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAnswer1;
-        
+
         /// <summary>
         /// hidUpdate1 control.
         /// </summary>
@@ -524,7 +544,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUpdate1;
-        
+
         /// <summary>
         /// hidQuestion2 control.
         /// </summary>
@@ -533,7 +553,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidQuestion2;
-        
+
         /// <summary>
         /// hidAnswer2 control.
         /// </summary>
@@ -542,7 +562,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAnswer2;
-        
+
         /// <summary>
         /// hidUpdate2 control.
         /// </summary>
@@ -551,7 +571,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUpdate2;
-        
+
         /// <summary>
         /// hidQuestion3 control.
         /// </summary>
@@ -560,7 +580,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidQuestion3;
-        
+
         /// <summary>
         /// hidAnswer3 control.
         /// </summary>
@@ -569,7 +589,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidAnswer3;
-        
+
         /// <summary>
         /// hidUpdate3 control.
         /// </summary>
@@ -578,7 +598,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUpdate3;
-        
+
         /// <summary>
         /// hidUserSecurityID control.
         /// </summary>
