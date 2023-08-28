@@ -87,6 +87,15 @@ namespace LarpPortal.Campaigns.Setup
         protected global::System.Web.UI.WebControls.TextBox tbStartDate;
 
         /// <summary>
+        /// cmpStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpStartDate;
+
+        /// <summary>
         /// tbEndDate control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace LarpPortal.Campaigns.Setup
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEndDate;
+
+        /// <summary>
+        /// cmpEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpEndDate;
 
         /// <summary>
         /// ddlGameSystem control.
@@ -618,13 +636,13 @@ namespace LarpPortal.Campaigns.Setup
         protected global::System.Web.UI.WebControls.TextBox tbNewPoolName;
 
         /// <summary>
-        /// tbNewPoolColor control.
+        /// ddlDisplayColor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbNewPoolColor;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDisplayColor;
 
         /// <summary>
         /// cbSuppressOnCard control.

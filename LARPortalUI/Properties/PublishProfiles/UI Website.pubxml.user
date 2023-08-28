@@ -8,7 +8,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYxHQw4rLbUmPGhLrTa/rhwAAAAACAAAAAAAQZgAAAAEAACAAAAB0EHqbEqMAt/m2JMlTgi/z7w/P0A2w/qqoYRRGQ9eBlAAAAAAOgAAAAAIAACAAAADCEo0IMc+RVVvHYVUb7sHT5t4LobeSgxVMNXXr4X0XIiAAAAADyds9Rb5REVWzOk24vIZCDX8kGaKoGLQIgpfcsbTkZUAAAAAV5teqYMAPoAbclX4aZn21H6JpnoFrKfsnoRIuvtzvsJu4yLQ4DGmZ8HjbALzKY1rcJjg8PN61PkvCATzd/RZs</EncryptedPassword>
     <_PublishTargetUrl>ftp://larportal.com</_PublishTargetUrl>
-    <History>True|2023-07-21T22:02:18.3159288Z;True|2023-06-25T12:52:09.9840554-04:00;True|2023-05-24T17:57:44.7480597-04:00;True|2023-04-16T23:28:25.4403868-04:00;True|2023-04-16T13:09:22.5954695-04:00;True|2023-04-02T20:27:46.4462399-04:00;True|2022-12-11T10:11:31.2012472-05:00;True|2022-12-02T12:19:09.8441910-05:00;True|2022-09-08T20:29:32.4297502-04:00;True|2022-08-13T16:30:05.7174060-04:00;True|2022-07-16T11:01:40.6140265-04:00;True|2022-05-14T15:20:50.0214358-04:00;True|2022-05-10T21:15:43.1122688-04:00;True|2022-05-10T20:12:30.3894548-04:00;True|2022-05-08T16:07:43.3998234-04:00;True|2022-05-07T20:45:49.2312636-04:00;False|2022-05-07T20:42:50.1172660-04:00;True|2022-04-29T21:07:01.0099725-04:00;True|2022-04-18T19:44:06.2443193-04:00;True|2022-04-15T12:30:44.5470773-04:00;True|2022-04-10T10:56:17.8791251-04:00;True|2022-04-04T21:08:28.1794385-04:00;True|2022-03-13T14:01:04.0960822-04:00;True|2022-03-08T17:56:58.2869275-05:00;True|2022-03-07T19:00:34.6012645-05:00;True|2022-02-06T14:42:16.1759674-05:00;True|2021-12-20T08:13:28.7250281-05:00;True|2021-12-18T16:59:02.1390590-05:00;True|2021-11-02T18:59:40.0548023-04:00;True|2021-11-02T18:56:58.5680285-04:00;True|2021-09-12T17:53:04.0583398-04:00;True|2021-09-06T15:52:09.9928743-04:00;True|2021-08-15T11:55:57.8634474-04:00;False|2021-08-15T11:49:08.9811197-04:00;True|2021-07-18T19:30:53.0954696-04:00;True|2021-07-18T12:08:15.9536390-04:00;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
+    <History>True|2023-08-26T17:41:49.5814445Z;True|2023-07-29T06:57:54.5861085-04:00;True|2023-07-21T18:36:46.5700397-04:00;True|2023-07-21T18:02:18.3159288-04:00;True|2023-06-25T12:52:09.9840554-04:00;True|2023-05-24T17:57:44.7480597-04:00;True|2023-04-16T23:28:25.4403868-04:00;True|2023-04-16T13:09:22.5954695-04:00;True|2023-04-02T20:27:46.4462399-04:00;True|2022-12-11T10:11:31.2012472-05:00;True|2022-12-02T12:19:09.8441910-05:00;True|2022-09-08T20:29:32.4297502-04:00;True|2022-08-13T16:30:05.7174060-04:00;True|2022-07-16T11:01:40.6140265-04:00;True|2022-05-14T15:20:50.0214358-04:00;True|2022-05-10T21:15:43.1122688-04:00;True|2022-05-10T20:12:30.3894548-04:00;True|2022-05-08T16:07:43.3998234-04:00;True|2022-05-07T20:45:49.2312636-04:00;False|2022-05-07T20:42:50.1172660-04:00;True|2022-04-29T21:07:01.0099725-04:00;True|2022-04-18T19:44:06.2443193-04:00;True|2022-04-15T12:30:44.5470773-04:00;True|2022-04-10T10:56:17.8791251-04:00;True|2022-04-04T21:08:28.1794385-04:00;True|2022-03-13T14:01:04.0960822-04:00;True|2022-03-08T17:56:58.2869275-05:00;True|2022-03-07T19:00:34.6012645-05:00;True|2022-02-06T14:42:16.1759674-05:00;True|2021-12-20T08:13:28.7250281-05:00;True|2021-12-18T16:59:02.1390590-05:00;True|2021-11-02T18:59:40.0548023-04:00;True|2021-11-02T18:56:58.5680285-04:00;True|2021-09-12T17:53:04.0583398-04:00;True|2021-09-06T15:52:09.9928743-04:00;True|2021-08-15T11:55:57.8634474-04:00;False|2021-08-15T11:49:08.9811197-04:00;True|2021-07-18T19:30:53.0954696-04:00;True|2021-07-18T12:08:15.9536390-04:00;True|2021-07-16T18:07:27.3011206-04:00;True|2021-07-16T17:54:19.7563701-04:00;True|2021-07-16T17:02:33.6420216-04:00;True|2021-07-16T15:47:11.3158276-04:00;True|2021-07-16T14:15:40.0475711-04:00;False|2021-07-16T14:12:40.4951638-04:00;False|2021-07-16T14:09:29.9720960-04:00;True|2021-04-08T18:37:07.1834682-04:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -33,10 +33,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="bin/LARPortal.dll">
-      <publishTime>07/21/2023 18:00:41</publishTime>
+      <publishTime>08/26/2023 13:40:13</publishTime>
     </File>
     <File Include="bin/LARPortal.pdb">
-      <publishTime>07/21/2023 18:00:41</publishTime>
+      <publishTime>08/26/2023 13:40:13</publishTime>
     </File>
     <File Include="bin/MailKit.dll">
       <publishTime>07/16/2021 13:08:24</publishTime>
@@ -66,10 +66,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Campaigns/JoinACampaign.aspx">
-      <publishTime>07/18/2021 12:02:31</publishTime>
+      <publishTime>07/29/2023 06:51:30</publishTime>
     </File>
     <File Include="Campaigns/SearchCampaigns.aspx">
-      <publishTime>07/21/2023 17:52:21</publishTime>
+      <publishTime>07/21/2023 18:34:22</publishTime>
     </File>
     <File Include="Campaigns/Setup/AssignRoles.aspx">
       <publishTime>04/03/2021 17:17:28</publishTime>
@@ -87,7 +87,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 14:03:24</publishTime>
     </File>
     <File Include="Campaigns/Setup/EditCampaignInfo.aspx">
-      <publishTime>07/17/2023 07:24:12</publishTime>
+      <publishTime>08/26/2023 13:10:25</publishTime>
     </File>
     <File Include="Campaigns/Setup/PlayerReqs.aspx">
       <publishTime>03/21/2021 09:33:59</publishTime>
@@ -1599,7 +1599,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="ForgotPassword.aspx">
-      <publishTime>08/13/2022 16:18:46</publishTime>
+      <publishTime>08/26/2023 13:11:25</publishTime>
     </File>
     <File Include="ForgotUserName.aspx">
       <publishTime>08/13/2022 16:18:01</publishTime>
@@ -3900,7 +3900,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2021 09:33:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/21/2023 18:00:43</publishTime>
+      <publishTime>08/26/2023 13:40:15</publishTime>
     </File>
     <File Include="Webservices/CampaignInfo.asmx">
       <publishTime>03/21/2021 09:33:59</publishTime>

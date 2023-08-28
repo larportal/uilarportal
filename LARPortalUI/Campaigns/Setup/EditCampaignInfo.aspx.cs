@@ -230,6 +230,15 @@ namespace LarpPortal.Campaigns.Setup
                 cbUserDef2.Attributes.Add("onchange", "javascript: CheckBoxes();");
                 tbUserDef2.Attributes.Add("onchange", "javascript: Blink();");
 
+                cbUserDef3.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                tbUserDef3.Attributes.Add("onchange", "javascript: Blink();");
+
+                cbUserDef4.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                tbUserDef4.Attributes.Add("onchange", "javascript: Blink();");
+
+                cbUserDef5.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                tbUserDef5.Attributes.Add("onchange", "javascript: Blink();");
+
                 if (dr["UseUserDefinedField1"].ToString() == "1")
                 {
                     cbUserDef1.Checked = true;
@@ -506,16 +515,16 @@ namespace LarpPortal.Campaigns.Setup
             sParams.Add("@MinimumAgeWithSupervision", tbMinAgeSuper.Text);
             sParams.Add("@UserID", -1);
 
-            sParams.Add("@UseUserDefinedField1", cbUserDef1.Checked);
-            sParams.Add("@UserDefinedField1", cbUserDef1.Checked ? tbUserDef1.Text : "");
-            sParams.Add("@UseUserDefinedField2", cbUserDef2.Checked);
-            sParams.Add("@UserDefinedField2", cbUserDef2.Checked ? tbUserDef2.Text : "");
-            sParams.Add("@UseUserDefinedField3", cbUserDef3.Checked);
-            sParams.Add("@UserDefinedField3", cbUserDef3.Checked ? tbUserDef3.Text : "");
-            sParams.Add("@UseUserDefinedField4", cbUserDef4.Checked);
-            sParams.Add("@UserDefinedField4", cbUserDef4.Checked ? tbUserDef4.Text : "");
-            sParams.Add("@UseUserDefinedField5", cbUserDef5.Checked);
-            sParams.Add("@UserDefinedField5", cbUserDef5.Checked ? tbUserDef5.Text : "");
+            //sParams.Add("@UseUserDefinedField1", cbUserDef1.Checked);
+            //sParams.Add("@UserDefinedField1", cbUserDef1.Checked ? tbUserDef1.Text : "");
+            //sParams.Add("@UseUserDefinedField2", cbUserDef2.Checked);
+            //sParams.Add("@UserDefinedField2", cbUserDef2.Checked ? tbUserDef2.Text : "");
+            //sParams.Add("@UseUserDefinedField3", cbUserDef3.Checked);
+            //sParams.Add("@UserDefinedField3", cbUserDef3.Checked ? tbUserDef3.Text : "");
+            //sParams.Add("@UseUserDefinedField4", cbUserDef4.Checked);
+            //sParams.Add("@UserDefinedField4", cbUserDef4.Checked ? tbUserDef4.Text : "");
+            //sParams.Add("@UseUserDefinedField5", cbUserDef5.Checked);
+            //sParams.Add("@UserDefinedField5", cbUserDef5.Checked ? tbUserDef5.Text : "");
 
             sParams.Add("@PrimaryOwnerID", ddlPrimaryOwner.SelectedValue);
 
@@ -681,52 +690,39 @@ namespace LarpPortal.Campaigns.Setup
                 }
             }
 
-            //if (ViewState["CampaignOppDefs"] != null)
-            //{
+            if (ViewState["CampaignOppDefs"] != null)
+            {
 
-            //    DataTable dtCampaignOppDefs = (DataTable)ViewState["CampaignOppDefs"];
-            //DataView dvFoundRow = new DataView(dtCampaignOppDefs, "ReasonID = " + ReasonID.ToString(), "", DataViewRowState.CurrentRows);
-            //    if (dvFoundRow.Count > 0)
-            //    {
-            //        //  Set the values in the found row.
-            //        dvFoundRow[0]["HasDefault"] = HasDefault;
-            //        dvFoundRow[0]["OpportunityDescription"] = ddlddlDescriptions.SelectedItem.Text;
-            //        dvFoundRow[0]["TypeID"] = ddlddlDescriptions.SelectedValue;
+                DataTable dtCampaignOppDefs = (DataTable)ViewState["CampaignOppDefs"];
+                foreach (DataRow dRow in dtCampaignOppDefs.Rows)
+                {
+                    SortedList sObjDefs = new SortedList();
+                    string sObjProcName = "";
+                    sObjDefs.Add("@CampaignID", iCampaignID);
+                    sObjDefs.Add("@ReasonID", dRow["ReasonID"].ToString());
+                    sObjDefs.Add("@UserID", 2);
+                    bool bHasReason = false;
+                    if (bool.TryParse(dRow["HasDefault"].ToString(), out bHasReason))
+                    {
+                        if (bHasReason)
+                        {
+                            sObjDefs.Add("@Description", dRow["OpportunityDescription"].ToString());
+                            sObjDefs.Add("@OpportunityTypeID", dRow["TypeID"].ToString());
+                            double dCPValue = 0.0;
+                            if (double.TryParse(dRow["CPValue"].ToString(), out dCPValue))
+                                sObjDefs.Add("@CPValue", dCPValue);
+                            else
+                                sObjDefs.Add("@CPValue", 0);
+                            sObjProcName = "uspInsUpdCMCampaignCPOpportunityDefaults";
+                        }
+                        else
+                            sObjProcName = "uspDelCMCampaignCPOpportunityDefaults";
+                        Classes.cUtilities.PerformNonQuery(sObjProcName, sObjDefs, "LARPortal", "EditCampaignInfo.aspx");
+                    }
+                }
+            }
 
-            //        //  Save the updated values back to the viewstate.
-            //        ViewState["CampaignOppDefs"] = dtCampaignOppDefs;
-
-
-
-            //    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                string jsString = "alert('The campaign has been updated.');";
+            string jsString = "alert('The campaign has been updated.');";
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
                         "MyApplication",
                     jsString,
@@ -810,7 +806,7 @@ namespace LarpPortal.Campaigns.Setup
                     dNewRow["Deleted"] = 0;
                     dtPools.Rows.Add(dNewRow);
                     ViewState["Pools"] = dtPools;
-                    if (dvPools.Count == 0) ;
+                    //                    if (dvPools.Count == 0) ;
                     dvPools = new DataView(dtPools, "Deleted = 0", "", DataViewRowState.CurrentRows);
                 }
                 gvPoolData.DataSource = dvPools;
@@ -867,7 +863,7 @@ namespace LarpPortal.Campaigns.Setup
             cblCampaignRoles.Items.Clear();
             cblPeriods.Items.Clear();
             cblHousingTypes.Items.Clear();
-//            cblCampaignStatuses.Items.Clear();
+            //            cblCampaignStatuses.Items.Clear();
             cblPaymentTypes.Items.Clear();
             cbUserDef1.Checked = false;
             tbUserDef1.Text = "";
@@ -879,6 +875,8 @@ namespace LarpPortal.Campaigns.Setup
             tbUserDef4.Text = "";
             cbUserDef5.Checked = false;
             tbUserDef5.Text = "";
+            ViewState.Remove("CampaignOppDefs");
+            ViewState.Remove("Pools");
         }
 
         protected void btnAddCampaign_Click(object sender, EventArgs e)
@@ -898,7 +896,8 @@ namespace LarpPortal.Campaigns.Setup
         protected void btnAddPool_Click(object sender, EventArgs e)
         {
             tbNewPoolName.Text = "";
-            tbNewPoolColor.Text = "";
+            ddlDisplayColor.SelectedIndex = 0;
+            //tbNewPoolColor.Text = "";
             cbDefaultPool.Checked = false;
             cbSuppressOnCard.Checked = false;
 
@@ -915,7 +914,7 @@ namespace LarpPortal.Campaigns.Setup
             dNewRow["CampaignSkillPoolID"] = (minPoolID > 0 ? -1 : minPoolID - 1);
             dNewRow["PoolDescription"] = tbNewPoolName.Text;
             dNewRow["DefaultPool"] = cbDefaultPool.Checked;
-            dNewRow["DisplayColor"] = tbNewPoolColor.Text;
+            dNewRow["DisplayColor"] = ddlDisplayColor.SelectedValue;
             dNewRow["SuppressOnCard"] = cbSuppressOnCard.Checked;
             dNewRow["Deleted"] = 0;
             dtPools.Rows.Add(dNewRow);
@@ -1019,6 +1018,19 @@ namespace LarpPortal.Campaigns.Setup
                             }
                         }
                     }
+                }
+            }
+        }
+
+        protected void gvPoolData_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+                {
+                    DropDownList ddlDisplayColor = e.Row.FindControl("ddlDisplayColor") as DropDownList;
+                    ddlDisplayColor.SelectedValue = DataBinder.Eval(e.Row.DataItem, "DisplayColor").ToString();
                 }
             }
         }

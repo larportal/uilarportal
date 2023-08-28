@@ -132,9 +132,13 @@
                                 <td colspan="3">
                                     <asp:TextBox ID="tbStartDate" runat="server" MaxLength="20" />
                                     <ajaxToolkit:CalendarExtender runat="server" TargetControlID="tbStartDate" Format="MM/dd/yyyy" />
+                                    <asp:CompareValidator ID="cmpStartDate" runat="server" ControlToValidate="tbStartDate" Display="Dynamic" 
+                                        Operator="DataTypeCheck" Type="Date" ErrorMessage="* Must be a date." ForeColor="Red" />
                                     &nbsp;&nbsp;Projected End Date: 
                                 <asp:TextBox ID="tbEndDate" runat="server" MaxLength="20" />
                                     <ajaxToolkit:CalendarExtender runat="server" TargetControlID="tbEndDate" Format="MM/dd/yyyy" />
+                                    <asp:CompareValidator ID="cmpEndDate" runat="server" ControlToValidate="tbEndDate" Display="Dynamic" 
+                                        Operator="DataTypeCheck" Type="Date" ErrorMessage="* Must be a date." ForeColor="Red" />
                                 </td>
 
                             </tr>
@@ -383,14 +387,31 @@
                                                 <asp:GridView ID="gvPoolData" runat="server" AutoGenerateColumns="false"
                                                     DataKeyNames="CampaignSkillPoolID"
                                                     OnRowEditing="gvPoolData_RowEditing" OnRowCancelingEdit="gvPoolData_RowCancelingEdit"
+                                                    OnRowDataBound="gvPoolData_RowDataBound"
                                                     OnRowUpdating="gvPoolData_RowUpdating" OnRowDeleting="gvPoolData_RowDeleting">
                                                     <Columns>
+                                                        <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ShowDeleteButton="true" ButtonType="Button" />
                                                         <asp:BoundField DataField="CampaignSkillPoolID" ReadOnly="true" />
                                                         <asp:BoundField DataField="PoolDescription" HeaderText="Pool Description" />
-                                                        <asp:BoundField DataField="DisplayColor" HeaderText="Display Color" />
+<%--                                                        <asp:BoundField DataField="DisplayColor" HeaderText="Display Color" />--%>
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="DisplayColor" runat="server" Text='<%# Eval("DisplayColor") %>' />
+                                                            </ItemTemplate>
+                                                            <EditItemTemplate>
+                                                                <asp:DropDownList ID="ddlDisplayColor" runat="server">
+                                                                    <asp:ListItem Text="Black" Value="Black" />
+                                                                    <asp:ListItem Text="Blue" Value="Blue" />
+                                                                    <asp:ListItem Text="Red" Value="Red" />
+                                                                    <asp:ListItem Text="Green" Value="Green" />
+                                                                    <asp:ListItem Text="Orange" Value="Orange" />
+                                                                    <asp:ListItem Text="Purple" Value="Purple" />
+                                                                </asp:DropDownList>
+                                                                <asp:HiddenField ID="hidDisplayColor" runat="server" Value='<%# Eval("DisplayColor") %>' />
+                                                            </EditItemTemplate>
+                                                        </asp:TemplateField>
                                                         <asp:CheckBoxField DataField="DefaultPool" HeaderText="Default Pool" ItemStyle-HorizontalAlign="Center" />
                                                         <asp:CheckBoxField DataField="SuppressOnCard" HeaderText="Suppress On Card" ItemStyle-HorizontalAlign="Center" />
-                                                        <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ShowDeleteButton="true" ButtonType="Button" />
                                                     </Columns>
                                                 </asp:GridView>
                                             </td>
@@ -412,7 +433,15 @@
                                                         <tr>
                                                             <th>Pool Color:</th>
                                                             <td>
-                                                                <asp:TextBox MaxLength="500" Columns="50" runat="server" ID="tbNewPoolColor" /></td>
+                                                                <asp:DropDownList ID="ddlDisplayColor" runat="server">
+                                                                    <asp:ListItem Text="Black" Value="Black" />
+                                                                    <asp:ListItem Text="Blue" Value="Blue" />
+                                                                    <asp:ListItem Text="Red" Value="Red" />
+                                                                    <asp:ListItem Text="Green" Value="Green" />
+                                                                    <asp:ListItem Text="Orange" Value="Orange" />
+                                                                    <asp:ListItem Text="Purple" Value="Purple" />
+                                                                </asp:DropDownList>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>&nbsp;</td>
@@ -460,6 +489,7 @@
                                         OnRowEditing="gvOppDefaults_RowEditing" OnRowCancelingEdit="gvOppDefaults_RowCancelingEdit"
                                         OnRowUpdating="gvOppDefaults_RowUpdating">
                                         <Columns>
+                                            <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ButtonType="Button" />
                                             <asp:CheckBoxField DataField="HasDefault" HeaderText="Enable" HeaderStyle-HorizontalAlign="Center" />
                                             <asp:BoundField DataField="Description" HeaderText="Reason" HeaderStyle-HorizontalAlign="Center" />
                                             <asp:TemplateField HeaderText="Opportunity Description" HeaderStyle-HorizontalAlign="Center">
@@ -474,7 +504,6 @@
                                             </asp:TemplateField>
                                             <asp:BoundField HeaderText="CPValue" DataField="CPValue" DataFormatString="{0:F2}" 
                                                 HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ButtonType="Button" />
                                         </Columns>
                                     </asp:GridView>
                                 </td>
@@ -580,6 +609,15 @@
             }
             Blink();
         }
+
+
+        function colorChanged(sender) {
+            sender.get_element().style.color =
+                "#" + sender.get_selectedColor();
+        }
+
+
+
     </script>
 
 
