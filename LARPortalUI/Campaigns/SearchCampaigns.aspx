@@ -185,12 +185,12 @@
                                 <div class="form-group">
                                     <label for="<%= ddlOrderBy.ClientID %>">Find By:</label>
                                     <asp:DropDownList ID="ddlOrderBy" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderBy_SelectedIndexChanged" CssClass="form-control">
-                                        <asp:ListItem>Game System</asp:ListItem>
-                                        <asp:ListItem>Campaign</asp:ListItem>
                                         <asp:ListItem>Genre</asp:ListItem>
+                                        <asp:ListItem>Campaign</asp:ListItem>
                                         <asp:ListItem>Style</asp:ListItem>
                                         <asp:ListItem>Tech Level</asp:ListItem>
                                         <asp:ListItem>Size</asp:ListItem>
+                                        <asp:ListItem>Game System</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div class="margin10"></div>
@@ -306,7 +306,7 @@
                                         </div>
                                         <div class="row">
                                             <asp:Panel ID="pnlCampaignURL" runat="server" CssClass="col-xs-12" Height="30" Width="820">
-                                                <asp:HyperLink ID="hplLinkToSite" runat="server" NavigateUrl="." Target="_blank" Font-Underline="true" ></asp:HyperLink>
+                                                <asp:HyperLink ID="hplLinkToSite" runat="server" NavigateUrl="." Target="_blank" Font-Underline="true"></asp:HyperLink>
                                             </asp:Panel>
                                         </div>
 

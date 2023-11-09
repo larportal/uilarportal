@@ -37,9 +37,64 @@ namespace LarpPortal.Campaigns
                 pnlCampaignURL.Visible = false;
                 //pnlCampaignURL.Style.Add("display", "none");
                 pnlSignUpForCampaign.Visible = false;
-
-                ReloadGameSystemTreeView();
+                OrderBySelectedIndex();
+                //ReloadGenreTreeView();
+                //ReloadGameSystemTreeView();      
             }
+        }
+
+        protected void OrderBySelectedIndex()
+        {
+            // Make all tree views invisible and show the one that's poplulating
+            tvGameSystem.Visible = false;
+            tvCampaign.Visible = false;
+            tvGenre.Visible = false;
+            tvStyle.Visible = false;
+            tvTechLevel.Visible = false;
+            tvSize.Visible = false;
+
+            //pnlImageURL.Visible = false;
+            //pnlCampaignName.Visible = false;            
+            pnlImageURL.Style.Add("display", "none");
+            pnlCampaignName.Style.Add("display", "none");
+
+            pnlCampaignURL.Visible = false;
+
+            pnlOverview.Visible = false;
+            pnlSelectors.Visible = false;
+            pnlSignUpForCampaign.Visible = false;
+
+            switch (ddlOrderBy.Text)
+            {
+                case "Game System":
+                    lblCampaignSearchBy.Text = " by Game System";
+                    tvGameSystem.Visible = true;
+                    break;
+                case "Campaign":
+                    lblCampaignSearchBy.Text = " by Campaign";
+                    tvCampaign.Visible = true;
+                    break;
+                case "Genre":
+                    lblCampaignSearchBy.Text = " by Genre";
+                    tvGenre.Visible = true;
+                    break;
+                case "Style":
+                    lblCampaignSearchBy.Text = " by Style";
+                    tvStyle.Visible = true;
+                    break;
+                case "Tech Level":
+                    lblCampaignSearchBy.Text = " by Tech Level";
+                    tvTechLevel.Visible = true;
+                    break;
+                case "Size":
+                    lblCampaignSearchBy.Text = " by Size";
+                    tvSize.Visible = true;
+                    break;
+                default:
+                    break;
+
+            }
+            ReloadActiveTreeView(publicUserID);
         }
 
         protected void ddlOrderBy_SelectedIndexChanged(object sender, EventArgs e)
