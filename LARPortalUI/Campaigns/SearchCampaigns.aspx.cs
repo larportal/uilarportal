@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
+using LarpPortal.Reports;
 
 namespace LarpPortal.Campaigns
 {
@@ -982,8 +983,27 @@ namespace LarpPortal.Campaigns
                 int intImageVisible = 1;
                 int intOverviewVisible = 1;
                 int intSelectorsVisible = 1;
-                int.TryParse(stGameSystemID, out GameSystemID);
-                int.TryParse(tvGenre.SelectedValue, out CampaignID);
+
+                if (int.TryParse(stGameSystemID, out GameSystemID))
+                    {
+
+                }
+                else
+                {
+                    GameSystemID = -1;
+                }
+                
+                if (int.TryParse(tvGenre.SelectedValue, out CampaignID))
+                    {
+
+                }
+                else
+                {
+                    CampaignID = -1;
+                }
+
+                GorC = "C";
+
                 if (GorC == "G") // Game System
                 {
                     intSelectorsVisible = 0;
