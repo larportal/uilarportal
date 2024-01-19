@@ -122,7 +122,6 @@ namespace LarpPortal.Campaigns.Setup.Skills
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-
             DataSet dsSkillSets = new DataSet();
             SortedList sParam = new SortedList();
 
@@ -150,7 +149,11 @@ namespace LarpPortal.Campaigns.Setup.Skills
                     dRow["PoolDisplay"] += " - Default Pool";
             }
 
-            Session["Pools"] = dsSkillSets.Tables[4];
+            ddlAddPoolName.Items.Clear();
+            ddlAddPoolName.DataSource = dsSkillSets.Tables[4];
+            ddlAddPoolName.DataTextField = "PoolDisplay";
+            ddlAddPoolName.DataValueField = "CampaignSkillPoolID";
+            ddlAddPoolName.DataBind();
 
             tvDisplaySkills.Nodes.Clear();
             tvDisplaySkills.ShowCheckBoxes = TreeNodeTypes.None;
@@ -159,11 +162,6 @@ namespace LarpPortal.Campaigns.Setup.Skills
             ddlSkillType.DataValueField = "SkillTypeID";
             ddlSkillType.DataSource = dsSkillSets.Tables[2];
             ddlSkillType.DataBind();
-
-            //ddlPoolName.DataTextField = "PoolDisplay";
-            //ddlPoolName.DataValueField = "CampaignSkillPoolID";
-            //ddlPoolName.DataSource = dsSkillSets.Tables[4];
-            //ddlPoolName.DataBind();
 
             DataView dvTopNodes = new DataView(_dtCampaignSkills, "ParentSkillNodeID is null", "DisplayOrder", DataViewRowState.CurrentRows);
             foreach (DataRowView dvRow in dvTopNodes)
@@ -206,29 +204,11 @@ namespace LarpPortal.Campaigns.Setup.Skills
                 foreach (DataRow dRow in dsNodeInfo.Tables[0].Rows)
                 {
                     divSkillItems.Visible = true;
-                    //double dSkillCost = 0.0;
-                    //if (double.TryParse(dRow["SkillCPCost"].ToString(), out dSkillCost))
-                    //{
-                    //    tbSkillCost.Text = string.Format("{0:N1}", dSkillCost);
-                    //}
                     tbIncant.Text = dRow["SkillIncant"].ToString();
                     tbCardDescription.Text = dRow["SkillCardDescription"].ToString();
-                    //                    tbLongDescription.Text = dRow["SkillLongDescription"].ToString();
                     CKLongDescription.Text = dRow["SkillLongDescription"].ToString();
                     CKShortDescription.Text = dRow["SkillShortDescription"].ToString();
                     tbSkillName.Text = dRow["SkillName"].ToString();
-
-                    //ddlPoolName.ClearSelection();
-                    //foreach (ListItem lItem in ddlPoolName.Items)
-                    //{
-                    //	if (lItem.Value == dRow["CampaignSkillPoolID"].ToString())
-                    //	{
-                    //		ddlPoolName.ClearSelection();
-                    //		lItem.Selected = true;
-                    //	}
-                    //}
-                    //if (ddlPoolName.SelectedIndex == -1)
-                    //	ddlPoolName.SelectedIndex = 0;
 
                     ddlSkillType.ClearSelection();
                     foreach (ListItem lItem in ddlSkillType.Items)
@@ -240,49 +220,58 @@ namespace LarpPortal.Campaigns.Setup.Skills
                         }
                     }
 
+                    bool bTemp;
+                    swHasRole.Checked = false;
+                    if (bool.TryParse(dRow["OpenToAll"].ToString(), out bTemp))
+                        swHasRole.Checked = bTemp;
+                    if (bool.TryParse(dRow["SuppressParentSkill"].ToString(), out bTemp))
+                        swSuppressParent.Checked = bTemp;
+
                     DataTable dtSkills = Session["SkillNodes"] as DataTable;
                     DataView dvSkills = new DataView(dtSkills, "CampaignSkillID = " + dRow["CampaignSkillID"].ToString(), "", DataViewRowState.CurrentRows);
 
-                    DataTable dtDisplay = new DataTable();
-                    dtDisplay.Columns.Add("DisplayValue", typeof(string));
-                    dtDisplay.Columns.Add("Pool", typeof(string));
-                    dtDisplay.Columns.Add("Cost", typeof(double));
-                    dtDisplay.Columns.Add("AllCosts", typeof(string));
+                    ViewState["Pools"] = dsNodeInfo.Tables[4];
+                    BindPoolData();
+                    //DataTable dtDisplay = new DataTable();
+                    //dtDisplay.Columns.Add("DisplayValue", typeof(string));
+                    //dtDisplay.Columns.Add("Pool", typeof(string));
+                    //dtDisplay.Columns.Add("Cost", typeof(double));
+                    //dtDisplay.Columns.Add("AllCosts", typeof(string));
 
-                    DataTable dtNodeCost;
-                    if (Session["NodeCost"] != null)
-                        dtNodeCost = Session["NodeCost"] as DataTable;
-                    else
-                        dtNodeCost = null;
+                    //DataTable dtNodeCost;
+                    //if (Session["NodeCost"] != null)
+                    //    dtNodeCost = Session["NodeCost"] as DataTable;
+                    //else
+                    //    dtNodeCost = null;
 
-                    foreach (DataRowView dNodes in dvSkills)
-                    {
-                        string sDisplayValue = GetParents(dNodes["CampaignSkillNodeID"].ToString(), dtSkills);
-                        DataRow dNewRow = dtDisplay.NewRow();
-                        dNewRow["DisplayValue"] = sDisplayValue;
-                        dNewRow["Pool"] = dNodes["PoolDescription"].ToString();
-                        double dTemp;
-                        if (double.TryParse(dNodes["SkillCPCost"].ToString(), out dTemp))
-                            dNewRow["Cost"] = dTemp;
+                    //foreach (DataRowView dNodes in dvSkills)
+                    //{
+                    //    string sDisplayValue = GetParents(dNodes["CampaignSkillNodeID"].ToString(), dtSkills);
+                    //    DataRow dNewRow = dtDisplay.NewRow();
+                    //    dNewRow["DisplayValue"] = sDisplayValue;
+                    //    dNewRow["Pool"] = dNodes["PoolDescription"].ToString();
+                    //    double dTemp;
+                    //    if (double.TryParse(dNodes["SkillCPCost"].ToString(), out dTemp))
+                    //        dNewRow["Cost"] = dTemp;
 
-                        string sAllCosts = "";
-                        if (dtNodeCost != null)
-                        {
-                            DataView dvCosts = new DataView(dtNodeCost, "CampaignSkillNodeID = " + dRow["CampaignSkillID"].ToString(), "", DataViewRowState.CurrentRows);
-                            foreach (DataRowView dvCost in dvCosts)
-                            {
-                                double dCost;
-                                if (double.TryParse(dRow["SkillCPCost"].ToString(), out dCost))
-                                {
-                                    if (sAllCosts != "")
-                                        sAllCosts += "; ";
-                                    sAllCosts += dvCost["PoolDescription"].ToString() + ": " + dCost.ToString("#0.00");
-                                }
-                            }
-                        }
-                        dNewRow["AllCosts"] = sAllCosts;
-                        dtDisplay.Rows.Add(dNewRow);
-                    }
+                    //    string sAllCosts = "";
+                    //    if (dtNodeCost != null)
+                    //    {
+                    //        DataView dvCosts = new DataView(dtNodeCost, "CampaignSkillNodeID = " + dRow["CampaignSkillID"].ToString(), "", DataViewRowState.CurrentRows);
+                    //        foreach (DataRowView dvCost in dvCosts)
+                    //        {
+                    //            double dCost;
+                    //            if (double.TryParse(dRow["SkillCPCost"].ToString(), out dCost))
+                    //            {
+                    //                if (sAllCosts != "")
+                    //                    sAllCosts += "; ";
+                    //                sAllCosts += dvCost["PoolDescription"].ToString() + ": " + dCost.ToString("#0.00");
+                    //            }
+                    //        }
+                    //    }
+                    //    dNewRow["AllCosts"] = sAllCosts;
+                    //    dtDisplay.Rows.Add(dNewRow);
+                    //}
                     //gvSkills.DataSource = dtDisplay;
                     //gvSkills.DataBind();
 
@@ -290,6 +279,29 @@ namespace LarpPortal.Campaigns.Setup.Skills
                     hidCampaignSkillsID.Value = dRow["CampaignSkillID"].ToString();
                     divSkillItems.Visible = true;
                 }
+
+                //DataTable dtPools = new DataTable("Pools");
+                //dtPools.Columns.Add("PoolID", typeof(int));
+                //dtPools.Columns.Add("PoolDescription", typeof(string));
+                //dtPools.Columns.Add("Cost", typeof(double));
+
+                //foreach (DataRow dr in dsNodeInfo.Tables[4].Rows)
+                //{
+                //    int PoolID;
+                //    double Cost;
+
+                //    if ((int.TryParse(dr["CampaignSkillPoolID"].ToString(), out PoolID)) &&
+                //        (double.TryParse(dr["SKillCPCost"].ToString(), out Cost)))
+                //    {
+                //        DataRow dNewRow = dtPools.NewRow();
+                //        dNewRow["PoolID"] = PoolID;
+                //        dNewRow["PoolDescription"] = dr["PoolDescription"].ToString();
+                //        dNewRow["Cost"] = Cost;
+                //        dtPools.Rows.Add(dNewRow);
+                //    }
+                //}
+                //ViewState["Pools"] = dtPools;
+                //BindPoolData();
             }
             catch (Exception ex)
             {
@@ -311,6 +323,126 @@ namespace LarpPortal.Campaigns.Setup.Skills
                     RetValue = GetParents(dItem["ParentSkillNodeID"].ToString(), dtSkills) + @" \ " + dItem["SkillName"].ToString();
             }
             return RetValue;
+        }
+
+
+        //protected void gvPoolData_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+
+        //        if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+        //        {
+        //            DropDownList ddlDisplayColor = e.Row.FindControl("ddlPoolList") as DropDownList;
+        //            ddlDisplayColor.SelectedValue = DataBinder.Eval(e.Row.DataItem, "CampaignSkillPoolID").ToString();
+        //        }
+        //    }
+        //}
+
+        protected void BindPoolData()
+        {
+            DataTable Pools = (DataTable)ViewState["Pools"];
+            gvPoolData.DataSource = Pools;
+            gvPoolData.DataBind();
+        }
+
+        protected void btnDeleteCost_Click(object sender, EventArgs e)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            sParams.Add("@CampaignSkillPoolID", hidDeletePoolID.Value);
+            sParams.Add("@UserName", Master.UserName);
+            Classes.cUtilities.PerformNonQuery("uspDelCHCampaignSkillNodeCost", sParams, "LARPortal", Master.UserName);
+
+            sParams = new SortedList();
+            sParams.Add("@SkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            DataSet dsPools = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillByNodeID", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            ViewState["Pools"] = dsPools.Tables[4];
+            BindPoolData();
+        }
+
+        protected void btnEditPoolSave_Click(object sender, EventArgs e)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            sParams.Add("@CampaignSkillPoolID", hidEditPoolID.Value);
+            double dCost;
+            if (double.TryParse(tbEditPoolCost.Text, out dCost))
+            {
+                sParams.Add("@SkillCPCost", dCost);
+                Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillNodeCost", sParams, "LARPortal", Master.UserName);
+            }
+
+            sParams = new SortedList();
+            sParams.Add("@SkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            DataSet dsPools = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillByNodeID", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            ViewState["Pools"] = dsPools.Tables[4];
+            BindPoolData();
+        }
+
+        protected void btnAddPoolSave_Click(object sender, EventArgs e)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            sParams.Add("@CampaignSkillPoolID", ddlAddPoolName.SelectedValue);
+            double dCost;
+            if (double.TryParse(tbAddPoolCost.Text, out dCost))
+            {
+                sParams.Add("@SkillCPCost", dCost);
+                Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillNodeCost", sParams, "LARPortal", Master.UserName);
+            }
+
+            sParams = new SortedList();
+            sParams.Add("@SkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            DataSet dsPools = Classes.cUtilities.LoadDataSet("uspGetCampaignSkillByNodeID", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            ViewState["Pools"] = dsPools.Tables[4];
+            BindPoolData();
+        }
+
+        protected void btn_SaveNode_Click(object sender, EventArgs e)
+        {
+            SortedList sParams = new SortedList();
+            //sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            //sParams.Add("@UserName", Master.UserName);
+            //Classes.cUtilities.PerformNonQuery("uspClearCHCampaignSkillNodeCost", sParams, "LARPortal", Master.UserName);
+
+            sParams = new SortedList();
+            sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            sParams.Add("@UserID", Master.UserID);
+            if (swHasRole.Checked)
+                sParams.Add("@OpenToAll", 1);
+            else
+                sParams.Add("@OpenToAll", 0);
+            if (swSuppressParent.Checked)
+                sParams.Add("@SuppressParentSkill", 1);
+            else
+                sParams.Add("@SuppressParentSkill", 0);
+            Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillNodes", sParams, "LARPortal", Master.UserName);
+
+            //foreach (DataRow dRow in ((DataTable)ViewState["Pools"]).Rows)
+            //{
+            //    sParams = new SortedList();
+            //    sParams.Add("@CampaignSkillNodeID", tvDisplaySkills.SelectedNode.Value);
+            //    sParams.Add("@CampaignSkillPoolID", dRow["PoolID"].ToString());
+            //    double dCost;
+            //    if (double.TryParse(dRow["Cost"].ToString(), out dCost))
+            //        sParams.Add("@SkillCPCost", dCost);
+            //    else
+            //        sParams.Add("@SkillCPCost", dCost);
+
+            //    Classes.cUtilities.PerformNonQuery("uspInsUpdCHCampaignSkillNodeCost", sParams, "LARPortal", Master.UserName);
+            //}
+            lblmodalMessage.Text = "The skill node has been saved.";
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "MyApplication", "openMessage();", true);
         }
     }
 }

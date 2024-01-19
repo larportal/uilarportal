@@ -756,8 +756,13 @@ namespace LarpPortal.Campaigns.Setup
             DataView dvPools = new DataView(dtPools, "CampaignSkillPoolID = " + CampaignSkillPoolID.ToString(), "", DataViewRowState.CurrentRows);
             if (dvPools.Count > 0)
             {
+                DropDownList ddlDisplayColor = gvPoolData.Rows[gvPoolData.EditIndex].FindControl("ddlDisplayColor") as DropDownList;
+                if (ddlDisplayColor != null)
+                {
+                    dvPools[0]["DisplayColor"] = ddlDisplayColor.SelectedValue;
+                }
                 dvPools[0]["PoolDescription"] = e.NewValues["PoolDescription"].ToString();
-                dvPools[0]["DisplayColor"] = e.NewValues["DisplayColor"].ToString();
+//                dvPools[0]["DisplayColor"] = e.NewValues["DisplayColor"].ToString();
                 dvPools[0]["DefaultPool"] = (bool)e.NewValues["DefaultPool"];
                 dvPools[0]["SuppressOnCard"] = (bool)e.NewValues["SuppressOnCard"];
                 if ((bool)e.NewValues["DefaultPool"] == true)

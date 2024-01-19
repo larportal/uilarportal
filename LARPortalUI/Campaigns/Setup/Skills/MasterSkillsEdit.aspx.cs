@@ -18,7 +18,7 @@ namespace LarpPortal.Campaigns.Setup.Skills
         protected void Page_Load(object sender, EventArgs e)
         {
             //tbStartDateTime.Attributes.Add("onChange", "CalcDates();");
-            btnCloseMessage.Attributes.Add("data-dismiss", "modal");
+//            btnCloseMessage.Attributes.Add("data-dismiss", "modal");
         }
 
         protected void Page_PreRender(object sender, EventArgs e)

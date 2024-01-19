@@ -123,9 +123,13 @@
                     <ContentTemplate>
                         <table>
                             <tr>
-                                <th>Campaign Name:</th>
+                                <th>*Campaign Name:</th>
                                 <td>
-                                    <asp:TextBox ID="tbCampaignName" runat="server" /></td>
+                                    <asp:TextBox ID="tbCampaignName" runat="server" />
+                                    <asp:RequiredFieldValidator ControlToValidate="tbCampaignName" Display="Dynamic" runat="server" ForeColor="Red" 
+                                        Font-Bold="true" Font-Italic="true"
+                                        Text=" Campaign name is required." />
+                                </td>
                             </tr>
                             <tr>
                                 <th>Campaign Start Date:</th>
@@ -388,12 +392,11 @@
                                                     DataKeyNames="CampaignSkillPoolID"
                                                     OnRowEditing="gvPoolData_RowEditing" OnRowCancelingEdit="gvPoolData_RowCancelingEdit"
                                                     OnRowDataBound="gvPoolData_RowDataBound"
-                                                    OnRowUpdating="gvPoolData_RowUpdating" OnRowDeleting="gvPoolData_RowDeleting">
+                                                    OnRowUpdating="gvPoolData_RowUpdating">
                                                     <Columns>
-                                                        <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ShowDeleteButton="true" ButtonType="Button" />
+                                                        <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ButtonType="Button" />
                                                         <asp:BoundField DataField="CampaignSkillPoolID" ReadOnly="true" />
                                                         <asp:BoundField DataField="PoolDescription" HeaderText="Pool Description" />
-<%--                                                        <asp:BoundField DataField="DisplayColor" HeaderText="Display Color" />--%>
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
                                                                 <asp:Label ID="DisplayColor" runat="server" Text='<%# Eval("DisplayColor") %>' />

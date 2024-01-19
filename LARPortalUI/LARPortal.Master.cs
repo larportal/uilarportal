@@ -267,6 +267,8 @@ namespace LarpPortal
 
 
 
+                        Classes.LogWriter oLogWriter = new Classes.LogWriter();
+                        oLogWriter.AddLogMessage("Call after calling the campaign changed method.", "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
 
 
 
@@ -282,8 +284,13 @@ namespace LarpPortal
 
                         LoadData();
 
+                        string t = Session["CampaignID"].ToString();
+
                         if (CampaignChanged != null)
+                        {
                             CampaignChanged(this, EventArgs.Empty);
+                        }
+                        //Response.Redirect("/Default.aspx", true);
                     }
                     //					oLogWriter.AddLogMessage("Done with adding." + CampaignID.ToString(), "Master.ddlCampaigns_SelectedIndexChanged", "", Session.SessionID);
                 }
