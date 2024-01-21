@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="header-background-image">
-                    <h1>PEL Answer Summary Report</h1>
+                    <h1>LARP Site Report</h1>
                 </div>
             </div>
         </div>
