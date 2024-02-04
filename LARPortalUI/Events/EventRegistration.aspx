@@ -233,8 +233,8 @@
                                             <div class="col-lg-12 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Meal Plan</label>
-                                                    <div class="col xs-12">
-                                                        <asp:CheckBoxList ID="cbxlMeals" runat="server" RepeatDirection="Horizontal" CssClass="col-xs-12" />
+                                                    <div class="col xs-4">
+                                                        <asp:CheckBoxList ID="cbxlMeals" runat="server" RepeatDirection="Horizontal" CssClass="col-xs-4" />
                                                         <asp:Label ID="lblNoFoodLabel" runat="server" CssClass="form-control NoShadow col-lg-12 no-padding" Text="This event has not been set up with food services." />
                                                     </div>
                                                 </div>

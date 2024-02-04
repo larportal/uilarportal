@@ -19,8 +19,10 @@
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MQHDGS"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MQHDGS"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <div class="contentArea">
@@ -30,64 +32,79 @@
                 <form id="frmHidFields" runat="server">
                     <div role="form" class="form-horizontal">
                         <div class="col-sm-12 NoPadding">
-                            <h1 class="col-sm-12">Myth - Event Registration Payment</h1>
+                            <h1 class="col-sm-12">Myth - Event Registration</h1>
                         </div>
-                        <div class="row col-sm-12 NoPadding" style="padding-left: 25px;">
-                            <div class="col-lg-12 NoPadding" style="padding-left: 15px;">
-                                <div class="panel NoPadding" style="padding-top: 0px; padding-bottom: 0px; min-height: 50px;">
-                                    <div class="panelheader NoPadding">
-                                        <h2>
-                                            <asp:Label ID="lblPlayerEventCharacter" runat="server" Text="Player - Event - Character"></asp:Label></h2>
-                                    </div>
-                                    <div class="panel-body NoPadding">
-                                        <div class="panel-container NoPadding">
-                                            <asp:Label ID="lblPageText" runat="server">
-                                                Myth events are $75.00 if you preregister, $85.00 otherwise. 
-                                                You can pay through PayPal, check, or cash at the door.<br /><br />
-<%--                                                We ask that if you pay in the last few days before an event, please use cash or check at the door,
-                                                since there is a delay before we can access PayPal funds to pay the site fee.<br /><br />
-                                                If you need to make other arrangements, or have questions, please 
-                                                <a href="https://sites.google.com/site/crossoverrules/welcome/contact-info?authuser=0">contact us by email.</a><br /><br />--%>
-                                                <br /><br />
-                                                <a href="https://paypal.me/eric@ctfaire.com/75">Pay through PayPal.</a><br />
-                                            </asp:Label>
-                                            <asp:Label ID="lblEarlyOrLate" runat="server">Myth Event</asp:Label>
-                                            <div class="paypalWrapper">
-                                                <div class="errors hidden checkoutErrors">
-                                                    <div class="paypalButtonContainer ani_cta_none">
-                                                        <div class="bgradient">
-                                                            <div class="paypalButton">
-                                                                <asp:Label ID="lblPayPalForm" runat="server" Text="lblPayPalForm text here"></asp:Label>
-                                                                <%--<asp:TextBox ID="tbPayPalFormCode" runat="server" Text="" TextMode="MultiLine"></asp:TextBox>--%>
+
+                        <asp:Panel ID="pnlNPCFood" runat="server" Visible="false">
+                            <div>Select meal option - NPCs eat free</div>
+                            <asp:RadioButtonList ID="rblNPCFoodChoice" runat="server" RepeatDirection="Vertical">
+                                <asp:ListItem Selected="True" Value="0">I will provide my own meals.</asp:ListItem>
+                                <asp:ListItem Value="1">I would like the Vegan option.</asp:ListItem>
+                                <asp:ListItem Value="2">I would like the Meat option.</asp:ListItem>
+                            </asp:RadioButtonList>
+                            <br /><br />
+                            <asp:Button ID="btnSaveNPCMeal" runat="server" Text="Save Meal Choice" OnClick="btnSaveNPCMeal_Click" />
+                        </asp:Panel>
+
+                        <asp:Panel ID="pnlPCFood" runat="server" Visible="false">
+                            <div>Select meal option - All meals cost $30</div>
+                            <asp:RadioButtonList ID="rblPCFoodChoice" runat="server" RepeatDirection="Vertical">
+                                <asp:ListItem Selected="True" Value="0">I will provide my own meals.</asp:ListItem>
+                                <asp:ListItem Value="1">I would like to purchase the Vegan option.</asp:ListItem>
+                                <asp:ListItem Value="2">I would like to purchase the Meat option.</asp:ListItem>
+                            </asp:RadioButtonList>
+                            <br /><br />
+                            <asp:Button ID="btnSavePCMeal" runat="server" Text="Save Meal Choice" OnClick="btnSavePCMeal_Click" />
+                        </asp:Panel>
+
+                        <asp:Panel ID="pnlPay" runat="server" Visible="false">
+                            <div class="row col-sm-12 NoPadding" style="padding-left: 25px;">
+                                <div class="col-lg-12 NoPadding" style="padding-left: 15px;">
+                                    <div class="panel NoPadding" style="padding-top: 0px; padding-bottom: 0px; min-height: 50px;">
+                                        <div class="panelheader NoPadding">
+                                            <h2>
+                                                <asp:Label ID="lblPlayerEventCharacter" runat="server" Text="Player - Event - Character"></asp:Label></h2>
+                                        </div>
+                                        <div class="panel-body NoPadding">
+                                            <div class="panel-container NoPadding">
+                                                <asp:Label ID="lblPageText" runat="server">
+                                                Myth events are $95.00, $75.00 if it's your first event. 
+                                                You can pay through PayPal.<br /><br />
+                                                <%--<a href="https://paypal.me/eric@ctfaire.com/75">Pay through PayPal.</a><br />--%>
+                                                </asp:Label>
+                                                <%--<asp:Label ID="lblEarlyOrLate" runat="server">Myth Event</asp:Label>--%>
+                                                <div class="paypalWrapper">
+                                                    <div class="errors hidden checkoutErrors">
+                                                        <div class="paypalButtonContainer ani_cta_none">
+                                                            <div class="bgradient">
+                                                                <div class="paypalButton">
+                                                                    <asp:Label ID="lblPayPalForm" runat="server" Text="lblPayPalForm text here"></asp:Label>
+                                                                    <%--<asp:TextBox ID="tbPayPalFormCode" runat="server" Text="" TextMode="MultiLine"></asp:TextBox>--%>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <%--<div class="row PrePostPadding" runat="server">&nbsp;</div>--%>
-                                            <%--<asp:Button ID="btnCalculateOrder" runat="server" CssClass="StandardButton" Text="Calculate Amount" Visible="false" OnClick="btnCalculateOrder_Click" />--%>
-                                            <%--<div class="row PrePostPadding" runat="server">&nbsp;</div>--%>
-                                            <div class="row PrePostPadding" runat="server">
-                                                <div>
-                                                    <asp:HiddenField ID="hidItemName" runat="server" />
-                                                    <%--<asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_s.png" PostBackUrl="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PYM9SG4S63CX2" Visible="true" OnClick="btnPayPalTotal_Click" />--%>
-                                                    <asp:Label ID="lblImageButton" runat="server" Visible="false"></asp:Label><br /><br /><br />
-                                                    <%--Food service payments can be made to Suhayma <a href="https://www.paypal.me/Suhayma" rel="nofollow">here.</a>--%>
+                                                <%--<div class="row PrePostPadding" runat="server">&nbsp;</div>--%>
+                                                <%--<asp:Button ID="btnCalculateOrder" runat="server" CssClass="StandardButton" Text="Calculate Amount" Visible="false" OnClick="btnCalculateOrder_Click" />--%>
+                                                <%--<div class="row PrePostPadding" runat="server">&nbsp;</div>--%>
+                                                <div class="row PrePostPadding" runat="server">
+                                                    <div>
+                                                        <asp:HiddenField ID="hidItemName" runat="server" />
+                                                        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_s.png" PostBackUrl="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PYM9SG4S63CX2" Visible="true" OnClick="btnPayPalTotal_Click" />
+                                                        <asp:Label ID="lblImageButton" runat="server" Visible="false"></asp:Label><br />
+                                                        <br />
+                                                        <br />
+                                                        
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </asp:Panel>
 
-                        <div class="row PrePostPadding">&nbsp;</div>
-                        <div class="row PrePostPadding">
-                            <div class="col-sm-11"></div>
-                            <div class="col-sm-1">
-                                <asp:Button ID="Button1" runat="server" CssClass="StandardButton" Text="Close" OnClick="btnClose_Click" />
-                            </div>
-                        </div>
                     </div>
                 </form>
             </section>

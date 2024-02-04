@@ -42,16 +42,15 @@
                                     <div class="panel-body NoPadding">
                                         <div class="panel-container NoPadding">
                                             <asp:Label ID="lblPageText" runat="server">
-                                                Crossover events are $100, whether paid in advance or at the door. 
-                                                You can pay through PayPal, check, or cash at the door.<br /><br />
-                                                We ask that if you pay in the last few days before an event, please use cash or check at the door,
-                                                since there is a delay before we can access PayPal funds to pay the site fee.<br /><br />
+                                                Cottington Woods events are $95 in advance / $110 at the door. 
+                                                You can pay through PayPal.<br /><br />
+                                                We ask that if you pay in the last few days before an event, please use cash or check.<br /><br />
                                                 If you need to make other arrangements, or have questions, please 
-                                                <a href="https://sites.google.com/site/crossoverrules/welcome/contact-info?authuser=0">contact us by email.</a><br /><br />
+                                                <a href="prereg@cottingtonwoods.com">contact us by email.</a><br /><br />
                                                 <br /><br />
-                                                <a href="https://paypal.me/Crossoverlarp/100">Pay through PayPal.</a><br />
+                                                <a href="https://paypal.me/prereg@cottingtonwoods.com/95">Pay through PayPal.</a><br />
                                             </asp:Label>
-                                            <asp:Label ID="lblEarlyOrLate" runat="server">Crossover Event (Paid in advance)</asp:Label>
+                                            <asp:Label ID="lblEarlyOrLate" runat="server">Cottington Woods Event (Paid in advance)</asp:Label>
                                             <div class="paypalWrapper">
                                                 <div class="errors hidden checkoutErrors">
                                                     <div class="paypalButtonContainer ani_cta_none">

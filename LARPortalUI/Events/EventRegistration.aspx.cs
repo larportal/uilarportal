@@ -1036,6 +1036,32 @@ namespace LarpPortal.Events
                 if (bNewRegistration)
                     NotifyOfNewRegistration(bNewRegistration);
 
+                if ((hidRegistrationID.Value == "-1") || (hidRegistrationID.Value.Length == 0))
+                {
+                    string redirectstring = "";
+                    switch (ddlRoles.SelectedItem.Text.ToUpper())
+                    {
+                        case "PC":
+                            redirectstring = "<script>window.open('ChooseHousing.aspx');</script>";
+                            break;
+                        default:
+                            redirectstring = "<script>window.open('EventPayment.aspx');</script>";
+                            break;
+                    }
+                    switch (Master.CampaignID)
+                    {
+                        case 151:
+                            //Response.Redirect("EventPayment.aspx");
+                            string redirect = redirectstring;
+                            Response.Write(redirect);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+
                 lblRegistrationMessage.Text = sRegistrationMessage;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 

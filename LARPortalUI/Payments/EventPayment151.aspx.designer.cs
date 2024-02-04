@@ -24,6 +24,69 @@ namespace LarpPortal.Payments
         protected global::System.Web.UI.HtmlControls.HtmlForm frmHidFields;
 
         /// <summary>
+        /// pnlNPCFood control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNPCFood;
+
+        /// <summary>
+        /// rblNPCFoodChoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblNPCFoodChoice;
+
+        /// <summary>
+        /// btnSaveNPCMeal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveNPCMeal;
+
+        /// <summary>
+        /// pnlPCFood control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPCFood;
+
+        /// <summary>
+        /// rblPCFoodChoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblPCFoodChoice;
+
+        /// <summary>
+        /// btnSavePCMeal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSavePCMeal;
+
+        /// <summary>
+        /// pnlPay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPay;
+
+        /// <summary>
         /// lblPlayerEventCharacter control.
         /// </summary>
         /// <remarks>
@@ -40,15 +103,6 @@ namespace LarpPortal.Payments
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageText;
-
-        /// <summary>
-        /// lblEarlyOrLate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEarlyOrLate;
 
         /// <summary>
         /// lblPayPalForm control.
@@ -69,6 +123,15 @@ namespace LarpPortal.Payments
         protected global::System.Web.UI.WebControls.HiddenField hidItemName;
 
         /// <summary>
+        /// ImageButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+
+        /// <summary>
         /// lblImageButton control.
         /// </summary>
         /// <remarks>
@@ -76,14 +139,5 @@ namespace LarpPortal.Payments
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblImageButton;
-
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

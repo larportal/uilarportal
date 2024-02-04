@@ -173,6 +173,9 @@ namespace LarpPortal.Events
             {
                 foreach (DataRow dRow in dtPaymentPageCode.Rows)
                 {
+                    Session["CharacterAKA"] = CharacterAKA;
+                    Session["EventName"] = EventName;
+                    Session["RoleAlignmentID"] = RoleAlignmentID;
                     PaymentPageURL = dRow["PaymentPageURL"].ToString();
                     Response.Redirect(PaymentPageURL);
                 }
