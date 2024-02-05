@@ -103,6 +103,7 @@ namespace LarpPortal.Payments
                             else
                             {
                                 PayPalTotal = 75;
+                                PayPalTotal = 95; // Take this out when we have new players identified.
                                 //PayPalTotal = 1;  // Take this line out for production. 
                             }
                             PPItemName = lblPlayerEventCharacter.Text + "($" + PayPalTotal.ToString() + ")";

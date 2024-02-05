@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -228,6 +229,10 @@ namespace LarpPortal.Events
 
         protected void ddlEventDate_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //if (pnlSpecialButtons.Visible == true || btnFoodPay.Visible == true || btnHousing.Visible == true)
+            //{
+            //    RestoreButtons();
+            //}
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
@@ -948,19 +953,23 @@ namespace LarpPortal.Events
             sParam.Add("@RegisteredByID", Master.UserID);
 
             // If Staff person there is no character so blank it out so that it will not be included in the email.
+            string strRole = "";
             switch (ddlRoles.SelectedItem.Text.ToUpper())
             {
                 case "NPC":
+                    strRole = "NPC";
                     hidCharAKA.Value = "";      // Rick - 8/16/2016 - Replace next line to emulate staff problem resolution
                                                 // hidCharAKA.Value = ddlCharacterList.SelectedItem.Text;
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
                     break;
 
                 case "PC":
+                    strRole = "PC";
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
                     break;
 
                 case "STAFF":
+                    strRole = "STAFF";
                     hidCharAKA.Value = "";
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
                     break;
@@ -1038,29 +1047,36 @@ namespace LarpPortal.Events
 
                 if ((hidRegistrationID.Value == "-1") || (hidRegistrationID.Value.Length == 0))
                 {
-                    string redirectstring = "";
-                    switch (ddlRoles.SelectedItem.Text.ToUpper())
-                    {
-                        case "PC":
-                            redirectstring = "<script>window.open('ChooseHousing.aspx');</script>";
-                            break;
-                        default:
-                            redirectstring = "<script>window.open('EventPayment.aspx');</script>";
-                            break;
-                    }
+
                     switch (Master.CampaignID)
                     {
                         case 151:
                             //Response.Redirect("EventPayment.aspx");
-                            string redirect = redirectstring;
-                            Response.Write(redirect);
+                            //string redirect = redirectstring;
+                            //Response.Write(redirect);
+
+                            //string script = "";
+                            pnlButtons.Visible = false;
+                            pnlSpecialButtons.Visible = true;
+                            switch (strRole)
+                            {
+                                case "PC":
+                                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "PopH", "openHousing();", true);
+                                    btnHousing.Visible = true;
+                                    btnFoodPay.Visible = false;
+                                    break;
+                                default:
+                                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "PopP", "openPayPalWindow();", true);
+                                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "PopH", "openHousing();", true);
+                                    btnHousing.Visible = false;
+                                    btnFoodPay.Visible = true;
+                                    break;
+                            }
                             break;
                         default:
                             break;
                     }
                 }
-
-
 
                 lblRegistrationMessage.Text = sRegistrationMessage;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -1381,6 +1397,24 @@ namespace LarpPortal.Events
                 ddlPlayerName.ClearSelection();
                 ddlPlayerName.Items[0].Selected = true;
             }
+        }
+
+        protected void btnHousing_Click(object sender, EventArgs e)
+        {
+            RestoreButtons();
+        }
+
+        protected void btnFoodPay_Click(object sender, EventArgs e)
+        {
+            RestoreButtons();
+        }
+
+        protected void RestoreButtons()
+        {
+            btnFoodPay.Visible = false;
+            btnHousing.Visible = false;
+            pnlSpecialButtons.Visible = false;
+            pnlButtons.Visible = true;
         }
     }
 }

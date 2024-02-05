@@ -71,6 +71,39 @@
             win.focus();
         }
 
+        function openHousing() {
+            var winh = window.open("/Events/ChooseHousing.aspx", "_blank");
+            winh.focus
+        }
+
+        function CampaignSpecific() {
+            alert("We got to CampaignSpecific");
+<%--            var CampaignName = document.getElementById('<%= hidCampaignName.ClientID%>').value;
+            alert(CampaignName);
+            var dropdown = document.getElementById('<%= ddlRoles.ClientID %>');
+            var selectedOption = dropdown.options[dropdown.selectedIndex];
+            var selectedText = selectedOption.text;
+            alert(selectedText);
+            alert("no more");
+
+            if (CampaignName == "Myth") {
+                alert(CampaignName);
+                if (selectedText == "PC") {
+                    alert(selectedText);
+                    var winh = window.open("/Events/ChooseHousing.aspx", "_blank");
+                    win.focus();
+                }
+                else {
+                    alert(selectedText);
+                    var winp = window.open("/Events/EventPayment.aspx", "_blank");
+                    win.focus();
+                }
+            }
+            else {
+                alert(CampaignName);
+            }--%>
+        }
+
         function enablePayNowButton(ddlId) {
             var PayPalID = document.getElementById('<%= hidPayPalTypeID.ClientID%>').value;
             var ddlPaymentChoice = document.getElementById(ddlId.id);
@@ -169,7 +202,7 @@
                                                     <label for="ddlSendToCampaign">Send CP to</label>
                                                     <asp:DropDownList ID="ddlSendToCampaign" runat="server" CssClass="form-control autoWidth" />
                                                     <asp:RequiredFieldValidator ErrorMessage="* Required" ControlToValidate="ddlSendToCampaign"
-                                                            InitialValue="0" runat="server" ForeColor="Red" />
+                                                        InitialValue="0" runat="server" ForeColor="Red" />
                                                     <asp:TextBox ID="tbSendToCPOther" runat="server" CssClass="form-control" MaxLength="500" Style="display: none;" TextMode="MultiLine" />
                                                 </div>
                                             </div>
@@ -269,13 +302,23 @@
                         </div>
                     </div>
 
-                    <div class="row col-xs-12 text-center" style="padding-top: 20px;">
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger MarginLeftRight" OnCommand="CancelReg" />
-                        <asp:Button ID="btnChange" runat="server" Text="Change Reg" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
-                        <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
-                        <asp:Button ID="btnRSVPNo" runat="server" Text="I Cannot Attend" CssClass="btn btn-danger MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVPNO" />
-                        <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVP" />
-                    </div>
+                    <asp:Panel ID="pnlButtons" runat="server" Visible="true">
+                        <div class="row col-xs-12 text-center" style="padding-top: 20px;">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger MarginLeftRight" OnCommand="CancelReg" />
+                            <asp:Button ID="btnChange" runat="server" Text="Change Reg" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
+                            <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
+                            <asp:Button ID="btnRSVPNo" runat="server" Text="I Cannot Attend" CssClass="btn btn-danger MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVPNO" />
+                            <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVP" />
+                        </div>
+                    </asp:Panel>
+                    <asp:Panel ID="pnlSpecialButtons" runat="server" Visible="false">
+                        <div class="row col-xs-12 text-center" style="padding-top: 20px;">
+                            <%--PCs - Housing goes to Food and Pay
+                            NPCs/Staff - Skips housing and goes right to Food and Pay (which skips pay for NPCs/staff--%>
+                            <asp:Button ID="btnHousing" runat="server" Text="Select Housing" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openHousing();" OnClick="btnHousing_Click" />
+                            <asp:Button ID="btnFoodPay" runat="server" Text="Select Food" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openPayPalWindow();" OnClick="btnFoodPay_Click"/>
+                        </div>
+                    </asp:Panel>
 
                     <div class="row col-xs-12 text-center">
                         <asp:Label ID="lblWhyRSVP" runat="server" Visible="false" Text="Currently this event is not yet open for registration.<br />By letting the owners know whether you plan to attend an event you will help in planning.<br />" />
