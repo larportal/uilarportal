@@ -28,7 +28,7 @@
                 <asp:Label ID="lblRegistrationText" runat="server" Text="" CssClass="form-control NoShadow"></asp:Label>
             </div>
             <div class="row PrePostPadding">
-                <asp:CheckBox ID="chkRegistration" runat="server" Text="Add registration payment ($80.00)" Checked="true" />
+                <asp:CheckBox ID="chkRegistration" runat="server" Text="Add registration payment ($100.00)" Checked="true" />
             </div>
             <div class="row PrePostPadding">
                 <asp:Label ID="lblFoodTextOld" runat="server" Text="" Visible="false" CssClass="form-control NoShadow"></asp:Label>

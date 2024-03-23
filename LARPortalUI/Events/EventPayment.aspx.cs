@@ -39,7 +39,7 @@ namespace LarpPortal.Events
                 //lblRegistrationText.Text += "<p>As of 2011, Madrigal has changed our payment system so that there ";
                 //lblRegistrationText.Text += "is no longer any Membership fee - insurance and overhead fees have ";
                 //lblRegistrationText.Text += "been rolled into the event cost. This way, NPCs play for free!</p>";
-                //lblRegistrationText.Text += "<p>This means that Adventure Weekends now cost $80, no matter when you register:</p><br />";
+                //lblRegistrationText.Text += "<p>This means that Adventure Weekends now cost $100, no matter when you register:</p><br />";
                 lblFoodText.Text = "<br />At Camp Woodstock meal services are available directly through the site.<br>";
                 lblFoodText.Text += "Go to  www.campwoodstock.org.<br>";
                 lblFoodText.Text += "Click big orange REGISTER FOR CAMP button at the bottom.<br>";
@@ -249,8 +249,8 @@ namespace LarpPortal.Events
                     TotalSectionHTML += "\" value=\"1\">";
                     TotalSectionHTML += "<input type=\"hidden\" name=\"amount_";
                     TotalSectionHTML += strCartCounter;
-                    TotalSectionHTML += "\" value=\"80\">";
-                    OrderTotal += 80;
+                    TotalSectionHTML += "\" value=\"100\">";
+                    OrderTotal += 100;
                 }
                 if (chkSaturdayBrunch.Checked == true)
                 {
