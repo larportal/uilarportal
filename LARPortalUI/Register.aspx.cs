@@ -142,6 +142,8 @@ namespace LarpPortal
 			strBody = strBody + "account return to www.larportal.com.  Enter your username and password and click the Login ";
 			strBody = strBody + "button.  When the site prompts you for your activation key, enter it and click the Login button again.<p></p>If you have ";
 			strBody = strBody + "any questions please email us at support@larportal.com.";
+			strBody = strBody + "<p></p><p></p>If you don't receive your email within a few minutes DO NOT create a new account. Check your spam filter. ";
+			strBody = strBody + "If you still don't have it, send an email to support@larportal.com and we will send you the email from a different account.";
 			Classes.cEmailMessageService NotifyStaff = new Classes.cEmailMessageService();
 			try
 			{
