@@ -480,6 +480,7 @@
     <Content Include="Donations\images\plus.png" />
     <Content Include="Donations\ParentChildTest.aspx" />
     <Content Include="Donations\SetupDonations.aspx" />
+    <Content Include="Events\ChooseHousing.aspx" />
     <Content Include="Events\AssignHousing.aspx" />
     <Content Include="Events\EventDefaults.aspx" />
     <Content Include="Events\EventEdit.aspx" />
@@ -641,6 +642,10 @@
     <Content Include="NewUserDirections.aspx" />
     <Content Include="NewUserSelectCampaign.aspx" />
     <Content Include="Payments\EventPayment102.aspx" />
+    <Content Include="Payments\EventPayment124.aspx" />
+    <Content Include="Payments\EventPayment134.aspx" />
+    <Content Include="Payments\EventPayment135.aspx" />
+    <Content Include="Payments\EventPayment151.aspx" />
     <Content Include="Payments\EventPayment33.aspx" />
     <Content Include="Payments\EventPayment69.aspx" />
     <Content Include="Payments\EventPayment80.aspx" />
@@ -1864,6 +1869,13 @@
     <Compile Include="Donations\SetupDonations.aspx.designer.cs">
       <DependentUpon>SetupDonations.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Events\ChooseHousing.aspx.cs">
+      <DependentUpon>ChooseHousing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events\ChooseHousing.aspx.designer.cs">
+      <DependentUpon>ChooseHousing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Events\AssignHousing.aspx.cs">
       <DependentUpon>AssignHousing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1978,6 +1990,34 @@
     </Compile>
     <Compile Include="Payments\EventPayment102.aspx.designer.cs">
       <DependentUpon>EventPayment102.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment124.aspx.cs">
+      <DependentUpon>EventPayment124.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment124.aspx.designer.cs">
+      <DependentUpon>EventPayment124.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment134.aspx.cs">
+      <DependentUpon>EventPayment134.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment134.aspx.designer.cs">
+      <DependentUpon>EventPayment134.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment135.aspx.cs">
+      <DependentUpon>EventPayment135.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment135.aspx.designer.cs">
+      <DependentUpon>EventPayment135.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\EventPayment151.aspx.cs">
+      <DependentUpon>EventPayment151.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments\EventPayment151.aspx.designer.cs">
+      <DependentUpon>EventPayment151.aspx</DependentUpon>
     </Compile>
     <Compile Include="Payments\EventPayment33.aspx.cs">
       <DependentUpon>EventPayment33.aspx</DependentUpon>

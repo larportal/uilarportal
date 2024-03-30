@@ -111,7 +111,7 @@
                     <div class="row" style="padding-left: 15px; margin-bottom: 20px; width: 100%;">
                         <div class="panel" style="padding-top: 0px; padding-bottom: 0px;">
                             <div class="panelheader">
-                                <h4>Question: <%# Eval("Question") %></h4>
+                                <h4><b><u>Question: <%# Eval("Question") %></u></b></h4>
                                 <div class="panel-body">
                                     <div class="panel-container search-criteria" style="padding-bottom: 10px;">
                                         <asp:Label ID="lblAnswer" runat="server" Text='<%# Eval("Answer") %>' />

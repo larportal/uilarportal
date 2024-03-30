@@ -429,7 +429,7 @@ namespace LarpPortal
             liCharacterBuildPoints.Style.Add("display", "none");
             liEventSetup.Style.Add("display", "none");
             //liCampaignMenu.Style.Add("display", "none");
-            liSkillQualifiers.Style.Add("display", "none");
+            liModifySkills.Style.Add("display", "none");
 
             liClaimDonations.Style.Add("display", "none");
             liAddDonationRequests.Style.Add("display", "none");
@@ -454,6 +454,7 @@ namespace LarpPortal
                 liSetupCampaignDemographics.Style.Add("display", "block");
                 liSetupCampaign.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -466,6 +467,7 @@ namespace LarpPortal
                 liSetupPolicies.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
                 liSetupAssignRoles.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -476,6 +478,7 @@ namespace LarpPortal
             {
                 liSetupDescription.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -486,6 +489,7 @@ namespace LarpPortal
             {
                 liEventRegistrationApproval.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -498,6 +502,7 @@ namespace LarpPortal
                 //				liEvent
                 liEventDefaults.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //				liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -507,6 +512,7 @@ namespace LarpPortal
             {
                 liEventAssignHousing.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //				liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -518,6 +524,7 @@ namespace LarpPortal
                 liPELApprovalList.Style.Add("display", "block");
                 liPELsMain.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
             }
 
 
@@ -536,6 +543,7 @@ namespace LarpPortal
             {
                 liPointsAssign.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 liPELsMain.Style.Add("display", "block");
                 liCharacterBuildPoints.Style.Add("display", "block");
                 liEMailPoints.Style.Add("display", "block");
@@ -550,7 +558,7 @@ namespace LarpPortal
                     if (Session["AllowAdditionalInfo"].ToString().ToUpper().StartsWith("T"))
                     {
                         liCampaignSetupMenu.Style.Add("display", "block");
-                        liSkillQualifiers.Style.Add("display", "block");
+                        liModifySkills.Style.Add("display", "block");
                     }
             }
 
@@ -560,6 +568,7 @@ namespace LarpPortal
             {
                 liEMailPoints.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 //				liCampaignMenu.Style.Add("display", "block");
             }
 
@@ -573,6 +582,7 @@ namespace LarpPortal
                 (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
             {
                 liCampaignSetupMenu.Style.Add("display", "block");
+                liModifySkills.Style.Add("display", "block");
                 liSetupAssignRoles.Style.Add("display", "block");
                 liSetupCampaign.Style.Add("display", "block");
             }

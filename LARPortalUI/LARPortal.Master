@@ -3,7 +3,7 @@
 <%@ Register
     Assembly="AjaxControlToolkit"
     Namespace="AjaxControlToolkit"
-    TagPrefix="ajaxToolkit"%>
+    TagPrefix="ajaxToolkit" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,6 +68,7 @@
             border-color: lightgray;
             border-radius: 5px;
         }
+
         .SliderBoxBorder {
             padding-top: 3px;
             padding-bottom: 3px;
@@ -135,8 +136,10 @@
 </head>
 <body runat="server" id="pageBody">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MQHDGS"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5MQHDGS"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <form id="form2" runat="server">
@@ -200,7 +203,7 @@
                                             <li><a href="/Profile/PlayerInventory.aspx">Player Inventory</a> </li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">             <%--runat="server" id="liCampaignMenu"--%>
+                                    <li><a href="#"><%--runat="server" id="liCampaignMenu"--%>
                                         <asp:Image ID="imgCampaignsIcon" runat="server" ImageUrl="~/images/Campaigns.png" Width="16px" />
                                         Campaigns<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
@@ -219,8 +222,12 @@
                                                     <li runat="server" id="liSetupDescription"><a href="/Campaigns/Setup/Description.aspx">Description</a></li>
                                                     <li runat="server" id="liSetupCustomFields"><a href="/Campaigns/Setup/CustomFields.aspx">Custom Fields</a></li>
                                                     <li runat="server" id="liSetupAssignRoles"><a href="/Campaigns/Setup/AssignRoles.aspx">Assign Roles</a></li>
+                                                </ul>
+                                            </li>
+                                            <li runat="server" id="liModifySkills"><a href="#" runat="server" id="A1">Skills Modify<span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
                                                     <li runat="server" id="liSkillQualifiers"><a href="/Campaigns/Setup/Skills/SkillQualifiers.aspx">Skill Qualifiers</a></li>
-                                                    <li runat="server" id="liModifySkills"><a href="/Campaigns/Setup/Skills/ModifySkills.aspx">Modify Skills</a></li>
+                                                    <li runat="server" id="li1"><a href="/Campaigns/Setup/Skills/ModifySkills.aspx">Modify Skills</a></li>
                                                     <%--<li><a href="/Campaigns/Setup/People.aspx">People</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Places.aspx">Places</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Rules.aspx">Rules</a></li>--%>
@@ -228,106 +235,106 @@
                                                 </ul>
                                                 <!-- /.nav-third-level -->
                                             </li>
-                                            <%--<li><a href="#">Messages<span class="fa arrow"></span></a>--%>
-                                            <%--<ul class="nav nav-third-level">--%>
-                                            <%--<li><a href="/Campaigns/Messages/ViewPrevious.aspx">View Previous</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Messages/SendNew.aspx">Send New</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Messages/PreviewScheduled.aspx">Preview Scheduled</a></li>--%>
-                                            <%--</ul>--%>
-                                            <!-- /.nav-third-level -->
-                                            <%--</li>--%>
+                                    <%--<li><a href="#">Messages<span class="fa arrow"></span></a>--%>
+                                    <%--<ul class="nav nav-third-level">--%>
+                                    <%--<li><a href="/Campaigns/Messages/ViewPrevious.aspx">View Previous</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Messages/SendNew.aspx">Send New</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Messages/PreviewScheduled.aspx">Preview Scheduled</a></li>--%>
+                                    <%--</ul>--%>
+                                    <!-- /.nav-third-level -->
+                                    <%--</li>--%>
 
-                                            <%--  Missing 15 - Rules--%>
-                                            <%--  Missing 16 - Rules Section - iterative per section--%>
+                                    <%--  Missing 15 - Rules--%>
+                                    <%--  Missing 16 - Rules Section - iterative per section--%>
 
-                                            <%--<li><a href="/Campaigns/Calendar.aspx">Calendar</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Calendar.aspx">Calendar</a></li>--%>
 
-                                            <%--  Missing 18 - Special events--%>
-                                            <%--  Missing 19 - Scheduling--%>
-                                            <%--  Missing 20 - Event scheduling--%>
+                                    <%--  Missing 18 - Special events--%>
+                                    <%--  Missing 19 - Scheduling--%>
+                                    <%--  Missing 20 - Event scheduling--%>
 
-                                            <li><a href="#">Events<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level">
-                                                    <li><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
-                                                    <li runat="server" id="liEventRegistrationApproval"><a href="/Events/RegistrationApproval.aspx">Registration Approval</a></li>
-                                                    <li runat="server" id="liEventSetup"><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
-                                                    <li runat="server" id="liEventDefaults"><a href="/Events/EventDefaults.aspx">Setup Defaults</a></li>
-                                                    <%--<li><a href="/Campaigns/Events/SetupMarketing.aspx">Setup Marketing</a></li> --%>
-                                                    <%--<li><a href="/Campaigns/Events/SetupFoodOptions.aspx">Setup Food Options</a></li>--%>
-                                                    <li runat="server" id="liEventAssignHousing"><a href="/Events/AssignHousing.aspx">Assign Housing</a></li>
-                                                    <%--<li><a href="/Campaigns/Events/RecordPayments.aspx">Record Payments</a></li>--%>
-                                                    <%--<li><a href="/Campaigns/Events/CheckIn.aspx">Check In</a></li>--%>
-                                                    <%--<li><a href="/Campaigns/Events/AcceptDonations.aspx">Accept Donations</a></li>--%>
-                                                    <%--<li><a href="/Campaigns/Events/ApproveCheckOut.aspx">Approve Check Out</a></li>--%>
-                                                </ul>
-                                                <!-- /.nav-third-level -->
-                                            </li>
-
-                                            <li><a href="#" runat="server" id="liDonations">Donations<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level">
-                                                    <li runat="server" id="liClaimDonations"><a href="/Donations/DonationClaim.aspx">Claim Donations</a></li>
-                                                    <li runat="server" id="liAddDonationRequests"><a href="/Donations/SetupDonations.aspx">Setup Donations</a></li>
-                                                    <li runat="server" id="liReceiveDonations"><a href="/Donations/DonationReceipt.aspx">Receive Donations</a></li>
-                                                </ul>
-                                            </li>
-
-
-                                            <%--  Missing 23 - Shopping cart / payment--%>
-                                            <%--  Missing 26 - Setup scheduling--%>
-
-                                            <%--<li><a href="#">Characters<span class="fa arrow"></span></a>--%>
-                                            <%--<ul class="nav nav-third-level">--%>
-                                            <%--<li><a href="/Campaigns/Characters/NPCInfo.aspx">NPC Info</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Characters/NPCItems.aspx">NPC Items</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Characters/SetupTraitsAndAttributes.aspx">Setup Traits &amp; Attributes</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Characters/SetupSkillHeadersAndTypes.aspx">Setup Skill Headers &amp; Types</a></li>--%>
-                                            <%--<li><a href="/Campaigns/Characters/SetupSkills.aspx">Setup Skills</a></li>--%>
-                                            <%--</ul>--%>
-                                            <!-- /.nav-third-level -->
-                                            <%--</li>--%>
-
-                                            <%--<li><a href="#">Roles<span class="fa arrow"></span></a>--%>
-                                            <%--<ul class="nav nav-third-level">--%>
-                                            <%--<li><a href="#">Assign Roles</a></li>--%>
-                                            <%--<li><a href="#">Setup Roles</a></li>--%>
-                                            <%--</ul>--%>
-                                            <!-- /.nav-third-level -->
-                                            <%--</li>--%>
-
-                                            <li runat="server" id="liCharacterApproveHistory"><a href="/Character/History/ApprovalList.aspx">Approve Character Histories</a></li>
-
-                                            <li><a href="#" runat="server" id="liCharacterBuildPoints">Character Build Points<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level">
-                                                    <%--<li><a href="#">PEL Approval List</a></li>--%>
-                                                    <%--<li><a href="#">Setup Standard Points</a></li>--%>
-                                                    <%--<li><a href="#">Setup Other Points</a></li>--%>
-                                                    <li runat="server" id="liPointsAssign"><a href="/Points/PointsAssign.aspx">Assign Points</a></li>
-                                                    <li runat="server" id="liEMailPoints"><a href="/Points/PointsEMail.aspx">EMail Points</a></li>
-                                                </ul>
-                                                <!-- /.nav-third-level -->
-                                            </li>
-
-                                            <li><a href="#" runat="server" id="liPELsMain">PELs<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level">
-                                                    <%--<li><a href="#">PEL Setup</a></li>--%>
-                                                    <li runat="server" id="liPELApprovalList"><a href="/PELs/PELApprovalList.aspx">PEL Approval List</a></li>
-                                                    <%--<li><a href="#">PEL Approval</a></li>--%>
-                                                    <%--<li><a href="#">PEL Edit</a></li>--%>
-                                                </ul>
-                                                <!-- /.nav-third-level -->
-                                            </li>
-                                            <li><a href="#" runat="server" id="liIBGSMain">Inbetween Games Skills<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level">
-                                                    <li runat="server" id="liIBGSApprovalList"><a href="/Character/ISkills/StaffList.aspx">Information Skills</a></li>
-                                                </ul>
-                                            </li>
-
-                                            <%--  case 58:--%>
-                                            <%--  LineText = "Inventory/Props";--%>
-                                            <%--  LineText = "Site Location Use Setup";--%>
+                                    <li><a href="#">Events<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
+                                            <li runat="server" id="liEventRegistrationApproval"><a href="/Events/RegistrationApproval.aspx">Registration Approval</a></li>
+                                            <li runat="server" id="liEventSetup"><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
+                                            <li runat="server" id="liEventDefaults"><a href="/Events/EventDefaults.aspx">Setup Defaults</a></li>
+                                            <%--<li><a href="/Campaigns/Events/SetupMarketing.aspx">Setup Marketing</a></li> --%>
+                                            <%--<li><a href="/Campaigns/Events/SetupFoodOptions.aspx">Setup Food Options</a></li>--%>
+                                            <li runat="server" id="liEventAssignHousing"><a href="/Events/AssignHousing.aspx">Assign Housing</a></li>
+                                            <%--<li><a href="/Campaigns/Events/RecordPayments.aspx">Record Payments</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Events/CheckIn.aspx">Check In</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Events/AcceptDonations.aspx">Accept Donations</a></li>--%>
+                                            <%--<li><a href="/Campaigns/Events/ApproveCheckOut.aspx">Approve Check Out</a></li>--%>
                                         </ul>
-                                        <!-- /.nav-second-level -->
+                                        <!-- /.nav-third-level -->
                                     </li>
+
+                                    <li><a href="#" runat="server" id="liDonations">Donations<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li runat="server" id="liClaimDonations"><a href="/Donations/DonationClaim.aspx">Claim Donations</a></li>
+                                            <li runat="server" id="liAddDonationRequests"><a href="/Donations/SetupDonations.aspx">Setup Donations</a></li>
+                                            <li runat="server" id="liReceiveDonations"><a href="/Donations/DonationReceipt.aspx">Receive Donations</a></li>
+                                        </ul>
+                                    </li>
+
+
+                                    <%--  Missing 23 - Shopping cart / payment--%>
+                                    <%--  Missing 26 - Setup scheduling--%>
+
+                                    <%--<li><a href="#">Characters<span class="fa arrow"></span></a>--%>
+                                    <%--<ul class="nav nav-third-level">--%>
+                                    <%--<li><a href="/Campaigns/Characters/NPCInfo.aspx">NPC Info</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Characters/NPCItems.aspx">NPC Items</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Characters/SetupTraitsAndAttributes.aspx">Setup Traits &amp; Attributes</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Characters/SetupSkillHeadersAndTypes.aspx">Setup Skill Headers &amp; Types</a></li>--%>
+                                    <%--<li><a href="/Campaigns/Characters/SetupSkills.aspx">Setup Skills</a></li>--%>
+                                    <%--</ul>--%>
+                                    <!-- /.nav-third-level -->
+                                    <%--</li>--%>
+
+                                    <%--<li><a href="#">Roles<span class="fa arrow"></span></a>--%>
+                                    <%--<ul class="nav nav-third-level">--%>
+                                    <%--<li><a href="#">Assign Roles</a></li>--%>
+                                    <%--<li><a href="#">Setup Roles</a></li>--%>
+                                    <%--</ul>--%>
+                                    <!-- /.nav-third-level -->
+                                    <%--</li>--%>
+
+                                    <li runat="server" id="liCharacterApproveHistory"><a href="/Character/History/ApprovalList.aspx">Approve Character Histories</a></li>
+
+                                    <li><a href="#" runat="server" id="liCharacterBuildPoints">Character Build Points<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <%--<li><a href="#">PEL Approval List</a></li>--%>
+                                            <%--<li><a href="#">Setup Standard Points</a></li>--%>
+                                            <%--<li><a href="#">Setup Other Points</a></li>--%>
+                                            <li runat="server" id="liPointsAssign"><a href="/Points/PointsAssign.aspx">Assign Points</a></li>
+                                            <li runat="server" id="liEMailPoints"><a href="/Points/PointsEMail.aspx">EMail Points</a></li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+
+                                    <li><a href="#" runat="server" id="liPELsMain">PELs<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <%--<li><a href="#">PEL Setup</a></li>--%>
+                                            <li runat="server" id="liPELApprovalList"><a href="/PELs/PELApprovalList.aspx">PEL Approval List</a></li>
+                                            <%--<li><a href="#">PEL Approval</a></li>--%>
+                                            <%--<li><a href="#">PEL Edit</a></li>--%>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+                                    <li><a href="#" runat="server" id="liIBGSMain">Inbetween Games Skills<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li runat="server" id="liIBGSApprovalList"><a href="/Character/ISkills/StaffList.aspx">Information Skills</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <%--  case 58:--%>
+                                    <%--  LineText = "Inventory/Props";--%>
+                                    <%--  LineText = "Site Location Use Setup";--%>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                                </li>
                                     <li runat="server" id="liHasCharacters"><a href="#">
                                         <asp:Image ID="Image2" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
                                         Characters<span class="fa arrow"></span></a>
@@ -362,35 +369,35 @@
                                         </ul>
                                         <!-- /.nav-second-level -->
                                     </li>
-                                    <li runat="server" id="liHasNoCharacters"><a href="#">
-                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
-                                        Characters<span class="fa arrow"></span></a>
-                                        <ul class="nav nav-second-level">
-                                            <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
-                                        </ul>
-                                        <!-- /.nav-second-level -->
-                                    </li>
-                                    <li><a href="#">
-                                        <asp:Image ID="Image3" runat="server" ImageUrl="~/images/Points.png" Width="16px" />
-                                        Points<span class="fa arrow"></span></a>
-                                        <ul class="nav nav-second-level">
-                                            <li><a href="/Points/MemberPointsView.aspx">View Points</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">
-                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/images/Calendar.png" Width="16px" />
-                                        Calendar<span class="fa arrow"></span></a>
-                                        <ul class="nav nav-second-level">
-                                            <li><a href="/Calendar/MonthCalendar.aspx">Calendar</a></li>
-                                            <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="/Reports/ReportList.aspx">
-                                        <asp:Image ID="Image5" runat="server" ImageUrl="~/images/Reports.png" Width="16px" />
-                                        Reports</a></li>
-                                    <li><a href="/WhatIsLARPing.aspx">
-                                        <asp:Image ID="Image8" runat="server" ImageUrl="~/images/LARPing.png" Width="16px" />
-                                        LARPing</a></li>
+                                <li runat="server" id="liHasNoCharacters"><a href="#">
+                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
+                                    Characters<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                                <li><a href="#">
+                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/images/Points.png" Width="16px" />
+                                    Points<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a href="/Points/MemberPointsView.aspx">View Points</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">
+                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/images/Calendar.png" Width="16px" />
+                                    Calendar<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a href="/Calendar/MonthCalendar.aspx">Calendar</a></li>
+                                        <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/Reports/ReportList.aspx">
+                                    <asp:Image ID="Image5" runat="server" ImageUrl="~/images/Reports.png" Width="16px" />
+                                    Reports</a></li>
+                                <li><a href="/WhatIsLARPing.aspx">
+                                    <asp:Image ID="Image8" runat="server" ImageUrl="~/images/LARPing.png" Width="16px" />
+                                    LARPing</a></li>
                                 </ul>
                             </div>
                         </asp:View>
@@ -424,7 +431,7 @@
                                 <li><a href="/WhatsNew.aspx">What's New</a></li>
                                 <li><a href="/TermsOfUse.aspx">Terms of Use</a></li>
                                 <li><a href="/About.aspx">About Us</a></li>
-<%--                                <li><a href="#" data-toggle="modal" data-target="#terms">Terms of Use</a></li>--%>
+                                <%--                                <li><a href="#" data-toggle="modal" data-target="#terms">Terms of Use</a></li>--%>
                             </ul>
                         </div>
                         <div class="col-sm-6 text-right">

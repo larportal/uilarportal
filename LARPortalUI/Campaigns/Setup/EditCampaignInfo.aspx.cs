@@ -706,7 +706,7 @@ namespace LarpPortal.Campaigns.Setup
                     {
                         if (bHasReason)
                         {
-                            sObjDefs.Add("@Description", dRow["OpportunityDescription"].ToString());
+                            sObjDefs.Add("@Description", dRow["Description"].ToString());
                             sObjDefs.Add("@OpportunityTypeID", dRow["TypeID"].ToString());
                             double dCPValue = 0.0;
                             if (double.TryParse(dRow["CPValue"].ToString(), out dCPValue))
