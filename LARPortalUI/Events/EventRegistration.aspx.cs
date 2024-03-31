@@ -1005,6 +1005,7 @@ namespace LarpPortal.Events
             {
                 sParam.Add("@PartialEvent", false);
                 bFullEvent = true;
+                
             }
 
             try

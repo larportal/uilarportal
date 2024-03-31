@@ -74,6 +74,9 @@
                                                 Click payment button to pay now or Cancel Registration to register later.<br /><br />
                                                 <div>
                                                     <asp:Button ID="btnCancelRegistration" runat="server" Text="CANCEL REGISTRATION" OnClick="btnCancelRegistration_Click" />
+                                                    <br /><br />
+                                                    <br /><br />
+                                                    <br /><br />
                                                 </div>
                                                 <%--<a href="https://paypal.me/eric@ctfaire.com/75">Pay through PayPal.</a><br />--%>
                                                 </asp:Label>
