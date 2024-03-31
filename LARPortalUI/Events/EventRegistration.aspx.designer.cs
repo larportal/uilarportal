@@ -60,6 +60,33 @@ namespace LarpPortal.Events
         protected global::System.Web.UI.WebControls.Label lblPaymentStatus;
 
         /// <summary>
+        /// pnlSpecialButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSpecialButtons;
+
+        /// <summary>
+        /// btnHousing control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHousing;
+
+        /// <summary>
+        /// btnFoodPay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFoodPay;
+
+        /// <summary>
         /// ddlRoles control.
         /// </summary>
         /// <remarks>
@@ -409,33 +436,6 @@ namespace LarpPortal.Events
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRSVP;
-
-        /// <summary>
-        /// pnlSpecialButtons control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSpecialButtons;
-
-        /// <summary>
-        /// btnHousing control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnHousing;
-
-        /// <summary>
-        /// btnFoodPay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFoodPay;
 
         /// <summary>
         /// lblWhyRSVP control.

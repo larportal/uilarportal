@@ -164,6 +164,15 @@
                                 </span>
                             </div>
 
+                            <asp:Panel ID="pnlSpecialButtons" runat="server" Visible="false">
+                                <div class="row col-xs-12 text-center" style="padding-top: 20px;">
+                                    <%--PCs - Housing goes to Food and Pay
+                            NPCs/Staff - Skips housing and goes right to Food and Pay (which skips pay for NPCs/staff--%>
+                                    <asp:Button ID="btnHousing" runat="server" Text="Select Housing" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openHousing();" OnClick="btnHousing_Click" />
+                                    <asp:Button ID="btnFoodPay" runat="server" Text="Select Food" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openPayPalWindow();" OnClick="btnFoodPay_Click" />
+                                </div>
+                            </asp:Panel>
+
                             <div class="row">
                                 <div class="panel-body">
                                     <div class="container-fluid">
@@ -311,14 +320,7 @@
                             <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVP" />
                         </div>
                     </asp:Panel>
-                    <asp:Panel ID="pnlSpecialButtons" runat="server" Visible="false">
-                        <div class="row col-xs-12 text-center" style="padding-top: 20px;">
-                            <%--PCs - Housing goes to Food and Pay
-                            NPCs/Staff - Skips housing and goes right to Food and Pay (which skips pay for NPCs/staff--%>
-                            <asp:Button ID="btnHousing" runat="server" Text="Select Housing" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openHousing();" OnClick="btnHousing_Click" />
-                            <asp:Button ID="btnFoodPay" runat="server" Text="Select Food" Visible="false" CssClass="btn btn-primary MarginLeftRight" OnClientClick="openPayPalWindow();" OnClick="btnFoodPay_Click"/>
-                        </div>
-                    </asp:Panel>
+
 
                     <div class="row col-xs-12 text-center">
                         <asp:Label ID="lblWhyRSVP" runat="server" Visible="false" Text="Currently this event is not yet open for registration.<br />By letting the owners know whether you plan to attend an event you will help in planning.<br />" />
