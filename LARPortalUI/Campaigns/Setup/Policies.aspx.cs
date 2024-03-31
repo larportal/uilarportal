@@ -86,6 +86,7 @@ namespace LarpPortal.Campaigns.Setup
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             int iTemp = 0;
+            decimal decTemp;
             Classes.cCampaignBase Campaigns = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
             Campaigns.AllowCharacterRebuild = chkAllowCharacterRebuilds.Checked;
             Campaigns.AllowCPDonation = chkAllowCPDonation.Checked;
@@ -106,12 +107,12 @@ namespace LarpPortal.Campaigns.Setup
                 Campaigns.CharacterApprovalLevel = iTemp;
             if (int.TryParse(tbEarliestCPApplicationYear.Text, out iTemp))
                 Campaigns.EarliestCPApplicationYear = iTemp;
-            if (int.TryParse(tbEventCharacterCap.Text, out iTemp))
-                Campaigns.EventCharacterCPCap = iTemp;
+            if (decimal.TryParse(tbEventCharacterCap.Text, out decTemp))
+                Campaigns.EventCharacterCPCap = decTemp;
             if (int.TryParse(tbMaximumCPPerYear.Text, out iTemp))
                 Campaigns.MaximumCPPerYear = iTemp;
-            if (int.TryParse(tbTotalCharacterCap.Text, out iTemp))
-                Campaigns.TotalCharacterCPCap = iTemp;
+            if (decimal.TryParse(tbTotalCharacterCap.Text, out decTemp))
+                Campaigns.TotalCharacterCPCap = decTemp;
             Campaigns.CrossCampaignPosting = tbCrossCampaignPosting.Text;
             Campaigns.Save();
 

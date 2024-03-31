@@ -744,6 +744,7 @@ namespace LarpPortal.Classes
 					bool bTemp;
 					int iTemp;
 					double dTemp;
+					decimal decTemp;
 					if (DateTime.TryParse(ldt.Rows[0]["ActualEndDate"].ToString(), out dtTemp))
 						_ActualEndDate = dtTemp;
 					if (DateTime.TryParse(ldt.Rows[0]["NextEventDate"].ToString(), out dtTemp))
@@ -781,8 +782,8 @@ namespace LarpPortal.Classes
 					_CrossCampaignPosting = ldt.Rows[0]["CrossCampaignPosting"].ToString().Trim();
 					_CSSFile = ldt.Rows[0]["CampaignCSSFile"].ToString().Trim();
 					_EmergencyEventContact = ldt.Rows[0]["EmergencyEventContactInfo"].ToString().Trim();
-					if (int.TryParse(ldt.Rows[0]["EventCharacterCap"].ToString(), out iTemp))
-						_EventCharacterCPCap = iTemp;
+					if (decimal.TryParse(ldt.Rows[0]["EventCharacterCap"].ToString(), out decTemp))
+						_EventCharacterCPCap = decTemp;
 					if (int.TryParse(ldt.Rows[0]["GameSystemID"].ToString(), out iTemp))
 						_GameSystemID = iTemp;
 					_GameSystemName = ldt.Rows[0]["GameSystemName"].ToString().Trim();
@@ -1024,6 +1025,7 @@ namespace LarpPortal.Classes
 				slParams.Add("@PerPlayerInvoiceAmount", _PerPlayerInvoiceAmount);
 				slParams.Add("@BillingFrequency", _BillingFrequency);
 				slParams.Add("@AllowAdditionalInfo", _AllowAdditionalInfo);
+				slParams.Add("@AllowCharacterRebuild", _AllowCharacterRebuild);
 				slParams.Add("@Comments", _Comments);
 				cUtilities.PerformNonQuery("uspInsUpdCMCampaigns", slParams, "LARPortal", _UserName);
 				blnReturn = true;

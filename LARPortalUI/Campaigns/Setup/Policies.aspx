@@ -99,7 +99,7 @@
                             <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="<%= tbEventCharacterCap.ClientID %>">Event Character Cap</label>
                                 <asp:TextBox ID="tbEventCharacterCap" runat="server" CssClass="form-control" />
-                                <ajaxToolkit:FilteredTextBoxExtender ID="ftbEventCharacterCap" runat="server" Enabled="True" TargetControlID="tbEventCharacterCap" FilterType="Numbers" />
+<%--                                <ajaxToolkit:FilteredTextBoxExtender ID="ftbEventCharacterCap" runat="server" Enabled="True" TargetControlID="tbEventCharacterCap" FilterType="" />--%>
                             </div>
                             <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="<%= tbMaximumCPPerYear.ClientID %>">Max Points Per Year</label>
@@ -109,7 +109,7 @@
                             <div class="form-group col-lg-4 col-md-6 col-sm-12 col-xs-12">
                                 <label for="<%= tbTotalCharacterCap.ClientID %>">Total Character Cap</label>
                                 <asp:TextBox ID="tbTotalCharacterCap" runat="server" CssClass="form-control" />
-                                <ajaxToolkit:FilteredTextBoxExtender ID="ftbTotalCharacterCap" runat="server" Enabled="True" TargetControlID="tbTotalCharacterCap" FilterType="Numbers" />
+<%--                                <ajaxToolkit:FilteredTextBoxExtender ID="ftbTotalCharacterCap" runat="server" Enabled="True" TargetControlID="tbTotalCharacterCap" FilterType="Numbers" />--%>
                             </div>
                             <div class="form-group col-lg-6 col-md-12 col-xs-12">
                                 <label for="<%= tbCrossCampaignPosting.ClientID %>">Cross Campaign Posting</label>

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns.Setup {
-    
-    
-    public partial class Policies {
-        
+namespace LarpPortal.Campaigns.Setup
+{
+
+
+    public partial class Policies
+    {
+
         /// <summary>
         /// lblHeaderCampaignName control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblHeaderCampaignName;
-        
+
         /// <summary>
         /// chkAllowCharacterRebuilds control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAllowCharacterRebuilds;
-        
+
         /// <summary>
         /// chkAllowCPDonation control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAllowCPDonation;
-        
+
         /// <summary>
         /// chkShareLocationUseNotes control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkShareLocationUseNotes;
-        
+
         /// <summary>
         /// chkNPCApprovalRequired control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkNPCApprovalRequired;
-        
+
         /// <summary>
         /// chkUseCampaignCharacters control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkUseCampaignCharacters;
-        
+
         /// <summary>
         /// chkPCApprovalRequired control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkPCApprovalRequired;
-        
+
         /// <summary>
         /// chkAllowAddInfo control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAllowAddInfo;
-        
+
         /// <summary>
         /// ddlPELApprovalLevel control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPELApprovalLevel;
-        
+
         /// <summary>
         /// ddlCharacterApprovalLevel control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCharacterApprovalLevel;
-        
+
         /// <summary>
         /// tbEarliestCPApplicationYear control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEarliestCPApplicationYear;
-        
+
         /// <summary>
         /// ftbEarliestCPApplicationYear control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbEarliestCPApplicationYear;
-        
+
         /// <summary>
         /// tbEventCharacterCap control.
         /// </summary>
@@ -128,16 +130,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEventCharacterCap;
-        
-        /// <summary>
-        /// ftbEventCharacterCap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbEventCharacterCap;
-        
+
         /// <summary>
         /// tbMaximumCPPerYear control.
         /// </summary>
@@ -146,7 +139,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMaximumCPPerYear;
-        
+
         /// <summary>
         /// ftbMaximumCPPerYear control.
         /// </summary>
@@ -155,7 +148,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbMaximumCPPerYear;
-        
+
         /// <summary>
         /// tbTotalCharacterCap control.
         /// </summary>
@@ -164,16 +157,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbTotalCharacterCap;
-        
-        /// <summary>
-        /// ftbTotalCharacterCap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbTotalCharacterCap;
-        
+
         /// <summary>
         /// tbCrossCampaignPosting control.
         /// </summary>
@@ -182,7 +166,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCrossCampaignPosting;
-        
+
         /// <summary>
         /// ftbCrossCampaignPosting control.
         /// </summary>
@@ -191,7 +175,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.FilteredTextBoxExtender ftbCrossCampaignPosting;
-        
+
         /// <summary>
         /// btnSaveRepeat control.
         /// </summary>
@@ -200,7 +184,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveRepeat;
-        
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -209,7 +193,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnClose control.
         /// </summary>
@@ -218,15 +202,17 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnClose;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
