@@ -70,6 +70,11 @@
                                                 <asp:Label ID="lblPageText" runat="server">
                                                 Myth events are $95.00, $75.00 if it's your first event. 
                                                 You can pay through PayPal.<br /><br />
+                                                Payment must be made at time of registration. <br /><br />
+                                                Click payment button to pay now or Cancel Registration to register later.<br /><br />
+                                                <div>
+                                                    <asp:Button ID="btnCancelRegistration" runat="server" OnClick="btnCancelRegistration_Click" />
+                                                </div>
                                                 <%--<a href="https://paypal.me/eric@ctfaire.com/75">Pay through PayPal.</a><br />--%>
                                                 </asp:Label>
                                                 <%--<asp:Label ID="lblEarlyOrLate" runat="server">Myth Event</asp:Label>--%>

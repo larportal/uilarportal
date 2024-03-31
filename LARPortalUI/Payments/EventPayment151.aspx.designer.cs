@@ -105,6 +105,15 @@ namespace LarpPortal.Payments
         protected global::System.Web.UI.WebControls.Label lblPageText;
 
         /// <summary>
+        /// btnCancelRegistration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelRegistration;
+
+        /// <summary>
         /// lblPayPalForm control.
         /// </summary>
         /// <remarks>

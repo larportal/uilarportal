@@ -44,6 +44,7 @@
                                                     <asp:HyperLink ID="hplEmail" runat="server" Font-Underline="true" Text='<%# Eval("EmailAddress") %>' NavigateUrl='<%# "mailto:" + Eval("EmailAddress") %>'></asp:HyperLink>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <asp:BoundField DataField="Age" HeaderText="Age" />
                                             <asp:BoundField DataField="PC" HeaderText="PC" />
                                             <asp:BoundField DataField="NPC" HeaderText="NPC" />
                                             <asp:BoundField DataField="Staff" HeaderText="Staff" />

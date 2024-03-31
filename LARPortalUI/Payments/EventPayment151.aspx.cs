@@ -96,16 +96,26 @@ namespace LarpPortal.Payments
                             lblPayPalForm.Text = "<form class=\"paypalForm\" action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\" target=\"_blank\" novalidate=\"novalidate\">";
                             lblPayPalForm.Text += "<input name=\"business\" type=\"hidden\" value=\"eric@ctfaire.com\" />";
                             lblPayPalForm.Text += "<input type=\"hidden\" name=\"upload\" value=\"1\">";
-                            if (PreviousEvents > 0)
+
+                            DateTime CurrDT = DateTime.Now;
+                            if (CurrDT > EarlyPaymentDate)
                             {
-                                PayPalTotal = 95;
+                                PayPalTotal = 125;
                             }
                             else
                             {
-                                PayPalTotal = 75;
-                                PayPalTotal = 95; // Take this out when we have new players identified.
-                                //PayPalTotal = 1;  // Take this line out for production. 
+                                if (PreviousEvents > 0)
+                                {
+                                    PayPalTotal = 95;
+                                }
+                                else
+                                {
+                                    PayPalTotal = 75;
+                                    //PayPalTotal = 95; // Take this out when we have new players identified. Fixed 3/30/2024
+                                    //PayPalTotal = 1;  // Take this line out for production. 
+                                }
                             }
+
                             PPItemName = lblPlayerEventCharacter.Text + "($" + PayPalTotal.ToString() + ")";
 
                             switch (rblPCFoodChoice.SelectedValue)
@@ -168,7 +178,7 @@ namespace LarpPortal.Payments
             string MealChoice = rblNPCFoodChoice.SelectedValue;
             int RegID = 0;
             if (Session["RegistrationID"] != null)
-                int.TryParse( Session["RegistrationID"].ToString(), out RegID);
+                int.TryParse(Session["RegistrationID"].ToString(), out RegID);
             WriteMealChoice(MealChoice, RegID);
             ClosePage();
         }
@@ -248,6 +258,41 @@ namespace LarpPortal.Payments
                 MethodBase lmth = MethodBase.GetCurrentMethod();
                 string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
                 Classes.cUtilities.PerformNonQuery("uspUpdateRegistrationPayment", sParam, "LARPortal", "");
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        protected void btnCancelRegistration_Click(object sender, EventArgs e)
+        {
+
+            int RegID = 0;
+            if (Session["RegistrationID"] != null)
+                int.TryParse(Session["RegistrationID"].ToString(), out RegID);
+            if (RegID > 0)
+            {
+                // and the registration
+                DeleteRegistration(RegID);
+                ClosePage();
+            }
+
+        }
+
+        protected void DeleteRegistration(int RegID)
+        {
+            SortedList sParam = new SortedList();
+            sParam.Add("@RegistrationID", RegID);
+            try
+            {
+                MethodBase lmth = MethodBase.GetCurrentMethod();
+                string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+                Classes.cUtilities.PerformNonQuery("uspCancelRegistration", sParam, "LARPortal", "");
             }
             catch
             {
