@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,166 +24,115 @@ namespace LarpPortal.Campaigns.Setup
         {
             if (!IsPostBack)
             {
-                LoadlblCampaignName();
+                LoadCampaign();
             }
 
             lblHeaderCampaignName.Text = " - " + Master.CampaignName;
         }
 
-        protected void LoadlblCampaignName()
+        protected void LoadCampaign()
         {
-            LoadSavedData();
-            LoadGenres();
-            LoadPeriods();
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+            string sGameSystem = "";
+            string sOwner = "";
+            string sStatusID = "";
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DataTable sCampList = Classes.cUtilities.LoadDataTable("uspGetCampaigns", sParams, "LARPortal", Master.UserName, lsRoutineName);
+
+            foreach (DataRow dRow in sCampList.Rows)
+            {
+                tbCampaignName.Text = dRow["CampaignName"].ToString();
+                DateTime dt;
+                if (DateTime.TryParse(dRow["CampaignStartDate"].ToString(), out dt))
+                    tbDateStarted.Text = dt.ToShortDateString();
+                if (DateTime.TryParse(dRow["ProjectedEndDate"].ToString(), out dt))
+                    tbExpectedEndDate.Text = dt.ToShortDateString();
+                sGameSystem = dRow["GameSystemID"].ToString();
+                tbLARPPortalType.Text = dRow["PortalAccessType"].ToString();
+                sOwner = dRow["PrimaryOwnerID"].ToString();
+                sStatusID = dRow["StatusID"].ToString();
+            }
+            sParams = new SortedList();
+            DataTable dtGameSystem = Classes.cUtilities.LoadDataTable("uspGetGameSystems", sParams, "LARPortal", Master.UserName, lsRoutineName);
+
+            DataView dvGameSystem = new DataView(dtGameSystem, "", "GameSystemName", DataViewRowState.CurrentRows);
+            ddlGameSystem.DataSource = dvGameSystem;
+            ddlGameSystem.DataTextField = "GameSystemName";
+            ddlGameSystem.DataValueField = "GameSystemID";
+            ddlGameSystem.DataBind();
+
+            bool bFoundIt = false;
+            foreach (ListItem li in ddlGameSystem.Items)
+            {
+                if (li.Value == sGameSystem)
+                {
+                    ddlGameSystem.ClearSelection();
+                    li.Selected = true;
+                    bFoundIt = true;
+                }
+            }
+            if (!bFoundIt)
+                ddlGameSystem.SelectedIndex = 0;
+
+            sParams = new SortedList();
+            //            sParams.Add("@UserID", sOwner);
+            DataTable dtUser = Classes.cUtilities.LoadDataTable("uspGetUsers", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            foreach (DataRow dRow in dtUser.Rows)
+            {
+                if (dRow["UserID"].ToString() == sOwner)
+                {
+                    tbOwner.Text = dRow["FullName"].ToString();
+                }
+            }
+
+            sParams = new SortedList();
+            sParams.Add("@StatusType", "Campaign");
+            DataTable dtStatus = Classes.cUtilities.LoadDataTable("uspGetStatus", sParams, "LARPortal", Master.UserName, lsRoutineName);
+            DataView dvStatus = new DataView(dtStatus, "", "StatusName", DataViewRowState.CurrentRows);
+            ddlCampaignStatus.DataSource = dvStatus;
+            ddlCampaignStatus.DataTextField = "StatusName";
+            ddlCampaignStatus.DataValueField = "StatusID";
+            ddlCampaignStatus.DataBind();
+
+            bFoundIt = false;
+            foreach (ListItem li in ddlCampaignStatus.Items)
+            {
+                if (li.Value == sStatusID)
+                {
+                    ddlCampaignStatus.ClearSelection();
+                    li.Selected = true;
+                    bFoundIt = true;
+                }
+            }
+
+            if (!bFoundIt)
+                ddlCampaignStatus.SelectedIndex = 0;
         }
-
-        protected void LoadSavedData()
-        {
-        }
-
-        protected void LoadGenres()
-        {
-        }
-
-        protected void LoadPeriods()
-        {
-        }
-
-        protected void LoadddlCampaignStatus(int CurrentStatusID)
-        {
-        }
-
-        protected void LoadddlGameSystem(int CurrentGameSystemID)
-        {
-        }
-
-        protected void LoadddlSite(int CurrentSiteID)
-        {
-        }
-
-        protected void LoadddlSize(int CurrentSize)
-        {
-        }
-
-        protected void LoadddlStyle(int CurrentStyle)
-        {
-        }
-
-        protected void LoadddlTechLevel(int CurrentTech)
-        {
-        }
-
-        protected void LoadddlFrequency()
-        {
-
-        }
-
-        protected void LoadddlWaiver()
-        {
-
-        }
-
-        protected void ddlCampaignStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlGameSystem_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlPrimarySite_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        protected void ddlStyle_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlTechLevel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlSize_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlFrequency_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ddlWaiver_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnEditGenres_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnEditPeriods_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
-        }
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
-        protected void gvSites_RowEditing(object sender, GridViewEditEventArgs e)
-        {
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DateTime dt = new DateTime();
+            if (DateTime.TryParse(tbDateStarted.Text, out dt))
+                sParams.Add("@CampaignStartDate", dt);
+            if (DateTime.TryParse(tbExpectedEndDate.Text, out dt))
+                sParams.Add("@ProjectedEndDate", dt);
+            sParams.Add("@GameSystemID", ddlGameSystem.SelectedValue);
+            sParams.Add("@StatusID", ddlCampaignStatus.SelectedValue);
+            sParams.Add("UserID", Master.UserID);
 
-        }
+            Classes.cUtilities.PerformNonQuery("uspInsUpdCMCampaigns", sParams, "LARPortal", Master.UserName);
 
-        protected void gvSites_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-
-        }
-
-        protected void gvSites_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-
-        }
-
-        protected void gvSites_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
-        }
-
-        protected void gvSites_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-
-        protected void btnEditSite_Click(object sender, EventArgs e)
-        {
-        }
-
-        protected void btnSaveSites_Click(object sender, EventArgs e)
-        {
-
-            string jsString = "alert('Site changes have been saved.');";
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),
-                    "MyApplication",
-                    jsString,
-                    true);
-        }
-
-        protected void btnSaveGenres_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnSavePeriods_Click(object sender, EventArgs e)
-        {
-
+            lblmodalMessage.Text = "The campaign info has been saved.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openMessage();", true);
         }
     }
 }

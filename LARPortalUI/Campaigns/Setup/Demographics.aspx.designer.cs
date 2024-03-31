@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Campaigns.Setup {
-    
-    
-    public partial class Demographics {
-        
+namespace LarpPortal.Campaigns.Setup
+{
+
+
+    public partial class Demographics
+    {
+
         /// <summary>
         /// lblHeaderCampaignName control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblHeaderCampaignName;
-        
+
         /// <summary>
         /// tbCampaignName control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCampaignName;
-        
+
         /// <summary>
         /// tbLARPPortalType control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLARPPortalType;
-        
+
         /// <summary>
         /// ddlGameSystem control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlGameSystem;
-        
+
         /// <summary>
         /// ddlCampaignStatus control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCampaignStatus;
-        
+
         /// <summary>
         /// tbOwner control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbOwner;
-        
+
         /// <summary>
         /// tbDateStarted control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbDateStarted;
-        
+
         /// <summary>
         /// hidCampaignZip control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignZip;
-        
+
         /// <summary>
         /// tbExpectedEndDate control.
         /// </summary>
@@ -92,24 +94,44 @@ namespace LarpPortal.Campaigns.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbExpectedEndDate;
-        
+
         /// <summary>
-        /// btnSaveRepeat control.
+        /// btnSaveChanges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveRepeat;
-        
+        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
+
+        /// <summary>
+        /// lblmodalMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblmodalMessage;
+
+        /// <summary>
+        /// btnCloseMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCloseMessage;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
