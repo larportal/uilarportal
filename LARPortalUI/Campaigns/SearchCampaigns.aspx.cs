@@ -68,7 +68,7 @@ namespace LarpPortal.Campaigns
             switch (ddlOrderBy.Text)
             {
                 case "Game System":
-                    lblCampaignSearchBy.Text = " by Game System";
+                    lblCampaignSearchBy.Text = " by Game Systems";
                     tvGameSystem.Visible = true;
                     break;
                 case "Campaign":

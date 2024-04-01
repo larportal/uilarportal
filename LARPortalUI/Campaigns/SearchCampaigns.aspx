@@ -266,7 +266,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <asp:CheckBox ID="chkEndedCampaigns" runat="server" AutoPostBack="true" OnCheckedChanged="chkEndedCampaigns_CheckedChanged" />
-                                                Include campaigns that have ended
+                                                Include campaigns that have ended.
                                             </label>
                                         </div>
                                     </li>
