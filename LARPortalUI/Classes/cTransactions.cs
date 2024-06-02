@@ -44,6 +44,7 @@ namespace LarpPortal.Classes
         public string RecvFromCampaign { get; set; }
         public string ReceivingPlayer { get; set; }
         public string ReceivingCampaign { get; set; }
+        public string StaffComments { get; set; }
         public string Character { get; set; }
         public int CPAuditCount { get; set; }
         public int StatusID { get; set; }
@@ -116,6 +117,7 @@ namespace LarpPortal.Classes
                 ReceivingCampaign = dRow["ReceivingCampaign"].ToString();
                 Character = dRow["Character"].ToString();
                 StatusName = dRow["StatusName"].ToString();
+                StaffComments = dRow["StaffComments"].ToString();
             }
             return dtCPAuditList;
         }

@@ -1829,6 +1829,18 @@ namespace LarpPortal.Points
             //    CampaignDDL = Session["CampaignName"].ToString();
             Classes.cTransactions CPAudit = new Classes.cTransactions();
             DataTable dtCPAudit = new DataTable();
+            dtCPAudit.Columns.Add("Earn Date");
+            dtCPAudit.Columns.Add("Type");
+            dtCPAudit.Columns.Add("Description");
+            dtCPAudit.Columns.Add("Points");
+            dtCPAudit.Columns.Add("Status");
+            dtCPAudit.Columns.Add("Spend Date");
+            dtCPAudit.Columns.Add("Earned At");
+            dtCPAudit.Columns.Add("Earned By");
+            dtCPAudit.Columns.Add("Spent At");
+            dtCPAudit.Columns.Add("Spent On");
+            dtCPAudit.Columns.Add("Transfer To");
+            dtCPAudit.Columns.Add("Approved");
             dtCPAudit = CPAudit.GetCPAuditList(UserID, Master.CampaignID, CharacterID);
             DataView dvPoints = new DataView(dtCPAudit, "", "", DataViewRowState.CurrentRows);
             gvPointsList.DataSource = dvPoints;

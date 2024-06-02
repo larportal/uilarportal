@@ -252,7 +252,7 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblEarnDescription" runat="server" Text='<%# Eval("Description") %>' />
                                             </ItemTemplate>
-                                            
+
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Value" ItemStyle-Wrap="true">
                                             <ItemTemplate>
@@ -266,9 +266,9 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblNPCCampaignName" runat="server" Text='<%# Eval("NPCCampaignName") %>' />
                                             </ItemTemplate>
-                                            
+
                                         </asp:TemplateField>
-                                        
+
                                         <asp:TemplateField ShowHeader="false" ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="right" ItemStyle-Width="0px">
                                             <ItemTemplate>
                                                 <asp:HiddenField ID="hidReceiptDate" runat="server" Value='<%# Eval("ReceiptDate") %>' />
@@ -646,7 +646,48 @@
                                     CssClass="table table-striped table-hover table-condensed" BorderColor="Black" BorderStyle="Solid" BorderWidth="1">
                                     <RowStyle BackColor="White" />
                                     <Columns>
-                                        <asp:BoundField DataField="ReceiptDate" HeaderText=" Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false"
+                                        <asp:TemplateField HeaderText="">
+                                            <HeaderTemplate>
+                                                <table style="width: 100%;">
+                                                    <tr>
+                                                        <th style="width: 5%;">Earn Date</th>
+                                                        <th style="width: 22%;">Type</th>
+                                                        <th style="width: 15%;">Description</th>
+                                                        <th style="width: 3%;">Points</th>
+                                                        <th style="width: 4%;">Status</th>
+                                                        <th style="width: 5%;">Spend Date</th>
+                                                        <th style="width: 10%;">Earned At</th>
+                                                        <th style="width: 8%;">Earned By</th>
+                                                        <th style="width: 10%;">Spent At</th>
+                                                        <th style="width: 5%;">Spent On</th>
+                                                        <th style="width: 8%;">Transfer To</th>
+                                                        <th style="width: 5%;">Approved</th>
+                                                    </tr>
+                                                </table>
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <table style="width: 100%;">
+                                                   <tr>
+                                                        <td style="width: 5%;"><%# Eval("ReceiptDate", "{0: MM/dd/yyyy}") %></td>
+                                                        <td style="width: 22%;"><%# Eval("FullDescription") %></td>
+                                                        <td style="width: 15%;"><%# Eval("AdditionalNotes") %></td>
+                                                        <td style="width: 3%;"><%# Eval("CPAmount") %></td>
+                                                        <td style="width: 4%;"><%# Eval("StatusName") %></td>
+                                                        <td style="width: 5%;"><%# Eval("CPApprovedDate", "{0: MM/dd/yyyy}") %></td>
+                                                        <td style="width: 10%;"><%# Eval("RecvFromCampaign") %></td>
+                                                        <td style="width: 8%;"><%# Eval("OwningPlayer") %></td>
+                                                        <td style="width: 10%;"><%# Eval("ReceivingCampaign") %></td>
+                                                        <td style="width: 5%;"><%# Eval("Character") %></td>
+                                                        <td style="width: 8%;"><%# Eval("ReceivingPlayer") %></td>
+                                                        <td style="width: 5%;"><%# Eval("CPApprovedDate", "{0: MM/dd/yyyy}") %></td>
+                                                    </tr>
+                                                    <tr style="background-color:#ffeb3b">
+                                                        <td colspan="12"><%# Eval("StaffComments") %></td>
+                                                    </tr>
+                                                </table>
+                                            </ItemTemplate>
+                                            </asp:TemplateField>
+                                        <%--<asp:BoundField DataField="ReceiptDate" HeaderText=" Earn Date" DataFormatString="{0: MM/dd/yyyy}" ItemStyle-Wrap="false"
                                             HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="FullDescription" HeaderText="Type" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="AdditionalNotes" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
@@ -659,7 +700,7 @@
                                         <asp:BoundField DataField="ReceivingCampaign" HeaderText="Spent At" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="Character" HeaderText="Spent On" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                                         <asp:BoundField DataField="ReceivingPlayer" HeaderText="Transfer To" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
-                                        <asp:BoundField DataField="CPApprovedDate" HeaderText="Approved" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
+                                        <asp:BoundField DataField="CPApprovedDate" HeaderText="Approved" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />--%>
                                     </Columns>
                                 </asp:GridView>
                             </div>
@@ -793,7 +834,8 @@
             <asp:Label ID="Label1" runat="server" Font-Size="24px" Style="font-weight: 500" Text="" />
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <asp:Label ID="lblTotalNonCP" runat="server" Text="Total Points"></asp:Label></div>
+                    <asp:Label ID="lblTotalNonCP" runat="server" Text="Total Points"></asp:Label>
+                </div>
                 <div class="panel-body">
                     <div class="col-xs-12">
                         <div class="row">
