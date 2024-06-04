@@ -850,9 +850,10 @@ namespace LarpPortal.Character
 						imgCharacterPicture.Visible = true;
 						//                    btnClearPicture.Visible = true;
 					}
-					catch //(Exception ex)
+					catch (Exception ex)
 					{
-						//                    lblMessage.Text = ex.Message + "<br>" + ex.StackTrace;
+						Classes.ErrorAtServer lobjError = new Classes.ErrorAtServer();
+						lobjError.ProcessError(ex, "CharInfo.savepicture", "", Master.UserName);
 					}
 				}
 

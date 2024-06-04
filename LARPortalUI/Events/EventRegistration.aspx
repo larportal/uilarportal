@@ -168,8 +168,8 @@
                                 <div class="row col-xs-12 text-center" style="padding-top: 20px;">
                                     <%--PCs - Housing goes to Food and Pay
                             NPCs/Staff - Skips housing and goes right to Food and Pay (which skips pay for NPCs/staff--%>
-                                    <asp:Button ID="btnHousing" runat="server" Text="Select Housing" Visible="false" CssClass="btn btn-danger btn-large MarginLeftRight" OnClientClick="openHousing();" OnClick="btnHousing_Click" />
-                                    <asp:Button ID="btnFoodPay" runat="server" Text="Select Food" Visible="false" CssClass="btn btn-danger btn-large MarginLeftRight" OnClientClick="openPayPalWindow();" OnClick="btnFoodPay_Click" />
+                                    <asp:Button ID="btnHousing" runat="server" Text="Click to select housing" Visible="false" CssClass="btn btn-danger btn-lg MarginLeftRight" OnClientClick="openHousing();" OnClick="btnHousing_Click" />
+                                    <asp:Button ID="btnFoodPay" runat="server" Text="Click to select meal options" Visible="false" CssClass="btn btn-danger btn-lg MarginLeftRight" OnClientClick="openPayPalWindow();" OnClick="btnFoodPay_Click" />
                                 </div>
                             </asp:Panel>
 

@@ -19,6 +19,12 @@ namespace LarpPortal.Character.ISkills
         public bool _Reload = false;
         public bool TextBoxEnabled = true;
 
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             MethodBase lmth = MethodBase.GetCurrentMethod();
@@ -405,6 +411,11 @@ namespace LarpPortal.Character.ISkills
         protected void btnCancelModal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("/default.aspx");
         }
     }
 }

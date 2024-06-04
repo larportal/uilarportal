@@ -76,15 +76,15 @@
                                                                 ErrorMessage="* Required" Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Font-Size="larger" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-6" style="display: none;">
                                                         <div class="form-group">
                                                             <label>Skill Set Name</label>
                                                             <asp:TextBox ID="tbNewCharSkillSetName" runat="server" CssClass="form-control" />
-                                                            <asp:RequiredFieldValidator ID="rfNewCharSkillSetName" runat="server" ControlToValidate="tbNewCharSkillSetName" InitialValue=""
-                                                                ErrorMessage="* Required" Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Font-Size="larger" />
+<%--                                                            <asp:RequiredFieldValidator ID="rfNewCharSkillSetName" runat="server" ControlToValidate="tbNewCharSkillSetName" InitialValue=""
+                                                                ErrorMessage="* Required" Font-Bold="true" Font-Italic="true" ForeColor="Red" Display="Dynamic" Font-Size="larger" />--%>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-6" style="display: none;">
                                                         <div class="form-group">
                                                             <label>Skill Set Type</label>
                                                             <asp:DropDownList ID="ddlNewCharSkillSetType" runat="server" CssClass="form-control" />
@@ -103,87 +103,6 @@
                                         </div>
                                     </div>
                                 </div>
-<%--                                <div class="row">
-                                    <!-- New skillset -->
-                                    <div class="form-check">
-                                        <asp:RadioButton ID="rbNewSkillSet" runat="server" GroupName="CharacterRadios" CssClass="form-check-input"
-                                            AutoPostBack="true" OnCheckedChanged="RadioButtonCheckedChanged" />
-                                        <label class="form-check-label" for='<%# rbNewSkillSet.ClientID %>'>Create a new skill set for a character.</label>
-                                        <asp:Panel ID="pnlAddSkillSet" runat="server" Visible="false">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for='<%# ddlSkillSetCharacter.ClientID %>' class="control-label">Character/Skill Set Name</label>
-                                                    <asp:DropDownList ID="ddlSkillSetCharacter" runat="server" CssClass="form-control" AutoPostBack="true"
-                                                        OnSelectedIndexChanged="ddlSkillSetCharacter_SelectedIndexChanged" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6" runat="server" id="div1">
-                                                <div class="form-group">
-                                                    <label for="'<%# tbNewSkillSetName.ClientID %>" class="control-label">New Skill Set Name</label>
-                                                    <asp:TextBox ID="tbNewSkillSetName" runat="server" CssClass="form-control" />
-                                                    <asp:RequiredFieldValidator ID="rfNewSkillSetName" runat="server" ControlToValidate="tbNewSkillSetName"
-                                                        InitialValue="" ErrorMessage="* Required" Font-Bold="true" Font-Italic="true" ForeColor="Red"
-                                                        Display="Dynamic" Font-Size="larger" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6" runat="server" id="div3">
-                                                <div class="form-group">
-                                                    <label for="'<%# ddlNewSkillSetType.ClientID %>" class="control-label">New Skill Set Type</label>
-                                                    <asp:DropDownList ID="ddlNewSkillSetType" runat="server" CssClass="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 text-right">
-                                                <asp:Button ID="btnSkillSetSave" runat="server" Text="Save" CssClass="btn btn-primary"
-                                                    OnClick="btnSkillSetSave_Click" />
-                                            </div>
-                                        </asp:Panel>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-check">
-                                        <asp:RadioButton ID="rbNewCampaign" runat="server" GroupName="CharacterRadios" CssClass="form-check-input"
-                                            AutoPostBack="true" OnCheckedChanged="RadioButtonCheckedChanged" />
-                                        <label class="form-check-label" for='<%# rbNewCampaign.ClientID %>'>Existing character join a campaign.</label>
-                                        <asp:Panel ID="pnlAddCampaign" runat="server" Visible="false">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="<%= ddlCampaignCharacter.ClientID %>" class="control-label">Character</label>
-                                                    <asp:DropDownList ID="ddlCampaignCharacter" runat="server" CssClass="form-control" AutoPostBack="true"
-                                                        OnSelectedIndexChanged="ddlCampaignCharacter_SelectedIndexChanged" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6" runat="server" id="div2">
-                                                <div class="form-group" runat="server" id="divJoinCampaign">
-                                                    <label for="<%= ddlJoinCampaign.ClientID %>" class="control-label">Campaign To Join</label>
-                                                    <asp:DropDownList ID="ddlJoinCampaign" runat="server" CssClass="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="ddlJoinCampaign_SelectedIndexChanged" />
-                                                </div>
-                                                <div class="form-group" runat="server" id="divNoCampaigns">
-                                                    There are no campaigns available.
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6" runat="server" id="divJoinSkillSetType">
-                                                <div class="form-group">
-                                                    <label for="<%# ddlJoinSkillSetType.ClientID %>">Skill Set Type</label>
-                                                    <asp:DropDownList ID="ddlJoinSkillSetType" runat="server" CssClass="form-control" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6" runat="server" id="divJoinSkillSetName">
-                                                <div class="form-group">
-                                                    <label for="<%# tbJoinSkillSetName.ClientID %>">Skill Set Name</label>
-                                                    <asp:TextBox ID="tbJoinSkillSetName" runat="server" CssClass="form-control" />
-                                                    <asp:RequiredFieldValidator ID="rvJoinSkillSetName" runat="server" ControlToValidate="tbJoinSkillSetName"
-                                                        InitialValue="" ErrorMessage="* Required" Font-Bold="true" Font-Italic="true" ForeColor="Red"
-                                                        Display="Dynamic" Font-Size="larger" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-12 text-right">
-                                                <asp:Button ID="btnJoinCampaign" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnJoinCampaign_Click" />
-                                            </div>
-                                        </asp:Panel>
-                                    </div>
-                                </div>--%>
-
                                 <div class="row">
                                     <div class="col-sm-12 text-center" style="font-size: 16pt; color: red;">
                                         <asp:Label ID="lblMessage" runat="server" />
@@ -261,6 +180,7 @@
         <div id="push"></div>
     </div>
 
+    <asp:HiddenField ID="hidNumCharacters" runat="server" />
 <%--    <CharSelector:Select ID="oCharSelect" runat="server" />--%>
     <!-- /#page-wrapper -->
 </asp:Content>

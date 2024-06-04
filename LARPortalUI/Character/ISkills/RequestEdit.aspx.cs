@@ -26,7 +26,7 @@ namespace LarpPortal.Character.ISkills
         protected void Page_PreInit(object sender, EventArgs e)
         {
             // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
-            //            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -198,6 +198,11 @@ namespace LarpPortal.Character.ISkills
         protected void btnCloseMessage_Click(object sender, EventArgs e)
         {
             Response.Redirect("Requests.aspx", true);
+        }
+
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("/default.aspx");
         }
     }
 }

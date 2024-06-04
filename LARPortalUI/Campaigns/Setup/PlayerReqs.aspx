@@ -6,6 +6,11 @@
 </asp:Content>
 
 <asp:Content ID="CampaignsRequirementsScripts" ContentPlaceHolderID="MainScripts" runat="server">
+    <script type="text/javascript">
+        function openMessage() {
+            $('#modalMessage').modal('show');
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="CampaignsRequirementsBody" ContentPlaceHolderID="MainBody" runat="server">
@@ -33,7 +38,11 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <label for="<%= ddlFrequency %>">Frequency</label>
-                                        <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="form-control" AutoPostBack="true" />
+                                        <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Annual" Value="Annual" />
+                                            <asp:ListItem Text="Event" Value="Event" />
+                                            <asp:ListItem Text="None" Value="None" />
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
@@ -49,14 +58,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+<%--                            <div class="row">
                                 <div class="form-group">
                                     <div class="col-lg-6">
                                         <label for="<%= ddlWaiver.ClientID %>">Waivers</label>
                                         <asp:DropDownList ID="ddlWaiver" CssClass="form-control" runat="server" AutoPostBack="true" />
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
                         </div>
                     </div>
                 </div>
@@ -68,4 +77,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade in" id="modalMessage" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title text-center">Policies</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <asp:Label ID="lblmodalMessage" runat="server" />
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="btn btn-primary" OnClick="btnClose_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
