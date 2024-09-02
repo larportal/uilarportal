@@ -98,23 +98,39 @@ namespace LarpPortal.Payments
                             lblPayPalForm.Text += "<input type=\"hidden\" name=\"upload\" value=\"1\">";
 
                             DateTime CurrDT = DateTime.Now;
-                            if (CurrDT > EarlyPaymentDate)
+                            if (PreviousEvents = 0)
                             {
-                                PayPalTotal = 125;
+                                PayPalTotal = 75;
                             }
                             else
                             {
-                                if (PreviousEvents > 0)
+                                if (CurrDT > EarlyPaymentDate)
                                 {
-                                    PayPalTotal = 95;
+                                    PayPalTotal = 125;
                                 }
                                 else
                                 {
-                                    PayPalTotal = 75;
-                                    //PayPalTotal = 95; // Take this out when we have new players identified. Fixed 3/30/2024
-                                    //PayPalTotal = 1;  // Take this line out for production. 
+                                    PayPalTotal = 95;
                                 }
                             }
+
+                            //if (CurrDT > EarlyPaymentDate)
+                            //{
+                            //    PayPalTotal = 125;
+                            //}
+                            //else
+                            //{
+                            //    if (PreviousEvents > 0)
+                            //    {
+                            //        PayPalTotal = 95;
+                            //    }
+                            //    else
+                            //    {
+                            //        PayPalTotal = 75;
+                            //        //PayPalTotal = 95; // Take this out when we have new players identified. Fixed 3/30/2024
+                            //        //PayPalTotal = 1;  // Take this line out for production. 
+                            //    }
+                            //}
 
                             PPItemName = lblPlayerEventCharacter.Text + "($" + PayPalTotal.ToString() + ")";
 
