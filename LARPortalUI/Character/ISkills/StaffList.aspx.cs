@@ -12,6 +12,12 @@ namespace LarpPortal.Character.ISkills
 {
     public partial class StaffList : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
         }
@@ -358,7 +364,7 @@ namespace LarpPortal.Character.ISkills
                 ddlCharacterList.DataValueField = "CharName";
                 ddlCharacterList.DataBind();
                 ddlCharacterList.Items.Insert(0, new ListItem("No Filter", ""));
-                
+
                 ddlCharacterList.SelectedIndex = -1;
                 if (sCharacterFilter.Length > 0)
                 {
@@ -586,6 +592,11 @@ namespace LarpPortal.Character.ISkills
             SortedList sParams = new SortedList();
             sParams.Add("@EventID", hidEventID.Value);
             Classes.cUtilities.PerformNonQuery("uspInsertIBPassive", sParams, "LARPortal", Master.UserName);
+        }
+
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            Response.Redirect("/default.aspx");
         }
     }
 }

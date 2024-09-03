@@ -50,6 +50,16 @@ namespace LarpPortal.Campaigns.Setup
             tbTotalCharacterCap.Text = Campaigns.TotalCharacterCPCap.ToString();
             LoadApprovalLevel("Character", Campaigns.CharacterApprovalLevel);
             LoadApprovalLevel("PEL", Campaigns.PELApprovalLevel);
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", Master.CampaignID);
+            DataTable dtCampaign = Classes.cUtilities.LoadDataTable("uspGetCampaignByCampaignID", sParams, "LARPortal", Master.UserName, "");
+            foreach (DataRow dRow in dtCampaign.Rows)
+            {
+                string t = dRow["AllowCharacterRebuild"].ToString();
+                bool b;
+                bool.TryParse(t, out b);
+            }
         }
 
         protected void LoadApprovalLevel(string ApprovalTypeDescription, int CurrentLevel)
@@ -122,7 +132,7 @@ namespace LarpPortal.Campaigns.Setup
 
 		protected void btnClose_Click(object sender, EventArgs e)
 		{
-			Response.Redirect(Request.RawUrl);
+//			Response.Redirect(Request.RawUrl);
 		}
     }
     }

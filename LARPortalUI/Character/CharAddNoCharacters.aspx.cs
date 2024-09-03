@@ -124,7 +124,9 @@ namespace LarpPortal.Character
 				if (ddlCharacterType.SelectedValue != "1")      // Non PC Character.
 					sParam.Add("@CurrentUserID", ddlPlayer.SelectedValue);
 				sParam.Add("@SkillSetTypeID", ddlNewCharSkillSetType.SelectedValue);
-				sParam.Add("@SkillSetName", tbNewCharSkillSetName.Text);
+				//				sParam.Add("@SkillSetName", tbNewCharSkillSetName.Text);
+				string sSkillSetName = "Primary - " + ddlUserCampaigns.SelectedItem.Text;
+				sParam.Add("@SkillSetName", sSkillSetName);
 				DataTable dtCharInfo = new DataTable();
 				dtCharInfo = Classes.cUtilities.LoadDataTable("uspInsCreateNewCharacter", sParam, "LARPortal", Master.UserName, lsRoutineName);
 
@@ -204,6 +206,20 @@ namespace LarpPortal.Character
 			ddlNewCharSkillSetType.DataTextField = "SkillSetTypeDescription";
 			ddlNewCharSkillSetType.DataValueField = "CampaignSkillSetTypeID";
 			ddlNewCharSkillSetType.DataBind();
+			bool bFound = false;
+			foreach (ListItem li in ddlNewCharSkillSetType.Items)
+			{
+				if (li.Text.ToUpper().Contains("PRIMARY"))
+				{
+					ddlNewCharSkillSetType.ClearSelection();
+					li.Selected = true;
+					bFound = true;
+				}
+			}
+			if (!bFound)
+			{
+				ddlNewCharSkillSetType.SelectedIndex = 0;
+			}
 
 			int PCCount = dtCampaignRoles.Select("RoleDescription LIKE '%PC%' and RoleAlignmentDesc = 'PC'").Length;
 
