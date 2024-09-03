@@ -98,7 +98,7 @@ namespace LarpPortal.Payments
                             lblPayPalForm.Text += "<input type=\"hidden\" name=\"upload\" value=\"1\">";
 
                             DateTime CurrDT = DateTime.Now;
-                            if (PreviousEvents = 0)
+                            if (PreviousEvents < 1)
                             {
                                 PayPalTotal = 75;
                             }
