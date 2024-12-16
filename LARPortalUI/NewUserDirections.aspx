@@ -87,6 +87,16 @@
                                     Welcome to LARP Portal and thank you for signing up for a member account.  You will shortly be receiving an email with your account activation 
                                     key.  Return to the LARP Portal login screen and enter the username and password you selected.  You'll be prompted to enter the account activation
                                     key from the email.  Enter the key and click the login button to enter LARP Portal.
+                                    <br /><br />
+                                    If you don’t receive your email within a few minutes, <strong>DO NOT</strong> create a new account.
+                                    <ul>
+                                        <li>
+                                            Check your spam filter.
+                                        </li>
+                                        <li>
+                                            If you still don’t have it, send an email to <a href='mailto:support@larportal.com'>support@larportal.com</a>, and we will send you the email from a different account.
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="row">
