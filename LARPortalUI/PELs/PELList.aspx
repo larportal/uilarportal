@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                <h1>PEL List</h1>
+                <h1>PEL List <Videos:PlayVideo runat="server" ID="playVideo" VideoID="8" /></h1>
 </div>            </div>
         </div>
 

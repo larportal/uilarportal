@@ -67,30 +67,30 @@ namespace LarpPortal.Classes
 			if (ConfigurationManager.AppSettings["WriteLogMessages"] != null)
 				if (ConfigurationManager.AppSettings["WriteLogMessages"].ToUpper().StartsWith("Y"))
 				{
-					using (SqlConnection ConnErrors = new SqlConnection(ConfigurationManager.ConnectionStrings["Audit"].ConnectionString))
-					{
-						using (SqlCommand lcmdAddLogMessage = new SqlCommand("uspSystemLogIns", ConnErrors))
-						{
-							try
-							{
-								ConnErrors.Open();
+//					using (SqlConnection ConnErrors = new SqlConnection(ConfigurationManager.ConnectionStrings["Audit"].ConnectionString))
+//					{
+//						using (SqlCommand lcmdAddLogMessage = new SqlCommand("uspSystemLogIns", ConnErrors))
+//						{
+//							try
+//							{
+//								ConnErrors.Open();
 
-								SqlCommand lcmdAddErrorMessage = new SqlCommand("uspSystemLogIns", ConnErrors);
-								lcmdAddErrorMessage.CommandType = CommandType.StoredProcedure;
-								lcmdAddErrorMessage.Parameters.AddWithValue("@UserName", pvsUserName); 
-								lcmdAddErrorMessage.Parameters.AddWithValue("@Location", pvsLocation);
-								lcmdAddErrorMessage.Parameters.AddWithValue("@Message", pvsMessage);
-								lcmdAddErrorMessage.Parameters.AddWithValue("@AddInfo", pvsAddInfo);
-								lcmdAddErrorMessage.Parameters.AddWithValue("@SessionID", pvsSessionID);
+//								SqlCommand lcmdAddErrorMessage = new SqlCommand("uspSystemLogIns", ConnErrors);
+//								lcmdAddErrorMessage.CommandType = CommandType.StoredProcedure;
+//								lcmdAddErrorMessage.Parameters.AddWithValue("@UserName", pvsUserName); 
+//								lcmdAddErrorMessage.Parameters.AddWithValue("@Location", pvsLocation);
+//								lcmdAddErrorMessage.Parameters.AddWithValue("@Message", pvsMessage);
+//								lcmdAddErrorMessage.Parameters.AddWithValue("@AddInfo", pvsAddInfo);
+//								lcmdAddErrorMessage.Parameters.AddWithValue("@SessionID", pvsSessionID);
 
-								lcmdAddErrorMessage.ExecuteNonQuery();
-							}
-							catch //(Exception ex)
-							{
-								// Not much we can do so just leave it.....
-							}
-						}
-					}
+////								lcmdAddErrorMessage.ExecuteNonQuery();
+//							}
+//							catch //(Exception ex)
+//							{
+//								// Not much we can do so just leave it.....
+//							}
+//						}
+//					}
 				}
 		}
 	}

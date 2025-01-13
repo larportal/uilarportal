@@ -15,6 +15,15 @@ namespace LarpPortal.Profile
     {
 
         /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
+        /// <summary>
         /// tbFirstName control.
         /// </summary>
         /// <remarks>
@@ -96,13 +105,13 @@ namespace LarpPortal.Profile
         protected global::System.Web.UI.WebControls.TextBox tbForumName;
 
         /// <summary>
-        /// tbUserName control.
+        /// tbPenName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbUserName;
+        protected global::System.Web.UI.WebControls.TextBox tbPenName;
 
         /// <summary>
         /// tbNickName control.
@@ -114,13 +123,13 @@ namespace LarpPortal.Profile
         protected global::System.Web.UI.WebControls.TextBox tbNickName;
 
         /// <summary>
-        /// tbPenName control.
+        /// tbUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPenName;
+        protected global::System.Web.UI.WebControls.TextBox tbUserName;
 
         /// <summary>
         /// imgPlayerImage control.

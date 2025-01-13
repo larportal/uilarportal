@@ -150,6 +150,24 @@ namespace LarpPortal.Character
         protected global::System.Web.UI.WebControls.TextBox tbRebuildToDate;
 
         /// <summary>
+        /// lblPoolName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPoolName;
+
+        /// <summary>
+        /// tbTotalCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbTotalCP;
+
+        /// <summary>
         /// tbBirthPlace control.
         /// </summary>
         /// <remarks>

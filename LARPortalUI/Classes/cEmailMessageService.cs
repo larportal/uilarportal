@@ -175,7 +175,7 @@ namespace LarpPortal.Classes
 
         public void WriteEmailLog(string EmailFrom, string EmailTo, string EmailCCs, string EmailBCCs, string Subject, string Body)
         {
-            string stStoredProc = "LARPortalAudit.dbo.uspInsertEmailLog";
+            string stStoredProc = "uspInsertEmailLog";
             string stCallingMethod = "cEmailMessageService.WriteEmailLog";
             //DataTable dtCharacters = new DataTable();
             SortedList sParams = new SortedList();
@@ -188,7 +188,7 @@ namespace LarpPortal.Classes
             sParams.Add("@Body", Body);
             try
             {
-                Classes.cUtilities.PerformNonQuery(stStoredProc, sParams, "LARPortal", stCallingMethod);
+                Classes.cUtilities.PerformNonQuery(stStoredProc, sParams, "EmailHistory", stCallingMethod);
             }
             catch (Exception)
             {

@@ -133,7 +133,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="header-background-image">
-                    <h1>Event Registration</h1>
+                    <h1>Event Registration&nbsp;&nbsp;<Videos:PlayVideo runat="server" ID="playVideo" VideoID="6" VideoDescription="Register as a PC" />&nbsp;&nbsp;
+                        <Videos:PlayVideo runat="server" ID="playVideo1" VideoID="7" VideoDescription="Register as an NPC or Staff" />
+                    </h1>
                 </div>
             </div>
         </div>

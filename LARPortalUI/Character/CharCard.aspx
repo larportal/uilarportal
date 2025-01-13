@@ -15,7 +15,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-5MQHDGS');</script>
     <!-- End Google Tag Manager -->
 
-    <title></title>
+    <title>Character Card</title>
     <style type="text/css">
         .TableLabel
         {

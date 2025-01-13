@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Profile {
-    
-    
-    public partial class Security {
-        
+namespace LarpPortal.Profile
+{
+
+
+    public partial class Security
+    {
+
+        /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
         /// <summary>
         /// lblUsernameLabel control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUsernameLabel;
-        
+
         /// <summary>
         /// txtUsername control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
-        
+
         /// <summary>
         /// lblFirstNameLabel control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFirstNameLabel;
-        
+
         /// <summary>
         /// txtFirstName control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
+
         /// <summary>
         /// lblMILabel control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMILabel;
-        
+
         /// <summary>
         /// txtMI control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMI;
-        
+
         /// <summary>
         /// lblLastNameLabel control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLastNameLabel;
-        
+
         /// <summary>
         /// txtLastName control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
+
         /// <summary>
         /// lblNickNameLabel control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNickNameLabel;
-        
+
         /// <summary>
         /// txtNickName control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNickName;
-        
+
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
-        
+
         /// <summary>
         /// lblPasswordReqs control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPasswordReqs;
-        
+
         /// <summary>
         /// lblPassword control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPassword;
-        
+
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
+
         /// <summary>
         /// lblPassword2 control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPassword2;
-        
+
         /// <summary>
         /// txtPassword2 control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword2;
-        
+
         /// <summary>
         /// lblErrorQuestions control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorQuestions;
-        
+
         /// <summary>
         /// txtSecurityQuestion1 control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityQuestion1;
-        
+
         /// <summary>
         /// txtSecurityAnswer1 control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityAnswer1;
-        
+
         /// <summary>
         /// lblErrorQuestion2 control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorQuestion2;
-        
+
         /// <summary>
         /// txtSecurityQuestion2 control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityQuestion2;
-        
+
         /// <summary>
         /// txtSecurityAnswer2 control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityAnswer2;
-        
+
         /// <summary>
         /// lblErrorQuestion3 control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrorQuestion3;
-        
+
         /// <summary>
         /// txtSecurityQuestion3 control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityQuestion3;
-        
+
         /// <summary>
         /// txtSecurityAnswer3 control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSecurityAnswer3;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -245,15 +256,17 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

@@ -474,15 +474,6 @@ namespace LarpPortal
         protected global::System.Web.UI.WebControls.Image Image5;
 
         /// <summary>
-        /// Image8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image8;
-
-        /// <summary>
         /// vwGuest control.
         /// </summary>
         /// <remarks>

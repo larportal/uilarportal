@@ -12,6 +12,12 @@ namespace LarpPortal.Campaigns.Setup
 {
     public partial class Policies : System.Web.UI.Page
     {
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 //            btnClose.Attributes.Add("data-dismiss", "modal");
@@ -134,5 +140,22 @@ namespace LarpPortal.Campaigns.Setup
 		{
 //			Response.Redirect(Request.RawUrl);
 		}
+        protected void MasterPage_CampaignChanged(object sender, EventArgs e)
+        {
+            //Classes.cPlayerRoles Roles = new Classes.cPlayerRoles();
+            //Roles.Load(Master.UserID, 0, Master.CampaignID, DateTime.Today);
+            //Classes.cURLPermission permissions = new Classes.cURLPermission();
+            //bool PagePermission = true;
+            //string DefaultUnauthorizedURL = "";
+            //string CurrentPage = Request.RawUrl;
+            //if (CurrentPage.ToUpper().EndsWith(".ASPX"))
+            //    CurrentPage = CurrentPage.Substring(0, CurrentPage.Length - 5);
+
+            //permissions.GetURLPermissions(CurrentPage, Master.UserName, Roles.PlayerRoleString);
+            //PagePermission = permissions.PagePermission;
+            //DefaultUnauthorizedURL = permissions.DefaultUnauthorizedURL;
+            //if (!PagePermission)
+            //    Response.Redirect(DefaultUnauthorizedURL);
+        }
     }
-    }
+}

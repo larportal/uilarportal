@@ -125,9 +125,51 @@ namespace LarpPortal.Classes
 
                         lcmdAddErrorMessage.ExecuteNonQuery();
                     }
-                    catch // (Exception ex)
+                    catch (Exception ex)
                     {
-                        // Not much we can do so just leave it.....
+                        using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString))
+                        {
+                            conn.Open();
+                            using (SqlCommand cmd = new SqlCommand("uspGetLastErrorEmailSent", conn))
+                            {
+                                DataTable dt = new DataTable();
+                                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                                sda.Fill(dt);
+                                if (dt.Rows.Count == 0)
+                                {
+                                    string sSubject = "LARPortal fatal error.";
+                                    string sBody = "A fatal error happened in LARPortal" +
+                                        ex.Message + "\r\n" + 
+                                        ex.StackTrace;
+                                    string sSendTo = "rgpierce@earthlink.net; jbradshaw@pobox.com; 2032604282@att.net";
+                                    if (ConfigurationManager.AppSettings["ErrorEMails"] != null)
+                                        sSendTo = ConfigurationManager.AppSettings["ErrorEMails"];
+
+                                    Classes.cEmailMessageService cEMS = new Classes.cEmailMessageService();
+                                    cEMS.SendMail(sSubject, sBody, sSendTo, "", "", "ServerError", "SystemMessage");
+
+                                    using (SqlCommand cmdParam = new SqlCommand("uspInsUpdMDBParameters", conn))
+                                    {
+                                        cmdParam.CommandType = CommandType.StoredProcedure;
+                                        cmdParam.Parameters.AddWithValue("@UserID", -1);
+                                        cmdParam.Parameters.AddWithValue("@ParameterName", "LastDBErrorSent");
+                                        cmdParam.Parameters.AddWithValue("@ParameterValue", DateTime.Now.AddMinutes(-1).ToString());
+                                        DataTable dt2 = new DataTable();
+                                        SqlDataAdapter sda2 = new SqlDataAdapter(cmdParam);
+
+                                        try
+                                        {
+                                            sda2.Fill(dt2);
+//                                            cmdParam.ExecuteNonQuery();
+                                        }
+                                        catch //(Exception ex)
+                                        {
+                                            // Can't do anything about it...
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

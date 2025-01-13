@@ -176,7 +176,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>Medical Info</h1>
+                    <h1>Medical Info ;<Videos:PlayVideo runat="server" ID="playVideo" VideoID="11" /></h1>
                 </div>
             </div>
         </div>

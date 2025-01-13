@@ -348,7 +348,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>Profile</h1>
+                    <h1>Profile ;<Videos:PlayVideo runat="server" ID="playVideo" VideoID="9" /></h1>
                 </div>
             </div>
         </div>

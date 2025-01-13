@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="header-background-image">
-                        <h1>Character Skill Sets</h1>
+                        <h1>Character Skill Sets <Videos:PlayVideo runat="server" ID="playVideo" VideoID="2" /></h1>
                     </div>
                 </div>
             </div>

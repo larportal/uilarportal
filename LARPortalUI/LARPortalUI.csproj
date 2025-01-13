@@ -468,6 +468,7 @@
     <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\fullcalendar.print.min.css" />
     <Content Include="Controls\CharacterSelect.ascx" />
+    <Content Include="Controls\PlayVideo.ascx" />
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\SideBarMenu.css" />
@@ -491,6 +492,7 @@
     <Content Include="FAQs.aspx" />
     <Content Include="ForgotUserName.aspx" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="HowToVideosExt.aspx" />
     <Content Include="HtmlPage1.html" />
     <Content Include="images\apple-touch-icon-114x114-precomposed.png" />
     <Content Include="images\apple-touch-icon-120x120-precomposed.png" />
@@ -1279,6 +1281,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Webservices\TestSkills2.asmx" />
+    <Content Include="HowToVideos.aspx" />
     <Content Include="WhatsNew.aspx" />
     <Content Include="WhatsNewDetail.aspx" />
     <None Include="Properties\PublishProfiles\UI Website.pubxml" />
@@ -1816,6 +1819,13 @@
     <Compile Include="Controls\CharacterSelect.ascx.designer.cs">
       <DependentUpon>CharacterSelect.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlayVideo.ascx.cs">
+      <DependentUpon>PlayVideo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\PlayVideo.ascx.designer.cs">
+      <DependentUpon>PlayVideo.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1948,6 +1958,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HowToVideosExt.aspx.cs">
+      <DependentUpon>HowToVideosExt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HowToVideosExt.aspx.designer.cs">
+      <DependentUpon>HowToVideosExt.aspx</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -2349,6 +2366,13 @@
     <Compile Include="Webservices\CampaignInfo.asmx.cs">
       <DependentUpon>CampaignInfo.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HowToVideos.aspx.cs">
+      <DependentUpon>HowToVideos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HowToVideos.aspx.designer.cs">
+      <DependentUpon>HowToVideos.aspx</DependentUpon>
     </Compile>
     <Compile Include="WhatIsLARPing.aspx.cs">
       <DependentUpon>WhatIsLARPing.aspx</DependentUpon>

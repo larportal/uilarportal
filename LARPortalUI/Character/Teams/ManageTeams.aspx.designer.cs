@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Character.Teams {
-    
-    
-    public partial class ManageTeams {
-        
+namespace LarpPortal.Character.Teams
+{
+
+
+    public partial class ManageTeams
+    {
+
+        /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
         /// <summary>
         /// oCharSelect control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::LarpPortal.Controls.CharacterSelect oCharSelect;
-        
+
         /// <summary>
         /// btnTopSave control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTopSave;
-        
+
         /// <summary>
         /// ddlTeams control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTeams;
-        
+
         /// <summary>
         /// lblTeamName control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTeamName;
-        
+
         /// <summary>
         /// gvAvailable control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAvailable;
-        
+
         /// <summary>
         /// gvMembers control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMembers;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// hidNotificationEMail control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidNotificationEMail;
-        
+
         /// <summary>
         /// hidCampaignID control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
-        
+
         /// <summary>
         /// hidTeamID control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidTeamID;
-        
+
         /// <summary>
         /// hidScollPosition control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidScollPosition;
-        
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnCloseMessage control.
         /// </summary>
@@ -128,15 +139,17 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
