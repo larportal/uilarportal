@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Profile {
-    
-    
-    public partial class MedicalInfo {
-        
+namespace LarpPortal.Profile
+{
+
+
+    public partial class MedicalInfo
+    {
+
+        /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
         /// <summary>
         /// gvMedical control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMedical;
-        
+
         /// <summary>
         /// btnOpenMedical control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnOpenMedical;
-        
+
         /// <summary>
         /// gvLimitations control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvLimitations;
-        
+
         /// <summary>
         /// btnAddLimitation control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddLimitation;
-        
+
         /// <summary>
         /// tbAllergies control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAllergies;
-        
+
         /// <summary>
         /// tbMedicalComments control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMedicalComments;
-        
+
         /// <summary>
         /// btnSaveComments control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveComments;
-        
+
         /// <summary>
         /// lblModalMessage control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModalMessage;
-        
+
         /// <summary>
         /// tbCondition control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCondition;
-        
+
         /// <summary>
         /// tbMedication control.
         /// </summary>
@@ -101,7 +112,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMedication;
-        
+
         /// <summary>
         /// tbMedicalStartDate control.
         /// </summary>
@@ -110,7 +121,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMedicalStartDate;
-        
+
         /// <summary>
         /// tbMedicalEndDate control.
         /// </summary>
@@ -119,7 +130,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMedicalEndDate;
-        
+
         /// <summary>
         /// cbxShareWithStaff control.
         /// </summary>
@@ -128,7 +139,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxShareWithStaff;
-        
+
         /// <summary>
         /// cbxPrintOnCard control.
         /// </summary>
@@ -137,7 +148,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxPrintOnCard;
-        
+
         /// <summary>
         /// btnCloseMedical control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMedical;
-        
+
         /// <summary>
         /// hidPlayerMedicalID control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPlayerMedicalID;
-        
+
         /// <summary>
         /// btnSaveMedical control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveMedical;
-        
+
         /// <summary>
         /// btnCancelDeleteMedical control.
         /// </summary>
@@ -173,7 +184,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelDeleteMedical;
-        
+
         /// <summary>
         /// hidDeleteMedicalID control.
         /// </summary>
@@ -182,7 +193,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDeleteMedicalID;
-        
+
         /// <summary>
         /// btnDeleteMedical control.
         /// </summary>
@@ -191,7 +202,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeleteMedical;
-        
+
         /// <summary>
         /// tbLimitation control.
         /// </summary>
@@ -200,7 +211,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLimitation;
-        
+
         /// <summary>
         /// tbLimitationStartDate control.
         /// </summary>
@@ -209,7 +220,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLimitationStartDate;
-        
+
         /// <summary>
         /// tbLimitationEndDate control.
         /// </summary>
@@ -218,7 +229,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbLimitationEndDate;
-        
+
         /// <summary>
         /// cbxLimitShareWithStaff control.
         /// </summary>
@@ -227,7 +238,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxLimitShareWithStaff;
-        
+
         /// <summary>
         /// cbxLimitPrintOnCard control.
         /// </summary>
@@ -236,7 +247,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbxLimitPrintOnCard;
-        
+
         /// <summary>
         /// btnCloseLimit control.
         /// </summary>
@@ -245,7 +256,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseLimit;
-        
+
         /// <summary>
         /// hidPlayerLimitID control.
         /// </summary>
@@ -254,7 +265,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPlayerLimitID;
-        
+
         /// <summary>
         /// btnSaveLimitation control.
         /// </summary>
@@ -263,7 +274,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaveLimitation;
-        
+
         /// <summary>
         /// btnCancelDeleteLimit control.
         /// </summary>
@@ -272,7 +283,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelDeleteLimit;
-        
+
         /// <summary>
         /// hidDeleteLimitID control.
         /// </summary>
@@ -281,7 +292,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDeleteLimitID;
-        
+
         /// <summary>
         /// btnDeleteLimit control.
         /// </summary>
@@ -290,7 +301,7 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDeleteLimit;
-        
+
         /// <summary>
         /// hidPlayerProfileID control.
         /// </summary>
@@ -299,15 +310,17 @@ namespace LarpPortal.Profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidPlayerProfileID;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

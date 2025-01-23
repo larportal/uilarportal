@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>Security</h1>
+                    <h1>Security ;<Videos:PlayVideo runat="server" ID="playVideo" VideoID="10" /></h1>
                 </div>
                 <div class="row">
                     <asp:Label ID="lblUsernameLabel" runat="server" CssClass="control-label col-sm-1">Username</asp:Label>

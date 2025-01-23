@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Character.Teams {
-    
-    
-    public partial class CreateTeam {
-        
+namespace LarpPortal.Character.Teams
+{
+
+
+    public partial class CreateTeam
+    {
+
+        /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
         /// <summary>
         /// oCharSelect control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::LarpPortal.Controls.CharacterSelect oCharSelect;
-        
+
         /// <summary>
         /// tbNewTeamName control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbNewTeamName;
-        
+
         /// <summary>
         /// btnCreateTeam control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCreateTeam;
-        
+
         /// <summary>
         /// divAlreadyExists control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlreadyExists;
-        
+
         /// <summary>
         /// lblAlreadyExists control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAlreadyExists;
-        
+
         /// <summary>
         /// gvList control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvList;
-        
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnCloseMessage control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
-        
+
         /// <summary>
         /// hidNotificationEMail control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidNotificationEMail;
-        
+
         /// <summary>
         /// hidCampaignID control.
         /// </summary>
@@ -101,15 +112,17 @@ namespace LarpPortal.Character.Teams {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="header-background-image">
-                    <h1>Create Team</h1>
+                    <h1>Create Team <Videos:PlayVideo runat="server" ID="playVideo" VideoID="5" /></h1>
                 </div>
             </div>
         </div>

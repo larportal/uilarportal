@@ -15,6 +15,15 @@ namespace LarpPortal.Character
     {
 
         /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
+        /// <summary>
         /// mvCharacterCreate control.
         /// </summary>
         /// <remarks>

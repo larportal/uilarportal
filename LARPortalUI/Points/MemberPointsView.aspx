@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-background-image">
-                    <h1>View Points</h1>
+                    <h1>View Points ;<Videos:PlayVideo runat="server" ID="playVideo" VideoID="12" /></h1>
                 </div>
             </div>
         </div>

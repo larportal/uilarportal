@@ -51,6 +51,52 @@ namespace LarpPortal.Campaigns.Setup
                 ddlMarketingSize.DataValueField = "CampaignSizeID";
                 ddlMarketingSize.DataBind();
 
+                sParams = new SortedList();
+                DataTable dtPELApproveLevel = Classes.cUtilities.LoadDataTable("uspGetPELApprovalLevel", sParams, "LARPortal", "JB", "PageLoad");
+                ddlPELApproval.DataSource = dtPELApproveLevel;
+                ddlPELApproval.DataTextField = "Description";
+                ddlPELApproval.DataValueField = "ApprovalLevelID";
+                ddlPELApproval.DataBind();
+
+                sParams = new SortedList();
+                DataTable dtCharHistApprovLevel = Classes.cUtilities.LoadDataTable("uspGetCharHistApprovLevel", sParams, "LARPortal", "JB", "PageLoad");
+                ddlCharHistoryApproval.DataSource = dtCharHistApprovLevel;
+                ddlCharHistoryApproval.DataTextField = "Description";
+                ddlCharHistoryApproval.DataValueField = "ApprovalLevelID";
+                ddlCharHistoryApproval.DataBind();
+                ddlCharHistoryApproval.Items.Insert(0, new ListItem("Select Item...", "-1"));
+
+                sParams = new SortedList();
+                DataTable dtCancelPolicy = Classes.cUtilities.LoadDataTable("uspGetCancellationPolicy", sParams, "LARPortal", "JB", "PageLoad");
+                DataView dvCancelPolicy = new DataView(dtCancelPolicy, "", "PolicyDescription", DataViewRowState.CurrentRows);
+                ddlCancelPolicy.DataSource = dvCancelPolicy;
+                ddlCancelPolicy.DataTextField = "PolicyDescription";
+                ddlCancelPolicy.DataValueField = "PolicyID";
+                ddlCancelPolicy.DataBind();
+
+
+                sParams = new SortedList();
+                sParams.Add("@StyleFilter", 0);
+                DataTable dtCampaignStyles = Classes.cUtilities.LoadDataTable("uspGetStyles", sParams, "LARPortal", "JB", "PageLoad");
+                ddlStyle.DataSource = dtCampaignStyles;
+                ddlStyle.DataTextField = "StyleName";
+                ddlStyle.DataValueField = "StyleID";
+                ddlStyle.DataBind();
+
+                sParams = new SortedList();
+                DataTable dtPortalAccessTypes = Classes.cUtilities.LoadDataTable("uspGetPortalAccessTypes", sParams, "LARPortal", "JB", "PageLoad");
+                ddlPortalAccessType.DataSource = dtPortalAccessTypes;
+                ddlPortalAccessType.DataTextField = "Description";
+                ddlPortalAccessType.DataValueField = "PortalAccessTypeID";
+                ddlPortalAccessType.DataBind();
+
+                sParams = new SortedList();
+                DataTable dtDonationTimetable = Classes.cUtilities.LoadDataTable("uspGetDonationtimetable", sParams, "LARPortal", "JB", "PageLoad");
+                ddlDonAwardWhen.DataSource = dtDonationTimetable;
+                ddlDonAwardWhen.DataTextField = "TimetableDescription";
+                ddlDonAwardWhen.DataValueField = "DonationTimeTableID";
+                ddlDonAwardWhen.DataBind();
+
                 using (SqlConnection Conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString))
                 {
                     Conn.Open();
@@ -106,6 +152,8 @@ namespace LarpPortal.Campaigns.Setup
             dsCampaigns.Tables[8].TableName = "PaymentTypes";
             dsCampaigns.Tables[9].TableName = "OpportunityDefaults";
             dsCampaigns.Tables[10].TableName = "Pools";
+            dsCampaigns.Tables[11].TableName = "Donations";
+            dsCampaigns.Tables[12].TableName = "Shares";
 
             ViewState["Pools"] = dsCampaigns.Tables["Pools"];
 
@@ -114,6 +162,14 @@ namespace LarpPortal.Campaigns.Setup
             {
                 tbCampaignName.Text = dr["CampaignName"].ToString();
                 bool bFoundItem = false;
+
+                DateTime dtTemp;
+                if (DateTime.TryParse(dr["CampaignStartDate"].ToString(), out dtTemp))
+                    tbStartDate.Text = dtTemp.ToString("MM/dd/yyyy");
+
+                if (DateTime.TryParse(dr["ProjectedEndDate"].ToString(), out dtTemp))
+                    tbEndDate.Text = dtTemp.ToString("MM/dd/yyyy");
+
                 ddlGameSystem.ClearSelection();
                 foreach (ListItem li in ddlGameSystem.Items)
                 {
@@ -158,12 +214,9 @@ namespace LarpPortal.Campaigns.Setup
                     liOwner.Selected = true;
                 }
 
-                DateTime dtTemp;
-                if (DateTime.TryParse(dr["CampaignStartDate"].ToString(), out dtTemp))
-                    tbStartDate.Text = dtTemp.ToString("MM/dd/yyyy");
-
-                if (DateTime.TryParse(dr["ProjectedEndDate"].ToString(), out dtTemp))
-                    tbEndDate.Text = dtTemp.ToString("MM/dd/yyyy");
+                tbPrimaryZipCode.Text = dr["PrimarySiteZipCode"].ToString();
+                tbWebDescription.Text = dr["CampaignWebPageDescription"].ToString();
+                tbURL.Text = dr["CampaignURL"].ToString();
 
                 int iTemp;
                 if (int.TryParse(dr["MinimumAge"].ToString(), out iTemp))
@@ -171,10 +224,129 @@ namespace LarpPortal.Campaigns.Setup
                 if (int.TryParse(dr["MinimumAgeWithSupervision"].ToString(), out iTemp))
                     tbMinAgeSuper.Text = iTemp.ToString();
 
-                tbPrimaryZipCode.Text = dr["PrimarySiteZipCode"].ToString();
-                string t = dr["CampDesc"].ToString();
-                tbWebDescription.Text = dr["CampaignWebPageDescription"].ToString();
-                tbURL.Text = dr["CampaignURL"].ToString();
+                //                string t = dr["CampDesc"].ToString();
+
+                string sCampaignStatus = dr["StatusID"].ToString();
+                bFoundItem = false;
+                ddlCampaignStatus.ClearSelection();
+                foreach (ListItem li in ddlCampaignStatus.Items)
+                {
+                    if (li.Value == sCampaignStatus)
+                    {
+                        ddlCampaignStatus.ClearSelection();
+                        li.Selected = true;
+                        bFoundItem = true;
+                    }
+                }
+                if (!bFoundItem)
+                {
+                    ddlCampaignStatus.ClearSelection();
+                    ddlCampaignStatus.SelectedIndex = 0;
+                }
+
+                tbProjectedNumEvents.Text = dr["ProjectedNumberOfEvents"].ToString();
+                double dTemp;
+                tbMembershipFee.Text = "";
+                object o = dr["MembershipFee"].ToString();
+                if (!string.IsNullOrEmpty(dr["MembershipFee"].ToString()))
+                    if (double.TryParse(dr["MembershipFee"].ToString(), out dTemp))
+                        tbMembershipFee.Text = string.Format("{0:0.00}", dTemp);
+                tbMembershipFreq.Text = dr["MembershipFeeFrequency"].ToString();
+                tbEmerContact.Text = dr["EmergencyEventContactInfo"].ToString();
+
+                bool bTemp;
+
+                cbPlayerApprovalReq.Checked = false;
+                if (bool.TryParse(dr["PlayerApprovalRequired"].ToString(), out bTemp))
+                    cbPlayerApprovalReq.Checked = bTemp;
+
+                cbNPCApprovalReq.Checked = false;
+                if (bool.TryParse(dr["NPCApprovalRequired"].ToString(), out bTemp))
+                    cbNPCApprovalReq.Checked = bTemp;
+                cbShareLocationUseNotes.Checked = false;
+
+                tbMaxCPPerYear.Text = dr["MaximumCPPerYear"].ToString();
+                cbAllowCPDonation.Checked = false;
+                if (bool.TryParse(dr["AllowCPDonation"].ToString(), out bTemp))
+                    cbAllowCPDonation.Checked = bTemp;
+
+                bFoundItem = false;
+                if (int.TryParse(dr["PELApprovalLevel"].ToString(), out iTemp))
+                {
+                    ddlPELApproval.ClearSelection();
+                    foreach (ListItem lItem in ddlPELApproval.Items)
+                    {
+                        if (lItem.Value == iTemp.ToString())
+                        {
+                            ddlPELApproval.ClearSelection();
+                            lItem.Selected = true;
+                            bFoundItem = true;
+                        }
+                    }
+                }
+
+                if (!bFoundItem)
+                {
+                    ddlPELApproval.ClearSelection();
+                    ddlPELApproval.Items[0].Selected = true;
+                }
+
+                bFoundItem = false;
+                if (int.TryParse(dr["CharacterHistoryApprovalLevel"].ToString(), out iTemp))
+                {
+                    ddlCharHistoryApproval.ClearSelection();
+                    foreach (ListItem lItem in ddlCharHistoryApproval.Items)
+                    {
+                        if (lItem.Value == iTemp.ToString())
+                        {
+                            ddlCharHistoryApproval.ClearSelection();
+                            lItem.Selected = true;
+                            bFoundItem = true;
+                        }
+                    }
+                }
+
+                if (!bFoundItem)
+                {
+                    ddlCharHistoryApproval.ClearSelection();
+                    ddlCharHistoryApproval.Items[0].Selected = true;
+                }
+
+                tbCampaignRuleURL.Text = dr["CampaignRulesURL"].ToString();
+
+                cbShareLocationUseNotes.Checked = false;
+                if (bool.TryParse(dr["ShareLocationUseNotes"].ToString(), out bTemp))
+                    cbShareLocationUseNotes.Checked = bTemp;
+
+                tbEventCharCap.Text = "";
+                if (int.TryParse(dr["EventCharacterCap"].ToString(), out iTemp))
+                    tbEventCharCap.Text = iTemp.ToString();
+                tbAnnualCharCap.Text = "";
+                if (int.TryParse(dr["AnnualCharacterCap"].ToString(), out iTemp))
+                    tbAnnualCharCap.Text = iTemp.ToString();
+                tbTotalCharCap.Text = "";
+                if (int.TryParse(dr["TotalCharacterCap"].ToString(), out iTemp))
+                    tbTotalCharCap.Text = iTemp.ToString();
+
+                //ddlCancelPolicy.SelectedIndex = 0;
+
+                //foreach (ListItem li in ddlCancelPolicy.Items)
+                //{
+                //    if (li.Text == dr["CancellationPolicy"].ToString())
+                //    {
+                //        ddlCancelPolicy.ClearSelection();
+                //        li.Selected = true;
+                //    }
+                //}
+//                ddlCancelPolicy.Text = dr["CancellationPolicy"].ToString();
+
+                if (int.TryParse(dr["EarliestCPApplicationYear"].ToString(), out iTemp))
+                    tbEarliestCPAppYear.Text = iTemp.ToString();
+                tbBillingFreq.Text = dr["BillingFrequency"].ToString();
+
+                cbAllowCharRebuild.Checked = false;
+                if (bool.TryParse(dr["AllowCharacterRebuild"].ToString(), out bTemp))
+                    cbAllowCharRebuild.Checked = bTemp;
 
                 tbCharHistNotification.Text = dr["CharacterHistoryNotificationEmail"].ToString();
                 tbCharNotification.Text = dr["CharacterNotificationEmail"].ToString();
@@ -187,7 +359,7 @@ namespace LarpPortal.Campaigns.Setup
                 tbProductionSkill.Text = dr["ProductionSkillEmail"].ToString();
                 tbRegNotif.Text = dr["RegistrationNotificationEmail"].ToString();
 
-                bool bTemp;
+
                 cbShowCampaignInfoEmail.Checked = false;
                 if (bool.TryParse(dr["ShowCampaignInfoEmail"].ToString(), out bTemp))
                     cbShowCampaignInfoEmail.Checked = bTemp;
@@ -224,20 +396,20 @@ namespace LarpPortal.Campaigns.Setup
                 if (bool.TryParse(dr["ShowRegistrationNotificationEmail"].ToString(), out bTemp))
                     cbShowRegistrationNotificationEmail.Checked = bTemp;
 
-                cbUserDef1.Attributes.Add("onchange", "javascript: CheckBoxes();");
-                tbUserDef1.Attributes.Add("onchange", "javascript: Blink();");
+                //cbUserDef1.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                //tbUserDef1.Attributes.Add("onchange", "javascript: Blink();");
 
-                cbUserDef2.Attributes.Add("onchange", "javascript: CheckBoxes();");
-                tbUserDef2.Attributes.Add("onchange", "javascript: Blink();");
+                //cbUserDef2.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                //tbUserDef2.Attributes.Add("onchange", "javascript: Blink();");
 
-                cbUserDef3.Attributes.Add("onchange", "javascript: CheckBoxes();");
-                tbUserDef3.Attributes.Add("onchange", "javascript: Blink();");
+                //cbUserDef3.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                //tbUserDef3.Attributes.Add("onchange", "javascript: Blink();");
 
-                cbUserDef4.Attributes.Add("onchange", "javascript: CheckBoxes();");
-                tbUserDef4.Attributes.Add("onchange", "javascript: Blink();");
+                //cbUserDef4.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                //tbUserDef4.Attributes.Add("onchange", "javascript: Blink();");
 
-                cbUserDef5.Attributes.Add("onchange", "javascript: CheckBoxes();");
-                tbUserDef5.Attributes.Add("onchange", "javascript: Blink();");
+                //cbUserDef5.Attributes.Add("onchange", "javascript: CheckBoxes();");
+                //tbUserDef5.Attributes.Add("onchange", "javascript: Blink();");
 
                 if (dr["UseUserDefinedField1"].ToString() == "1")
                 {
@@ -314,22 +486,36 @@ namespace LarpPortal.Campaigns.Setup
                     tbUserDef5.Text = dr["UserDefinedField5"].ToString();
                 }
 
-                string sCampaignStatus = dr["StatusID"].ToString();
                 bFoundItem = false;
-                ddlCampaignStatus.ClearSelection();
-                foreach (ListItem li in ddlCampaignStatus.Items)
+                foreach (ListItem lItem in ddlStyle.Items)
                 {
-                    if (li.Value == sCampaignStatus)
+                    if (lItem.Value == dr["StyleID"].ToString())
                     {
-                        ddlCampaignStatus.ClearSelection();
-                        li.Selected = true;
+                        ddlStyle.ClearSelection();
+                        lItem.Selected = true;
                         bFoundItem = true;
                     }
                 }
                 if (!bFoundItem)
                 {
-                    ddlCampaignStatus.ClearSelection();
-                    ddlCampaignStatus.SelectedIndex = 0;
+                    ddlStyle.ClearSelection();
+                    ddlStyle.Items[0].Selected = true;
+                }
+
+                bFoundItem = false;
+                foreach (ListItem lItem in ddlPortalAccessType.Items)
+                {
+                    if (lItem.Value == dr["PortalAccessType"].ToString())
+                    {
+                        ddlPortalAccessType.ClearSelection();
+                        lItem.Selected = true;
+                        bFoundItem = true;
+                    }
+                }
+                if (!bFoundItem)
+                {
+                    ddlPortalAccessType.ClearSelection();
+                    ddlPortalAccessType.Items[0].Selected = true;
                 }
             }
 
@@ -459,38 +645,146 @@ namespace LarpPortal.Campaigns.Setup
             ViewState["CampaignOppDefs"] = dsCampaigns.Tables["OpportunityDefaults"];
             gvOppDefaults.DataSource = (DataTable)ViewState["CampaignOppDefs"];
             gvOppDefaults.DataBind();
+
+            cbDonShowDonationClaims.Checked = false;
+            tbDonDefaultShipToAdd1.Text = "";
+            tbDonDefaultShipToAdd2.Text = "";
+            tbDonDefaultShipToCity.Text = "";
+            tbDonDefaultShipToState.Text = "";
+            tbDonDefaultShipToPostalCode.Text = "";
+            tbDonDefaultShipToPhone.Text = "";
+            cbDonAllowPlayerToPlayerPoints.Checked = false;
+            tbDonDollarToPointValue.Text = "";
+            tbDonHourToPointValue.Text = "";
+            ddlDonAwardWhen.ClearSelection();
+            if (ddlDonAwardWhen.Items.Count > 0)
+                ddlDonAwardWhen.Items[0].Selected = true;
+            tbDonDefaultEmail.Text = "";
+            tbDonMaxPointsPerEvent.Text = "";
+            tbDonMaxItemsPerEvent.Text = "";
+            cbDonCountTransfersAgainstMax.Checked = false;
+            hidCampaignDonationSettingsID.Value = "";
+
+            foreach (DataRow dRow in dsCampaigns.Tables["Donations"].Rows)
+            {
+                bool bTemp;
+                if ( bool.TryParse(dRow["ShowDonationClaims"].ToString(), out bTemp) )
+                    cbDonShowDonationClaims.Checked = bTemp;
+                tbDonDefaultShipToAdd1.Text = dRow["DefaultShipToAdd1"].ToString();
+                tbDonDefaultShipToAdd2.Text = dRow["DefaultShipToAdd2"].ToString();
+                tbDonDefaultShipToCity.Text = dRow["DefaultShipToCity"].ToString();
+                tbDonDefaultShipToState.Text = dRow["DefaultShipToState"].ToString();
+                tbDonDefaultShipToPostalCode.Text = dRow["DefaultShipToPostalCode"].ToString();
+                tbDonDefaultShipToPhone.Text = dRow["DefaultShipToPhone"].ToString();
+                if ( bool.TryParse(dRow["AllowPlayerToPlayerPoints"].ToString(), out bTemp) )
+                    cbDonAllowPlayerToPlayerPoints.Checked = bTemp;
+                double dTemp;
+                int iTemp;
+                if (!string.IsNullOrEmpty(dRow["CampaignDonationSettingsID"].ToString()))
+                {
+                    if (int.TryParse(dRow["CampaignDonationSettingsID"].ToString(), out iTemp))
+                        hidCampaignDonationSettingsID.Value = iTemp.ToString();
+                }
+                if (double.TryParse(dRow["DefaultDollarToPointValue"].ToString(), out dTemp))
+                    tbDonDollarToPointValue.Text = dTemp.ToString();
+            }
+
+
+
+
+//            gvShares.DataSource = dsCampaigns.Tables["Shares"];
+//            gvShares.DataBind();
         }
 
 
         protected void btnSaveInfo_Click(object sender, EventArgs e)
         {
             int iCampaignID;
+            DateTime dtTemp;
             if (!int.TryParse(ddlCampaignList.SelectedValue, out iCampaignID))
                 return;
 
             SortedList sParams = new SortedList();
             sParams.Add("@CampaignID", ddlCampaignList.SelectedValue);
-            sParams.Add("@CharacterHistoryNotificationEmail", tbCharHistNotification.Text);
-            sParams.Add("@ShowCharacterHistoryEmail", cbShowCharacterHistoryEmail.Checked);
-            sParams.Add("@CharacterNotificationEmail", tbCharNotification.Text);
-            sParams.Add("@ShowCharacterNotificationEmail", cbShowCharacterNotificationEmail.Checked);
-            sParams.Add("@CPNotificationEmail", tbCPNotification.Text);
-            sParams.Add("@ShowCPNotificationEmail", cbShowCPNotificationEmail.Checked);
+            sParams.Add("@CampaignName", tbCampaignName.Text);
+
+            //sParams.Add("@ActualEndDate", tbActualEndDate.Text);
+            //sParams.Add("@ActualNumberOfEvents", tbActualNumberOfEvents.Text);
+            sParams.Add("@AllowCharacterRebuild", cbAllowCharRebuild.Checked);
+            sParams.Add("@AllowCPDonation", cbAllowCPDonation.Checked);
+
+            double dTemp;
+            if (double.TryParse(tbAnnualCharCap.Text, out dTemp))
+                sParams.Add("@AnnualCharacterCap", dTemp);
+//            sParams.Add("@AnnualCharacterCap", tbAnnualCharCap.Text);
+            sParams.Add("@BillingFrequency", tbBillingFreq.Text);
+            sParams.Add("@BillTo", tbBillTo.Text);
+
+            if (DateTime.TryParse(tbStartDate.Text, out dtTemp))
+                sParams.Add("@CampaignStartDate", dtTemp);
+            if (DateTime.TryParse(tbEndDate.Text, out dtTemp))
+                sParams.Add("@CampaignEndDate", dtTemp);
+            //sParams.Add("@CampaignAddress", XXX);
+            sParams.Add("@CampaignRulesURL", tbCampaignRuleURL.Text);
+
             sParams.Add("@StatusID", ddlCampaignStatus.SelectedValue);
+
+            sParams.Add("@CampaignURL", tbURL.Text);
+            sParams.Add("@CampaignWebPageDescription", tbWebDescription.Text);
+            //sParams.Add("@CancellationPolicy", ddlCancelPolicy.SelectedValue);
+            //sParams.Add("@CharacterApprovalLevel", ???);
+            //sParams.Add("@CampaignHistoryNotificationDeliveryPreferences", ???);
+
+            sParams.Add("@CharacterHistoryApprovalLevel", ddlCharHistoryApproval.SelectedValue);
+
+            //sParams.Add("@CharacterHistoryNotificationDeliveryPreferences", ????);
+            sParams.Add("@CharacterHistoryNotificationEmail", tbCharHistNotification.Text);
+            sParams.Add("@CharacterNotificationEmail", tbCharNotification.Text);
+            //sParams.Add("@CPNotificationDeliveryPreferences", tbCPNotificationDeliveryPreferences.Text);
+            sParams.Add("@CPNotificationEmail", tbCPNotification.Text);
+            sParams.Add("@EarliestCPApplicationYear", tbEarliestCPAppYear.Text);
+            sParams.Add("@EmergencyEventContactInfo", tbEmerContact.Text);
+            sParams.Add("@EventCharacterCap", tbEventCharCap.Text);
+            sParams.Add("@GameSystemID", ddlGameSystem.SelectedValue);
             sParams.Add("@InfoRequestEmail", tbInfoRequest.Text);
+            //sParams.Add("@InfoSkillApprovalLevel", tbInfoSkill ???);
             sParams.Add("@InfoSkillEmail", tbInfoSkill.Text);
-            sParams.Add("@ShowInfoSkillEmail", cbShowInfoSkillEmail.Checked);
+            //sParams.Add("@InfoSkillURL", tbInfoSkillURL.Text);
             sParams.Add("@JoinRequestEmail", tbJoinRequest.Text);
-            sParams.Add("@ShowJoinRequestEmail", cbShowJoinRequestEmail.Checked);
+            sParams.Add("@MarketingCampaignSize", ddlMarketingSize.SelectedValue);
+            sParams.Add("@MaximumCPPerYear", tbMaxCPPerYear.Text);
+            if (tbMembershipFee.Text.Length > 0)
+                sParams.Add("@MembershipFee", tbMembershipFee.Text);
+            sParams.Add("@MembershipFeeFrequency", tbMembershipFreq.Text);
+            sParams.Add("@MinimumAge", tbMinAge.Text);
+            sParams.Add("@MinimumAgeWithSupervision", tbMinAgeSuper.Text);
+            sParams.Add("@NPCApprovalRequired", cbNPCApprovalReq.Checked);
             sParams.Add("@NotificationsEmail", tbNotifications.Text);
             sParams.Add("@PELNotificationEmail", tbPELNotification.Text);
-            sParams.Add("@ShowPELNotificationEmail", cbShowPELNotificationEmail.Checked);
+            sParams.Add("@PELApprovalLevel", ddlPELApproval.SelectedValue);
+            sParams.Add("@PlayerApprovalRequired", cbPlayerApprovalReq.Checked);
+            sParams.Add("@PortalAccessType", ddlPortalAccessType.SelectedValue);
+            sParams.Add("@PrimaryOwnerID", ddlPrimaryOwner.SelectedValue);
+            sParams.Add("@PrimarySiteZipCode", tbPrimaryZipCode.Text);
             sParams.Add("@ProductionSkillEmail", tbProductionSkill.Text);
-            sParams.Add("@ShowProductionSkillEmail", cbShowProductionSkillEmail.Checked);
-            sParams.Add("@RegistrationNotificationEmail", tbRegNotif.Text);
-            sParams.Add("@ShowRegistrationNotificationEmail", cbShowRegistrationNotificationEmail.Checked);
-            sParams.Add("@ShowCampaignInfoEmail", cbShowCampaignInfoEmail.Checked);
-            sParams.Add("@CampaignName", tbCampaignName.Text);
+
+            if (DateTime.TryParse(tbEndDate.Text, out dtTemp))
+                sParams.Add("@ProjectedEndDate", dtTemp);
+            //           sParams.Add("@ProjectedNumEvents", tbProjectedNumEvents.Text);
+            //            sParams.Add("@RegistrationNotificationEmail", tbRegNotif.Text);
+            //            sParams.Add("@ShareLocationUseNotes", cbShareLocationUseNotes.Checked);
+            //            sParams.Add("@ShowCampaignInfoEmail", cbShowCampaignInfoEmail.Checked);
+            //            sParams.Add("@ShowCharacterHistoryEmail", cbShowCharacterHistoryEmail.Checked);
+            //            sParams.Add("@ShowCharacterNotificationEmail", cbShowCharacterNotificationEmail.Checked);
+            //            sParams.Add("@ShowCPNotificationEmail", cbShowCPNotificationEmail.Checked);
+            //            sParams.Add("@ShowInfoSkillEmail", cbShowInfoSkillEmail.Checked);
+            //            sParams.Add("@ShowJoinRequestEmail", cbShowJoinRequestEmail.Checked);
+            //            sParams.Add("@ShowPELNotificationEmail", cbShowPELNotificationEmail.Checked);
+            //            sParams.Add("@ShowProductionSkillEmail", cbShowProductionSkillEmail.Checked);
+            //            sParams.Add("@ShowRegistrationNotificationEmail", cbShowRegistrationNotificationEmail.Checked);
+            //            sParams.Add("@StatusID", ddlCampaignStatus.SelectedValue);
+            //            sParams.Add("@StyleID", ddlStyle.SelectedValue);
+            sParams.Add("@TotalCharacterCap", tbTotalCharCap.Text);
             sParams.Add("@UserDefinedField1", tbUserDef1.Text);
             sParams.Add("@UseUserDefinedField1", cbUserDef1.Checked);
             sParams.Add("@UserDefinedField2", tbUserDef2.Text);
@@ -501,32 +795,9 @@ namespace LarpPortal.Campaigns.Setup
             sParams.Add("@UseUserDefinedField4", cbUserDef4.Checked);
             sParams.Add("@UserDefinedField5", tbUserDef5.Text);
             sParams.Add("@UseUserDefinedField5", cbUserDef5.Checked);
-            DateTime dtTemp;
-            if (DateTime.TryParse(tbStartDate.Text, out dtTemp))
-                sParams.Add("@CampaignStartDate", dtTemp);
-            if (DateTime.TryParse(tbEndDate.Text, out dtTemp))
-                sParams.Add("@ProjectedEndDate", dtTemp);
-            sParams.Add("@GameSystemID", ddlGameSystem.SelectedValue);
-            sParams.Add("@MarketingCampaignSize", ddlMarketingSize.SelectedValue);
-            sParams.Add("@PrimarySiteZipCode", tbPrimaryZipCode.Text);
-            sParams.Add("@CampaignWebPageDescription", tbWebDescription.Text);
-            sParams.Add("@CampaignURL", tbURL.Text);
-            sParams.Add("@MinimumAge", tbMinAge.Text);
-            sParams.Add("@MinimumAgeWithSupervision", tbMinAgeSuper.Text);
+
             sParams.Add("@UserID", -1);
 
-            //sParams.Add("@UseUserDefinedField1", cbUserDef1.Checked);
-            //sParams.Add("@UserDefinedField1", cbUserDef1.Checked ? tbUserDef1.Text : "");
-            //sParams.Add("@UseUserDefinedField2", cbUserDef2.Checked);
-            //sParams.Add("@UserDefinedField2", cbUserDef2.Checked ? tbUserDef2.Text : "");
-            //sParams.Add("@UseUserDefinedField3", cbUserDef3.Checked);
-            //sParams.Add("@UserDefinedField3", cbUserDef3.Checked ? tbUserDef3.Text : "");
-            //sParams.Add("@UseUserDefinedField4", cbUserDef4.Checked);
-            //sParams.Add("@UserDefinedField4", cbUserDef4.Checked ? tbUserDef4.Text : "");
-            //sParams.Add("@UseUserDefinedField5", cbUserDef5.Checked);
-            //sParams.Add("@UserDefinedField5", cbUserDef5.Checked ? tbUserDef5.Text : "");
-
-            sParams.Add("@PrimaryOwnerID", ddlPrimaryOwner.SelectedValue);
 
             DataTable dtCampaignInfo = Classes.cUtilities.LoadDataTable("uspInsUpdCMCampaigns", sParams, "LARPortal", "sa", "EditCampaignInfo.aspx");
 
@@ -643,6 +914,7 @@ namespace LarpPortal.Campaigns.Setup
                 Classes.cUtilities.PerformNonQuery(sProcName, sPeriods, "LARPortal", "CampaignEdit");
             }
 
+
             DataTable dtPools = (DataTable)ViewState["Pools"];
             if (dtPools != null)
             {
@@ -720,6 +992,33 @@ namespace LarpPortal.Campaigns.Setup
                         Classes.cUtilities.PerformNonQuery(sObjProcName, sObjDefs, "LARPortal", "EditCampaignInfo.aspx");
                     }
                 }
+            }
+
+
+
+            if (hidCampaignDonationSettingsID.Value.Length > 0)
+            {
+                SortedList sDonationParams = new SortedList();
+                sDonationParams.Add("@UserID", 2);
+                sDonationParams.Add("@CampaignDonationSettingsID", hidCampaignDonationSettingsID.Value);
+                sDonationParams.Add("@CampaignID", iCampaignID);
+                sDonationParams.Add("@ShowDonationClaims", cbDonShowDonationClaims.Checked);
+                sDonationParams.Add("@DefaultShipToAdd1", tbDonDefaultShipToAdd1.Text);
+                sDonationParams.Add("@DefaultShipToAdd2", tbDonDefaultShipToAdd2.Text);
+                sDonationParams.Add("@DefaultShipToCity", tbDonDefaultShipToCity.Text);
+                sDonationParams.Add("@DefaultShipToState", tbDonDefaultShipToState.Text);
+                sDonationParams.Add("@DefaultShipToPostalCode", tbDonDefaultShipToPostalCode.Text);
+                sDonationParams.Add("@DefaultShipToPhone", tbDonDefaultShipToPhone.Text);
+                sDonationParams.Add("@AllowPlayerToPlayerPoints", cbDonAllowPlayerToPlayerPoints.Checked);
+                //   sDonationParams.Add("@DefaultDollarToPointValue", 
+                //@DefaultHourToPointValue NUMERIC(18,2) = NULL,
+                //@DefaultAwardWhen INT = NULL,
+                //                                 @DefaultNotificationEmail                         NVARCHAR(100) = NULL,
+                //@MaxPointsPerEvent NUMERIC(18,2) = NULL,
+                //@MaxItemsPerEvent NUMERIC(18,2) = NULL,
+                //@CountTransfersAgainstMax BIT = NULL,
+                //                                 @Comments                                         NVARCHAR(MAX) = NULL)
+                Classes.cUtilities.PerformNonQuery("uspInsUpdCMCampaignDonationSettings", sDonationParams, "LARPortal", "EditCampaignDonations");
             }
 
             string jsString = "alert('The campaign has been updated.');";
@@ -1038,6 +1337,26 @@ namespace LarpPortal.Campaigns.Setup
                     ddlDisplayColor.SelectedValue = DataBinder.Eval(e.Row.DataItem, "DisplayColor").ToString();
                 }
             }
+        }
+
+        protected void gvShares_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gvShares_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+
+        }
+
+        protected void gvShares_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+
+        }
+
+        protected void gvShares_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+
         }
     }
 }

@@ -15,6 +15,24 @@ namespace LarpPortal.Events
     {
 
         /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
+        /// <summary>
+        /// playVideo1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo1;
+
+        /// <summary>
         /// mvEventInfo control.
         /// </summary>
         /// <remarks>

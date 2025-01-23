@@ -395,9 +395,12 @@
                                 <li><a href="/Reports/ReportList.aspx">
                                     <asp:Image ID="Image5" runat="server" ImageUrl="~/images/Reports.png" Width="16px" />
                                     Reports</a></li>
-                                <li><a href="/WhatIsLARPing.aspx">
+<%--                                <li><a href="/WhatIsLARPing.aspx">
                                     <asp:Image ID="Image8" runat="server" ImageUrl="~/images/LARPing.png" Width="16px" />
-                                    LARPing</a></li>
+                                    LARPing</a></li>--%>
+                                <li><a href="/HowToVideos.aspx">
+                                    <i class="fa fa-youtube-play"></i> How To Videos</a></li>
+
                                 </ul>
                             </div>
                         </asp:View>

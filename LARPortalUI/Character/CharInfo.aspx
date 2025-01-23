@@ -21,6 +21,22 @@
             return false;
         }
 
+        function ddlNPCPointsVisible() {
+            var ddlCharType = document.getElementById("<%=ddlCharType.ClientID %>");
+            var divTotalCP = document.getElementById("divTotalCP");
+            divTotalCP.style.display = "none";
+            if (ddlCharType) {
+                if (ddlCharType.options[ddlCharType.selectedIndex].value == "2") {
+                    divTotalCP.style.display = "inline";
+                    //lblExpiresOn.style.display = "inline";
+                }
+            }
+            return false;
+        }
+
+
+
+
         //  JBradshaw  7/11/2016    Request #1286     Changed over to bootstrap popup.
         function openMessage() {
             $('#modalMessage').modal('show');
@@ -185,7 +201,7 @@
             <div class="row">
                 <div class="col-sm-10 margin20">
                     <div class="input-group">
-                        <CharSelector:Select ID="oCharSelect" runat="server" />
+                        <charselector:select id="oCharSelect" runat="server" />
                     </div>
                 </div>
                 <div class="text-right">
@@ -245,7 +261,7 @@
                                                             <div class="col-xs-8" runat="server" id="divCharType">
                                                                 <label for="">Type</label>
                                                                 <asp:TextBox ID="tbCharType" runat="server" Enabled="false" Visible="false" CssClass="form-control" TabIndex="5" />
-                                                                <asp:DropDownList ID="ddlCharType" runat="server" Visible="true" CssClass="form-control" TabIndex="5">
+                                                                <asp:DropDownList ID="ddlCharType" runat="server" Visible="true" CssClass="form-control" TabIndex="5" onchange="ddlNPCPointsVisible();">
                                                                     <asp:ListItem Text="PC" Value="1" />
                                                                     <asp:ListItem Text="NPC" Value="2" />
                                                                 </asp:DropDownList>
@@ -281,6 +297,16 @@
                                                                     <asp:TextBox ID="tbRebuildToDate" runat="server" Columns="10" MaxLength="10" CssClass="form-control" />
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" id="divTotalCP">
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <div class="col-xs-4" style="padding-left: 0px; padding-top:10px;">
+                                                            <label for="">Total <asp:Label ID="lblPoolName" runat="server" Text="CP*" /></label>
+                                                            <asp:TextBox ID="tbTotalCP" runat="server" CssClass="form-control" TabIndex="5" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -369,7 +395,7 @@
             </div>
             <div class="row">
                 <asp:UpdatePanel ID="upDescriptors" runat="server">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div class="col-md-6" runat="server" id="divNonCost">
                             <div class="panel panel-default">
                                 <div class="panel-heading">Non Cost Character Descriptions</div>
@@ -429,7 +455,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </asp:UpdatePanel>
                 <div class="col-md-4" runat="server" id="divDeaths">
                     <div class="panel panel-default">
@@ -560,7 +586,7 @@
 
 
 
-            <%--                <div class="col-sm-8" runat="server" id="divHiddenSkills">
+                <%--                <div class="col-sm-8" runat="server" id="divHiddenSkills">
                     <div class="panel panel-default">
                         <div class="panel-heading">Hidden Skill Access</div>
                         <div class="panel-body">
@@ -868,5 +894,9 @@
     <asp:HiddenField ID="hidSkillSetID" runat="server" />
     <asp:HiddenField ID="hidCharacterID" runat="server" />
     <asp:HiddenField ID="hidActorDateProblems" runat="server" Value="" />
+
+    <script>
+        ddlNPCPointsVisible();
+    </script>
     <!-- /#page-wrapper -->
 </asp:Content>

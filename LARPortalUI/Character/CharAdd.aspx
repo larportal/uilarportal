@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="header-background-image">
-                    <h1>Create New Character</h1>
+                    <h1>Create New Character <Videos:PlayVideo runat="server" ID="playVideo" VideoID="1" /></h1>
                 </div>
             </div>
         </div>

@@ -106,6 +106,9 @@ namespace LarpPortal.Character
                     ddlJoinCampaign.DataTextField = "CharacterAKA";
                     ddlJoinCampaign.DataValueField = "CharacterID";
                     ddlJoinCampaign.DataBind();
+
+                    // Force campaign change so that all of the ddls get fioled in and set to a value.          JB  1/13/2025
+                    ddlUserCampaigns_SelectedIndexChanged(null, null);
                 }
             }
             if (_Redirect)

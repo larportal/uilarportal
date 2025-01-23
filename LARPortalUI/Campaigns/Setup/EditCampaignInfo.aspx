@@ -12,6 +12,7 @@
     <title></title>
 
     <script src="/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <style>
         body {
@@ -84,6 +85,7 @@
             margin-bottom: 100pt;
         }
 
+
         ajax__tab .ajax__tab_tab {
             height: 30px; /*if you change it here*/
             margin: 0;
@@ -121,7 +123,7 @@
                         <span class="tabheader">Basic Info</span>
                     </HeaderTemplate>
                     <ContentTemplate>
-                        <table>
+                        <table border="0">
                             <tr>
                                 <th>*Campaign Name:</th>
                                 <td>
@@ -138,7 +140,7 @@
                                     <ajaxToolkit:CalendarExtender runat="server" TargetControlID="tbStartDate" Format="MM/dd/yyyy" />
                                     <asp:CompareValidator ID="cmpStartDate" runat="server" ControlToValidate="tbStartDate" Display="Dynamic" 
                                         Operator="DataTypeCheck" Type="Date" ErrorMessage="* Must be a date." ForeColor="Red" />
-                                    &nbsp;&nbsp;Projected End Date: 
+                                    &nbsp;&nbsp;<b>Projected End Date: </b>
                                 <asp:TextBox ID="tbEndDate" runat="server" MaxLength="20" />
                                     <ajaxToolkit:CalendarExtender runat="server" TargetControlID="tbEndDate" Format="MM/dd/yyyy" />
                                     <asp:CompareValidator ID="cmpEndDate" runat="server" ControlToValidate="tbEndDate" Display="Dynamic" 
@@ -180,17 +182,103 @@
                             <tr>
                                 <th>Minimum Age: </th>
                                 <td>
-                                    <asp:TextBox ID="tbMinAge" runat="server" Columns="100" /></td>
-                            </tr>
-                            <tr>
-                                <th>Min Age w/Supervision: </th>
-                                <td>
-                                    <asp:TextBox ID="tbMinAgeSuper" runat="server" Columns="100" /></td>
+                                    <asp:TextBox ID="tbMinAge" runat="server" Columns="25" />&nbsp;&nbsp;
+                                <b>Min Age w/Supervision: </b>
+                                    <asp:TextBox ID="tbMinAgeSuper" runat="server" Columns="50" /></td>
                             </tr>
                             <tr>
                                 <th>Campaign Status:</th>
                                 <td>
                                     <asp:DropDownList ID="ddlCampaignStatus" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Projected # of events:</th>
+                                <td>
+                                    <asp:TextBox ID="tbProjectedNumEvents" runat="server" />
+                                    <asp:CompareValidator ID="cmpProjectEvents" runat="server" ControlToValidate="tbProjectedNumEvents" 
+                                        Type="Integer" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck">Numbers Only are allowed..</asp:CompareValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Campaign Address:</th>
+                            </tr>
+                            <tr>
+                                <th>Membership Fee:</th>
+                                <td>
+                                    <asp:TextBox ID="tbMembershipFee" runat="server" />
+                                    <asp:CompareValidator ID="cmpMembershipFee" runat="server" ControlToValidate="tbMembershipFee" Display="Dynamic"
+                                        Type="Currency" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck">Numbers Only are allowed..</asp:CompareValidator>
+                                    <b>Membership Fee Frequency: </b>
+                                <asp:TextBox ID="tbMembershipFreq" runat="server" MaxLength="15" Columns="15" /></td>
+                            </tr>
+                            <tr>
+                                <th>Emergency Contact Info:</th>
+                                <td><asp:TextBox ID="tbEmerContact" runat="server" MaxLength="500" TextMode="MultiLine" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><b><asp:CheckBox ID="cbPlayerApprovalReq" runat="server" Text="Player Approval Required" />
+                                <asp:CheckBox ID="cbNPCApprovalReq" runat="server" Text="NPC Approval Requred" /></b></td>
+                            </tr>
+                            <tr>
+                                <th>Max CP Per Year:</th>
+                                <td><asp:TextBox ID="tbMaxCPPerYear" runat="server" Columns="10" />
+                                    <asp:CompareValidator ID="cmpMaxCPPerYear" runat="server" ControlToValidate="tbMaxCPPerYear"
+                                        Type="Integer" ErrorMessage="errMaxCPPerYear" ForeColor="Red" Operator="DataTypeCheck">Numbers Only</asp:CompareValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><b><asp:CheckBox ID="cbAllowCPDonation" runat="server" Text="Allow CP Donation" /></b></td>
+                            </tr>
+                            <tr>
+                                <th>PEL Approval Level:</th>
+                                <td><asp:DropDownList ID="ddlPELApproval" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Char History Approval Level:</th>
+                                <td><asp:DropDownList ID="ddlCharHistoryApproval" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Campaign Rule URL:</th>
+                                <td><asp:TextBox ID="tbCampaignRuleURL" runat="server" MaxLength="1000" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Share Location Use Notes:</th>
+                                <td><asp:CheckBox ID="cbShareLocationUseNotes" runat="server" Text="Share Location Use Notes" /></td>
+                            </tr>
+                            <tr>
+                                <th>Cancellation Policy:</th>
+                                <td><asp:DropDownList ID="ddlCancelPolicy" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Event Character Cap:</th>
+                                <td><asp:TextBox ID="tbEventCharCap" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Annual Character Cap:</th>
+                                <td><asp:TextBox ID="tbAnnualCharCap" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Total Character Cap</th>
+                                <td><asp:TextBox ID="tbTotalCharCap" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Earliest CP Application Year:</th>
+                                <td><asp:TextBox ID="tbEarliestCPAppYear" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><b><asp:CheckBox ID="cbAllowCharRebuild" runat="server" Text="Allow Character Rebuild" /></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Billing Frequency:</th>
+                                <td><asp:TextBox ID="tbBillingFreq" runat="server" MaxLength="15" Columns="15" /></td>
+                            </tr>
+                            <tr>
+                                <th>Billing To:</th>
+                                <td><asp:TextBox ID="tbBillTo" runat="server" MaxLength="255" Columns="100" /></td>
                             </tr>
                         </table>
                     </ContentTemplate>
@@ -276,7 +364,7 @@
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" ID="tpTechLevels">
                     <HeaderTemplate>
-                        <span class="tabheader">Tech/Weapon/Genre/Campaign Roles/Period</span>
+                        <span class="tabheader">Tech/Weapon/Genre/Campaign Roles/Period/Style</span>
                     </HeaderTemplate>
                     <ContentTemplate>
                         <table>
@@ -290,6 +378,8 @@
                                 <th style="text-align: center;">Campaign Roles</th>
                                 <td style="width: 10px;" rowspan="2"></td>
                                 <th style="text-align: center;">Periods</th>
+                                <td style="width: 10px;" rowspan="2"></td>
+                                <th style="text-align: center;">Style</th>
                             </tr>
                             <tr>
                                 <td style="vertical-align: top">
@@ -302,6 +392,8 @@
                                     <asp:CheckBoxList ID="cblCampaignRoles" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" /></td>
                                 <td style="vertical-align: top">
                                     <asp:CheckBoxList ID="cblPeriods" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" /></td>
+                                <td style="vertical-align: top">
+                                    <asp:DropDownList ID="ddlStyle" runat="server" /></td>
                             </tr>
                         </table>
                     </ContentTemplate>
@@ -315,15 +407,11 @@
                             <tr>
                                 <th style="text-align: center;">Housing Types</th>
                                 <td style="width: 10px;" rowspan="2"></td>
-<%--                                <th style="text-align: center;">Campaign Statuses</th>
-                                <td style="width: 10px;" rowspan="2"></td>--%>
                                 <th style="text-align: center;">Payment Types</th>
                             </tr>
                             <tr>
                                 <td style="vertical-align: top">
                                     <asp:CheckBoxList ID="cblHousingTypes" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" /></td>
-<%--                                <td style="vertical-align: top">
-                                    <asp:CheckBoxList ID="cblCampaignStatuses" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" /></td>--%>
                                 <td style="vertical-align: top">
                                     <asp:CheckBoxList ID="cblPaymentTypes" runat="server" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" /></td>
                             </tr>
@@ -479,6 +567,7 @@
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
+
                 <ajaxToolkit:TabPanel runat="server" ID="TabPanel1">
                     <HeaderTemplate>
                         <span class="tabheader">CP Opp Defaults</span>
@@ -510,6 +599,174 @@
                                         </Columns>
                                     </asp:GridView>
                                 </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+
+                <ajaxToolkit:TabPanel runat="server" ID="TabAllElse">
+                    <HeaderTemplate>
+                        <span class="tabheader">LARP Portal Management</span>
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <table>
+                            <tr>
+                                <th>Actual End Date:</th>
+                                <td><asp:TextBox ID="tbActualEndDate" runat="server" Columns="25" /></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><asp:CheckBox ID="cbUseCampaignCharacters" runat="server" Text="Use Campaign Characters" Font-Bold="true" /></td>
+                            </tr>
+                            <tr>
+                                <th>Portal Access Type:</th>
+                                <td><asp:DropDownList ID="ddlPortalAccessType" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>CP Notification Delivery Preference:</th>
+                                <td><asp:TextBox ID="tbCPNotifyDelivPref" runat="server" Text="-1" ReadOnly="true" Enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <th>PEL Notification Delivery Preference:</th>
+                                <td><asp:TextBox ID="tbPELNotifyDelivPref" runat="server" Text="-1" ReadOnly="true" Enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <th>Character Notification Delivery Preference:</th>
+                                <td><asp:TextBox ID="tbCharNotifyDelivPref" runat="server" Text="-1" ReadOnly="true" Enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <th>Char History Notification Delivery Preference:</th>
+                                <td><asp:TextBox ID="tbCharHistoryNotifyDelivPref" runat="server" Text="-1" ReadOnly="true" Enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <th>Info Skill Delivery Preference:</th>
+                                <td><asp:TextBox ID="tbInfoSkillDelivPref" runat="server" Text="-1" ReadOnly="true" Enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <th>Join URL:</th>
+                                <td><asp:TextBox ID="tbJoinURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>PEL Submission URL:</th>
+                                <td><asp:TextBox ID="tbPELSubmissionURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Character History URL:</th>
+                                <td><asp:TextBox ID="tbCharHistoryURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Info Skill URL:</th>
+                                <td><asp:TextBox ID="tbInfoSkillURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Production Skill URL:</th>
+                                <td><asp:TextBox ID="tbProdSkillURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Registration URL:</th>
+                                <td><asp:TextBox ID="tbRegistrationURL" runat="server" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Char Generator URL:</th>
+                                <td><asp:TextBox ID="tbCharGeneratorURL" runat="server" Columns="100" /></td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+
+                <ajaxToolkit:TabPanel runat="server" ID="tabCharacterShares">
+                    <HeaderTemplate>
+                        <span class="tabheader">Character Shares</span>
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:GridView ID="gvShares" runat="server" AutoGenerateColumns="false"
+                                        DataKeyNames="CMCharacterSharesID" OnRowDataBound="gvShares_RowDataBound"
+                                        OnRowEditing="gvShares_RowEditing" OnRowCancelingEdit="gvShares_RowCancelingEdit"
+                                        OnRowUpdating="gvShares_RowUpdating">
+                                        <Columns>
+                                            <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ButtonType="Button" />
+                                            <asp:CheckBoxField DataField="HasDefault" HeaderText="Enable" HeaderStyle-HorizontalAlign="Center" />
+                                            <asp:BoundField DataField="Description" HeaderText="Reason" HeaderStyle-HorizontalAlign="Center" />
+                                            <asp:TemplateField HeaderText="Opportunity Description" HeaderStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblOpportunityDescription" runat="server" Text='<%# Eval("OpportunityDescription") %>' />
+                                                </ItemTemplate>
+                                                <EditItemTemplate>
+                                                    <asp:DropDownList ID="ddlDescriptions" runat="server" />
+                                                    <asp:HiddenField ID="hidTypeID" runat="server" Value='<%# Eval("TypeID") %>' />
+                                                    <asp:HiddenField ID="hidOrigDesc" runat="server" Value='<%# Eval("OrigDescription") %>' />
+                                                </EditItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField HeaderText="CPValue" DataField="CPValue" DataFormatString="{0:F2}" 
+                                                HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" />
+                                        </Columns>
+                                    </asp:GridView>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+
+
+                <ajaxToolkit:TabPanel runat="server" ID="tabDonations">
+                    <HeaderTemplate>
+                        <span class="tabheader">Donations</span>
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <asp:HiddenField id="hidCampaignDonationSettingsID" Value="" runat="server" />
+                        <table>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td><asp:CheckBox ID="cbDonShowDonationClaims" runat="server" Text="Show Donation Claims" Font-Bold="true" /></td>
+                            </tr>
+                            <tr>
+                                <th>Default Ship To Address: </th>
+                                <td><asp:TextBox ID="tbDonDefaultShipToAdd1" runat="server" MaxLength="50" Columns="50" placeholder="Address 1" /></td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td><asp:TextBox ID="tbDonDefaultShipToAdd2" runat="server" MaxLength="50" Columns="50" placeholder="Address 2"  /></td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp</th>
+                                <td><asp:TextBox ID="tbDonDefaultShipToCity" runat="server" MaxLength="25" Columns="25" placeholder="City" />&nbsp;&nbsp;
+                                    <asp:TextBox ID="tbDonDefaultShipToState" runat="server" MaxLength="25" Columns="25" placeholder="State"  />&nbsp;&nbsp;
+                                    <asp:TextBox ID="tbDonDefaultShipToPostalCode" runat="server" MaxLength="15" Columns="15" placeholder="Postal Code"  /></td>
+                            </tr>
+                            <tr>
+                                <th>Default Ship To Phone: </th>
+                                <td><asp:TextBox ID="tbDonDefaultShipToPhone" runat="server" MaxLength="50" Columns="50" placeholder="Phone Number"  /></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td><asp:CheckBox ID="cbDonAllowPlayerToPlayerPoints" runat="server" Text="Allow Player to Player Points" Font-Bold="true" /></td>
+                            </tr>
+                            <tr>
+                                <th>Default Dollar To Point Value: </th>
+                                <td><asp:TextBox ID="tbDonDollarToPointValue" runat="server" MaxLength="25" Columns="25" />&nbsp;&nbsp;
+                                    <b>Default Hour To PointValue: </b>
+                                    <asp:TextBox ID="tbDonHourToPointValue" runat="server" MaxLength="25" Columns="25" /></td>
+                            </tr>
+                            <tr>
+                                <th>Default Award When: </th>
+                                <td><asp:DropDownList ID="ddlDonAwardWhen" runat="server" /></td>
+                            </tr>
+                            <tr>
+                                <th>Default Notification Email: </th>
+                                <td><asp:TextBox ID="tbDonDefaultEmail" runat="server" MaxLength="100" Columns="100" /></td>
+                            </tr>
+                            <tr>
+                                <th>Max Points Per Event: </th>
+                                <td><asp:TextBox id="tbDonMaxPointsPerEvent" runat="server" MaxLength="25" Columns="25" />&nbsp;&nbsp;
+                                    <b>Max Items Per Event: </b>
+                                    <asp:TextBox ID="tbDonMaxItemsPerEvent" runat="server" MaxLength="25" Columns="25" /></td>
+                            </tr>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <td><asp:CheckBox ID="cbDonCountTransfersAgainstMax" runat="server" Text="Count Transfers Against Max" Font-Bold="true" /></td>
                             </tr>
                         </table>
                     </ContentTemplate>
@@ -622,7 +879,5 @@
 
 
     </script>
-
-
-</body>
+    </body>
 </html>

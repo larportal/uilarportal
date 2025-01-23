@@ -7,11 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.PELs {
-    
-    
-    public partial class PELList {
-        
+namespace LarpPortal.PELs
+{
+
+
+    public partial class PELList
+    {
+
+        /// <summary>
+        /// playVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LarpPortal.Controls.PlayVideo playVideo;
+
         /// <summary>
         /// btnMissedEvent control.
         /// </summary>
@@ -20,7 +31,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMissedEvent;
-        
+
         /// <summary>
         /// mvPELList control.
         /// </summary>
@@ -29,7 +40,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvPELList;
-        
+
         /// <summary>
         /// vwPELList control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwPELList;
-        
+
         /// <summary>
         /// gvPELList control.
         /// </summary>
@@ -47,7 +58,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPELList;
-        
+
         /// <summary>
         /// vwNoPELs control.
         /// </summary>
@@ -56,7 +67,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwNoPELs;
-        
+
         /// <summary>
         /// lblCampaignName control.
         /// </summary>
@@ -65,7 +76,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCampaignName;
-        
+
         /// <summary>
         /// lblmodalMessage control.
         /// </summary>
@@ -74,7 +85,7 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmodalMessage;
-        
+
         /// <summary>
         /// btnCloseMessage control.
         /// </summary>
@@ -83,15 +94,17 @@ namespace LarpPortal.PELs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCloseMessage;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }
