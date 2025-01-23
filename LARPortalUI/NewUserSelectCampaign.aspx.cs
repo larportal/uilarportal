@@ -54,7 +54,7 @@ namespace LarpPortal
 			sParams.Add("@TechLevelFilter", 0);
 			sParams.Add("@SizeFilter", 0);
 
-			dtCampaigns = Classes.cUtilities.LoadDataTable("uspGetCampaignsByName", sParams, "LARPortal", hidUsername.ToString(), lsRoutineName);
+			dtCampaigns = Classes.cUtilities.LoadDataTable("uspGetCampaignsForNewAccounts", sParams, "LARPortal", hidUsername.ToString(), lsRoutineName);
 			ddlCampaign.DataTextField = "CampaignName";
 			ddlCampaign.DataValueField = "CampaignID";
 			ddlCampaign.DataSource = dtCampaigns;

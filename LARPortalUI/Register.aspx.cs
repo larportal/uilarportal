@@ -177,6 +177,9 @@ namespace LarpPortal
 			strBody = strBody + "<li>Click the “Login” button.</li>";
 			strBody = strBody + "<li>Copy & paste the activation key above.</li>";
 			strBody = strBody + "<li>Hit the “Login” button again.</li>";
+			strBody = strBody + "<li>From the dropdown list, choose the first campaign that you'd like to sign up for. You can add more later.</li>";
+			strBody = strBody + "<li>Check off whether you want to PC, NPC or both. If you're going to take on a staff role, choose NPC, then contact the game owner or GM to update your permissions.</li>";
+			strBody = strBody + "<li>Click the Sign up button</li>";
 			strBody = strBody + "</ol>";
             //strBody = strBody + "<p>If you don’t receive your email within a few minutes, <strong>DO NOT</strong> create a new account.</p>";
             //strBody = strBody + "<ul>";
