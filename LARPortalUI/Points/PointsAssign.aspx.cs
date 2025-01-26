@@ -1011,6 +1011,13 @@ namespace LarpPortal.Points
                 Session["AddCPStep"] = "E4";
                 hidLastAddCPStep.Value = "E4";
                 hidInsertDestinationCampaign.Value = ddlDestinationCampaign.SelectedValue;
+                // Convert the forwarding values to the destination campaign's values for NPC Event, Cleanup and PEL
+                int DestinationCampaignID = 0;
+                int.TryParse(ddlDestinationCampaign.SelectedValue.ToString(), out DestinationCampaignID);
+                SetDefaultSendValuesByReason(DestinationCampaignID, 1);   // NPC
+                SetDefaultSendValuesByReason(DestinationCampaignID, 17);  // Setup Cleanup
+                SetDefaultSendValuesByReason(DestinationCampaignID, 13);  // PEL
+
                 //Load Event ddl
                 ddlSourceEventLoad();
                 AddPanelVisibility();
@@ -1820,6 +1827,35 @@ namespace LarpPortal.Points
                 ddlSourceEventPC.BackColor = System.Drawing.Color.White;
         }
 
+        private void SetDefaultSendValuesByReason(int intCampaignID, int intReason)
+        {
+            double CPValue = 0;
+            string stStoredProc = "uspGetCampaignCPOpportunityDefaultByReason";
+            string stCallingMethod = "PointsAssign.aspx.SetDefaultSendValuesByReason";
+            DataTable dtLocalNPCPoints = new DataTable();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            sParams.Add("@ReasonID", intReason);
+            dtLocalNPCPoints = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", Master.UserName, stCallingMethod);
+            foreach (DataRow dRow in dtLocalNPCPoints.Rows)
+            {
+                double.TryParse(dRow["CPValue"].ToString(), out CPValue);
+                if (intReason == 1)        // NPC Event
+                {
+                    txtNPCEvent.Text = CPValue.ToString();
+                }
+                if (intReason == 13)       // NPC PEL
+                {
+                    txtPEL.Text = CPValue.ToString();
+                }
+                if (intReason == 17)       // NPC setup / cleanup
+                {
+                    txtSetupCleanup.Text = CPValue.ToString();
+                }
+
+            }
+        }
+
         private void BuildCPAuditTable(int UserID)
         {
             // Stolen blatantly from MemberPointsView.aspx
@@ -2354,6 +2390,15 @@ namespace LarpPortal.Points
             btnAssignAll.Visible = true;
             lblAssignAll.Visible = false;
             FillGrid();
+        }
+        protected void GetToCampaignPointValue(int intCampaignID, int intReason, string strUserName)
+        {
+            string stStoredProc = "uspGetCampaignPlayers";
+            string stCallingMethod = "PointsAssign.aspx.ddlCampaignPlayerLoad";
+            DataTable dtPlayers = new DataTable();
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", intCampaignID);
+            dtPlayers = Classes.cUtilities.LoadDataTable(stStoredProc, sParams, "LARPortal", strUserName, stCallingMethod);
         }
 
         protected void ddlCampaignPlayerLoad(string strUserName, int intCampaignID)
