@@ -150,10 +150,12 @@
                                             <span class="glyphicon glyphicon-unchecked"></span>
                                         </label>
                                         <label for="<%= chkTermsOfUse.ClientID%>" class="btn btn-default active">
-                                            I agree to the <a href="#" data-toggle="modal" data-target="#terms">Terms of Use</a>
+                                            I agree to the Terms of Use. 
+                                            <%--<asp:Button ID="btnTerms" CssClass="btn btn-primary" runat="server" Text="Show" OnClick="btnTerms_Click" />--%>
                                         </label>
                                     </div>
                                 </div>
+
                             </fieldset>
                             <hr />
                             <asp:Label ID="lblSignUpErrors" runat="server" ForeColor="Red"></asp:Label>
@@ -163,6 +165,54 @@
                                 </div>
                                 <div class="col-lg-6 text-right">
                                     <asp:Button ID="btnSignUp" CssClass="btn btn-primary" runat="server" Text="Sign Up" OnClick="btnSignUp_Click" />
+                                    
+                                </div>
+                                <br /><br /><br />
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                    <asp:Panel ID="pnlTermsOfUse" runat="server" >
+
+                                    <p><b>Website Terms of Use and Privacy Policy</b></p>
+                                    <p><i>
+                                    By using this website you agree that you understand, accept and agree to these Terms of Use and the LARP Portal</i><i>®  </i><i>
+                                    Privacy</i><i> Statement.</i></p><p></p><p>All materials posted on this site are subject to copyrights owned by the LARP Portal 
+                                    or other individuals or entities. Any reproduction, retransmission, or republication of all or part of any document found on this 
+                                    site is expressly prohibited, unless LARP Portal or the copyright owner of the material has expressly granted its prior written 
+                                    consent to so reproduce, retransmit or republish the material. All other rights are reserved.</p> <p></p> 
+
+                                    <p>The names, trademarks, service marks and logos of LARP Portal appearing on this site may not be used in any 
+                                    advertising or publicity, or otherwise to indicate sponsorship of or  affiliation with any product or service, 
+                                    without LARP Portal’s prior express written permission.</p><p></p><p>
+
+                                    Although the LARP Portal website includes links providing direct access to other Internet sites, LARP Portal takes no 
+                                    responsibility for the content or information contained on those other sites, and does not exert any editorial or other 
+                                    control over those other sites.</p><p></p><p>
+
+                                    LARP Portal is providing information and services on the Internet as a benefit and service for the LARP community. 
+                                    LARP Portal makes no representations about the suitability or accuracy of this information and these services for any purpose.
+                                    </p><p></p><p><b>
+
+                                    LARP Portal Website Privacy Policies</b></p><p>
+
+                                    The owners of LARP Portal respect the privacy of the individuals who visit our website, respond to our electronic communications 
+                                    and send us email. This Privacy Statement outlines what information LARP Portal will collect and how it will be used.
+                                    </p> <p></p><p>
+
+                                    LARP Portal will not collect any personally identifiable information about you (name, address, telephone number, email address) 
+                                    unless you provide it voluntarily. In some cases LARP Portal may require that you provide such information, such as when you 
+                                    order a product, service or event online, or if you request information about membership, products, services or events.</p><p></p><p>
+
+                                    When you do provide us with personally identifiable information, we may use it in the following ways, unless stated otherwise:</p><p>
+                                    · We may store and process the information to better understand and respond to member and prospective member interests, 
+                                    needs and references and to determine how we can improve services.
+                                    </p><p>
+                                    · We may use the information to contact you with new announcements and information we believe may be of interest to you.</p><p></p>
+                                    <p><b>Changes to these Terms and Policies</b></p><p>
+                                    LARP Portal reserves the right to update or change these terms of use and the privacy policy at any time. Such changes will be 
+                                    posted without notice on this Web page. Contact LARP Portal with any questions or concerns about this statement 
+                                    at owner@larportal.com.</p>
+                                    </asp:Panel>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -201,29 +251,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </form>
 </body>
