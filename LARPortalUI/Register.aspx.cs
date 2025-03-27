@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LarpPortal.Reports;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -223,5 +224,19 @@ namespace LarpPortal
 				lblSignUpErrors.Visible = true;
 			}
 		}
-	}
+
+    //    protected void btnTerms_Click(object sender, EventArgs e)
+    //    {
+    //        if (btnTerms.Text == "Show")
+    //        {
+    //            btnTerms.Text = "Hide";
+				//pnlTermsOfUse.Visible = true;
+    //        }
+    //        else
+    //        {
+    //            btnTerms.Text = "Show";
+				//pnlTermsOfUse.Visible = false;
+    //        }
+    //    }
+    }
 }
