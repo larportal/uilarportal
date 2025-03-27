@@ -472,6 +472,8 @@ namespace LarpPortal.Events
 
             if (dtJustRoleNames.Rows.Count == 1)
             {
+                ddlRoles.ClearSelection();
+                ddlRoles.Items[0].Selected = true;
                 ddlRoles.Visible = false;
                 lblRole.Text = ddlRoles.Items[0].Text;
                 lblRole.Visible = true;
@@ -858,7 +860,10 @@ namespace LarpPortal.Events
         protected void CancelReg(object sender, CommandEventArgs e)
         {
             SortedList sParam = new SortedList();
-            sParam.Add("@RegistrationID", hidRegistrationID.Value);
+            int iRegistrationID = 0;
+            int.TryParse(hidRegistrationID.Value, out iRegistrationID);
+
+            sParam.Add("@RegistrationID", iRegistrationID);
             sParam.Add("@UserID", Master.UserID);
 
             try
@@ -867,6 +872,8 @@ namespace LarpPortal.Events
                 string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
                 DataTable dtUser = Classes.cUtilities.LoadDataTable("uspRegistrationCancel", sParam, "LARPortal", Master.UserName, lsRoutineName + ".uspRegistrationCancel");
 
+                Classes.cPoints cpoints = new Classes.cPoints();
+                cpoints.DeleteRegistrationCPOpportunity(Master.UserID, iRegistrationID);
                 NotifyOfCancelRegistration();
                 lblRegistrationMessage.Text = "Your registration has been cancelled.";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
@@ -914,7 +921,7 @@ namespace LarpPortal.Events
             int iEventID = 0;
             int iCharacterID = 0;
             //int.TryParse(hidRegistrationID.Value, out iRegistrationID);
-            //int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
+            int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
             //int.TryParse(ddlEventDate.SelectedValue, out iEventID);
             //int.TryParse(ddlCharacterList.SelectedValue, out iCharacterID);
 
@@ -944,8 +951,6 @@ namespace LarpPortal.Events
             sParam.Add("@UserID", hidLastPlayerRegister.Value);
             sParam.Add("@EventID", ddlEventDate.SelectedValue);
             sParam.Add("@RoleAlignmentID", ddlRoles.SelectedValue);
-            sParam.Add("@SkillSetID", ddlSkillSetID.SelectedValue);
-            //			sParam.Add("@CharacterID", ddlCharacterList.SelectedValue);
             sParam.Add("@DateRegistered", DateTime.Now);
             sParam.Add("@EventPaymentTypeID", ddlPaymentChoice.SelectedValue);
             sParam.Add("@PlayerCommentsToStaff", tbComments.Text.Trim());
@@ -961,17 +966,23 @@ namespace LarpPortal.Events
                     hidCharAKA.Value = "";      // Rick - 8/16/2016 - Replace next line to emulate staff problem resolution
                                                 // hidCharAKA.Value = ddlCharacterList.SelectedItem.Text;
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
+                    sParam.Add("@SkillSetID", ddlSkillSetID.SelectedValue);
+                    sParam.Add("@CharacterID", iCharacterID);
                     break;
 
                 case "PC":
                     strRole = "PC";
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
+                    sParam.Add("@SkillSetID", ddlSkillSetID.SelectedValue);
+                    sParam.Add("@CharacterID", iCharacterID);
                     break;
 
                 case "STAFF":
                     strRole = "STAFF";
                     hidCharAKA.Value = "";
                     sParam.Add("@NPCCampaignID", ddlSendToCampaign.SelectedValue);
+                    //sParam.Add("@SkillSetID", 0);
+                    //sParam.Add("@CharacterID", 0);
                     break;
             }
 
@@ -1135,7 +1146,6 @@ namespace LarpPortal.Events
             btnChange.Visible = false;
             btnRegister.Visible = false;
             btnRSVP.Visible = false;
-            //			btnRSVPNo.Visible = false;
             btnRSVPNo.Visible = true;
 
             lblWhyRSVP.Visible = false;
@@ -1181,7 +1191,8 @@ namespace LarpPortal.Events
                     (dtCurrentDate <= dtRegClose))
                 {
                     // It's during registration period so anybody can register.
-                    if (String.IsNullOrEmpty(hidCurrentRegStatus.Value))
+                    if ((String.IsNullOrEmpty(hidCurrentRegStatus.Value)) ||
+                        (hidCurrentRegStatus.Value.ToString() == "63"))             //  JB  2/3/2025  "Cancelled" registration.
                     {
                         // New registration.
                         btnRegister.Visible = true;
@@ -1416,6 +1427,100 @@ namespace LarpPortal.Events
             btnHousing.Visible = false;
             pnlSpecialButtons.Visible = false;
             pnlButtons.Visible = true;
+        }
+
+        protected void btnRSVP_Command(object sender, CommandEventArgs e)
+        {
+            MethodBase lmth = MethodBase.GetCurrentMethod();
+            string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
+
+//            string sStatusToSearchFor = "";
+            string sRegistrationMessage = "";
+
+            //switch (e.CommandName.ToUpper())
+            //{
+            //    case "RSVP":
+            //        sStatusToSearchFor = "RSVP - Plan to Attend";
+            //        sRegistrationMessage = "Thank you for RSVPing.";
+            //        break;
+
+            //    default:
+            //        sStatusToSearchFor = "RSVP - Cannot Attend";
+            //        sRegistrationMessage = "Thank you for letting us know you cannot attend.";
+            //        break;
+            //}
+
+            //SortedList sParams = new SortedList();
+            //string sSQL = "select StatusID, StatusName from MDBStatus " +
+            //    "where StatusType like 'Registration' and StatusName = '" + sStatusToSearchFor + "' " +
+            //        "and DateDeleted is null";
+            //DataTable dtRegStatus = Classes.cUtilities.LoadDataTable(sSQL, sParams, "LARPortal", Master.UserName, lsRoutineName + ".GetStatuses",
+            //    Classes.cUtilities.LoadDataTableCommandType.Text);
+
+            //int iRegStatus = 0;
+
+            //if (dtRegStatus.Rows.Count > 0)
+            //{
+            //    if (int.TryParse(dtRegStatus.Rows[0]["StatusID"].ToString(), out iRegStatus))
+            //        hidRegistrationStatusID.Value = iRegStatus.ToString();
+            //}
+
+            int iRegistrationID = 0;
+            int.TryParse(hidRegistrationID.Value, out iRegistrationID);
+            int iRoleAlignment = 0;
+            int.TryParse(ddlRoles.SelectedValue, out iRoleAlignment);
+            int iEventID = 0;
+            int.TryParse(ddlEventDate.SelectedValue, out iEventID);
+
+            SortedList sParams = new SortedList();
+            sParams.Add("@RegistrationID", hidRegistrationID.Value);
+            //if (hidRegisterOthers.Value.Length > 0)
+            //    if (ddlPlayerName.SelectedIndex >= 0)
+            //        sParams.Add("@UserID", ddlPlayerName.SelectedIndex);
+
+            ////  Just being extra cautious here.
+            //if (!sParams.ContainsKey("@UserID"))
+
+            //                sParams.Add("@UserID", Master.UserID);
+            sParams.Add("@UserID", hidLastPlayerRegister.Value);
+
+            sParams.Add("@EventID", ddlEventDate.SelectedValue);
+            sParams.Add("@RoleAlignmentID", ddlRoles.SelectedValue);
+            sParams.Add("@DateRegistered", DateTime.Now);
+            sParams.Add("@PlayerCommentsToStaff", tbComments.Text.Trim());
+            //if (iRegStatus != 0)
+            //    sParams.Add("@RegistrationStatus", iRegStatus);
+            sParams.Add("@RegisteredByID", Master.UserID);
+
+            switch (e.CommandName.ToUpper())
+            {
+                case "RSVP":
+                    sParams.Add("@RSVPYes", "1");
+                    sParams.Add("@RSVPNo", "0");
+                    sRegistrationMessage = "Thank you for RSVPing.";
+                    break;
+
+                default:
+                    sParams.Add("@RSVPYes", "0");
+                    sParams.Add("@RSVPNo", "1");
+                    sRegistrationMessage = "Thank you for letting us know you cannot attend.";
+                    break;
+            }
+
+            DataTable dtUser = Classes.cUtilities.LoadDataTable("uspRegisterRSVPForEvent", sParams, "LARPortal", Master.UserName, lsRoutineName);
+
+            foreach (DataRow dRegRecord in dtUser.Rows)
+            {
+                iRegistrationID = 0;
+                int.TryParse(dRegRecord["RegistrationID"].ToString(), out iRegistrationID);
+                Session["RegistrationID"] = iRegistrationID;
+            }
+
+            lblRegistrationMessage.Text = sRegistrationMessage;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+            ddlEventDate_SelectedIndexChanged(null, null);
+
         }
     }
 }

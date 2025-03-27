@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.master" AutoEventWireup="true" CodeBehind="ApprovalList.aspx.cs" Inherits="LarpPortal.Character.History.ApprovalList" %>
 
+<%@ MasterType TypeName="LarpPortal.LARPortal" %>
+
 <asp:Content ID="ApprovalListStyles" ContentPlaceHolderID="MainStyles" runat="server">
 </asp:Content>
 <asp:Content ID="ApprovalListScripts" ContentPlaceHolderID="MainScripts" runat="server">
@@ -37,6 +39,7 @@
                             <div class="panel-body">
                                 <div style="max-height: 500px; overflow-y: auto;">
                                     <asp:GridView ID="gvHistoryList" runat="server" AutoGenerateColumns="false" OnRowCommand="gvHistoryList_RowCommand" GridLines="None"
+                                        AllowSorting="true" OnSorting="gvHistoryList_Sorting"
                                         CssClass="table table-striped table-hover table-condensed table-responsive" BorderColor="Black" BorderStyle="Solid" BorderWidth="1" Width="99%">
                                         <EmptyDataRowStyle ForeColor="Red" Font-Bold="true" Font-Size="24pt" />
                                         <EmptyDataTemplate>
@@ -48,11 +51,11 @@
                                                     <asp:HiddenField ID="hidCharacterID" runat="server" Value='<%# Eval("CharacterID") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="CampaignName" HeaderText="Campaign" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="PlayerName" HeaderText="Player Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="ShortHistory" HeaderText="History" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
-                                            <asp:BoundField DataField="HistoryStatus" HeaderText="Status" />
+                                            <asp:BoundField DataField="CampaignName" HeaderText="Campaign" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" SortExpression="CampaignName" />
+                                            <asp:BoundField DataField="PlayerName" HeaderText="Player Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" SortExpression="PlayerName" />
+                                            <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" SortExpression="CharacterAKA" />
+                                            <asp:BoundField DataField="ShortHistory" HeaderText="History" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" SortExpression="ShortHistory" />
+                                            <asp:BoundField DataField="HistoryStatus" HeaderText="Status" SortExpression="Status" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnView" runat="server" CommandArgument='<%# Eval("CharacterID") %>' CommandName='View'

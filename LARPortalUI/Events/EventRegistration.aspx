@@ -320,8 +320,10 @@
                             <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-danger MarginLeftRight" OnCommand="CancelReg" />
                             <asp:Button ID="btnChange" runat="server" Text="Change Reg" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
                             <asp:Button ID="btnRegister" runat="server" Text="Register" CssClass="btn btn-primary MarginLeftRight" OnCommand="Register" />
-                            <asp:Button ID="btnRSVPNo" runat="server" Text="I Cannot Attend" CssClass="btn btn-danger MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVPNO" />
-                            <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVP" />
+                            <asp:Button ID="btnRSVPNo" runat="server" Text="I Cannot Attend" CssClass="btn btn-danger MarginLeftRight" OnCommand="btnRSVP_Command" CommandName="RSVPNO" />
+                            <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="btnRSVP_Command" CommandName="RSVP" />
+<%--                            <asp:Button ID="btnRSVPNo" runat="server" Text="I Cannot Attend" CssClass="btn btn-danger MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVPNO" />
+                            <asp:Button ID="btnRSVP" runat="server" Text="I Will Attend" CssClass="btn btn-primary MarginLeftRight" OnCommand="RSVPEvent" CommandName="RSVP" />--%>
                         </div>
                     </asp:Panel>
 

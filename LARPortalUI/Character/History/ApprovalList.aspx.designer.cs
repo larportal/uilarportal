@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Character.History {
-    
-    
-    public partial class ApprovalList {
-        
+namespace LarpPortal.Character.History
+{
+
+
+    public partial class ApprovalList
+    {
+
         /// <summary>
         /// mvPELs control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.MultiView mvPELs;
-        
+
         /// <summary>
         /// vwPELs control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwPELs;
-        
+
         /// <summary>
         /// ddlCharacterName control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCharacterName;
-        
+
         /// <summary>
         /// imgBlank2 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgBlank2;
-        
+
         /// <summary>
         /// ddlStatus control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
-        
+
         /// <summary>
         /// gvHistoryList control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvHistoryList;
-        
+
         /// <summary>
         /// vwNoPELs control.
         /// </summary>
@@ -74,5 +76,19 @@ namespace LarpPortal.Character.History {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwNoPELs;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
+                return ((LarpPortal.LARPortal)(base.Master));
+            }
+        }
     }
 }

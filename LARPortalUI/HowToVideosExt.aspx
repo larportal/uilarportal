@@ -29,40 +29,40 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <h1>LARPortal How To Videos</h1>
+            <h1>LARP Portal How To Videos</h1>
 
             <h2>Character</h2>
-            <asp:GridView ID="gvChar" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover"
+            <asp:GridView ID="gvChar" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover" Width="100%"
                 BorderColor="#dddddd" BorderStyle="Solid" BorderWidth="1">
                 <Columns>
-                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" />
+                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" ItemStyle-Width="300" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                 </Columns>
             </asp:GridView>
 
             <h2>Events</h2>
-            <asp:GridView ID="gvEvent" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover"
+            <asp:GridView ID="gvEvent" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover" Width="100%"
                 BorderColor="#dddddd" BorderStyle="Solid" BorderWidth="1">
                 <Columns>
-                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" />
+                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" ItemStyle-Width="300" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                 </Columns>
             </asp:GridView>
 
             <h2>Player</h2>
-            <asp:GridView ID="gvPlayer" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover"
+            <asp:GridView ID="gvPlayer" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover" Width="100%"
                 BorderColor="#dddddd" BorderStyle="Solid" BorderWidth="1">
                 <Columns>
-                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" />
+                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" ItemStyle-Width="300" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                 </Columns>
             </asp:GridView>
 
             <h2>Points</h2>
-            <asp:GridView ID="gvPoints" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover"
+            <asp:GridView ID="gvPoints" runat="server" AutoGenerateColumns="false" GridLines="Both" RowStyle-CssClass="gvHover" Width="100%"
                 BorderColor="#dddddd" BorderStyle="Solid" BorderWidth="1">
                 <Columns>
-                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" />
+                    <asp:HyperLinkField DataTextField="Name" DataNavigateUrlFields="YouTubeLink" HeaderText="Video Link" Target="_blank" ItemStyle-Width="300" />
                     <asp:BoundField DataField="Description" HeaderText="Description" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" />
                 </Columns>
             </asp:GridView>
