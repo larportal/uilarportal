@@ -172,7 +172,7 @@
                             <div class="col-lg-6 col-xs-12">
                                 <div class="form-group">
                                     <label for="<%# ddlSiteList.ClientID %>">Site</label>
-                                    <asp:RequiredFieldValidator ID="rfvSiteList" runat="server" ControlToValidate="ddlSiteList" InitialValue=""
+                                    <asp:RequiredFieldValidator ID="rfvSiteList" runat="server" ControlToValidate="ddlSiteList" InitialValue="" 
                                         CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
                                     <asp:DropDownList ID="ddlSiteList" runat="server" CssClass="form-control" />
                                 </div>
@@ -180,8 +180,8 @@
                             <div class="col-lg-6 col-xs-12">
                                 <div class="form-group">
                                     <label for="<%# tbGameLocation.ClientID %>">In Game Location</label>
-                                    <asp:RequiredFieldValidator ID="rfvGameLocation" runat="server" ControlToValidate="tbGameLocation"
-                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+<%--                                    <asp:RequiredFieldValidator ID="rfvGameLocation" runat="server" ControlToValidate="tbGameLocation"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />--%>
                                     <asp:TextBox ID="tbGameLocation" runat="server" CssClass="form-control" />
                                 </div>
                             </div>

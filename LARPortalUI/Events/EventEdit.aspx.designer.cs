@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal.Events {
-    
-    
-    public partial class EventEdit {
-        
+namespace LarpPortal.Events
+{
+
+
+    public partial class EventEdit
+    {
+
         /// <summary>
         /// rfvEventName control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEventName;
-        
+
         /// <summary>
         /// tbEventName control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEventName;
-        
+
         /// <summary>
         /// tbStartDateTime control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbStartDateTime;
-        
+
         /// <summary>
         /// tbEndDateTime control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEndDateTime;
-        
+
         /// <summary>
         /// rfvEventDescription control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEventDescription;
-        
+
         /// <summary>
         /// tbEventDescription control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEventDescription;
-        
+
         /// <summary>
         /// rfvSiteList control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSiteList;
-        
+
         /// <summary>
         /// ddlSiteList control.
         /// </summary>
@@ -83,16 +85,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSiteList;
-        
-        /// <summary>
-        /// rfvGameLocation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGameLocation;
-        
+
         /// <summary>
         /// tbGameLocation control.
         /// </summary>
@@ -101,7 +94,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbGameLocation;
-        
+
         /// <summary>
         /// tbMaxPCCount control.
         /// </summary>
@@ -110,7 +103,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbMaxPCCount;
-        
+
         /// <summary>
         /// cvMaxPCCount control.
         /// </summary>
@@ -119,7 +112,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvMaxPCCount;
-        
+
         /// <summary>
         /// rfvMaxPCCount control.
         /// </summary>
@@ -128,7 +121,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvMaxPCCount;
-        
+
         /// <summary>
         /// tbBaseNPCCount control.
         /// </summary>
@@ -137,7 +130,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBaseNPCCount;
-        
+
         /// <summary>
         /// cvBaseNPCCount control.
         /// </summary>
@@ -146,7 +139,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvBaseNPCCount;
-        
+
         /// <summary>
         /// rfvBaseNPCCount control.
         /// </summary>
@@ -155,7 +148,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBaseNPCCount;
-        
+
         /// <summary>
         /// rvDefaultRegStatus control.
         /// </summary>
@@ -164,7 +157,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rvDefaultRegStatus;
-        
+
         /// <summary>
         /// ddlDefaultRegStatus control.
         /// </summary>
@@ -173,7 +166,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDefaultRegStatus;
-        
+
         /// <summary>
         /// rfvAutoApproveWaitlist control.
         /// </summary>
@@ -182,7 +175,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAutoApproveWaitlist;
-        
+
         /// <summary>
         /// ddlAutoApproveWaitlist control.
         /// </summary>
@@ -191,7 +184,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAutoApproveWaitlist;
-        
+
         /// <summary>
         /// rvOpenRegDate control.
         /// </summary>
@@ -200,7 +193,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rvOpenRegDate;
-        
+
         /// <summary>
         /// tbOpenRegDateTime control.
         /// </summary>
@@ -209,7 +202,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbOpenRegDateTime;
-        
+
         /// <summary>
         /// rfvCloseRegDate control.
         /// </summary>
@@ -218,7 +211,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCloseRegDate;
-        
+
         /// <summary>
         /// tbCloseRegDateTime control.
         /// </summary>
@@ -227,7 +220,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCloseRegDateTime;
-        
+
         /// <summary>
         /// rfvPreRegDeadline control.
         /// </summary>
@@ -236,7 +229,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPreRegDeadline;
-        
+
         /// <summary>
         /// tbPreRegDeadline control.
         /// </summary>
@@ -245,7 +238,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPreRegDeadline;
-        
+
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -254,7 +247,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
+
         /// <summary>
         /// tbPaymentDate control.
         /// </summary>
@@ -263,7 +256,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPaymentDate;
-        
+
         /// <summary>
         /// rfvInfoSkillDue control.
         /// </summary>
@@ -272,7 +265,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvInfoSkillDue;
-        
+
         /// <summary>
         /// tbInfoSkillDue control.
         /// </summary>
@@ -281,7 +274,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbInfoSkillDue;
-        
+
         /// <summary>
         /// rfvPELDue control.
         /// </summary>
@@ -290,7 +283,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPELDue;
-        
+
         /// <summary>
         /// tbPELDue control.
         /// </summary>
@@ -299,7 +292,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPELDue;
-        
+
         /// <summary>
         /// rfvPreRegistrationPrice control.
         /// </summary>
@@ -308,7 +301,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPreRegistrationPrice;
-        
+
         /// <summary>
         /// cvPreRegistrationPrice control.
         /// </summary>
@@ -317,7 +310,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvPreRegistrationPrice;
-        
+
         /// <summary>
         /// tbPreRegistrationPrice control.
         /// </summary>
@@ -326,7 +319,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPreRegistrationPrice;
-        
+
         /// <summary>
         /// rfvRegPrice control.
         /// </summary>
@@ -335,7 +328,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRegPrice;
-        
+
         /// <summary>
         /// tbRegPrice control.
         /// </summary>
@@ -344,7 +337,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbRegPrice;
-        
+
         /// <summary>
         /// rfvAtDoorPrice control.
         /// </summary>
@@ -353,7 +346,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAtDoorPrice;
-        
+
         /// <summary>
         /// cvAtDoorPrice control.
         /// </summary>
@@ -362,7 +355,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvAtDoorPrice;
-        
+
         /// <summary>
         /// tbAtDoorPrice control.
         /// </summary>
@@ -371,7 +364,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAtDoorPrice;
-        
+
         /// <summary>
         /// rfvCapNearNotification control.
         /// </summary>
@@ -380,7 +373,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCapNearNotification;
-        
+
         /// <summary>
         /// ddlCapNearNotification control.
         /// </summary>
@@ -389,7 +382,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCapNearNotification;
-        
+
         /// <summary>
         /// cvCapThresholdNotification control.
         /// </summary>
@@ -398,7 +391,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvCapThresholdNotification;
-        
+
         /// <summary>
         /// rfvCapThresholdNotification control.
         /// </summary>
@@ -407,7 +400,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCapThresholdNotification;
-        
+
         /// <summary>
         /// tbCapThresholdNotification control.
         /// </summary>
@@ -416,7 +409,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCapThresholdNotification;
-        
+
         /// <summary>
         /// cvOverrideRatio control.
         /// </summary>
@@ -425,7 +418,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvOverrideRatio;
-        
+
         /// <summary>
         /// rfvOverrideRation control.
         /// </summary>
@@ -434,7 +427,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvOverrideRation;
-        
+
         /// <summary>
         /// tbOverrideRatio control.
         /// </summary>
@@ -443,7 +436,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbOverrideRatio;
-        
+
         /// <summary>
         /// rfvPCFoodService control.
         /// </summary>
@@ -452,7 +445,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPCFoodService;
-        
+
         /// <summary>
         /// ddlPCFoodService control.
         /// </summary>
@@ -461,7 +454,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPCFoodService;
-        
+
         /// <summary>
         /// rfvNPCFoodService control.
         /// </summary>
@@ -470,7 +463,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNPCFoodService;
-        
+
         /// <summary>
         /// ddlNPCFoodService control.
         /// </summary>
@@ -479,7 +472,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlNPCFoodService;
-        
+
         /// <summary>
         /// tbPaymentInstructions control.
         /// </summary>
@@ -488,7 +481,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPaymentInstructions;
-        
+
         /// <summary>
         /// dlPELTypes control.
         /// </summary>
@@ -497,7 +490,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList dlPELTypes;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -506,7 +499,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// hidEventID control.
         /// </summary>
@@ -515,7 +508,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidEventID;
-        
+
         /// <summary>
         /// hidCampaignID control.
         /// </summary>
@@ -524,7 +517,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
-        
+
         /// <summary>
         /// hidDaysToPaymentDue control.
         /// </summary>
@@ -533,7 +526,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToPaymentDue;
-        
+
         /// <summary>
         /// hidDaysToInfoSkillDeadlineDate control.
         /// </summary>
@@ -542,7 +535,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToInfoSkillDeadlineDate;
-        
+
         /// <summary>
         /// hidDaysToRegistrationOpenDate control.
         /// </summary>
@@ -551,7 +544,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToRegistrationOpenDate;
-        
+
         /// <summary>
         /// hidDaysToPreregistrationDeadline control.
         /// </summary>
@@ -560,7 +553,7 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToPreregistrationDeadline;
-        
+
         /// <summary>
         /// hidDaysToPELDeadlineDate control.
         /// </summary>
@@ -569,15 +562,17 @@ namespace LarpPortal.Events {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToPELDeadlineDate;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new LarpPortal.LARPortal Master {
-            get {
+        public new LarpPortal.LARPortal Master
+        {
+            get
+            {
                 return ((LarpPortal.LARPortal)(base.Master));
             }
         }

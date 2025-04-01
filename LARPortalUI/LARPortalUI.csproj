@@ -654,6 +654,10 @@
     <Content Include="Reports\CharacterList.aspx" />
     <Content Include="Reports\CharacterRulebook.aspx" />
     <Content Include="Reports\CharacterRulebookFinal.aspx" />
+    <Content Include="Reports\DonationEventDetailByItem.aspx" />
+    <Content Include="Reports\DonationEventDetailByPlayer.aspx" />
+    <Content Include="Reports\DonationEventPlayerChecklist.aspx" />
+    <Content Include="Reports\DonationEventSummary.aspx" />
     <Content Include="Reports\HistoryDisplay.aspx" />
     <Content Include="Reports\Medical.aspx" />
     <Content Include="Reports\PELDisplay.aspx" />
@@ -2077,6 +2081,34 @@
     </Compile>
     <Compile Include="Reports\CharacterRulebookFinal.aspx.designer.cs">
       <DependentUpon>CharacterRulebookFinal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DonationEventDetailByItem.aspx.cs">
+      <DependentUpon>DonationEventDetailByItem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DonationEventDetailByItem.aspx.designer.cs">
+      <DependentUpon>DonationEventDetailByItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DonationEventDetailByPlayer.aspx.cs">
+      <DependentUpon>DonationEventDetailByPlayer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DonationEventDetailByPlayer.aspx.designer.cs">
+      <DependentUpon>DonationEventDetailByPlayer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DonationEventPlayerChecklist.aspx.cs">
+      <DependentUpon>DonationEventPlayerChecklist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DonationEventPlayerChecklist.aspx.designer.cs">
+      <DependentUpon>DonationEventPlayerChecklist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DonationEventSummary.aspx.cs">
+      <DependentUpon>DonationEventSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\DonationEventSummary.aspx.designer.cs">
+      <DependentUpon>DonationEventSummary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\HistoryDisplay.aspx.cs">
       <DependentUpon>HistoryDisplay.aspx</DependentUpon>
