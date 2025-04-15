@@ -42,6 +42,15 @@ namespace LarpPortal.Events
         protected global::System.Web.UI.WebControls.TextBox tbStartDateTime;
 
         /// <summary>
+        /// tbStartTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbStartTime;
+
+        /// <summary>
         /// tbEndDateTime control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace LarpPortal.Events
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEndDateTime;
+
+        /// <summary>
+        /// tbEndTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbEndTime;
 
         /// <summary>
         /// rfvEventDescription control.
@@ -519,6 +537,42 @@ namespace LarpPortal.Events
         protected global::System.Web.UI.WebControls.HiddenField hidCampaignID;
 
         /// <summary>
+        /// hidRegOpenTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidRegOpenTime;
+
+        /// <summary>
+        /// hidPreRegPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidPreRegPrice;
+
+        /// <summary>
+        /// hidLateRegPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLateRegPrice;
+
+        /// <summary>
+        /// hidCheckInPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidCheckInPrice;
+
+        /// <summary>
         /// hidDaysToPaymentDue control.
         /// </summary>
         /// <remarks>
@@ -562,6 +616,24 @@ namespace LarpPortal.Events
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidDaysToPELDeadlineDate;
+
+        /// <summary>
+        /// hidEventStartTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidEventStartTime;
+
+        /// <summary>
+        /// hidEventEndTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidEventEndTime;
 
         /// <summary>
         /// Master property.

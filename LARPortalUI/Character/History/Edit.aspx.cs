@@ -40,7 +40,10 @@ namespace LarpPortal.Character.History
 					cCharHist.Load(oCharSelect.CharacterID.Value, Master.UserID);
 
 					ckEditor.Text = cCharHist.History;
-					lblHistory.Text = cCharHist.History.Replace("<ul>", @"<ul style=""list-style-type: disc;"">").Replace("<li>", @"<li style=""margin-left: 15px;"">");
+					if (cCharHist.History != null)
+						lblHistory.Text = cCharHist.History.Replace("<ul>", @"<ul style=""list-style-type: disc;"">").Replace("<li>", @"<li style=""margin-left: 15px;"">");
+					else
+						lblHistory.Text = "";
 
 					hidNotificationEMail.Value = cCharHist.NotificationEMail;
 

@@ -55,7 +55,7 @@
                                             <asp:BoundField DataField="PlayerName" HeaderText="Player Name" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" SortExpression="PlayerName" />
                                             <asp:BoundField DataField="CharacterAKA" HeaderText="Character" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" SortExpression="CharacterAKA" />
                                             <asp:BoundField DataField="ShortHistory" HeaderText="History" ItemStyle-Wrap="true" HeaderStyle-Wrap="false" SortExpression="ShortHistory" />
-                                            <asp:BoundField DataField="HistoryStatus" HeaderText="Status" SortExpression="Status" />
+                                            <asp:BoundField DataField="HistoryStatus" HeaderText="Status" SortExpression="HistoryStatus" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnView" runat="server" CommandArgument='<%# Eval("CharacterID") %>' CommandName='View'

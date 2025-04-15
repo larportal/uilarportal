@@ -199,13 +199,23 @@ namespace LarpPortal.Events
 								//	}
 								//}
 
-								if (dRow ["DaysToPaymentDue"] != DBNull.Value)
-									if (int.TryParse(dRow ["DaysToPaymentDue"].ToString(), out iTemp))
-										hidDaysToPaymentDue.Value = iTemp.ToString();
+								if (dRow["EventStartTime"] != DBNull.Value)
+								{
+									hidEventStartTime.Value = dRow["EventStartTime"].ToString();
+									tbStartTime.Text = dRow["EventStartTime"].ToString();
+								}
 
-								if (dRow ["DaysToInfoSkillDeadlineDate"] != DBNull.Value)
-									if (int.TryParse(dRow ["DaysToInfoSkillDeadlineDate"].ToString(), out iTemp))
-										hidDaysToInfoSkillDeadlineDate.Value = iTemp.ToString();
+								if (dRow["EventEndTime"] != DBNull.Value)
+								{
+									hidEventEndTime.Value = dRow["EventEndTime"].ToString();
+									tbEndTime.Text = dRow["EventEndTime"].ToString ();
+								}
+
+								if (dRow["RegistrationOpenTime"] != DBNull.Value)
+								{
+									hidRegOpenTime.Value = dRow["RegistrationOpenTime"].ToString();
+									tbOpenRegDateTime.Text = dRow["RegistrationOpenTime"].ToString();
+								}
 
 								if (dRow ["DefaultRegistrationStatusID"] != DBNull.Value)
 									foreach (ListItem liStatus in ddlDefaultRegStatus.Items)
@@ -551,5 +561,5 @@ namespace LarpPortal.Events
                 //}
 			}
 		}
-	}
+    }
 }
