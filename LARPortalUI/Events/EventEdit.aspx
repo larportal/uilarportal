@@ -14,6 +14,13 @@
 <asp:Content ID="EventEditScripts" ContentPlaceHolderID="MainScripts" runat="server">
 
     <script type="text/javascript">
+        function openModal() {
+            $('#modalSaveCompleted').modal('show');
+        }
+        function closeModal() {
+            $('#modalSaveCompleted').hide();
+        }
+
         function addZero(i) {
             if (i < 10) { i = "0" + i }
             return i;
@@ -131,7 +138,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Schedule An Event</div>
-<%--                    <asp:UpdatePanel id="upDates" runat="server">
+                    <%--                    <asp:UpdatePanel id="upDates" runat="server">
                         <ContentTemplate>--%>
                     <div class="panel-body">
                         <%--                                <div class="pre-scrollable">--%>
@@ -148,7 +155,8 @@
                                     <label for="<%# tbStartDateTime.ClientID %>">Start Date/Time</label>
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <asp:TextBox ID="tbStartDateTime" runat="server" CssClass="col-sm-6" TextMode="Date" />  <!-- AutoPostBack="true" OnTextChanged="tbStartDateTime_TextChanged" />  -->
+                                            <asp:TextBox ID="tbStartDateTime" runat="server" CssClass="col-sm-6" TextMode="Date" />
+                                            <!-- AutoPostBack="true" OnTextChanged="tbStartDateTime_TextChanged" />  -->
                                             <asp:TextBox ID="tbStartTime" runat="server" CssClass="col-sm-5" Style="margin-left: 10px; margin-bottom: 0px;" TextMode="Time" />
                                         </div>
                                     </div>
@@ -157,6 +165,8 @@
                             <div class="col-lg-3 col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label for="<%# tbEndDateTime.ClientID %>">End Date/Time</label>
+                                    <asp:RequiredFieldValidator ID="rvEndDate" runat="server" ControlToValidate="tbEndDateTime"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
                                     <div class="col-sm-12">
                                         <div class="row">
                                             <asp:TextBox ID="tbEndDateTime" runat="server" CssClass="col-sm-6" TextMode="Date" />
@@ -166,20 +176,21 @@
                                 </div>
                             </div>
                         </div>
-  <%--                  </div>
- --%>                   <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="<%# tbEventDescription %>">Event Description: </label>
-                                <asp:RequiredFieldValidator ID="rfvEventDescription"
-                                    runat="server" ControlToValidate="tbEventDescription" CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbEventDescription" runat="server" CssClass="form-control" />
+                        <%--                  </div>
+                        --%>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="<%# tbEventDescription %>">Event Description: </label>
+                                    <asp:RequiredFieldValidator ID="rfvEventDescription"
+                                        runat="server" ControlToValidate="tbEventDescription" CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbEventDescription" runat="server" CssClass="form-control" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-<%--                            </ContentTemplate>
+                        <%--                            </ContentTemplate>
                         </asp:UpdatePanel>--%>
-                    <%--                                    <div class="col-lg-6 col-md-6 col-xs-12">
+                        <%--                                    <div class="col-lg-6 col-md-6 col-xs-12">
                                         <div class="form-group">
                                             <label for="<%# tbStartDate.ClientID %>">Start Date/Time</label>
                                             <asp:TextBox ID="tbStartDate" runat="server" CssClass="form-control" TextMode="DateTimeLocal" />
@@ -194,7 +205,7 @@
                                             <asp:TextBox ID="tbEndTime" runat="server" CssClass="form-control" Style="display: inline; margin-left: 10px; width:35%" TextMode="Time" />
                                             </div>
                                     </div>--%>
-                    <%--                                    <div class="row col-lg-12 NoPadding">
+                        <%--                                    <div class="row col-lg-12 NoPadding">
                                             <asp:RequiredFieldValidator ID="rfvStartDate" runat="server" ControlToValidate="tbStartDate"
                                                 CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
                                             <asp:CompareValidator ID="cvStartDate" runat="server" ControlToValidate="tbStartDate" Display="Dynamic"
@@ -208,227 +219,227 @@
                                                 CssClass="ErrorDisplay" Text="* Enter A Valid Date" Type="Date" Operator="DataTypeCheck" />
                                         </div>
                                     </div>--%>
-                    <div class="row">
-                        <div class="col-lg-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# ddlSiteList.ClientID %>">Site</label>
-                                <asp:RequiredFieldValidator ID="rfvSiteList" runat="server" ControlToValidate="ddlSiteList" InitialValue=""
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlSiteList" runat="server" CssClass="form-control" />
+                        <div class="row">
+                            <div class="col-lg-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# ddlSiteList.ClientID %>">Site</label>
+                                    <asp:RequiredFieldValidator ID="rfvSiteList" runat="server" ControlToValidate="ddlSiteList" InitialValue=""
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlSiteList" runat="server" CssClass="form-control" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbGameLocation.ClientID %>">In Game Location</label>
-                                <%--                                    <asp:RequiredFieldValidator ID="rfvGameLocation" runat="server" ControlToValidate="tbGameLocation"
+                            <div class="col-lg-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbGameLocation.ClientID %>">In Game Location</label>
+                                    <%--                                    <asp:RequiredFieldValidator ID="rfvGameLocation" runat="server" ControlToValidate="tbGameLocation"
                                         CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />--%>
-                                <asp:TextBox ID="tbGameLocation" runat="server" CssClass="form-control" />
+                                    <asp:TextBox ID="tbGameLocation" runat="server" CssClass="form-control" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="<%# tbMaxPCCount.ClientID %>">Max PC Count</label>
-                                <asp:TextBox ID="tbMaxPCCount" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
-                                <asp:CompareValidator ID="cvMaxPCCount" runat="server" ControlToValidate="tbMaxPCCount" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
-                                <asp:RequiredFieldValidator ID="rfvMaxPCCount" runat="server" ControlToValidate="tbMaxPCCount"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="<%# tbMaxPCCount.ClientID %>">Max PC Count</label>
+                                    <asp:TextBox ID="tbMaxPCCount" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
+                                    <asp:CompareValidator ID="cvMaxPCCount" runat="server" ControlToValidate="tbMaxPCCount" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
+                                    <asp:RequiredFieldValidator ID="rfvMaxPCCount" runat="server" ControlToValidate="tbMaxPCCount"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="<%# tbBaseNPCCount.ClientID %>">BaseNPC Count</label>
-                                <asp:TextBox ID="tbBaseNPCCount" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
-                                <asp:CompareValidator ID="cvBaseNPCCount" runat="server" ControlToValidate="tbBaseNPCCount" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
-                                <asp:RequiredFieldValidator ID="rfvBaseNPCCount" runat="server" ControlToValidate="tbBaseNPCCount"
-                                    CssClass="ErrorDisplay" Text="* Enter Date" Display="Dynamic" />
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="<%# tbBaseNPCCount.ClientID %>">BaseNPC Count</label>
+                                    <asp:TextBox ID="tbBaseNPCCount" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
+                                    <asp:CompareValidator ID="cvBaseNPCCount" runat="server" ControlToValidate="tbBaseNPCCount" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
+                                    <asp:RequiredFieldValidator ID="rfvBaseNPCCount" runat="server" ControlToValidate="tbBaseNPCCount"
+                                        CssClass="ErrorDisplay" Text="* Enter Date" Display="Dynamic" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# ddlDefaultRegStatus.ClientID %>">Default Reg Status</label>
+                                    <asp:RequiredFieldValidator ID="rvDefaultRegStatus" runat="server" ControlToValidate="ddlDefaultRegStatus" InitialValue="" CssClass="ErrorDisplay"
+                                        Text="* Choose Def Reg Status" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlDefaultRegStatus" runat="server" CssClass="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# ddlAutoApproveWaitlist.ClientID %>">Auto Approve Waitlist</label>
+                                    <asp:RequiredFieldValidator ID="rfvAutoApproveWaitlist" runat="server" ControlToValidate="ddlAutoApproveWaitlist" InitialValue=""
+                                        CssClass="ErrorDisplay" Text="* Enter Value" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlAutoApproveWaitlist" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Choose Value" Value="" Selected="true" />
+                                        <asp:ListItem Text="Yes" Value="true" />
+                                        <asp:ListItem Text="No" Value="false" />
+                                    </asp:DropDownList>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# ddlDefaultRegStatus.ClientID %>">Default Reg Status</label>
-                                <asp:RequiredFieldValidator ID="rvDefaultRegStatus" runat="server" ControlToValidate="ddlDefaultRegStatus" InitialValue="" CssClass="ErrorDisplay"
-                                    Text="* Choose Def Reg Status" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlDefaultRegStatus" runat="server" CssClass="form-control" />
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbOpenRegDateTime.ClientID %>">Open Reg Date</label>
+                                    <asp:RequiredFieldValidator ID="rvOpenRegDate" runat="server" ControlToValidate="tbOpenRegDateTime"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbOpenRegDateTime" runat="server" CssClass="form-control" TextMode="DateTimeLocal" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbCloseRegDateTime.ClientID %>">Close Reg Date</label>
+                                    <asp:RequiredFieldValidator ID="rfvCloseRegDate" runat="server" ControlToValidate="tbCloseRegDateTime"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbCloseRegDateTime" runat="server" CssClass="form-control" TextMode="DateTimeLocal" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbPreRegDeadline.ClientID %>">Pre Reg Deadline</label>
+                                    <asp:RequiredFieldValidator ID="rfvPreRegDeadline" runat="server" ControlToValidate="tbPreRegDeadline"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbPreRegDeadline" runat="server" CssClass="form-control" TextMode="Date" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-4 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbPaymentDate.ClientID %>">Payment Date</label>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbPaymentDate"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbPaymentDate" runat="server" CssClass="form-control" TextMode="Date" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbInfoSkillDue.ClientID %>">Info Skill Due</label>
+                                    <asp:RequiredFieldValidator ID="rfvInfoSkillDue" runat="server" ControlToValidate="tbInfoSkillDue"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbInfoSkillDue" runat="server" CssClass="form-control" TextMode="Date" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbPELDue.ClientID %>">PEL Due</label>
+                                    <asp:RequiredFieldValidator ID="rfvPELDue" runat="server" ControlToValidate="tbPELDue"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbPELDue" runat="server" CssClass="form-control" TextMode="Date" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# tbPreRegistrationPrice.ClientID %>">Pre Reg Price</label>
+                                    <asp:RequiredFieldValidator ID="rfvPreRegistrationPrice" runat="server" ControlToValidate="tbPreRegistrationPrice"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:CompareValidator ID="cvPreRegistrationPrice" runat="server" ControlToValidate="tbPreRegistrationPrice" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Double" Operator="DataTypeCheck" />
+                                    <asp:TextBox ID="tbPreRegistrationPrice" runat="server" CssClass="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# tbRegPrice.ClientID %>">Reg Price</label>
+                                    <asp:RequiredFieldValidator ID="rfvRegPrice" runat="server" ControlToValidate="tbRegPrice"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbRegPrice" runat="server" CssClass="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# tbAtDoorPrice.ClientID %>">At Door Price</label>
+                                    <asp:RequiredFieldValidator ID="rfvAtDoorPrice" runat="server" ControlToValidate="tbAtDoorPrice"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:CompareValidator ID="cvAtDoorPrice" runat="server" ControlToValidate="tbAtDoorPrice" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Double" Operator="DataTypeCheck" />
+                                    <asp:TextBox ID="tbAtDoorPrice" runat="server" CssClass="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# ddlCapNearNotification.ClientID %>">Cap New Notification</label>
+                                    <asp:RequiredFieldValidator ID="rfvCapNearNotification" runat="server" ControlToValidate="ddlCapNearNotification" InitialValue=""
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlCapNearNotification" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Choose Value" Value="" Selected="true" />
+                                        <asp:ListItem Text="Yes" Value="true" />
+                                        <asp:ListItem Text="No" Value="false" />
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# tbCapThresholdNotification.ClientID %>">Cap Near Notification</label>
+                                    <asp:CompareValidator ID="cvCapThresholdNotification" runat="server" ControlToValidate="tbCapThresholdNotification" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
+                                    <asp:RequiredFieldValidator ID="rfvCapThresholdNotification" runat="server" ControlToValidate="tbCapThresholdNotification"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbCapThresholdNotification" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# tbOverrideRatio.ClientID %>">NPC Override Ratio</label>
+                                    <asp:CompareValidator ID="cvOverrideRatio" runat="server" ControlToValidate="tbOverrideRatio" Display="Dynamic"
+                                        CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
+                                    <asp:RequiredFieldValidator ID="rfvOverrideRation" runat="server" ControlToValidate="tbOverrideRatio"
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:TextBox ID="tbOverrideRatio" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# ddlPCFoodService.ClientID %>">PC Food Service</label>
+                                    <asp:RequiredFieldValidator ID="rfvPCFoodService" runat="server" ControlToValidate="ddlPCFoodService" InitialValue=""
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlPCFoodService" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Choose Value" Value="" Selected="true" />
+                                        <asp:ListItem Text="Yes" Value="true" />
+                                        <asp:ListItem Text="No" Value="false" />
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-xs-6">
+                                <div class="form-group">
+                                    <label for="<%# ddlNPCFoodService.ClientID %>">NPC Food Service</label>
+                                    <asp:RequiredFieldValidator ID="rfvNPCFoodService" runat="server" ControlToValidate="ddlNPCFoodService" InitialValue=""
+                                        CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
+                                    <asp:DropDownList ID="ddlNPCFoodService" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Choose Value" Value="" Selected="true" />
+                                        <asp:ListItem Text="Yes" Value="true" />
+                                        <asp:ListItem Text="No" Value="false" />
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="<%# tbPaymentInstructions.ClientID %>">Payment Instructions</label>
+                                    <asp:TextBox ID="tbPaymentInstructions" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# ddlAutoApproveWaitlist.ClientID %>">Auto Approve Waitlist</label>
-                                <asp:RequiredFieldValidator ID="rfvAutoApproveWaitlist" runat="server" ControlToValidate="ddlAutoApproveWaitlist" InitialValue=""
-                                    CssClass="ErrorDisplay" Text="* Enter Value" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlAutoApproveWaitlist" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Choose Value" Value="" Selected="true" />
-                                    <asp:ListItem Text="Yes" Value="true" />
-                                    <asp:ListItem Text="No" Value="false" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbOpenRegDateTime.ClientID %>">Open Reg Date</label>
-                                <asp:RequiredFieldValidator ID="rvOpenRegDate" runat="server" ControlToValidate="tbOpenRegDateTime"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbOpenRegDateTime" runat="server" CssClass="form-control" TextMode="DateTimeLocal" />
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbCloseRegDateTime.ClientID %>">Close Reg Date</label>
-                                <asp:RequiredFieldValidator ID="rfvCloseRegDate" runat="server" ControlToValidate="tbCloseRegDateTime"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbCloseRegDateTime" runat="server" CssClass="form-control" TextMode="DateTimeLocal" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2 col-md-4 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbPreRegDeadline.ClientID %>">Pre Reg Deadline</label>
-                                <asp:RequiredFieldValidator ID="rfvPreRegDeadline" runat="server" ControlToValidate="tbPreRegDeadline"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbPreRegDeadline" runat="server" CssClass="form-control" TextMode="Date" />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-4 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbPaymentDate.ClientID %>">Payment Date</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbPaymentDate"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbPaymentDate" runat="server" CssClass="form-control" TextMode="Date" />
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbInfoSkillDue.ClientID %>">Info Skill Due</label>
-                                <asp:RequiredFieldValidator ID="rfvInfoSkillDue" runat="server" ControlToValidate="tbInfoSkillDue"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbInfoSkillDue" runat="server" CssClass="form-control" TextMode="Date" />
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-4 col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbPELDue.ClientID %>">PEL Due</label>
-                                <asp:RequiredFieldValidator ID="rfvPELDue" runat="server" ControlToValidate="tbPELDue"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbPELDue" runat="server" CssClass="form-control" TextMode="Date" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-2 col-md-3 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# tbPreRegistrationPrice.ClientID %>">Pre Reg Price</label>
-                                <asp:RequiredFieldValidator ID="rfvPreRegistrationPrice" runat="server" ControlToValidate="tbPreRegistrationPrice"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:CompareValidator ID="cvPreRegistrationPrice" runat="server" ControlToValidate="tbPreRegistrationPrice" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Double" Operator="DataTypeCheck" />
-                                <asp:TextBox ID="tbPreRegistrationPrice" runat="server" CssClass="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-3 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# tbRegPrice.ClientID %>">Reg Price</label>
-                                <asp:RequiredFieldValidator ID="rfvRegPrice" runat="server" ControlToValidate="tbRegPrice"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbRegPrice" runat="server" CssClass="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-3 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# tbAtDoorPrice.ClientID %>">At Door Price</label>
-                                <asp:RequiredFieldValidator ID="rfvAtDoorPrice" runat="server" ControlToValidate="tbAtDoorPrice"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:CompareValidator ID="cvAtDoorPrice" runat="server" ControlToValidate="tbAtDoorPrice" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Double" Operator="DataTypeCheck" />
-                                <asp:TextBox ID="tbAtDoorPrice" runat="server" CssClass="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-4 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# ddlCapNearNotification.ClientID %>">Cap New Notification</label>
-                                <asp:RequiredFieldValidator ID="rfvCapNearNotification" runat="server" ControlToValidate="ddlCapNearNotification" InitialValue=""
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlCapNearNotification" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Choose Value" Value="" Selected="true" />
-                                    <asp:ListItem Text="Yes" Value="true" />
-                                    <asp:ListItem Text="No" Value="false" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# tbCapThresholdNotification.ClientID %>">Cap Near Notification</label>
-                                <asp:CompareValidator ID="cvCapThresholdNotification" runat="server" ControlToValidate="tbCapThresholdNotification" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
-                                <asp:RequiredFieldValidator ID="rfvCapThresholdNotification" runat="server" ControlToValidate="tbCapThresholdNotification"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbCapThresholdNotification" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-4 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# tbOverrideRatio.ClientID %>">NPC Override Ratio</label>
-                                <asp:CompareValidator ID="cvOverrideRatio" runat="server" ControlToValidate="tbOverrideRatio" Display="Dynamic"
-                                    CssClass="ErrorDisplay" Text="* Numbers Only" Type="Integer" Operator="DataTypeCheck" />
-                                <asp:RequiredFieldValidator ID="rfvOverrideRation" runat="server" ControlToValidate="tbOverrideRatio"
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:TextBox ID="tbOverrideRatio" runat="server" Columns="4" MaxLength="4" CssClass="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# ddlPCFoodService.ClientID %>">PC Food Service</label>
-                                <asp:RequiredFieldValidator ID="rfvPCFoodService" runat="server" ControlToValidate="ddlPCFoodService" InitialValue=""
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlPCFoodService" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Choose Value" Value="" Selected="true" />
-                                    <asp:ListItem Text="Yes" Value="true" />
-                                    <asp:ListItem Text="No" Value="false" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-3 col-xs-6">
-                            <div class="form-group">
-                                <label for="<%# ddlNPCFoodService.ClientID %>">NPC Food Service</label>
-                                <asp:RequiredFieldValidator ID="rfvNPCFoodService" runat="server" ControlToValidate="ddlNPCFoodService" InitialValue=""
-                                    CssClass="ErrorDisplay" Text="* Required" Display="Dynamic" />
-                                <asp:DropDownList ID="ddlNPCFoodService" runat="server" CssClass="form-control">
-                                    <asp:ListItem Text="Choose Value" Value="" Selected="true" />
-                                    <asp:ListItem Text="Yes" Value="true" />
-                                    <asp:ListItem Text="No" Value="false" />
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label for="<%# tbPaymentInstructions.ClientID %>">Payment Instructions</label>
-                                <asp:TextBox ID="tbPaymentInstructions" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <%--                        <div class="row">
+                        <%--                        <div class="row">
                             <table>
                                 <tr>
                                     <td>PC Stuff</td>
@@ -438,38 +449,64 @@
                             </table>
                         </div>--%>
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <asp:DataList ID="dlPELTypes" runat="server" RepeatLayout="table" RepeatColumns="10" OnItemDataBound="dlPELTypes_ItemDataBound">
-                                <ItemStyle CssClass="autoWidth" VerticalAlign="top" />
-                                <ItemTemplate>
-                                    <div style="margin-right: 10px;">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading"><%#Eval("TemplateTypeDescription") %> PELs</div>
-                                            <div class="panel-body">
-                                                <asp:RadioButtonList ID="rblPELs" runat="server" RepeatLayout="flow" BorderColor="Black" BorderStyle="none" BorderWidth="0" Style="text-wrap: none;" />
-                                                <asp:HiddenField ID="hidEventPELID" runat="server" />
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <asp:DataList ID="dlPELTypes" runat="server" RepeatLayout="table" RepeatColumns="10" OnItemDataBound="dlPELTypes_ItemDataBound">
+                                    <ItemStyle CssClass="autoWidth" VerticalAlign="top" />
+                                    <ItemTemplate>
+                                        <div style="margin-right: 10px;">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading"><%#Eval("TemplateTypeDescription") %> PELs</div>
+                                                <div class="panel-body">
+                                                    <asp:RadioButtonList ID="rblPELs" runat="server" RepeatLayout="flow" BorderColor="Black" BorderStyle="none" BorderWidth="0" Style="text-wrap: none;" />
+                                                    <asp:HiddenField ID="hidEventPELID" runat="server" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:DataList>
+                                    </ItemTemplate>
+                                </asp:DataList>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">
-                            <div class="text-right">
-                                <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSave_Click" />
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="text-right">
+                                    <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSave_Click" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="modal fade in" id="modalSaveCompleted" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+<%--                        <a class="close" data-dismiss="modal">&times;</a>--%>
+                        <h3 class="modal-title text-center">LARPortal Event Creation</h3>
+                    </div>
+                    <div class="modal-body">
+                        The event has been created.
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-left col-lg-6">
+                            <asp:Button ID="btnCreateAnotherEvent" runat="server" Text="Create Another Event" CssClass="btn btn-success" OnClick="btnCreateAnotherEvent_Click" />
+                        </div>
+                        <div class="text-right col-lg-6">
+                            <asp:Button ID="btnClose" runat="server" Text="Close Event Creation" CssClass="btn btn-success" OnClick="btnClose_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="margin20"></div>
     </div>
-    <div class="margin20"></div>
-<%--    </div>--%>
     <asp:HiddenField ID="hidEventID" runat="server" />
     <asp:HiddenField ID="hidCampaignID" runat="server" />
     <asp:HiddenField ID="hidRegOpenTime" runat="server" />
@@ -483,6 +520,4 @@
     <asp:HiddenField ID="hidDaysToPELDeadlineDate" runat="server" />
     <asp:HiddenField ID="hidEventStartTime" runat="server" />
     <asp:HiddenField ID="hidEventEndTime" runat="server" />
-    
-
 </asp:Content>

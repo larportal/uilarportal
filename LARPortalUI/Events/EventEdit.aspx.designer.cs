@@ -51,6 +51,15 @@ namespace LarpPortal.Events
         protected global::System.Web.UI.WebControls.TextBox tbStartTime;
 
         /// <summary>
+        /// rvEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvEndDate;
+
+        /// <summary>
         /// tbEndDateTime control.
         /// </summary>
         /// <remarks>
@@ -517,6 +526,24 @@ namespace LarpPortal.Events
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// btnCreateAnotherEvent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateAnotherEvent;
+
+        /// <summary>
+        /// btnClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose;
 
         /// <summary>
         /// hidEventID control.

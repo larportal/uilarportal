@@ -14,6 +14,7 @@ namespace LarpPortal.Events
 	{
 		DataTable _dtCurrentSelectedPELs = new DataTable();
 		DataTable _dtCampaignPELs = new DataTable();
+		bool _CreateAnotherEvent = false;
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
@@ -27,12 +28,11 @@ namespace LarpPortal.Events
 
 			DateTime dtTempDate;
 			DateTime dtTempTime;
-			int iTemp;
 
 			if (Request.QueryString ["EventID"] == null)
 				Response.Redirect("EventList.aspx", true);
 
-			if (!IsPostBack)
+			if ((!IsPostBack) || (_CreateAnotherEvent))
 			{
 				SortedList sParams = new SortedList();
 				sParams.Add("@StatusType", "Registration");
@@ -52,8 +52,11 @@ namespace LarpPortal.Events
 				if (Request.QueryString ["EventID"] != null)
 				{
 					int iEventID = 0;
-					if (int.TryParse(Request.QueryString ["EventID"], out iEventID))
+					if ((int.TryParse(Request.QueryString ["EventID"], out iEventID)) || (_CreateAnotherEvent))
 					{
+						if (_CreateAnotherEvent)
+							iEventID = -1;
+
 						if (iEventID != -1)
 						{
 							sParams = new SortedList();
@@ -154,6 +157,10 @@ namespace LarpPortal.Events
 						int iCampaignID;
 						if (int.TryParse(Session ["CampaignID"].ToString(), out iCampaignID))
 						{
+							tbEventName.Text = "";
+							tbGameLocation.Text = "";
+							tbEventDescription.Text = "";
+
 							hidCampaignID.Value = iCampaignID.ToString();
 							sParams = new SortedList();
 							sParams.Add("@CampaignID", iCampaignID);
@@ -561,5 +568,22 @@ namespace LarpPortal.Events
                 //}
 			}
 		}
+
+        protected void btnCreateAnotherEvent_Click(object sender, EventArgs e)
+        {
+			_CreateAnotherEvent = true;
+
+			tbOpenRegDateTime.Text = "";
+			tbCloseRegDateTime.Text = "";
+			tbInfoSkillDue.Text = "";
+			tbPELDue.Text = "";
+			tbPreRegDeadline.Text = "";
+			tbPaymentDate.Text = "";
+        }
+
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+			Response.Redirect("SetupEvent.aspx", true);
+        }
     }
 }
