@@ -87,8 +87,8 @@
                 var dateStr = year + '-' + ('00' + month).slice(-2) + '-' + ('00' + day).slice(-2) + "T10:00";
                 PreregOpenDays.value = dateStr;
             }
-            else
-                alert("Couldn't find PreregOpenDate");
+            //else
+            //    alert("Couldn't find PreregOpenDate");
 
             var DaysToPELDeadlineDate = parseInt(document.getElementById("<%= hidDaysToPELDeadlineDate.ClientID %>").value);
             if (!isNaN(DaysToPELDeadlineDate)) {
@@ -158,6 +158,8 @@
                                             <asp:TextBox ID="tbStartDateTime" runat="server" CssClass="col-sm-6" TextMode="Date" />
                                             <!-- AutoPostBack="true" OnTextChanged="tbStartDateTime_TextChanged" />  -->
                                             <asp:TextBox ID="tbStartTime" runat="server" CssClass="col-sm-5" Style="margin-left: 10px; margin-bottom: 0px;" TextMode="Time" />
+                                            <asp:CompareValidator ID="cvStartDateTime" runat="server" ControlToValidate="tbStartDateTime" CssClass="ErrorDisplay" 
+                                                Text="* Must be greater than 1/1/1900" Display="Dynamic" ValueToCompare="1/1/1900" Operator="GreaterThanEqual" />
                                         </div>
                                     </div>
                                 </div>
@@ -171,6 +173,8 @@
                                         <div class="row">
                                             <asp:TextBox ID="tbEndDateTime" runat="server" CssClass="col-sm-6" TextMode="Date" />
                                             <asp:TextBox ID="tbEndTime" runat="server" CssClass="col-sm-5" Style="margin-left: 10px;" TextMode="Time" />
+                                            <asp:CompareValidator ID="cvEndDateTime" runat="server" ControlToValidate="tbEndDateTime" CssClass="ErrorDisplay" 
+                                                Text="* Must be greater than start date" Display="Dynamic" ControlToCompare="tbStartDateTime" Operator="GreaterThanEqual" />
                                         </div>
                                     </div>
                                 </div>

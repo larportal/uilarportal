@@ -51,6 +51,15 @@ namespace LarpPortal.Events
         protected global::System.Web.UI.WebControls.TextBox tbStartTime;
 
         /// <summary>
+        /// cvStartDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvStartDateTime;
+
+        /// <summary>
         /// rvEndDate control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace LarpPortal.Events
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbEndTime;
+
+        /// <summary>
+        /// cvEndDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvEndDateTime;
 
         /// <summary>
         /// rfvEventDescription control.
