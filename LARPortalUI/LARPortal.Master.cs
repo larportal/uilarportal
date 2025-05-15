@@ -334,6 +334,8 @@ namespace LarpPortal
                 (Session["AllowAdditionalInfo"] == null))
             {
                 Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
+                CampaignChoices.UserDisplayMyCampaigns = true;       //  JB  5/9/2025  Display only campaigns they want to see.
+
                 CampaignChoices.Load(UserID);
 
                 //foreach (Classes.cUserCampaign Camp in CampaignChoices.lsUserCampaigns)

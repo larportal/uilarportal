@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//  JB  5/9/2025  Display only campaigns they want to see.
+
 namespace LarpPortal.Character
 {
     public partial class CharAdd : System.Web.UI.Page
@@ -50,6 +52,7 @@ namespace LarpPortal.Character
                 ddlUserCampaigns.SelectedIndex = 0;
                 ddlUserCampaigns.Items.Clear();
                 Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
+                CampaignChoices.UserDisplayMyCampaigns = true;       //  JB  5/9/2025  Display only campaigns they want to see.
                 CampaignChoices.Load(Master.UserID);
 
                 if (CampaignChoices.CountOfUserCampaigns == 0)

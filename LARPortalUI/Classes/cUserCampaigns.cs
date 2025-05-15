@@ -9,6 +9,8 @@ using System.Collections;
 using System.Configuration;
 using System.Data.SqlClient;
 
+//  JB  5/13/2025  Added UserDisplayMyCampaigns so when getting the list the default is get all campaigns.
+
 namespace LarpPortal.Classes
 {
     public class cUserCampaigns
@@ -29,6 +31,13 @@ namespace LarpPortal.Classes
         public int CountOfUserCampaigns
         { get; set; }
 
+        private bool _UserDisplayMyCampaigns = false;
+        public bool UserDisplayMyCampaigns 
+        { 
+            get { return _UserDisplayMyCampaigns; } 
+            set { _UserDisplayMyCampaigns = value; } 
+        }
+
         /// <summary>
         /// This will load the details of a particular users' campaigns
         /// Must pass a UserID
@@ -42,6 +51,7 @@ namespace LarpPortal.Classes
             SortedList slParameters = new SortedList();
             slParameters.Add("@UserID", UserID);
             slParameters.Add("@CampaignID", 0); // Returning all campaigns
+            slParameters.Add("@UserDisplayMyCampaigns", UserDisplayMyCampaigns);    // JB  5/13/2025  Dispay all or only campaigns user wants.
             DataSet dsUserCampaigns = new DataSet();
             dsUserCampaigns = cUtilities.LoadDataSet(stStoredProc, slParameters, "LARPortal", UserID.ToString(), stCallingMethod);
             foreach (DataRow dRow in dsUserCampaigns.Tables[0].Rows)

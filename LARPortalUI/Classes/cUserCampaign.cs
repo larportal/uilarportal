@@ -7,6 +7,8 @@ using LarpPortal.Classes;
 using System.Reflection;
 using System.Collections;
 
+//  JB  5/13/2025  Added UserDisplayMyCampaigns so we can show only the campaigns the user wants.
+
 namespace LarpPortal.Classes
 {
     public class cUserCampaign
@@ -37,6 +39,8 @@ namespace LarpPortal.Classes
         private string _Comments = "";
 		private bool? _AllowAdditionalInfo = false;
         private bool _HasInbetweenSkills = false;
+        private bool _UserDisplayMyCampaigns = false;
+        private DateTime? _StaffHideUntil = null;
 
         public Int32 CampaignPlayerID
         {
@@ -169,6 +173,17 @@ namespace LarpPortal.Classes
             set { _HasInbetweenSkills = value; }
         }
 
+        public bool UserDisplayMyCampaigns
+        {
+            get { return _UserDisplayMyCampaigns; }
+            set { _UserDisplayMyCampaigns = value; }
+        }
+
+        public DateTime? StaffHideUntil
+        {
+            get { return _StaffHideUntil; }
+            set { _StaffHideUntil = value; }
+        }
         /// <summary>
         /// This will load the details of a particular user campaign
         /// Must pass a UserID
@@ -201,12 +216,17 @@ namespace LarpPortal.Classes
                 CampaignName = dRow["CampaignName"].ToString();
                 EmailAddress = dRow["EmailAddress"].ToString();
                 Sort = dRow["Sort"].ToString();
-				bool AllowAdd = false;
-				AllowAdditionalInfo = false;
-				if (bool.TryParse(dRow["AllowAdditionalInfo"].ToString(), out AllowAdd))
-				{
-					AllowAdditionalInfo = AllowAdd;
-				}
+                bool AllowAdd = false;
+                AllowAdditionalInfo = false;
+                if (bool.TryParse(dRow["AllowAdditionalInfo"].ToString(), out AllowAdd))
+                {
+                    AllowAdditionalInfo = AllowAdd;
+                }
+                bool bDisplay = false;
+                if (bool.TryParse(dRow["UserDisplayMyCampaigns"].ToString(), out bDisplay))     //  JB  5/13/2025  Display all campaigns or only ones the user wants.
+                {
+                    UserDisplayMyCampaigns = bDisplay;
+                }
                 if (dRow["NumInfoSkills"].ToString() == "0")
                     _HasInbetweenSkills = false;
                 else
@@ -241,6 +261,8 @@ namespace LarpPortal.Classes
             slParameters.Add("@AutoregisterType", AutoregisterType);
             slParameters.Add("@OwnerCriticalityRating", OwnerCriticalityRating);
             slParameters.Add("@Comments", Comments);
+            slParameters.Add("@UserDisplayMYCampaigns", UserDisplayMyCampaigns);
+            slParameters.Add("@StaffHideUntil", StaffHideUntil);
             if (@CampaignPlayerID == -1) // Set fields that can only be set on insert of new record
             {
                 slParameters.Add("@CampaignID", CampaignID);

@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//  JB  5/9/2025  Display only campaigns they want to see.
+
 namespace LarpPortal.Events
 {
     public partial class EventRegistration : System.Web.UI.Page
@@ -1281,6 +1283,8 @@ namespace LarpPortal.Events
                         ddlSkillSetID.Visible = false;
                         //						ddlCharacterList.Visible = false;
                         Classes.cUserCampaigns CampaignChoices = new Classes.cUserCampaigns();
+                        CampaignChoices.UserDisplayMyCampaigns = true;       //  JB  5/9/2025  Display only campaigns they want to see.
+
                         CampaignChoices.Load(Master.UserID);
                         if (CampaignChoices.CountOfUserCampaigns == 0)
                             Response.Redirect("~/NoCurrentCampaignAssociations.aspx");

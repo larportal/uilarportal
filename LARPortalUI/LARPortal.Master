@@ -201,6 +201,7 @@
                                             <li><a href="/Profile/MedicalInfo.aspx">Medical Info</a> </li>
                                             <li><a href="/Profile/SystemSecurity.aspx">System Security</a> </li>
                                             <li><a href="/Profile/PlayerInventory.aspx">Player Inventory</a> </li>
+                                            <li><a href="/Profile/myCampaigns.aspx">myCampaigns</a> </li>
                                         </ul>
                                     </li>
                                     <li><a href="#"><%--runat="server" id="liCampaignMenu"--%>
