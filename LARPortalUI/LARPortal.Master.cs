@@ -396,7 +396,8 @@ namespace LarpPortal
                     Session["PlayerRoleString"] = Roles.PlayerRoleString;
                 }
                 if (CampaignChoices.CountOfUserCampaigns == 0)
-                    Response.Redirect("~/NoCurrentCampaignAssociations.aspx");
+                    //Response.Redirect("~/NoCurrentCampaignAssociations.aspx");
+                    Response.Redirect("~/NewUserSelectCampaign.aspx");
 
                 DataTable dtCampList = ConvertCampaignListToDataTable(CampaignChoices.lsUserCampaigns);
                 Session["CampaignList"] = dtCampList;
