@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="NoCurrentCampaignAssociations.aspx.cs" Inherits="NoCurrentCampaignAssociations" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="NoCurrentCampaignAssociations.aspx.cs" Inherits="LarpPortal.NoCurrentCampaignAssociations" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
