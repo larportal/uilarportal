@@ -396,8 +396,8 @@ namespace LarpPortal
                     Session["PlayerRoleString"] = Roles.PlayerRoleString;
                 }
                 if (CampaignChoices.CountOfUserCampaigns == 0)
-                    Response.Redirect("~/NoCurrentCampaignAssociations.aspx");
-                    //Response.Redirect("~/NewUserSelectCampaign.aspx");
+              //      Response.Redirect("~/NoCurrentCampaignAssociations.aspx");
+                Response.Redirect("~/NewUserSelectCampaign.aspx");
 
                 DataTable dtCampList = ConvertCampaignListToDataTable(CampaignChoices.lsUserCampaigns);
                 Session["CampaignList"] = dtCampList;
@@ -462,11 +462,11 @@ namespace LarpPortal
                 bSuperUser = true;
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_SKILL_UPDATES_5)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.SKILL_UPDATES_5)))
                 liModifySkills.Style.Add("display", "block");
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liSetupCustomFields.Style.Add("display", "block");
                 liSetupCampaignDemographics.Style.Add("display", "block");
@@ -477,8 +477,8 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liSetupPlayerReqs.Style.Add("display", "block");
                 liSetupContacts.Style.Add("display", "block");
@@ -490,9 +490,9 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_WORLD_SETTING_UPDATES_32)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) |
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.WORLD_SETTING_UPDATES_32)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) |
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liSetupDescription.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
@@ -501,9 +501,9 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_REGISTRATION_APPROVAL_37)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_REGISTRATION_APPROVAL_37)))
             {
                 liEventRegistrationApproval.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
@@ -512,9 +512,9 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_SCHEDULING_27)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_SCHEDULING_27)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 //ReqPage = "/events/eventlist";
                 //				liEvent
@@ -525,8 +525,8 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_HOUSING_ASSIGNMENT_11)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.HOUSING_ASSIGNMENT_11)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liEventAssignHousing.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
@@ -535,8 +535,8 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liCharacterApproveHistory.Style.Add("display", "block");
                 liPELApprovalList.Style.Add("display", "block");
@@ -547,17 +547,17 @@ namespace LarpPortal
 
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_SCHEDULING_27)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_SCHEDULING_27)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liEventSetup.Style.Add("display", "block");
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_CP_ASSIGNMENT_15)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_CHECK_OUT_35)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.CP_ASSIGNMENT_15)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_CHECK_OUT_35)))
             {
                 liPointsAssign.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
@@ -569,8 +569,8 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_SKILL_UPDATES_5)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.SKILL_UPDATES_5)))
             {
                 if (Session["AllowAdditionalInfo"] != null)
                     if (Session["AllowAdditionalInfo"].ToString().ToUpper().StartsWith("T"))
@@ -581,8 +581,8 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_CP_ASSIGNMENT_15)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.CP_ASSIGNMENT_15)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liEMailPoints.Style.Add("display", "block");
                 liCampaignSetupMenu.Style.Add("display", "block");
@@ -591,13 +591,13 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.LARPORTAL_DATABASE_OWNER_1)) ||
-                (sRoleString.Contains(Classes.cConstants.LARPORTAL_DATABASE_ADMINISTRATOR_2)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_OWNER_3)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_NPC_COORDINATOR_12)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_MONSTER_MASTER_20)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_ROLE_ASSIGNMENT_21)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)))
+                (sRoleString.Contains(Classes.cConstants.Roles.LARPortal.DATABASE_OWNER_1)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.LARPortal.DATABASE_ADMINISTRATOR_2)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.OWNER_3)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.NPC_COORDINATOR_12)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.MONSTER_MASTER_20)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.ROLE_ASSIGNMENT_21)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)))
             {
                 liCampaignSetupMenu.Style.Add("display", "block");
                 liModifySkills.Style.Add("display", "block");
@@ -606,29 +606,29 @@ namespace LarpPortal
             }
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||                           //  JB/RP  1/16/2022  Added as part of donations.
-                (sRoleString.Contains(Classes.cConstants.PLAYER_PC_8)) ||
-                (sRoleString.Contains(Classes.cConstants.LARPORTAL_APPROVED_USER_9)) ||
-                (sRoleString.Contains(Classes.cConstants.PLAYER_NPC_10)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_CHECK_IN_16)) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                (sRoleString.Contains(Classes.cConstants.LOGISITICS_DONATION_SET_UP_40)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)) ||                           //  JB/RP  1/16/2022  Added as part of donations.
+                (sRoleString.Contains(Classes.cConstants.Roles.Player.PC_8)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.LARPortal.APPROVED_USER_9)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Player.NPC_10)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_CHECK_IN_16)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                (sRoleString.Contains(Classes.cConstants.Roles.Logistics.DONATION_SET_UP_40)))
             {
                 liDonations.Style.Add("display", "block");
-                if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
-                    (sRoleString.Contains(Classes.cConstants.PLAYER_PC_8)) ||
-                    (sRoleString.Contains(Classes.cConstants.LARPORTAL_APPROVED_USER_9)) ||
-                    (sRoleString.Contains(Classes.cConstants.PLAYER_NPC_10)) ||
-                    (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                    (sRoleString.Contains(Classes.cConstants.LOGISITICS_DONATION_SET_UP_40)))
+                if ((sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Player.PC_8)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.LARPortal.APPROVED_USER_9)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Player.NPC_10)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Logistics.DONATION_SET_UP_40)))
                     liClaimDonations.Style.Add("display", "block");
-                if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                    (sRoleString.Contains(Classes.cConstants.LOGISITICS_DONATION_SET_UP_40)))
+                if ((sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Logistics.DONATION_SET_UP_40)))
                     liAddDonationRequests.Style.Add("display", "block");
-                if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
-                    (sRoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_CHECK_IN_16)) ||
-                    (sRoleString.Contains(Classes.cConstants.CAMPAIGN_GENERAL_MANAGER_28)) ||
-                    (sRoleString.Contains(Classes.cConstants.LOGISITICS_DONATION_SET_UP_40)))
+                if ((sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_CHECK_IN_16)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Campaign.GENERAL_MANAGER_28)) ||
+                    (sRoleString.Contains(Classes.cConstants.Roles.Logistics.DONATION_SET_UP_40)))
                     liReceiveDonations.Style.Add("display", "block");
             }
 
@@ -654,7 +654,7 @@ namespace LarpPortal
                     {
                         Session["HasInbetweenSkills"] = "Y";
                         liIBSkills.Style.Add("display", "block");
-                        if ((sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)) ||
+                        if ((sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)) ||
                             (bSuperUser))
                         {
                             liIBGSMain.Style.Add("display", "block");
@@ -691,8 +691,311 @@ namespace LarpPortal
                 liHasNoCharacters.Style.Add("display", "none");
                 liHasCharacters.Style.Add("display", "block");
             }
+            ProcessMenus();
         }
 
+        /// <summary>
+        /// Go through the menus and hide any that they don't want to see.
+        /// </summary>
+        protected void ProcessMenus()
+        {
+            SortedList sParams = new SortedList();
+            sParams.Add("@CampaignID", CampaignID);
+            
+            DataTable dtSystemMenus = Classes.cUtilities.LoadDataTable("uspGetCampaignSystemMenus", sParams, "LARPortal", UserName, "LARPoratl.Master.ProcessMenus");
+            DataView dvSystemMenus = new DataView(dtSystemMenus, "Display = 0", "", DataViewRowState.CurrentRows);
+
+            foreach (DataRowView dvRow in dvSystemMenus)
+            {
+                int iMenuID;
+                if (int.TryParse(dvRow["MenuID"].ToString(), out iMenuID))
+                {
+                    switch (iMenuID)
+                    {
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.DEMOGRAPHICS_17:
+                            {
+                                liSetupCampaignDemographics.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.PLAYER_REQS_18:
+                            {
+                                liSetupPlayerReqs.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.CONTACTS_19:
+                            {
+                                liSetupContacts.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.POLICIES_20:
+                            {
+                                liSetupPolicies.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.DESCRIPTION_21:
+                            {
+                                liSetupDescription.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.CUSTOM_FIELDS_22:
+                            {
+                                liSetupCustomFields.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Setup.ASSIGN_ROLES_23:
+                            {
+                                liSetupAssignRoles.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.SKILLS_MODIFY_MENU_24:
+                            {
+                                liModifySkillsMenu.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.SkillModify.SKILL_QUALIFIERS_25:
+                            {
+                                liSkillQualifiers.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.SkillModify.MODIFY_SKILLS_26:
+                            {
+                                liModifySkills.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.EVENTS_27:
+                            {
+                                liEvents.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Events.EVENT_REGISTRATION_28:
+                            {
+                                liEventRegistration.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Events.REGISTRATION_APPROVAL_29:
+                            {
+                                liEventRegistrationApproval.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Events.SETUP_EVENT_30:
+                            {
+                                liEventSetup.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Events.SETUP_DEFAULTS_31:
+                            {
+                                liEventDefaults.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Events.ASSIGN_HOUSING_32:
+                            {
+                                liEventAssignHousing.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.DONATIONS_33:
+                            {
+                                liDonations.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Donations.CLAIM_DONATIONS_34:
+                            {
+                                liClaimDonations.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Donations.SETUP_DONATIONS_35:
+                            {
+                                liAddDonationRequests.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.Donations.RECEIVE_DONATIONS_36:
+                            {
+                                liReceiveDonations.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.APPROVE_CHARACTER_HISTORIES_37:
+                            {
+                                liCharacterApproveHistory.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.CHARACTER_BUILD_POINTS_38:
+                            {
+                                liCharacterBuildPoints2.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.CharacterBuildPoints.ASSIGN_POINTS_39:
+                            {
+                                liPointsAssign.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.CharacterBuildPoints.EMAIL_POINTS_40:
+                            {
+                                liEMailPoints.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.PELS_41:
+                            {
+                                liPELsMain.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.PELs.PEL_APPROVAL_LIST_42:
+                            {
+                                liPELApprovalList.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.INBETWEEN_GAMES_SKILLS_43:
+                            {
+                                liIBGSMain.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Campaigns.InbetweenGamesSkills.INFORMATION_SKILLS_44:
+                            {
+                                liIBGSApprovalList.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.CHARACTERS_45:
+                            {
+                                liHasCharacters.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.CHARACTER_INFO_46:
+                            {
+                                liCharacterInfo.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.TEAMS_47:
+                            {
+                                liTeams.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Teams.CREATE_A_TEAM_48:
+                            {
+                                liCreateATeam.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Teams.JOIN_A_TEAM_49:
+                            {
+                                liJoinATeam.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Teams.MANAGE_A_TEAM_50:
+                            {
+                                liManageATeam.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.SKILLS_51:
+                            {
+                                liSkills.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Skills.IN_BETWEEN_SKILLS_52:
+                            {
+                                liIBSkills.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Skills.INFORMATION_SKILLS_53:
+                            {
+                                liInfoSkills.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.HISTORY_54:
+                            {
+                                liHistory.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.RELATIONSHIPS_55:
+                            {
+                                liRelationships.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.PLACES_56:
+                            {
+                                liPlaces.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.ITEMS_57:
+                            {
+                                liItems.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.GOALS_PREFERENCES_58:
+                            {
+                                liGoalsPref.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.CARD_CUSTOMIZATION_59:
+                            {
+                                liCardCustom.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.CARD_ORDER_60:
+                            {
+                                liCardOrder.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.PREVIEW_CHARACTER_CARD_61:
+                            {
+                                liPreviewCharCard.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.ADD_NEW_CHARACTER_62:
+                            {
+                                liAddANewChar.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.SKILL_SETS_63:
+                            {
+                                liSkillSets.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.VIEW_PELS_64:
+                            {
+                                liViewPELs.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.REGISTER_FOR_AN_EVENT_65:
+                            {
+                                liRegForEvent.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.POINTS_66:
+                            {
+                                liPoints.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Characters.Points.VIEW_POINTS_67:
+                            {
+                                liViewPoints.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.CALENDAR_68:
+                            {
+                                liCalendar.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Calendar.MONTH_CALENDAR_69:
+                            {
+                                liMonthCalendar.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.Calendar.CALENDAR_REPORT_70:
+                            {
+                                liCalendardReport.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.REPORTS_71:
+                            {
+                                liReports.Visible = false;
+                                break;
+                            }
+                        case Classes.cConstants.SystemMenus.HOW_TO_VIDEOS_72:
+                            {
+                                liHowToVideos.Visible = false;
+                                break;
+                            }
+                    }
+                }
+            }
+        }
         private DataTable ConvertCampaignListToDataTable(List<Classes.cUserCampaign> ListOfCamp)
         {
             DataTable dtCampList = new DataTable();

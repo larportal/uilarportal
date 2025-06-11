@@ -49,6 +49,7 @@ namespace LarpPortal.Events
                 SortedList sParams = new SortedList();
                 DataTable dtPlayerList = new DataTable();
                 sParams.Add("@CampaignID", Master.CampaignID);
+                sParams.Add("@LoggedInUserID", Master.UserID);
                 dtPlayerList = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayers", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignPlayers");
                 DataView dvPlayerList = new DataView(dtPlayerList, "", "PlayerName", DataViewRowState.CurrentRows);
 
@@ -1359,7 +1360,7 @@ namespace LarpPortal.Events
         protected void SetupPlayerChoice()
         {
             if ((Master.SuperUser) ||
-                (Master.RoleString.Contains(Classes.cConstants.LOGISTICS_EVENT_REGISTRATION_APPROVAL_37)))
+                (Master.RoleString.Contains(Classes.cConstants.Roles.Logistics.EVENT_REGISTRATION_APPROVAL_37)))
             {
                 lblPlayerName.Visible = false;
                 ddlPlayerName.Visible = true;

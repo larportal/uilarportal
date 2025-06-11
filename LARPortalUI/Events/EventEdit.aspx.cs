@@ -94,15 +94,15 @@ namespace LarpPortal.Events
 								if ((DateTime.TryParse(dEventInfo ["StartDate"].ToString(), out dtTempDate)) &&
 									(DateTime.TryParse(dEventInfo ["StartTime"].ToString(), out dtTempTime)))
 								{
-									DateTime dtCombined = dtTempDate.Date.Add(dtTempTime.TimeOfDay);
-									tbStartDateTime.Text = dtCombined.ToString("yyyy-MM-ddTHH:mm");
+									tbStartDateTime.Text = dtTempDate.ToString("yyyy-MM-dd");
+									tbStartTime.Text = dtTempTime.TimeOfDay.ToString();
 								}
 
 								if ((DateTime.TryParse(dEventInfo ["EndDate"].ToString(), out dtTempDate)) &&
 									(DateTime.TryParse(dEventInfo ["EndTime"].ToString(), out dtTempTime)))
 								{
-									DateTime dtCombined = dtTempDate.Date.Add(dtTempTime.TimeOfDay);
-									tbEndDateTime.Text = dtCombined.ToString("yyyy-MM-ddTHH:mm");
+									tbEndDateTime.Text = dtTempDate.ToString("yyyy-MM-dd");
+									tbEndTime.Text = dtTempTime.TimeOfDay.ToString();
 								}
 
 								foreach (ListItem liSite in ddlSiteList.Items)

@@ -223,12 +223,13 @@
                                                     <li runat="server" id="liSetupDescription"><a href="/Campaigns/Setup/Description.aspx">Description</a></li>
                                                     <li runat="server" id="liSetupCustomFields"><a href="/Campaigns/Setup/CustomFields.aspx">Custom Fields</a></li>
                                                     <li runat="server" id="liSetupAssignRoles"><a href="/Campaigns/Setup/AssignRoles.aspx">Assign Roles</a></li>
+                                                    <li runat="server" id="liSystemMenus"><a href="/Campaigns/Setup/SystemMenus.aspx">System Menus</a></li>
                                                 </ul>
                                             </li>
-                                            <li runat="server" id="liModifySkills"><a href="#" runat="server" id="A1">Skills Modify<span class="fa arrow"></span></a>
+                                            <li runat="server" id="liModifySkillsMenu"><a href="#" runat="server" id="A1">Skills Modify<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
                                                     <li runat="server" id="liSkillQualifiers"><a href="/Campaigns/Setup/Skills/SkillQualifiers.aspx">Skill Qualifiers</a></li>
-                                                    <li runat="server" id="li1"><a href="/Campaigns/Setup/Skills/ModifySkills.aspx">Modify Skills</a></li>
+                                                    <li runat="server" id="liModifySkills"><a href="/Campaigns/Setup/Skills/ModifySkills.aspx">Modify Skills</a></li>
                                                     <%--<li><a href="/Campaigns/Setup/People.aspx">People</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Places.aspx">Places</a></li>--%>
                                                     <%--<li><a href="/Campaigns/Setup/Rules.aspx">Rules</a></li>--%>
@@ -254,9 +255,9 @@
                                     <%--  Missing 19 - Scheduling--%>
                                     <%--  Missing 20 - Event scheduling--%>
 
-                                    <li><a href="#">Events<span class="fa arrow"></span></a>
+                                    <li><a href="#" runat="server" id="liEvents">Events<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
-                                            <li><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
+                                            <li runat="server" id="liEventRegistration"><a href="/Events/EventRegistration.aspx">Event Registration</a></li>
                                             <li runat="server" id="liEventRegistrationApproval"><a href="/Events/RegistrationApproval.aspx">Registration Approval</a></li>
                                             <li runat="server" id="liEventSetup"><a href="/Events/SetupEvent.aspx">Setup Event</a></li>
                                             <li runat="server" id="liEventDefaults"><a href="/Events/EventDefaults.aspx">Setup Defaults</a></li>
@@ -304,7 +305,7 @@
 
                                     <li runat="server" id="liCharacterApproveHistory"><a href="/Character/History/ApprovalList.aspx">Approve Character Histories</a></li>
 
-                                    <li><a href="#" runat="server" id="liCharacterBuildPoints">Character Build Points<span class="fa arrow"></span></a>
+                                    <li runat="server" id="liCharacterBuildPoints2"><a href="#" runat="server" id="liCharacterBuildPoints">Character Build Points<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <%--<li><a href="#">PEL Approval List</a></li>--%>
                                             <%--<li><a href="#">Setup Standard Points</a></li>--%>
@@ -340,33 +341,33 @@
                                         <asp:Image ID="Image2" runat="server" ImageUrl="~/images/Characters.png" Width="16px" />
                                         Characters<span class="fa arrow"></span></a>
                                         <ul class="nav nav-second-level">
-                                            <li><a href="/Character/CharInfo.aspx">Character Info</a></li>
-                                            <li><a href="#">Teams<span class="fa arrow"></span></a>
+                                            <li runat="server" id="liCharacterInfo"><a href="/Character/CharInfo.aspx">Character Info</a></li>
+                                            <li><a href="#" runat="server" id="liTeams">Teams<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
-                                                    <li><a href="/Character/Teams/CreateTeam.aspx">Create A Team</a></li>
-                                                    <li><a href="/Character/Teams/JoinTeam.aspx">Join A Team</a></li>
-                                                    <li><a href="/Character/Teams/ManageTeams.aspx">Manage A Team</a></li>
+                                                    <li runat="server" id="liCreateATeam"><a href="/Character/Teams/CreateTeam.aspx">Create A Team</a></li>
+                                                    <li runat="server" id="liJoinATeam"><a href="/Character/Teams/JoinTeam.aspx">Join A Team</a></li>
+                                                    <li runat="server" id="liManageATeam"><a href="/Character/Teams/ManageTeams.aspx">Manage A Team</a></li>
                                                 </ul>
                                                 <!-- /.nav-third-level -->
                                             </li>
-                                            <li><a href="/Character/CharSkills.aspx">Skills</a></li>
+                                            <li><a runat="server" id="liSkills" href="/Character/CharSkills.aspx">Skills</a></li>
                                             <li runat="server" id="liIBSkills"><a href="#">In-between Skills<span class="fa arrow"></span></a>
                                                 <ul class="nav nav-third-level">
-                                                    <li><a href="/Character/ISkills/Requests.aspx">Information Skills</a></li>
+                                                    <li><a  runat="server" id="liInfoSkills" href="/Character/ISkills/Requests.aspx">Information Skills</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="/Character/History/Edit.aspx">History</a></li>
-                                            <li><a href="/Character/CharRelationships.aspx">Relationships</a></li>
-                                            <li><a href="/Character/CharPlaces.aspx">Places</a></li>
-                                            <li><a href="/Character/CharItems.aspx">Items</a></li>
-                                            <li><a href="/Character/CharGoalsPreferences.aspx">Goals &amp; Preferences</a></li>
-                                            <li><a href="/Character/CharCardCustomization.aspx">Card Customization</a></li>
-                                            <li><a href="/Character/CharCardOrder.aspx">Card Order</a></li>
-                                            <li><a href="/Character/CharCard.aspx" target="123">Preview Character Card</a></li>
-                                            <li><a href="/Character/CharAdd.aspx">Add New Character</a></li>
-                                            <li><a href="/Character/SkillSets.aspx">Skill Sets</a></li>
-                                            <li><a href="/PELs/PELList.aspx">View PELs</a></li>
-                                            <li><a href="/Events/EventRegistration.aspx">Register for an Event</a></li>
+                                            <li runat="server" id="liHistory"><a href="/Character/History/Edit.aspx">History</a></li>
+                                            <li runat="server" id="liRelationships"><a href="/Character/CharRelationships.aspx">Relationships</a></li>
+                                            <li runat="server" id="liPlaces"><a href="/Character/CharPlaces.aspx">Places</a></li>
+                                            <li runat="server" id="liItems"><a href="/Character/CharItems.aspx">Items</a></li>
+                                            <li runat="server" id="liGoalsPref"><a href="/Character/CharGoalsPreferences.aspx">Goals &amp; Preferences</a></li>
+                                            <li runat="server" id="liCardCustom"><a href="/Character/CharCardCustomization.aspx">Card Customization</a></li>
+                                            <li runat="server" id="liCardOrder"><a href="/Character/CharCardOrder.aspx">Card Order</a></li>
+                                            <li runat="server" id="liPreviewCharCard"><a href="/Character/CharCard.aspx" target="123">Preview Character Card</a></li>
+                                            <li runat="server" id="liAddANewChar"><a href="/Character/CharAdd.aspx">Add New Character</a></li>
+                                            <li runat="server" id="liSkillSets"><a href="/Character/SkillSets.aspx">Skill Sets</a></li>
+                                            <li runat="server" id="liViewPELs"><a href="/PELs/PELList.aspx">View PELs</a></li>
+                                            <li runat="server" id="liRegForEvent"><a href="/Events/EventRegistration.aspx">Register for an Event</a></li>
                                         </ul>
                                         <!-- /.nav-second-level -->
                                     </li>
@@ -378,28 +379,28 @@
                                     </ul>
                                     <!-- /.nav-second-level -->
                                 </li>
-                                <li><a href="#">
+                                <li><a href="#" runat="server" id="liPoints">
                                     <asp:Image ID="Image3" runat="server" ImageUrl="~/images/Points.png" Width="16px" />
                                     Points<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
-                                        <li><a href="/Points/MemberPointsView.aspx">View Points</a></li>
+                                        <li runat="server" id="liViewPoints"><a href="/Points/MemberPointsView.aspx">View Points</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">
+                                <li><a href="#" runat="server" id="liCalendar">
                                     <asp:Image ID="Image4" runat="server" ImageUrl="~/images/Calendar.png" Width="16px" />
                                     Calendar<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
-                                        <li><a href="/Calendar/MonthCalendar.aspx">Calendar</a></li>
-                                        <li><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
+                                        <li runat="server" id="liMonthCalendar"><a href="/Calendar/MonthCalendar.aspx">Calendar</a></li>
+                                        <li runat="server" id="liCalendardReport"><a href="/Calendar/CalReport.aspx">Calendar Report</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/Reports/ReportList.aspx">
+                                <li><a runat="server" id="liReports" href="/Reports/ReportList.aspx">
                                     <asp:Image ID="Image5" runat="server" ImageUrl="~/images/Reports.png" Width="16px" />
                                     Reports</a></li>
 <%--                                <li><a href="/WhatIsLARPing.aspx">
                                     <asp:Image ID="Image8" runat="server" ImageUrl="~/images/LARPing.png" Width="16px" />
                                     LARPing</a></li>--%>
-                                <li><a href="/HowToVideos.aspx">
+                                <li><a runat="server" id="liHowToVideos" href="/HowToVideos.aspx">
                                     <i class="fa fa-youtube-play"></i> How To Videos</a></li>
 
                                 </ul>

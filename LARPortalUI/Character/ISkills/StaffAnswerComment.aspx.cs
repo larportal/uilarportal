@@ -270,7 +270,7 @@ namespace LarpPortal.Character.ISkills
 
                         SortedList sAvailAssigned = new SortedList();
                         sAvailAssigned.Add("@CampaignID", hidCampaignID.Value);
-                        sAvailAssigned.Add("@RoleID", Classes.cConstants.CAMPAIGN_PLOT_4.Replace("/", ""));
+                        sAvailAssigned.Add("@RoleID", Classes.cConstants.Roles.Campaign.PLOT_4.Replace("/", ""));
                         DataTable dtAssignedTo = cUtilities.LoadDataTable("uspGetPlayersForRole", sAvailAssigned, "LARPortal", Master.UserName, lsRoutineName + ".GetStatuses");
                         DataView dvAssignedTo = new DataView(dtAssignedTo, "", "PlayerNameLastFirst", DataViewRowState.CurrentRows);
                         ddlAssignedTo.DataSource = dvAssignedTo;

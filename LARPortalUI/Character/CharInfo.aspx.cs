@@ -699,7 +699,7 @@ namespace LarpPortal.Character
             string sRoleString = Session["RoleString"].ToString();
 
             if ((bSuperUser) ||
-                (sRoleString.Contains(Classes.cConstants.CAMPAIGN_PLOT_4)))
+                (sRoleString.Contains(Classes.cConstants.Roles.Campaign.PLOT_4)))
             {
                 tbCharType.Visible = false;
                 ddlCharType.SelectedValue = CharInfo.CharType.CharacterTypeID.ToString();
