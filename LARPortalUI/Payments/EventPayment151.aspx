@@ -47,10 +47,11 @@
                         </asp:Panel>
 
                         <asp:Panel ID="pnlPCFood" runat="server" Visible="false">
-                            <div>Select meal option - All meals cost $30</div>
+                            <%--<div>Select meal option - All meals cost $30</div>--%>
+                            <div>Select meal option - Meals are included in the price.</div>
                             <asp:RadioButtonList ID="rblPCFoodChoice" runat="server" RepeatDirection="Vertical">
-                                <asp:ListItem Selected="True" Value="0">I will provide my own meals.</asp:ListItem>
-                                <asp:ListItem Value="1">I would like to purchase the Vegan option.</asp:ListItem>
+                                <%--<asp:ListItem Selected="True" Value="0">I will provide my own meals.</asp:ListItem>--%>
+                                <asp:ListItem Selected="True" Value="1">I would like to purchase the Vegan option.</asp:ListItem>
                                 <asp:ListItem Value="2">I would like to purchase the Meat option.</asp:ListItem>
                             </asp:RadioButtonList>
                             <br /><br />
@@ -68,7 +69,7 @@
                                         <div class="panel-body NoPadding">
                                             <div class="panel-container NoPadding">
                                                 <asp:Label ID="lblPageText" runat="server">
-                                                Myth events are $95.00, $75.00 if it's your first event. 
+                                                Myth events are $125.00, $75.00 if it's your first event. 
                                                 You can pay through PayPal.<br /><br />
                                                 Payment must be made at time of registration. <br /><br />
                                                 Click payment button to pay now or Cancel Registration to register later.<br /><br />

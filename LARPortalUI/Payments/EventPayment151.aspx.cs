@@ -2,12 +2,8 @@
 using System.Collections;
 using System.Data;
 using System.Reflection;
-using System.Security.Principal;
 using System.Web.UI;
 using LarpPortal.Classes;
-using LarpPortal.Webservices;
-using Org.BouncyCastle.Asn1.X509;
-using static System.Collections.Specialized.BitVector32;
 
 namespace LarpPortal.Payments
 {
@@ -106,11 +102,13 @@ namespace LarpPortal.Payments
                             {
                                 if (CurrDT > EarlyPaymentDate)
                                 {
-                                    PayPalTotal = 125;
+                                    //PayPalTotal = 125;
+                                    PayPalTotal = 150;
                                 }
                                 else
                                 {
-                                    PayPalTotal = 95;
+                                    //PayPalTotal = 95;
+                                    PayPalTotal = 125;
                                 }
                             }
 
@@ -138,11 +136,11 @@ namespace LarpPortal.Payments
                             {
                                 case "1":
                                     PPItemName += " / Vegan Meal Plan ($30)";
-                                    PayPalTotal += 30;
+                                    //PayPalTotal += 30;    // Now included
                                     break;
                                 case "2":
                                     PPItemName += " / Meat Meal Plan ($30)";
-                                    PayPalTotal += 30;
+                                    //PayPalTotal += 30;    // Now included
                                     break;
                                 default:
                                     break;
