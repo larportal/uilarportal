@@ -13,6 +13,7 @@ namespace LarpPortal.Points
     {
 
         public Boolean ForceReload = false;
+        public int intCampaignID = 0;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -36,10 +37,22 @@ namespace LarpPortal.Points
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
             Session["ActiveLeftNav"] = "PointsView";
+
+            intCampaignID = Master.CampaignID;
+            if (Session["DashboardCampaignID"] != null)
+            {
+                int itemp;
+                if (int.TryParse(Session["DashboardCampaignID"].ToString(), out itemp))
+                {
+                    intCampaignID = itemp;
+                }
+                Session.Remove("DashboardCampaignID");
+            }
+
             if (!IsPostBack || ForceReload)
             {
-                ShowCPTransfer(Master.CampaignID);
-                ddlPointTypeLoad(Master.CampaignID);
+                ShowCPTransfer(intCampaignID);
+                ddlPointTypeLoad(intCampaignID);
                 BuildCPAuditTable(Master.UserID);
             }
         }
@@ -48,7 +61,7 @@ namespace LarpPortal.Points
 
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
-            Classes.cCampaignBase campaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+            Classes.cCampaignBase campaign = new Classes.cCampaignBase(intCampaignID, Master.UserName, Master.UserID);
             if (campaign.AllowCPDonation)
             {
                 Session["AllowCPTransfer"] = "true";
@@ -100,14 +113,14 @@ namespace LarpPortal.Points
 
             int CampaignID = 0;
             int CharacterID = 0;
-            CampaignID = Master.CampaignID;
+            CampaignID = intCampaignID;
             bool AllowCPDonation = false;
             string CampaignDDL = "";
 
-            Classes.cCampaignBase Campaign = new Classes.cCampaignBase(Master.CampaignID, Master.UserName, Master.UserID);
+            Classes.cCampaignBase Campaign = new Classes.cCampaignBase(intCampaignID, Master.UserName, Master.UserID);
             AllowCPDonation = Campaign.AllowCPDonation;
 
-            CampaignDDL = Master.CampaignName;
+            CampaignDDL = Campaign.CampaignName;
             Classes.cTransactions CPAudit = new Classes.cTransactions();
             DataTable dtCPAudit = new DataTable();
             dtCPAudit = CPAudit.GetCPAuditList(UserID, CampaignID, CharacterID);
@@ -268,7 +281,7 @@ namespace LarpPortal.Points
                         BankedCP = dTemp;
                     sParams.Add("@UserID", UserID);
                     sParams.Add("@CampaignPlayerID", CampaignPlayerID);
-                    sParams.Add("@CampaignID", Master.CampaignID);
+                    sParams.Add("@CampaignID", intCampaignID);
                     sParams.Add("@PlayerCPAuditID", PlayerCPAuditID);
                     sParams.Add("@CPToCampaignPlayerID", ToCampaignPlayerID);
                     sParams.Add("@CPValue", BankedCP);
@@ -423,7 +436,7 @@ namespace LarpPortal.Points
         {
             int CampaignID = 0;
             int CharacterID = 0;
-            CampaignID = Master.CampaignID;
+            CampaignID = intCampaignID;
 
             string CampaignDDL = "";
             CampaignDDL = Master.CampaignName;

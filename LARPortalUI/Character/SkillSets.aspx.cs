@@ -62,6 +62,7 @@ namespace LarpPortal.Character
 			DropDownList ddlSkillSetType = new DropDownList();
 			HiddenField hidSkillSetTypeID = new HiddenField();
 			HiddenField hidSkillSetName = new HiddenField();
+			HiddenField hidIsPrimary = new HiddenField();
 
 			TextBox tbSkillSetName = new TextBox();
 			Label lblDuplicate = new Label();
@@ -76,6 +77,7 @@ namespace LarpPortal.Character
 			dtValues.Columns.Add("CampaignID", typeof(string));
 			dtValues.Columns.Add("SkillSetType", typeof(string));
 			dtValues.Columns.Add("OrigSkillSetTypeID", typeof(string));
+			dtValues.Columns.Add("IsPrimary", typeof(string));
 			dtValues.Columns.Add("Duplicate", typeof(string));
 			dtValues.Columns.Add("TooManyPrimary", typeof(string));
 
@@ -89,6 +91,7 @@ namespace LarpPortal.Character
 				hidCampaignID = (HiddenField) gRow.FindControl("hidCampaignID");
 				ddlSkillSetType = (DropDownList) gRow.FindControl("ddlSkillSetType");
 				hidSkillSetTypeID = (HiddenField) gRow.FindControl("hidSkillSetTypeID");
+				hidIsPrimary = (HiddenField)gRow.FindControl("hidIsPrimary");
 				tbSkillSetName = (TextBox) gRow.FindControl("tbSkillSetName");
 				hidSkillSetName = (HiddenField) gRow.FindControl("hidSkillSetName");
 				lblDuplicate = (Label) gRow.FindControl("lblDuplicate");
@@ -102,7 +105,8 @@ namespace LarpPortal.Character
 					(hidCharacterID != null) &&
 					(hidCampaignID != null) &&
 					(ddlSkillSetType != null) &&
-					(hidSkillSetTypeID != null))
+					(hidSkillSetTypeID != null) &&
+					(hidIsPrimary != null))
 				{
 					DataRow dNewRow = dtValues.NewRow();
 					dNewRow["RowID"] = iRowCounter++;
@@ -113,6 +117,7 @@ namespace LarpPortal.Character
 					dNewRow["CampaignID"] = hidCampaignID.Value;
 					dNewRow["SkillSetType"] = ddlSkillSetType.SelectedItem.Value;
 					dNewRow["OrigSkillSetTypeID"] = hidSkillSetTypeID.Value;
+					dNewRow["IsPrimary"] = hidIsPrimary.Value;
 					dNewRow["Duplicate"] = "N";
 					dNewRow["TooManyPrimary"] = "N";
 					dtValues.Rows.Add(dNewRow);
@@ -125,6 +130,8 @@ namespace LarpPortal.Character
 			string sCharacterID = "";
 			string sCampaignID = "";
 			string sSkillSetType = "";
+			string sTemp = "";
+			bool bIsPrimary = false;
 			List<string> DupSkillNames = new List<string>();
 			List<string> PrimaryDups = new List<string>();
 
@@ -141,6 +148,9 @@ namespace LarpPortal.Character
 					sCharacterID = dtValues.Rows[iCount]["CharacterID"].ToString();
 					sCampaignID = dtValues.Rows[iCount]["CampaignID"].ToString();
 					sSkillSetType = dtValues.Rows[iCount]["SkillSetType"].ToString();
+
+					sTemp = dtValues.Rows[iCount]["IsPrimary"].ToString();
+					bool.TryParse(sTemp, out bIsPrimary);
 
 					// First check to make sure that character/campaignID/SkillSetID are unique;
 					string sRowFilter = string.Format("RowID <> '{0}' and CharacterID = '{1}' and CampaignID = '{2}' and SkillSetName = '{3}'",
@@ -162,9 +172,9 @@ namespace LarpPortal.Character
 						}
 						bDupSkillSetName = true;
 					}
-					if (sSkillSetType == "4")
+					if (bIsPrimary)
 					{
-						sRowFilter = string.Format("CharacterID = '{0}' and CampaignID = '{1}' and SkillSetType = '4'", sCharacterID, sCampaignID);
+						sRowFilter = string.Format("CharacterID = '{0}' and CampaignID = '{1}' and SkillSetType = '{2}'", sCharacterID, sCampaignID, sSkillSetType);
 						dvRows = new DataView(dtValues, sRowFilter, "", DataViewRowState.CurrentRows);
 						if (dvRows.Count > 1)
 						{

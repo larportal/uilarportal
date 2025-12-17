@@ -25,7 +25,7 @@ namespace LarpPortal.Character.ISkills
         protected void Page_PreInit(object sender, EventArgs e)
         {
             // Setting the event for the master page so that if the campaign changes, we will reload this page and also reload who the character is.
-                        Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
+            Master.CampaignChanged += new EventHandler(MasterPage_CampaignChanged);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -38,9 +38,21 @@ namespace LarpPortal.Character.ISkills
             {
                 ViewState.Remove("CurrentCharID");
 
+                int iSkillSetID = -1;
+
+                //  Check to see if a character has already been selected through the character control.
                 LarpPortal.Controls.CharacterSelect characterSelect = new LarpPortal.Controls.CharacterSelect();
                 if (characterSelect.SkillSetID.HasValue)
-                    ViewState["SkillSetID"] = characterSelect.SkillSetID.Value;
+                    iSkillSetID = characterSelect.SkillSetID.Value;
+
+                //  If we came from the dashboard, it overrides the character selector.
+                if (Session["DashboardSkillSetID"] != null)
+                {
+                    int iTemp;
+                    if (int.TryParse(Session["DashboardSkillSetID"].ToString(), out iTemp))
+                        iSkillSetID = iTemp;
+                    Session.Remove("DashboardSkillSetID");
+                }
 
                 SortedList sParams = new SortedList();
                 sParams.Add("@intUserID", Master.UserID);
@@ -51,16 +63,13 @@ namespace LarpPortal.Character.ISkills
                 ddlCharacterList.DataValueField = "CharacterSkillSetID";
                 ddlCharacterList.DataBind();
                 bool bFoundIt = false;
-                if (characterSelect.SkillSetID.HasValue)
+                foreach (ListItem lItem in ddlCharacterList.Items)
                 {
-                    foreach (ListItem lItem in ddlCharacterList.Items)
+                    if (lItem.Value == iSkillSetID.ToString())
                     {
-                        if (lItem.Value == characterSelect.SkillSetID.Value.ToString())
-                        {
-                            ddlCharacterList.ClearSelection();
-                            lItem.Selected = true;
-                            bFoundIt = true;
-                        }
+                        ddlCharacterList.ClearSelection();
+                        lItem.Selected = true;
+                        bFoundIt = true;
                     }
                 }
                 if (!bFoundIt)

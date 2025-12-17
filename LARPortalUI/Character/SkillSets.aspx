@@ -60,6 +60,7 @@
                                             <asp:HiddenField ID="hidCharacterID" runat="server" Value='<%# Eval("CharacterID") %>' />
                                             <asp:HiddenField ID="hidCampaignID" runat="server" Value='<%# Eval("CampaignID") %>' />
                                             <asp:HiddenField ID="hidSkillSetName" runat="server" Value='<%# Eval("CharacterSkillSetName") %>' />
+                                            <asp:HiddenField ID="hidIsPrimary" runat="server" Value='<%# Eval("IsPrimary") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Character Name">

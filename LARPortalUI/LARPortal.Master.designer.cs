@@ -78,6 +78,33 @@ namespace LarpPortal
         protected global::System.Web.UI.WebControls.Label lblRoles;
 
         /// <summary>
+        /// hlBlogs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlBlogs;
+
+        /// <summary>
+        /// hlNwwsletters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlNwwsletters;
+
+        /// <summary>
+        /// hlALA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlALA;
+
+        /// <summary>
         /// lblUserName control.
         /// </summary>
         /// <remarks>

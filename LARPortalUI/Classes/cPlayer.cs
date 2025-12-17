@@ -13,6 +13,7 @@ using System.Collections;
 //   JBradshaw  3/31/2017  Changes for LARP Resume. Also made the supporting tables loaded in the original SP so it's faster.
 //   JBradshaw  5/13/2018  We were getting some errors on the constructor because the DOB wasn't a date. Changed everything
 //                         that was a Convert.To or .ToInt to TryParse.
+//   JBradshaw  11/15/2025 Added HomeScreen option.
 namespace LarpPortal.Classes
 {
     public class cPlayer
@@ -67,6 +68,8 @@ namespace LarpPortal.Classes
         public List<cPlayerAffiliation> PlayerAffiliations = new List<cPlayerAffiliation>();
         public List<cPlayerMedical> PlayerMedical = new List<cPlayerMedical>();
         public List<cPlayerLimitation> PlayerLimitation = new List<cPlayerLimitation>();
+        public string HomeScreen { get; set; }                                  //  JLB  11/15/2025
+
         public DateTime DateAdded;
         public DateTime DateChanged;
 
@@ -149,6 +152,7 @@ namespace LarpPortal.Classes
             LARPResumeComments = "";
             ResumeComments = "";
             MedicalComments = "";
+            HomeScreen = "Classic";
             DateAdded = DateTime.Now;
             DateChanged = DateTime.Now;
         }
@@ -181,6 +185,7 @@ namespace LarpPortal.Classes
             Allergies = "";
             Comments = "";
             MedicalComments = "";
+            HomeScreen = "Classic";                                         //  JLB  11/15/2025
             DateAdded = DateTime.Now;
             DateChanged = DateTime.Now;
 
@@ -244,6 +249,7 @@ namespace LarpPortal.Classes
                     LARPResumeComments = dRow["LARPResumeComments"].ToString();
                     ResumeComments = dRow["ResumeComments"].ToString();
                     MedicalComments = dRow["MedicalComments"].ToString();
+                    HomeScreen = dRow["HomeScreen"].ToString();                                 //  JLB  11/15/2025
 
 					if (DateTime.TryParse(dRow["DateAdded"].ToString(), out dtTemp))
 						DateAdded = dtTemp;
@@ -305,6 +311,7 @@ namespace LarpPortal.Classes
                 slParams.Add("@LARPResumeComments", LARPResumeComments);
                 slParams.Add("@ResumeComments", ResumeComments);
                 slParams.Add("@MedicalComments", MedicalComments);
+                slParams.Add("@HomeScreen", HomeScreen);                                //  JLB  11/15/2025
                 blnReturn = cUtilities.PerformNonQueryBoolean("uspInsUpdPLPlayerProfiles", slParams, "LARPortal", UserName);
             }
             catch (Exception ex)

@@ -25,7 +25,17 @@ namespace LarpPortal.PELs
             SortedList sParams = new SortedList();
 
             sParams.Add("@UserID", Master.UserID);
-            sParams.Add("@CampaignID", Master.CampaignID);
+
+            int iCampaignID = Master.CampaignID;
+            if (Session["DashboardCampaignID"] != null)
+            {
+                int iTemp;
+                if (int.TryParse(Session["DashboardCampaignID"].ToString(), out iTemp))
+                    iCampaignID = iTemp;
+                Session.Remove("DashboardCampaignID");
+            }
+
+            sParams.Add("@CampaignID", iCampaignID);
 
             dtPELs = Classes.cUtilities.LoadDataTable("uspGetPELsForUser", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetPELsForUser");
 

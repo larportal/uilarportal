@@ -74,6 +74,10 @@
             padding-bottom: 3px;
             margin-right: -10px;
         }
+
+        .NavButton:visited {
+            color: white;
+        }
     </style>
 
     <!-- Custom Theme JavaScript -->
@@ -155,12 +159,22 @@
                     <a class="navbar-brand" href="/Default.aspx" style="padding-top: 10px; padding-left: 5px;">LARP Portal <span class="tagline">The Gateway To Managing Your LARPs</span></a>
                 </div>
                 <ul class="links list-inline">
+<%--                    <ul class="navbar-nav mx-auto">--%>
                     <li>
                         <asp:Label ID="lblMessage" runat="server" />
                     </li>
                     <li>
                         <%-- Role list will be transparent unless a super user.--%>
                         <asp:Label ID="lblRoles" runat="server" ForeColor="Transparent" />
+                    </li>
+                    <li>
+                        <asp:Hyperlink id="hlBlogs" runat="server" Text="Blogs" CssClass="NavButton" Target="_blank" Font-Size="13px" Style="margin-right: 50px;" NavigateUrl="https://larportal.com/blog.php" />
+                    </li>
+                    <li>
+                        <asp:Hyperlink id="hlNwwsletters" runat="server" Text="Newsletters" CssClass="NavButton" Target="_blank" Font-Size="13px" Style="margin-right: 50px;" NavigateUrl="https://larportal.com/newsletters.php" />
+                    </li>
+                    <li>
+                        <asp:Hyperlink id="hlALA" runat="server" Text="American LARP Awards" CssClass="NavButton" Target="_blank" Font-Size="13px" Style="margin-right: 50px;" NavigateUrl="https://larportal.com/americanlarpawards.php" />
                     </li>
                     <li>
                         <asp:Label ID="lblUserName" runat="server" /></li>
@@ -186,8 +200,8 @@
                                         </div>
                                     </li>
                                     <li><a href="/Default.aspx">
-                                        <asp:Image ID="Image7" runat="server" ImageUrl="~/images/Campaigns.png" Width="16px" />
-                                        Home</a></li>
+                                       <asp:Image ID="Image7" runat="server" ImageUrl="~/images/Campaigns.png" Width="16px" />
+                                         Home</a></li>
                                     <li><a href="#">
                                         <asp:Image ID="Image6" runat="server" ImageUrl="~/images/Player.png" Width="16px" />
                                         Player<span class="fa arrow"></span></a>

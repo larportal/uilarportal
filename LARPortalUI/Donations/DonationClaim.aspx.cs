@@ -18,8 +18,8 @@ namespace LarpPortal.Donations
             {
                 SetCampaignPlayerID();
                 CampaignDonationSettings();
-                gvDonationList.DataSource = GetData("uspGetDonations", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString, Master.UserID);
-                gvDonationList.DataBind();
+                //gvDonationList.DataSource = GetData("uspGetDonations", Master.CampaignID, "", "", "", Master.UserName, Master.RoleString, Master.UserID);
+                //gvDonationList.DataBind();
             }
         }
 
@@ -71,8 +71,17 @@ namespace LarpPortal.Donations
             MethodBase lmth = MethodBase.GetCurrentMethod();
             string lsRoutineName = lmth.DeclaringType + "." + lmth.Name;
 
+            int iCampaignID = Master.CampaignID;
+
             SortedList sParams = new SortedList();
-            sParams.Add("@CampaignID", Master.CampaignID);
+            if (Session["DashboardCampaignID"] != null)
+            {
+                int iTemp;
+                if (int.TryParse(Session["DashboardCampaignID"].ToString(), out iTemp))
+                    iCampaignID = iTemp;
+                Session.Remove("DashboardCampaignID");
+            }
+            sParams.Add("@CampaignID", iCampaignID);
             sParams.Add("@EventID", ddlEvent.SelectedValue);
             sParams.Add("@StatusID", ddlDonationStatus.SelectedValue);
             sParams.Add("@Roles", Master.RoleString);
@@ -85,8 +94,8 @@ namespace LarpPortal.Donations
 
             // Default setting
             DataView dvDonations = new DataView(dtDonations, sRowFilter, "EventID desc, StatusID", DataViewRowState.CurrentRows);
-            gvDonationList.DataSource = dvDonations;
-            gvDonationList.DataBind();
+            //gvDonationList.DataSource = dvDonations;
+            //gvDonationList.DataBind();
 
             if (!IsPostBack)
             {
@@ -107,8 +116,9 @@ namespace LarpPortal.Donations
 
                 view = new DataView(dtDonations);   //, sRowFilter, "EventID", DataViewRowState.CurrentRows);
                 DataTable dtEvent = view.ToTable(true, "EventID", "EventDate");
+                DataView dvEvent = new DataView(dtEvent, "", "EventDate", DataViewRowState.CurrentRows);
 
-                ddlEvent.DataSource = dtEvent;
+                ddlEvent.DataSource = dvEvent;
                 ddlEvent.DataTextField = "EventDate";
                 ddlEvent.DataTextFormatString = "{0:MM/dd/yyyy}";
                 ddlEvent.DataValueField = "EventID";
@@ -116,9 +126,43 @@ namespace LarpPortal.Donations
                 ddlEvent.Items.Insert(0, new ListItem("No Filter", ""));
                 ddlEvent.SelectedIndex = -1;
 
+                if (Session["DashboardLatestEvent"] != null)
+                {
+                    //  We came from the dashboard so we need to find the next event and filter down to that.
+                    int iEventID = -1;
+                    int iTemp;
+                    //  EventDate greater than or equal to today.
+                    string rRowFilter = "EventDate >= '" + DateTime.Today.Month.ToString() + "/" +
+                        DateTime.Today.Day.ToString() + "/" +
+                        DateTime.Today.Year.ToString() + "'";
+                    DataView dvDates = new DataView(dtEvent, rRowFilter, "EventDate", DataViewRowState.CurrentRows);
+                    if (dvDates.Count > 0)
+                    {
+                        //  There is an event after today.
+                        if (int.TryParse(dvDates[0]["EventID"].ToString(), out iTemp))
+                        {
+                            iEventID = iTemp;
+                            //  Go through the ddl of events finding the correct one.
+                            foreach (ListItem lItem in ddlEvent.Items)
+                            {
+                                if (lItem.Value.ToString() == iEventID.ToString())
+                                {
+                                    ddlEvent.ClearSelection();
+                                    lItem.Selected = true;
+                                }
+                            }
+                            dvDonations.RowFilter = "EventID = " + iEventID.ToString();
+                        }
+                    }
+                    //  We only do this on the first time through.
+                    Session.Remove("DashboardLatestEvent");
+                }
+
                 if (ddlEvent.SelectedIndex == -1)     // Didn't find what was selected.
                     ddlEvent.SelectedIndex = 0;
             }
+            gvDonationList.DataSource = dvDonations;
+            gvDonationList.DataBind();
         }
 
         int GetColumnIndexByName(GridViewRow row, string columnName)

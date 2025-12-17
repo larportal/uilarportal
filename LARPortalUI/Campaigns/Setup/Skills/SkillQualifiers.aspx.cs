@@ -356,10 +356,10 @@ namespace LarpPortal.Campaigns.Setup.Skills
 
 			_dtCampaignSkills = dsSkillSets.Tables[0];
 
-			Session["SkillNodes"] = _dtCampaignSkills;
-			Session["NodePrerequisites"] = dsSkillSets.Tables[1];
-			Session["SkillTypes"] = dsSkillSets.Tables[2];
-			Session["NodeExclusions"] = dsSkillSets.Tables[3];
+			//Session["SkillNodes"] = _dtCampaignSkills;
+			//Session["NodePrerequisites"] = dsSkillSets.Tables[1];
+			//Session["SkillTypes"] = dsSkillSets.Tables[2];
+			//Session["NodeExclusions"] = dsSkillSets.Tables[3];
 
 			tvDisplaySkills.Nodes.Clear();
 			tvDisplaySkills.ShowCheckBoxes = TreeNodeTypes.None;

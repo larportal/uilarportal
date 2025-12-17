@@ -106,6 +106,8 @@
     <Content Include="Calendar\CalReport.aspx" />
     <Content Include="Campaigns\SearchCampaigns.aspx" />
     <Content Include="Campaigns\Setup\SystemMenus.aspx" />
+    <Content Include="Dashboard.aspx" />
+    <Content Include="images\Dashboard.png" />
     <Content Include="NoCurrentCampaignAssociations.aspx" />
     <Content Include="Profile\myCampaigns.aspx" />
     <Content Include="Campaigns\Setup\AssignRoles.aspx" />
@@ -1462,6 +1464,13 @@
     </Compile>
     <Compile Include="Campaigns\Setup\SystemMenus.aspx.designer.cs">
       <DependentUpon>SystemMenus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="NoCurrentCampaignAssociations.aspx.cs">
       <DependentUpon>NoCurrentCampaignAssociations.aspx</DependentUpon>

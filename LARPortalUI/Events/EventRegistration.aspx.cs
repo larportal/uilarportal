@@ -48,7 +48,18 @@ namespace LarpPortal.Events
 
                 SortedList sParams = new SortedList();
                 DataTable dtPlayerList = new DataTable();
-                sParams.Add("@CampaignID", Master.CampaignID);
+
+                int iCampaignID = Master.CampaignID;
+                if (Session["DashboardCampaignID"] != null)
+                {
+                    int iTemp;
+                    if (int.TryParse(Session["DashboardCampaignID"].ToString(), out iTemp))
+                        iCampaignID = iTemp;
+                    Session.Remove("DashboardCampaignID");
+                }
+
+                //                sParams.Add("@CampaignID", Master.CampaignID);
+                sParams.Add("@CampaignID", iCampaignID);
                 sParams.Add("@LoggedInUserID", Master.UserID);
                 dtPlayerList = Classes.cUtilities.LoadDataTable("uspGetCampaignPlayers", sParams, "LARPortal", Master.UserName, lsRoutineName + ".uspGetCampaignPlayers");
                 DataView dvPlayerList = new DataView(dtPlayerList, "", "PlayerName", DataViewRowState.CurrentRows);
@@ -59,7 +70,8 @@ namespace LarpPortal.Events
                 ddlPlayerName.DataBind();
 
                 sParams = new SortedList();
-                sParams.Add("@CampaignID", Master.CampaignID);
+                //                sParams.Add("@CampaignID", Master.CampaignID);
+                sParams.Add("@CampaignID", iCampaignID);
                 DataSet dtEventInfo = Classes.cUtilities.LoadDataSet("uspGetEventInfo", sParams, "LARPortal", Master.UserName, lsRoutineName);
 
                 dtEventInfo.Tables[0].TableName = "EventInfo";
@@ -94,6 +106,22 @@ namespace LarpPortal.Events
                     ddlEventDate.DataValueField = "EventID";
                     ddlEventDate.DataBind();
 
+                    if (Session["DashboardEventID"] != null)
+                    {
+                        int iEventID;
+                        if (int.TryParse(Session["DashboardEventID"].ToString(), out iEventID))
+                        {
+                            foreach (ListItem liEvent in ddlEventDate.Items)
+                            {
+                                if (liEvent.Value == iEventID.ToString())
+                                {
+                                    ddlEventDate.ClearSelection();
+                                    liEvent.Selected = true;
+                                }
+                            }
+                        }
+                        Session.Remove("DashboardEventID");
+                    }
                     ddlEventDate_SelectedIndexChanged(null, null);
                 }
             }

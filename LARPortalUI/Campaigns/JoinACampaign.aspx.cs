@@ -440,6 +440,7 @@ namespace LarpPortal.Campaigns
             btnSignUpForCampaign.Visible = false;
             lblSignUpMessage.Text = "Request submitted. Choose more campaigns or <a id=\"" + "lnkReturnToMember " + "\"href=\"" + "CampaignInfo.aspx\"" + ">return to the member section.</a>";
             lblSignUpMessage.Visible = true;
+            Session["ReloadCampaigns"] = "Y";
         }
 
         protected void CreatePlayerInCampaign(int UserID, int CampaignID)
@@ -447,6 +448,7 @@ namespace LarpPortal.Campaigns
             Classes.cUserCampaign UserCampaign = new Classes.cUserCampaign();
             UserCampaign.CampaignPlayerID = -1;
             UserCampaign.CampaignID = CampaignID;
+            UserCampaign.UserDisplayMyCampaigns = true;
             UserCampaign.Save(UserID);
         }
 

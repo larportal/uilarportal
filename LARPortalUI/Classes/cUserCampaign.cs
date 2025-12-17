@@ -39,7 +39,7 @@ namespace LarpPortal.Classes
         private string _Comments = "";
 		private bool? _AllowAdditionalInfo = false;
         private bool _HasInbetweenSkills = false;
-        private bool _UserDisplayMyCampaigns = false;
+        private bool _UserDisplayMyCampaigns = true;
         private DateTime? _StaffHideUntil = null;
 
         public Int32 CampaignPlayerID
