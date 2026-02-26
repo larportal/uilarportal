@@ -59,7 +59,7 @@
                                             <div class="row PrePostPadding" runat="server">
                                                 <div>
                                                     <asp:HiddenField ID="hidItemName" runat="server" />
-                                                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_s.png" PostBackUrl="https://resurgencelarp.org/payment/" Visible="true" OnClick="btnPayPalTotal_Click" />
+                                                    <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_s.png" PostBackUrl="https://www.paypal.com/ncp/payment/ULQDVTYDEGX96" Visible="true" OnClick="btnPayPalTotal_Click" />
 
                                                 </div>
                                             </div>
