@@ -201,7 +201,11 @@ namespace LarpPortal.Donations
             // Save values
             Classes.cDonation AddDonation = new Classes.cDonation();
             int QtyNeeded = int.Parse(tbQuantityNeeded.Text);
-            double UnitReward = double.Parse(tbUnitReward.Text);
+            //double UnitReward = double.Parse(tbUnitReward.Text);
+            //
+            double UnitReward;
+            double.TryParse(tbUnitReward.Text, out UnitReward);
+            //
             DateTime ReqdBy = DateTime.Parse(tbReqdBy.Text);
             int DonationType = int.Parse(ddlDonationType.SelectedValue);
             CurrentEvent = int.Parse(Session["CurrentEvents"].ToString());

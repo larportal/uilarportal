@@ -15,7 +15,25 @@
 
     <script type="text/javascript">
 
-</script>
+        function validateDecimal4(el) {
+            let value = el.value;
+
+            // Allow only digits and decimal point
+            value = value.replace(/[^0-9.]/g, '');
+
+            // Prevent multiple decimals
+            const parts = value.split('.');
+            if (parts.length > 2)
+                value = parts[0] + '.' + parts[1];
+
+            // Limit decimal places to 4
+            if (parts.length === 2)
+                value = parts[0] + '.' + parts[1].substring(0, 4);
+
+            el.value = value;
+        }
+
+    </script>
 </asp:Content>
 <asp:Content ID="EventEditBody" ContentPlaceHolderID="MainBody" runat="server">
 
@@ -80,8 +98,8 @@
                                         <asp:Label ID="lblReward" runat="server" >Worth:</asp:Label>
                                     </div>
                                     <div class="col-lg-2">
-                                        <asp:TextBox ID="tbUnitReward" runat="server" CssClass="form-control" Text="1" />
-                                        <asp:RegularExpressionValidator ID="revUnitReward" runat="server" ControlToValidate="tbUnitReward" ErrorMessage="Numbers Only" ValidationExpression="^[1-9]\d*(\.\d+)?$" />
+                                        <asp:TextBox ID="tbUnitReward" runat="server" CssClass="form-control" Text="1" oninput="validateDecimal4(this)" />
+                                        <asp:RegularExpressionValidator ID="revUnitReward" runat="server" ControlToValidate="tbUnitReward" ErrorMessage="Numbers Only" ValidationExpression="^(\d+(\.\d{1,4})?|\.\d{1,4})$" />
                                     </div>
                                     <div class="col-lg-4">
                                         <asp:Label ID="RU" runat="server" Text="" />
