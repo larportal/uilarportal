@@ -19,7 +19,10 @@ namespace LarpPortal.Donations
         {
             CampaignDonationSettings();
             StatusID = int.Parse(hidStatusID.Value);
-            ddlDonationTypeLoad();
+            if (!IsPostBack)
+            {
+                ddlDonationTypeLoad();
+            }
             if (hidDefaultPoolDescription.Value is null)
             {
                 RU.Text = "";
@@ -30,10 +33,7 @@ namespace LarpPortal.Donations
                 RU.Text = hidDefaultPoolDescription.Value.ToString();
                 RUEdit.Text = hidDefaultPoolDescription.Value.ToString();
             }
-            if (!IsPostBack)
-            {
 
-            }
 
         }
 
