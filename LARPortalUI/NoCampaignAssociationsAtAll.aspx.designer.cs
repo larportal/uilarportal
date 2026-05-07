@@ -9,7 +9,7 @@
 
 namespace LarpPortal {
     
-    public partial class NoCurrentCampaignAssociations
+    public partial class NoCampaignAssociationsAtAll
     {
         
  

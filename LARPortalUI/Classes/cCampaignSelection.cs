@@ -1,15 +1,18 @@
-﻿using System;
+﻿using LarpPortal.Classes;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using LarpPortal.Classes;
-using System.Data;
-using System.Reflection;
-using System.Collections;
-using System.Configuration;
-using System.Data.SqlClient;
 
 namespace LarpPortal.Classes
 {
@@ -259,6 +262,108 @@ namespace LarpPortal.Classes
             return dtCampaigns;
         }
 
+        /// <summary>
+        /// This will load a table of all campaigns by name
+        /// EndDate is optional to include campaigns that have ended
+        /// </summary>
+        public DataTable LoadCampaignsFilteredAndSorted(int UserID, string State, string EndDate, int GameSystemFilter, int CampaignFilter,
+            int GenreFilter, int StyleFilter, int TechLevelFilter, int SizeFilter, string ZipCodeFilter, int RadiusFilter, string strOrderBy)                                                                           
+        {
+            string stStoredProc = "uspGetCampaignsFilteredAndSorted";
+            string stCallingMethod = "cCampaignSelections.LoadCampaignsFilteredAndSorted";
+            string strUsername = UserID.ToString();
+            SortedList slParameters = new SortedList();
+            if (String.IsNullOrEmpty(strUsername))
+            {
+                strUsername = "2";
+            }
+            if (String.IsNullOrEmpty(EndDate))
+            {
+                EndDate = "1960-01-01";  //Using an arbitrary old date that is older than any end date in the system
+            }
+
+            slParameters.Add("@GameSystemID", GameSystemID);
+            slParameters.Add("@EndDate", EndDate);
+            slParameters.Add("@GameSystemFilter", GameSystemFilter);
+            slParameters.Add("@CampaignFilter", CampaignFilter);
+            slParameters.Add("@GenreFilter", GenreFilter);
+            slParameters.Add("@StyleFilter", StyleFilter);
+            slParameters.Add("@TechLevelFilter", TechLevelFilter);
+            slParameters.Add("@SizeFilter", SizeFilter);
+            slParameters.Add("@ZipCode", ZipCodeFilter);
+            slParameters.Add("@RadiusFilter", RadiusFilter);
+            DataTable dtCampaigns = new DataTable();
+            dtCampaigns = cUtilities.LoadDataTable(stStoredProc, slParameters, "LARPortal", strUsername, stCallingMethod);
+            return dtCampaigns;
+        }
+
+        public DataSet LoadCampaignSearchData(
+            int userID,
+            string endDate,
+            int campaignFilter,
+            string stateFilter,
+            int gameSystemFilter,
+            int genreFilter,
+            int styleFilter,
+            int techLevelFilter,
+            int sizeFilter,
+            string zipCode,
+            int radiusFilter,
+            string orderBy,
+            int pageNumber,
+            int pageSize)
+        {
+            string stStoredProc = "uspGetCampaignsFilteredAndSorted";
+            string stCallingMethod = "cCampaignSelection.LoadCampaignSearchData";
+            string strUsername = userID.ToString();
+
+            SortedList slParameters = new SortedList();
+
+            slParameters.Add("@UserID", userID);
+
+            if (String.IsNullOrWhiteSpace(endDate))
+                slParameters.Add("@EndDate", DBNull.Value);
+            else
+                slParameters.Add("@EndDate", endDate);
+
+            slParameters.Add("@CampaignFilter", campaignFilter);
+
+            if (String.IsNullOrWhiteSpace(stateFilter))
+                slParameters.Add("@StateFilter", DBNull.Value);
+            else
+                slParameters.Add("@StateFilter", stateFilter);
+
+            slParameters.Add("@GameSystemFilter", gameSystemFilter);
+            slParameters.Add("@GenreFilter", genreFilter);
+            slParameters.Add("@StyleFilter", styleFilter);
+            slParameters.Add("@TechLevelFilter", techLevelFilter);
+            slParameters.Add("@SizeFilter", sizeFilter);
+
+            if (String.IsNullOrWhiteSpace(zipCode))
+                slParameters.Add("@ZipCode", DBNull.Value);
+            else
+                slParameters.Add("@ZipCode", zipCode);
+
+            slParameters.Add("@RadiusFilter", radiusFilter);
+
+            if (String.IsNullOrWhiteSpace(orderBy))
+                slParameters.Add("@OrderBy", "CampaignName");
+            else
+                slParameters.Add("@OrderBy", orderBy);
+
+            slParameters.Add("@PageNumber", pageNumber);
+            slParameters.Add("@PageSize", pageSize);
+
+
+            DataSet dsCampaigns = cUtilities.LoadDataSet(
+                stStoredProc,
+                slParameters,
+                "LARPortal",
+                strUsername,
+                stCallingMethod);
+
+            return dsCampaigns;
+        }
 
         /// <summary>
         /// This will load a table of all campaigns by name
@@ -471,5 +576,22 @@ namespace LarpPortal.Classes
             DataSet dsGenres = cUtilities.LoadDataSet("uspGetFilteredCampaigns", slParameters, "LARPortal", UserName, lsRoutineName + ".uspGetFilteredCampaigns");
             return dsGenres;
         }
+
+        public bool PostalCodeExists(string postalCode)
+        {
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["LARPortal"].ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("uspPostalCodeExists", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PostalCode", postalCode);
+
+                conn.Open();
+
+                object result = cmd.ExecuteScalar();
+
+                return result != null;
+            }
+        }
+
     }
 }

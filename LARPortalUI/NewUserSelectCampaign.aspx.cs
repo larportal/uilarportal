@@ -63,25 +63,33 @@ namespace LarpPortal
 			ddlCampaign.SelectedIndex = 0;
 		}
 
-		protected void cblRole_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			bool b = cblRole.Items.Cast<ListItem>().Any(i => i.Selected);
-			if (b == true)
-			{
-				hidRole.Value = "1";
-				if (hidCampaign.Value == "1")
-					btnSave.Visible = true;
-				else
-					btnSave.Visible = false;
-			}
-			else
-			{
-				hidRole.Value = "0";
-				btnSave.Visible = false;
-			}
-		}
+        protected void cblRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool b = cblRole.Items.Cast<ListItem>().Any(i => i.Selected);
 
-		protected void ddlCampaign_SelectedIndexChanged(object sender, EventArgs e)
+            if (b == true)
+            {
+                hidRole.Value = "1";
+                if (hidCampaign.Value == "1")
+                {
+                    btnSave.Visible = true;
+				
+                }
+                else
+                {
+                    btnSave.Visible = false;
+                }
+
+            }
+            else
+            {
+                hidRole.Value = "0";
+                btnSave.Visible = false;
+				btnContinue.Visible = true;
+            }
+        }
+
+        protected void ddlCampaign_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (ddlCampaign.SelectedIndex == 0)
 			{
@@ -204,9 +212,11 @@ namespace LarpPortal
 			CampaignPlayerID = CampaignPlayer.CampaignPlayerID; // if this comes back empty (-1) make one
 			if (CampaignPlayerID == -1)
 			{
-				CreatePlayerInCampaign(UserID, CampaignID);
+				CreatePlayerInCampaign(UserID, CampaignID);		
 				CampaignPlayer.Load(UserID, CampaignID);
 				CampaignPlayerID = CampaignPlayer.CampaignPlayerID;
+				// THIS ONE RIGHT HERE!!!!!! **************************** Do we need to set some session variables here if CampaignPlayerID is -1 or null?
+				Session["CampaignID"] = CampaignID.ToString();
 			}
 			int RoleAlignment = 2;
 			if (RoleToSignUp == 8)

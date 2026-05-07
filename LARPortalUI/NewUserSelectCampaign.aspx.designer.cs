@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LarpPortal {
-    
-    
-    public partial class NewUserSelectCampaign {
-        
+namespace LarpPortal
+{
+
+
+    public partial class NewUserSelectCampaign
+    {
+
         /// <summary>
         /// frmMainForm control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm frmMainForm;
-        
+
         /// <summary>
         /// lblPageText control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageText;
-        
+
         /// <summary>
         /// ddlCampaign control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCampaign;
-        
+
         /// <summary>
         /// cblRole control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList cblRole;
-        
+
         /// <summary>
         /// hidRole control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidRole;
-        
+
         /// <summary>
         /// hidCampaign control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidCampaign;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -74,7 +76,16 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
+        /// <summary>
+        /// btnContinue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnContinue;
+
         /// <summary>
         /// hidUsername control.
         /// </summary>
@@ -83,7 +94,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUsername;
-        
+
         /// <summary>
         /// hidUserID control.
         /// </summary>
@@ -92,7 +103,7 @@ namespace LarpPortal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidUserID;
-        
+
         /// <summary>
         /// hidMemberEmailAddress control.
         /// </summary>

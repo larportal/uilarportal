@@ -46,23 +46,30 @@ namespace LarpPortal
 
 		protected void btnSignUp_Click(object sender, EventArgs e)
 		{
-			//	if (Session["AttemptedPassword"] == null)
-			//		txtPasswordNew.Text = "";
-			//	else
-			//	{
-			//		txtPasswordNew.Text = Session["AttemptedPassword"].ToString();
-			//		txtPasswordNew.Attributes.Add("value", txtPasswordNew.Text);
-			//	}
-			//	if (Session["AttemptedPasswordRetype"] == null)
-			//		txtPasswordNewRetype.Text = "";
-			//	else
-			//	{
-			//		txtPasswordNewRetype.Text = Session["AttemptedPasswordRetype"].ToString();
-			//		txtPasswordNewRetype.Attributes.Add("value", txtPasswordNewRetype.Text);
-			//	}
-			//	if (Page.IsValid)
-			//	{
-					lblSignUpErrors.Text = "";
+            //	if (Session["AttemptedPassword"] == null)
+            //		txtPasswordNew.Text = "";
+            //	else
+            //	{
+            //		txtPasswordNew.Text = Session["AttemptedPassword"].ToString();
+            //		txtPasswordNew.Attributes.Add("value", txtPasswordNew.Text);
+            //	}
+            //	if (Session["AttemptedPasswordRetype"] == null)
+            //		txtPasswordNewRetype.Text = "";
+            //	else
+            //	{
+            //		txtPasswordNewRetype.Text = Session["AttemptedPasswordRetype"].ToString();
+            //		txtPasswordNewRetype.Attributes.Add("value", txtPasswordNewRetype.Text);
+            //	}
+            //	if (Page.IsValid)
+            //	{
+
+            if (!string.IsNullOrWhiteSpace(Request.Form["website"]))
+            {
+                // Bot detected — silently reject
+                return;
+            }
+
+            lblSignUpErrors.Text = "";
 					// 1 - No duplicate usernames allowed
 					Classes.cLogin Login = new Classes.cLogin();
 					Login.CheckForExistingUsername(txtNewUsername.Text);

@@ -3,337 +3,396 @@
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
 <asp:Content ID="JoinACampaignStyles" ContentPlaceHolderID="MainStyles" runat="server">
-    <link href="../Content/jasny-bootstrap.css" rel="stylesheet" />
+
+    <style>
+        @keyframes glowing {
+            0% {
+                background-color: #337ab7;
+                box-shadow: 0 0 3px #337ab7;
+            }
+
+            50% {
+                background-color: #f0ad4e;
+                box-shadow: 0 0 12px #f0ad4e;
+            }
+
+            100% {
+                background-color: #337ab7;
+                box-shadow: 0 0 3px #337ab7;
+            }
+        }
+
+        .button-glow {
+            animation: glowing 1300ms infinite;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .campaign-description {
+            max-height: 130px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .campaign-description-wrapper {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+        .campaign-description.expanded-description {
+            max-height: none;
+        }
+
+        .see-more-link {
+            display: inline-block;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="JoinACampaignScripts" ContentPlaceHolderID="MainScripts" runat="server">
-    <script src="../Scripts/jasny-bootstrap.min.js"></script>
+    <script>
+        function Blink() {
+            var btn = document.getElementById('<%= btnApplyFilters.ClientID %>');
+            if (!btn) return;
+
+            btn.classList.remove("button-glow");
+            void btn.offsetWidth;
+            btn.classList.add("button-glow");
+
+            var hidBlink = document.getElementById('<%= hidBlink.ClientID %>');
+            if (hidBlink) hidBlink.value = "Showing";
+        }
+
+        function updateAddCampaignButton(chk) {
+            var row = chk.closest(".campaign-row");
+            if (!row) return;
+
+            var pc = row.querySelector("input[id*='chkPC']");
+            var npc = row.querySelector("input[id*='chkNPC']");
+            var btn = row.querySelector("input[id*='btnAddCampaign']");
+
+            if (!btn) return;
+
+            var pcAvailableChecked = pc && !pc.disabled && pc.checked;
+            var npcAvailableChecked = npc && !npc.disabled && npc.checked;
+
+            btn.disabled = !(pcAvailableChecked || npcAvailableChecked);
+        }
+
+        function looksLikePostalCode(value) {
+            if (!value) return false;
+
+            value = value.trim().toUpperCase();
+
+            if (/^\d{5}(-\d{4})?$/.test(value)) return true;
+            if (/^[A-Z]\d[A-Z]\s?\d[A-Z]\d$/.test(value)) return true;
+
+            return false;
+        }
+
+        function updateDistanceState() {
+            var zipBox = document.getElementById('<%= txtZipFilter.ClientID %>');
+            var ddl = document.getElementById('<%= ddlDistanceFilter.ClientID %>');
+
+            if (!zipBox || !ddl) return;
+
+            var isValidFormat = looksLikePostalCode(zipBox.value);
+
+            if (isValidFormat) {
+                ddl.disabled = false;
+            } else {
+                ddl.selectedIndex = 0;
+                ddl.disabled = true;
+            }
+        }
+
+        function toggleDescription(link) {
+            var desc = link.previousElementSibling;
+
+            if (desc.classList.contains("expanded-description")) {
+                desc.classList.remove("expanded-description");
+                link.innerText = "See More";
+            } else {
+                desc.classList.add("expanded-description");
+                link.innerText = "See Less";
+            }
+        }
+
+        function initDescriptionToggles() {
+            var wrappers = document.querySelectorAll(".campaign-description-wrapper");
+
+            wrappers.forEach(function (w) {
+                var desc = w.querySelector(".campaign-description");
+                var link = w.querySelector(".see-more-link");
+                if (!desc || !link) return;
+
+                if (desc.scrollHeight <= desc.clientHeight + 1) {
+                    link.style.display = "none";
+                } else {
+                    link.style.display = "inline-block";
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var zipBox = document.getElementById('<%= txtZipFilter.ClientID %>');
+
+            if (zipBox) {
+                zipBox.addEventListener("input", updateDistanceState);
+                zipBox.addEventListener("input", Blink);
+            }
+
+            var filterControls = [
+                '<%= ddlNameFilter.ClientID %>',
+                '<%= ddlStateFilter.ClientID %>',
+                '<%= ddlDistanceFilter.ClientID %>',
+                '<%= ddlSystemFilter.ClientID %>',
+                '<%= ddlGenreFilter.ClientID %>',
+                '<%= ddlStyleFilter.ClientID %>',
+                '<%= ddlTechFilter.ClientID %>',
+                '<%= ddlSizeFilter.ClientID %>'
+            ];
+
+            filterControls.forEach(function (id) {
+                var ctl = document.getElementById(id);
+                if (ctl) ctl.addEventListener("change", Blink);
+            });
+
+            updateDistanceState();
+            initDescriptionToggles();
+        });
+
+        if (typeof Sys !== "undefined" && Sys.WebForms && Sys.WebForms.PageRequestManager) {
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                updateDistanceState();
+                initDescriptionToggles();
+            });
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="JoinACampaignBody" ContentPlaceHolderID="MainBody" runat="server">
-
-
-
     <div id="page-wrapper">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="header-background-image">
-                    <h1>Campaigns</h1>
-                </div>
+
+        <div class="row mb-2" style="padding-left: 5px;">
+            <div class="col-xs-12" style="font-size: 20px;">
+                <strong>Find a LARP</strong>
             </div>
         </div>
-        <div class="divide10"></div>
-        <div class="row">
 
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Search Campaigns
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-2 col-xs-12">
-                                <div class="form-group">
-                                    <label for="<%= ddlOrderBy.ClientID %>">Find By:</label>
-                                    <asp:DropDownList ID="ddlOrderBy" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlOrderBy_SelectedIndexChanged" CssClass="form-control">
-                                        <asp:ListItem>Game System</asp:ListItem>
-                                        <asp:ListItem>Campaign</asp:ListItem>
-                                        <asp:ListItem>Genre</asp:ListItem>
-                                        <asp:ListItem>Style</asp:ListItem>
-                                        <asp:ListItem>Tech Level</asp:ListItem>
-                                        <asp:ListItem>Size</asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div class="margin10"></div>
+        <div style="height: 3px; background-color: darkblue; width: 100%; margin: 5px"></div>
 
-                                <p><b>Filter By:</b> (Choose multiple options to narrow the search):</p>
+        <div class="row mb-2" style="padding-left: 5px;">
+            <div class="col-xs-12">
+                <strong>FILTERS</strong>
+                <asp:HiddenField ID="hidBlink" runat="server" />
+            </div>
+        </div>
 
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkGameSystem" runat="server" AutoPostBack="true" OnCheckedChanged="chkGameSystem_CheckedChanged" />
-                                                Game System:
-                                            </label>
-                                            <asp:DropDownList ID="ddlGameSystem" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlGameSystem_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkCampaign" runat="server" AutoPostBack="true" OnCheckedChanged="chkCampaign_CheckedChanged" />
-                                                Campaign:
-                                            </label>
-                                            <asp:DropDownList ID="ddlCampaign" runat="server" Visible="false" OnSelectedIndexChanged="ddlCampaign_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkGenre" runat="server" AutoPostBack="true" OnCheckedChanged="chkGenre_CheckedChanged" />
-                                                Genre:
-                                            </label>
-                                            <asp:DropDownList ID="ddlGenre" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlGenre_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkStyle" runat="server" AutoPostBack="true" OnCheckedChanged="chkStyle_CheckedChanged" />
-                                                Style:
-                                            </label>
-                                            <asp:DropDownList ID="ddlStyle" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlStyle_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkTechLevel" runat="server" AutoPostBack="true" OnCheckedChanged="chkTechLevel_CheckedChanged" />
-                                                Tech Level:
-                                            </label>
-                                            <asp:DropDownList ID="ddlTechLevel" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlTechLevel_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkSize" runat="server" AutoPostBack="true" OnCheckedChanged="chkSize_CheckedChanged" />
-                                                Size:
-                                            </label>
-                                            <asp:DropDownList ID="ddlSize" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlSize_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkZipCode" runat="server" AutoPostBack="true" OnCheckedChanged="chkZipCode_CheckedChanged" />
-                                                Area / Zip Code:
-                                            </label>
-                                            <asp:TextBox ID="txtZipCode" runat="server" AutoPostBack="true" Visible="false" OnTextChanged="txtZipCode_TextChanged" />
-                                            <asp:DropDownList ID="ddlMileRadius" runat="server" AutoPostBack="true" Visible="false" OnSelectedIndexChanged="ddlMileRadius_SelectedIndexChanged" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <asp:CheckBox ID="chkEndedCampaigns" runat="server" AutoPostBack="true" OnCheckedChanged="chkEndedCampaigns_CheckedChanged" />
-                                                Include campaigns that have ended
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-10 col-xs-12">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                Search Campaigns
-                                        <asp:Label ID="lblCampaignSearchBy" runat="server"> by Game System</asp:Label>
-                                            </div>
-                                            <div class="panel-body">
-                                                <asp:Panel ID="pnlTreeView" runat="server" ScrollBars="Vertical" Height="300px">
-                                                    <asp:TreeView ID="tvGameSystem" runat="server" Visible="true" ShowCheckBoxes="None" OnSelectedNodeChanged="tvGameSystem_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                    <asp:TreeView ID="tvCampaign" runat="server" Visible="false" OnSelectedNodeChanged="tvCampaign_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                    <asp:TreeView ID="tvGenre" runat="server" Visible="false" OnSelectedNodeChanged="tvGenre_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                    <asp:TreeView ID="tvStyle" runat="server" Visible="false" OnSelectedNodeChanged="tvStyle_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                    <asp:TreeView ID="tvTechLevel" runat="server" Visible="false" OnSelectedNodeChanged="tvTechLevel_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                    <asp:TreeView ID="tvSize" runat="server" Visible="false" OnSelectedNodeChanged="tvSize_SelectedNodeChanged" ExpandDepth="0"></asp:TreeView>
-                                                </asp:Panel>
-                                                <asp:GridView ID="gvCampaigns" runat="server" CssClass="col-xs-12"></asp:GridView>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="row">
-                                            <asp:Panel ID="pnlImageURL" runat="server" CssClass="col-xs-12" Height="130" Width="820">
-                                                <asp:Image ID="imgCampaignImage" runat="server" AlternateText="Game/Campaign Logo" ImageUrl="img/Logo/CM-1-Madrigal.jpg" />
-                                            </asp:Panel>
-                                        </div>
-                                        <div class="row">
-                                            <asp:Panel ID="pnlCampaignName" runat="server" CssClass="col-xs-12" Height="45" Width="820">
-                                                <asp:Label ID="lblCampaignName" runat="server" Text="Campaign Name" CssClass="panel-heading" Font-Size="XX-Large"></asp:Label>
-                                            </asp:Panel>
-                                        </div>
-                                        <div class="row">
-                                            <asp:Panel ID="pnlCampaignURL" runat="server" CssClass="col-xs-12" Height="30" Width="820">
-                                                <asp:HyperLink ID="hplLinkToSite" runat="server" NavigateUrl="." Target="_blank" Font-Underline="true" ></asp:HyperLink>
-                                            </asp:Panel>
-                                        </div>
+        <div class="row mb-2" style="padding-left: 15px;">
+            <div class="col-xs-2 form-group form-inline">
+                <label for="ddlNameFilter">Name:&nbsp;</label>
+                <asp:DropDownList ID="ddlNameFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
 
-                                        <%--<div class="row">
-                                            <div class="col-xs-12">
-                                                <asp:Panel ID="pnlOverview" runat="server">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <asp:Label ID="lblGorC1" runat="server" />
-                                                            Overview
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <asp:Label ID="lblCampaignOverview" runat="server"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </div>
-                                        </div>--%>
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <asp:Panel ID="pnlSelectors" runat="server">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <asp:Label ID="lblGorC2" runat="server" />
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <asp:Table ID="tblSelectors" runat="server" Width="100%">
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblGameSystem1" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblGameSystem2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblGenre1" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblGenre2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblStyle1" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblStyle2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblTechLevel1" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblTechLevel2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblSize1" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblSize2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblLocation1" runat="server">Primary Location:</asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblLocation2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblEvent1" runat="server">Next Event:</asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblEvent2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                                <asp:TableHeaderRow>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblLastUpdated1" runat="server">Last Updated:</asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell HorizontalAlign="Left">
-                                                                        <asp:Label ID="lblLastUpdated2" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableHeaderRow>
-                                                            </asp:Table>
-                                                        </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <asp:Panel ID="pnlSignUpForCampaign" runat="server">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <asp:Label ID="lblSignUp" runat="server"></asp:Label>Add to Your Campaigns
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <asp:Table ID="tblAddCampaigns" runat="server" Width="100%">
-                                                                <asp:TableRow>
-                                                                    <asp:TableCell VerticalAlign="Top">
-                                                                        Available Roles:<br />
-                                                                        <asp:CheckBoxList ID="chkSignUp" runat="server" RepeatDirection="Horizontal" RepeatLayout="Table"></asp:CheckBoxList>
-                                                                        <asp:Button ID="btnSignUpForCampaign" runat="server" CssClass="btn btn-primary" Visible="false" Text="Submit Request" OnClick="btnSignUpForCampaign_Click" />
-                                                                        <asp:Label ID="lblSignUpMessage" runat="server"></asp:Label>
-                                                                        <asp:Label ID="lblCurrentCampaign" runat="server" Visible="false"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell VerticalAlign="Top">
-                                                &nbsp;&nbsp;
-                                                                    </asp:TableCell>
-                                                                    <asp:TableCell VerticalAlign="Top">
-                                                                        Current Roles:
-                                                                            <asp:Repeater ID="listCurrentRoles" runat="server">
-                                                                                <HeaderTemplate>
-                                                                                    <div class="panel-container scroll-150">
-                                                                                </HeaderTemplate>
-                                                                                <ItemTemplate>
-                                                                                    <%# Eval("RoleDescription")%><br />
-                                                                                </ItemTemplate>
-                                                                                <FooterTemplate>
-                                                                                    </div>
-                                                                                </FooterTemplate>
-                                                                            </asp:Repeater>
-                                                                        <asp:Label ID="lblCurrentRoles" runat="server"></asp:Label>
-                                                                    </asp:TableCell>
-                                                                </asp:TableRow>
-                                                            </asp:Table>
-                                                        </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <asp:Panel ID="pnlOverview" runat="server">
-                                                    <div class="panel panel-default">
-                                                        <div class="panel-heading">
-                                                            <asp:Label ID="lblGorC1" runat="server" />
-                                                            Overview
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <asp:Label ID="lblCampaignOverview" runat="server"></asp:Label>
-                                                        </div>
-                                                    </div>
-                                                </asp:Panel>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-xs-2 form-group form-inline">
+                <label for="ddlStateFilter">State:&nbsp;</label>
+                <asp:DropDownList ID="ddlStateFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-3 form-group form-inline">
+                <label for="txtZipFilter">Zip:&nbsp;</label>
+                <asp:TextBox ID="txtZipFilter"
+                    runat="server"
+                    CssClass="form-control"
+                    Style="width: 75%;"
+                    MaxLength="10"
+                    placeholder="Enter zip"
+                    oninput="Blink();" />
+                <br />
+                <asp:Label ID="lblZipError" runat="server" ForeColor="Red" Font-Size="Small" Visible="false" />
+            </div>
+
+            <div class="col-xs-3 form-group form-inline">
+                <label for="ddlDistanceFilter">Distance:&nbsp;</label>
+                <asp:DropDownList ID="ddlDistanceFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-2 form-group form-inline">
+                <label for="ddlSystemFilter">System:&nbsp;</label>
+                <asp:DropDownList ID="ddlSystemFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+        </div>
+
+        <div class="row mb-2" style="padding-left: 15px;">
+            <div class="col-xs-2 form-group form-inline">
+                <label for="ddlGenreFilter">Genre:&nbsp;</label>
+                <asp:DropDownList ID="ddlGenreFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-2 form-group form-inline">
+                <label for="ddlStyleFilter">Style:&nbsp;</label>
+                <asp:DropDownList ID="ddlStyleFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-3 form-group form-inline">
+                <label for="ddlTechFilter">Tech:&nbsp;</label>
+                <asp:DropDownList ID="ddlTechFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-3 form-group form-inline">
+                <label for="ddlSizeFilter">Size:&nbsp;</label>
+                <asp:DropDownList ID="ddlSizeFilter" runat="server" CssClass="form-control" Style="width: 75%;" />
+            </div>
+
+            <div class="col-xs-1 form-group">
+                <asp:Button ID="btnClearAll"
+                    runat="server"
+                    CssClass="btn btn-primary btn-block"
+                    Style="width: 90%;"
+                    Text="Clear All"
+                    ToolTip="Clear all filters"
+                    OnClick="btnClearAll_Click" />
+            </div>
+
+            <div class="col-xs-1 form-group">
+                <asp:Button ID="btnApplyFilters"
+                    runat="server"
+                    CssClass="btn btn-primary btn-block"
+                    Style="width: 90%;"
+                    Text="Apply Filters"
+                    ToolTip="Apply all filters"
+                    OnClick="btnApplyFilters_Click" />
+            </div>
+        </div>
+
+        <div style="height: 3px; background-color: darkblue; width: 100%; margin: 5px"></div>
+
+        <asp:Repeater ID="rptCampaigns" runat="server" OnItemCommand="rptCampaigns_ItemCommand" OnItemDataBound="rptCampaigns_ItemDataBound">
+            <ItemTemplate>
+
+                <div class="row campaign-row" style="padding: 15px 0;">
+
+                    <div class="col-sm-2 text-center" style="min-height: 190px;">
+
+                        <div style="width: 170px; height: 100px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px auto;">
+                            <asp:PlaceHolder ID="phLogo" runat="server"
+                                Visible='<%# !string.IsNullOrWhiteSpace(SafeEval(Eval("LogoUrl"))) %>'>
+
+                                <img src='<%# GetLogoPath(Eval("LogoUrl")) %>'
+                                    style='<%# GetLogoStyle(Eval("CampaignLogoWidth"), Eval("CampaignLogoHeight")) %>'
+                                    alt="Campaign Logo"
+                                    onerror="this.style.display='none';" />
+
+                            </asp:PlaceHolder>
                         </div>
+
+                        <h4 style="margin-top: 4px;">
+                            <strong><%# SafeEval(Eval("CampaignName")) %></strong>
+                        </h4>
+
+                        <h5 style="margin-top: 4px;">
+                            <%# SafeEval(Eval("City")) %>, <%# SafeEval(Eval("State")) %>
+                        </h5>
+
                     </div>
+
+                    <div class="col-sm-7">
+                        <div class="campaign-description-wrapper">
+                            <div class="campaign-description collapsed-description">
+                                <%# SafeEval(Eval("Description")) %>
+                            </div>
+                            <a href="javascript:void(0);" class="see-more-link" onclick="toggleDescription(this);">See More</a>
+                        </div>
+
+                        <p>
+                            <%# RenderLink(Eval("CampaignUrl"), "Website") %>&nbsp;&nbsp;
+                        <%# RenderLink(Eval("RulesUrl"), "Rules") %>&nbsp;&nbsp;
+                        <%# RenderLink(Eval("DiscordUrl"), "Discord") %>
+                        </p>
+
+                        <p>
+                            <strong>Upcoming Events:</strong>
+                            &nbsp;<%# Eval("Event1", "{0:MM/dd/yyyy}") %> &nbsp;&nbsp;
+                        &nbsp;<%# Eval("Event2", "{0:MM/dd/yyyy}") %> &nbsp;&nbsp;
+                        &nbsp;<%# Eval("Event3", "{0:MM/dd/yyyy}") %>
+                        </p>
+                    </div>
+
+                    <div class="col-sm-3" style="line-height: 1.0">
+
+                        <p><strong>Game System:</strong> <%# SafeEval(Eval("GameSystem")) %></p>
+                        <p><strong>Genre:</strong> <%# SafeEval(Eval("Genre")) %></p>
+                        <p><strong>Style:</strong> <%# SafeEval(Eval("Style")) %></p>
+                        <p><strong>Tech Level:</strong> <%# SafeEval(Eval("TechLevel")) %></p>
+                        <p><strong>Size:</strong> <%# SafeEval(Eval("Size")) %></p>
+
+                        <p>
+                            <strong>Primary Location:</strong>
+                            <%# SafeEval(Eval("PrimaryLocation")) %>
+                            <%# string.IsNullOrWhiteSpace(SafeEval(Eval("PrimaryCity")))
+                            ? ""
+                            : " - " + SafeEval(Eval("PrimaryCity")) + ", " + SafeEval(Eval("PrimaryState")) %>
+                        </p>
+
+                        <p>
+                            <strong>Secondary Location:</strong>
+                            <%# SafeEval(Eval("SecondaryLocation")) %>
+                            <%# string.IsNullOrWhiteSpace(SafeEval(Eval("SecondaryCity")))
+                            ? ""
+                            : " - " + SafeEval(Eval("SecondaryCity")) + ", " + SafeEval(Eval("SecondaryState")) %>
+                        </p>
+
+                        <div class="checkbox">
+                            <span id="spnPC" runat="server">
+                                <label>
+                                    <asp:CheckBox ID="chkPC" runat="server" onclick="updateAddCampaignButton(this);" />
+                                    PC
+                                </label>
+                            </span>
+
+                            <span id="spnNPC" runat="server">
+                                <label>
+                                    <asp:CheckBox ID="chkNPC" runat="server" onclick="updateAddCampaignButton(this);" />
+                                    NPC
+                                </label>
+                            </span>
+                        </div>
+
+                        <asp:Button ID="btnAddCampaign"
+                            runat="server"
+                            CssClass="btn btn-primary btn-block"
+                            Style="width: 30%;"
+                            Text="Add Campaign"
+                            CommandName="AddCampaign"
+                            CommandArgument='<%# Eval("CampaignID") %>' />
+                    </div>
+
                 </div>
+
+                <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;" />
+
+            </ItemTemplate>
+        </asp:Repeater>
+
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnPreviousPage" runat="server"
+                    Text="Previous"
+                    CssClass="btn btn-secondary"
+                    OnClick="btnPreviousPage_Click" />
+
+                <asp:Label ID="lblPageInfo" runat="server"
+                    CssClass="mx-3" />
+
+                <asp:Button ID="btnNextPage" runat="server"
+                    Text="Next"
+                    CssClass="btn btn-secondary"
+                    OnClick="btnNextPage_Click" />
             </div>
         </div>
     </div>
-
-
-    <%--                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-                <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-                <script src="js/bootstrap/tab.js"></script>
-                <script src="js/plugins.js"></script>
-                <script src="js/main.js"></script>--%>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID and uncomment to use.
-  <script>
-  	(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-  		function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-  	e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-  	e.src='//www.google-analytics.com/analytics.js';
-  	r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-  	ga('create','UA-XXXXX-X');ga('send','pageview');
-  </script> -->
 </asp:Content>

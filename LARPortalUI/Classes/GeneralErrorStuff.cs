@@ -117,6 +117,7 @@ namespace LarpPortal.Classes
                 lsErrorText += "Class: " + SQLExcept.Class.ToString(CultureInfo.CurrentCulture) + "<br><br>";
                 lsErrorText += "Number: " + SQLExcept.Number.ToString(CultureInfo.CurrentCulture) + "<br><br>";
                 lsErrorText += "Procedure: " + SQLExcept.Procedure.ToString(CultureInfo.CurrentCulture) + "<br><br>";
+                //lsErrorText += "Procedure: " + (SQLExcept.Procedure ?? "N/A") + "<br><br>";
                 lsErrorText += "Server: " + SQLExcept.Server.ToString(CultureInfo.CurrentCulture) + "<br><br>";
                 lsErrorText += "Source: " + SQLExcept.Source.ToString(CultureInfo.CurrentCulture) + "<br><br>";
                 lsErrorText += "State: " + SQLExcept.State.ToString(CultureInfo.CurrentCulture) + "<br><br>";

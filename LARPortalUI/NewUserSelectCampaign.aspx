@@ -114,6 +114,14 @@
                         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Visible="false" Text="Sign up" OnClick="btnSave_Click" />
                     </div>
                 </div>
+                <div class="row PrePostPadding">
+                    <div class="col-sm-11">
+
+                    </div>
+                    <div class="col-sm-1">
+                        <asp:Button ID="btnContinue" runat="server" CssClass="btn btn-primary" Visible="false" Text="Continue" OnClientClick="window.location.href='https://ui.larportal.com/default.aspx'; return false;" />
+                    </div>
+                </div>
             </div>
         </div>
         <asp:HiddenField ID="hidUsername" runat="server" />

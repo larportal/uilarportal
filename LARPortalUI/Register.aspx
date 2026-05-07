@@ -142,6 +142,11 @@
                                     <asp:CompareValidator runat="server" ID="cmpPasswords" ControlToValidate="txtPasswordNew" ControlToCompare="txtPasswordNewRetype" 
                                         Operator="Equal" Type="String" ErrorMessage="The passwords must be equal." Display="Dynamic" ForeColor="Red" />
                                 </div>
+                                <div style="display: none;">
+                                    <label>Website</label>
+                                    <input type="text" name="website" />
+                                </div>
+
                                 <div class="form-group">
                                     <input type="checkbox" name="chkTermsOfUse" id="chkTermsOfUse" runat="server" onchange="EnableSignUp(this);" />
                                     <div class="btn-group">

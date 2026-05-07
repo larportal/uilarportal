@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="DonationEventPlayerChecklist.aspx.cs" Inherits="LarpPortal.Reports.DonationEventPlayerChecklist" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LARPortal.Master" AutoEventWireup="true" CodeBehind="CharacterNDCList.aspx.cs" Inherits="LarpPortal.Reports.CharacterNDCList" %>
 
 <%@ MasterType TypeName="LarpPortal.LARPortal" %>
 
@@ -34,15 +34,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="header-background-image">
-                    <h1>Donation Event Player Checklist</h1>
+                    <h1>Non-Cost Descriptors by Player</h1>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-inline col-xs-12">
-                <%--                <CampSelector:Select ID="oCampSelect" runat="server" />--%>
                 <label for="ddlEvent" runat="server" id="lblEvent" style="padding-left: 10px;">Event: </label>
                 <asp:DropDownList ID="ddlEvent" runat="server" CssClass="form-control" />
+                <label for="ddlCategory" runat="server" id="lblCategory" style="padding-left: 10px;">Category: </label>"
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" />
                 <asp:Button ID="btnRunReport" runat="server" CssClass="btn btn-primary" Text="Run Report" OnClick="btnRunReport_Click" />
                 <asp:Button ID="btnExportExcel" runat="server" CssClass="btn btn-primary" Text="Export To Excel" OnClick="btnExportExcel_Click" />
             </div>
@@ -52,22 +53,23 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Donation Checklist</div>
+                        <div class="panel-heading">Non-Cost Descriptors by Player</div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="panel-container" style="max-height: 500px; overflow: auto;">
-                                        <asp:GridView ID="gvCheckList" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
+                                        <asp:GridView ID="gvAttributes" runat="server" AutoGenerateColumns="false" GridLines="None" HeaderStyle-Wrap="false"
                                             CssClass="table table-striped table-hover table-condensed">
                                             <Columns>
-                                                <asp:BoundField DataField="Checklist" HeaderText="" />
-                                                <asp:BoundField DataField="EventDate" HeaderText="Event Date" DataFormatString="{0:MM/dd/yyyy}" HtmlEncode="false" />
-                                                <asp:BoundField DataField="Player" HeaderText="Player" />
-                                                <asp:BoundField DataField="ItemName" HeaderText="Item Name" />
-                                                <asp:BoundField DataField="QtyNeeded" HeaderText="# Needed" />
-                                                <asp:BoundField DataField="NumberClaimed" HeaderText="# Claimed" />
-                                                <asp:BoundField DataField="NumberReceived" HeaderText="# Recvd" />
-                                                <asp:BoundField DataField="DeliverTo" HeaderText="Deliver To" />
+                                                <asp:BoundField DataField="Character" HeaderText="Character" />
+                                                <asp:BoundField DataField="CharacterType" HeaderText="PC or NPC" />
+                                                <asp:BoundField DataField="PlayerFN" HeaderText="First Name" />
+                                                <asp:BoundField DataField="PlayerLN" HeaderText="Last Name" />
+                                                <asp:BoundField DataField="Pronouns" HeaderText="Pronouns" />
+                                                <asp:BoundField DataField="NDCCategory" HeaderText="Category" />
+                                                <asp:BoundField DataField="Attribute" HeaderText="Descriptor" />
+                                                <asp:BoundField DataField="EventName" HeaderText="Event Name" />
+                                                <asp:BoundField DataField="StartDate" HeaderText="Event Date" DataFormatString="{0:MM/dd/yyyy}" HtmlEncode="false" />
                                             </Columns>
                                         </asp:GridView>
                                     </div>
